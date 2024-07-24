@@ -25,11 +25,11 @@ footer {
 .column p {
     font-size: 1em;
     line-height: 1.5;
+    margin-bottom: 0;
 }
 
 footer .socials{
-    font-size: 24px;
-
+    font-size: 24px;    
 }
 
 footer .socials a{
@@ -37,13 +37,3 @@ footer .socials a{
     text-decoration: none;
 }
 
-.certifications {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.certifications img {
-    width: 100px;
-    height: auto;
-}

@@ -171,8 +171,9 @@
 .header-with-search{
     
     position: relative;
-    top:20%;
+    top:12%;
     display: flex;
+    width: 80%;
     
 }
 
@@ -184,28 +185,28 @@
 
 
 .header__search{
-    flex: 1;
     border-radius: 2px;
-    height: 40px;
+    height: 34px;
     background-color: var(--white-color);
     display: flex;
     align-items: center;
     position: absolute;
-    right: 30%;
-    
+    right: 6%;
     
 }
 
 .header__search-input-wrap{
-    flex:1;
     height: 100%;
     position: relative;
+    display: flex;
 }
+
+
 
 .header__search-input{
     flex:1;
     font-size: 1.5rem;
-    width: 300px;
+    width: 700px;
     height: 100%;
     border: none;
     outline: none;
@@ -221,9 +222,11 @@
     height: 34px;
     width: 60px;
     border-radius: 2px;
-    margin-right: 3px;
+    margin-right: 10px;
     outline: none;
-    background-color: #333333;
+    position: relative;
+    right: 6%;
+    top: 8%;
 }
 
 .header__search-btn:hover{
