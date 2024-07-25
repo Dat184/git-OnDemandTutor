@@ -14,6 +14,4 @@ public class Subject {
     @Column(name = "id", nullable = false)
     private Long id;
     private String name;
-    private String description;
-
 }

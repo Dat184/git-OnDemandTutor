@@ -24,10 +24,14 @@ public class Booking {
     @JoinColumn(name = "tutor_service_id", nullable = false)
     private TutorService tutorService;
 
-    @Column(name = "booking_time")
+    @Column(name = "booking_time", nullable = false)
     private LocalDateTime bookingTime;
-    private String status;
 
+    @Column(name = "total_price", nullable = false)
+    private Integer totalPrice;
 
+    @Enumerated
+    @Column(name = "status_book", nullable = false)
+    private StatusBook statusBook;
 
 }

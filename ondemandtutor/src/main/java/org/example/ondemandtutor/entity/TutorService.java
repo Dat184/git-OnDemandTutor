@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -21,6 +23,16 @@ public class TutorService {
     @OneToOne(optional = false, orphanRemoval = true)
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
-    private Double hourlyRate;
+
     private String description;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Column(name = "hourly_rate", nullable = false)
+    private Integer hourlyRate;
+
 }

@@ -9,25 +9,24 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "video")
-public class Video {
+@Table(name = "chat")
+public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "tutor_id", nullable = false)
     private Tutor tutor;
-    private String videoUrl;
-    private String title;
-    private String description;
 
-    @Column(name = "uploaded_at", nullable = false)
-    private LocalDateTime uploadedAt;
 
-    @Enumerated
-    @Column(name = "approval_status", nullable = false)
-    private ApprovalStatus approvalStatus;
 
 }

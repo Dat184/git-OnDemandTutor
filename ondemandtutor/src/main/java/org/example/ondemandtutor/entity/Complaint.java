@@ -20,10 +20,14 @@ public class Complaint {
 
     @Column(name = "complaint_type", nullable = false)
     private String complaintType;
-    private String description;
-    private String status;
+    private String content;
 
+    private String response;
     @Column(name = "created_at")
     private String createdAt;
+
+    @Enumerated
+    @Column(name = "status")
+    private Status status;
 
 }
