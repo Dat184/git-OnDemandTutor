@@ -18,4 +18,50 @@ public class Student {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     private String grade;
+
+    //constructor
+    public Student() {}
+
+    public Student(String grade, User user, Long id) {
+        this.grade = grade;
+        this.user = user;
+        this.id = id;
+    }
+    //setter and getter
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", user=" + user +
+                ", grade='" + grade + '\'' +
+                '}';
+    }
+
+
 }
