@@ -1,4 +1,4 @@
-package org.example.ondemandtutor.entity;
+package org.example.ondemandtutor.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,18 +9,18 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "admin_log")
-public class AdminLog {
+@Table(name = "review")
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "admin_id", nullable = false)
-    private User admin;
-    private String action;
-    private String description;
+    @JoinColumn(name = "booking_id", nullable = false)
+    private Booking booking;
+    private Double rating;
+    private String comment;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

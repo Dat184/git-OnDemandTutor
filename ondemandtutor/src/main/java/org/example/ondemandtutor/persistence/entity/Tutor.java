@@ -1,9 +1,7 @@
-package org.example.ondemandtutor.entity;
+package org.example.ondemandtutor.persistence.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -24,5 +22,6 @@ public class Tutor {
     @OneToOne(optional = false, orphanRemoval = true)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
 
 }

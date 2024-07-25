@@ -1,0 +1,125 @@
+.app-price {
+    position: relative; /* Để lớp phủ có thể đặt chính xác */
+    margin-top: 138px;
+    height: 600px;
+    background-image: url("https://th.bing.com/th/id/R.8339f5ac6f60c38bc482f14dc88e0cf2?rik=3BDxn0%2bWfoOHOQ&riu=http%3a%2f%2fteachmiddleeastmag.com%2fwp-content%2fuploads%2f2016%2f03%2fS.-Mulligan-Blog-11.jpg&ehk=S%2fpUEiEfIEkFsncDOyvXpzd%2bO7x0eGHGnhQZnsEmjW0%3d&risl=&pid=ImgRaw&r=0");
+    background-repeat: no-repeat;
+  
+     /* Căn giữa hình nền */
+    overflow: hidden; /* Đảm bảo không có cuộn cho lớp phủ */
+}
+
+.app-price::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    background: rgba(0, 0, 0, 0.5); /* Lớp phủ màu mờ, tăng độ mờ để làm nổi bật văn bản */
+    z-index: -1; /* Đặt lớp phủ dưới nội dung văn bản */
+}
+
+.app-price .content {
+    position: relative; /* Để văn bản nằm trên lớp phủ */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Căn giữa theo chiều dọc */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    height: 80%; /* Chiếm toàn bộ chiều cao của .app-price */
+    text-align: center; /* Căn giữa chữ */
+    color: white; /* Đảm bảo chữ có màu nổi bật trên nền */
+    padding: 0; /* Khoảng cách giữa chữ và các cạnh */
+}
+
+.title-text {
+    margin: 0; /* Xóa khoảng cách mặc định */
+    font-size: 4em; /* Tăng kích thước chữ */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Thêm bóng cho chữ để tăng độ rõ ràng */
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin: 80px 0 0 0;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    height:  60px;
+}
+
+.tab-button.active {
+    background-color: #ccc;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    margin-bottom: 80px;
+    margin-top: 40px;
+}
+.container{
+          display: flex;
+    justify-content: space-between;
+   
+}
+.accordion {
+    width: 550px;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    margin: 20px auto;
+    
+    justify-content: space-between;
+}
+.accordion-text {
+    background-color: #fde6e3;
+    padding: 10px 20px;
+    border-top: 1px solid #ccc;
+    text-align: center;
+}  
+
+.accordion-item {
+    background-color: #e3f2fd;
+}
+
+.accordion-header {
+    background-color: #bbdefb;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.accordion-body {
+    background-color: #e3f2fd;
+    padding: 10px 20px;
+    border-top: 1px solid #ccc;
+    text-align: center;
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 500px; /* Adjust based on content */
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.accordion-item.active .arrow {
+    transform: rotate(180deg);
+}
