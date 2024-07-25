@@ -16,4 +16,20 @@ public class Subject {
     private String name;
     private String description;
 
+    //constructor
+    public Subject() {}
+
+    public Subject(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

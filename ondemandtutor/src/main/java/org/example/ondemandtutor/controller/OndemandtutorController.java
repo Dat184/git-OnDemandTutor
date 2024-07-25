@@ -1,6 +1,7 @@
 package org.example.ondemandtutor.controller;
 
-import org.example.ondemandtutor.persistence.entity.Student;
+
+import org.example.ondemandtutor.persistence.entity.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,14 +11,12 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(path = "/api/Student")
+@RequestMapping(path = "/api/Subject")
 public class OndemandtutorController {
     @GetMapping("")
-    List<Student> getStudents() {
+    List<Subject> getSubject() {
         return List.of(
-                new Student()
+                new Subject("java","Lap Trinh Java")
         );
     }
-
-
 }
