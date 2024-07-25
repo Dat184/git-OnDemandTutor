@@ -20,7 +20,11 @@ public class Student {
     private String grade;
 
     //constructor
-    public Student() {}
+    public Student() {
+        this.grade = null;
+        this.user = null;
+        this.id = null;
+    }
 
     public Student(String grade, User user, Long id) {
         this.grade = grade;

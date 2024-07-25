@@ -14,7 +14,9 @@ import java.util.List;
 public class OndemandtutorController {
     @GetMapping("")
     List<Student> getStudents() {
-        return List.of();
+        return List.of(
+                new Student()
+        );
     }
 
 
