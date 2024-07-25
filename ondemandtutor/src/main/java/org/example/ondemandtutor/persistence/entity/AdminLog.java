@@ -1,4 +1,4 @@
-package org.example.ondemandtutor.entity;
+package org.example.ondemandtutor.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,21 +9,20 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "video")
-public class Video {
+@Table(name = "admin_log")
+public class AdminLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "tutor_id", nullable = false)
-    private Tutor tutor;
-    private String videoUrl;
-    private String title;
+    @JoinColumn(name = "admin_id", nullable = false)
+    private User admin;
+    private String action;
     private String description;
 
-    @Column(name = "uploaded_at", nullable = false)
-    private LocalDateTime uploadedAt;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
 }
