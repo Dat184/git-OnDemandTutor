@@ -2,10 +2,12 @@ package org.example.ondemandtutor.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -24,5 +26,13 @@ public class AdminLog {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    public AdminLog(User admin, String action, String description, LocalDateTime createdAt) {
+        this.admin = admin;
+        this.action = action;
+        this.description = description;
+        this.createdAt = createdAt;
+    }
+
 
 }
