@@ -1,8 +1,8 @@
 package org.example.ondemandtutor.database;
 
 
-import org.example.ondemandtutor.persistence.entity.Subject;
-import org.example.ondemandtutor.persistence.repository.SubjectRepository;
+import org.example.ondemandtutor.pojo.Subject;
+import org.example.ondemandtutor.repository.SubjectRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,9 +1,7 @@
-package org.example.ondemandtutor.persistence.entity;
+package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter

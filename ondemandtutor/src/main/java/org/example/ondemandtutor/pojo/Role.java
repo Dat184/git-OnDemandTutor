@@ -1,4 +1,4 @@
-package org.example.ondemandtutor.persistence.entity;
+package org.example.ondemandtutor.pojo;
 
 public enum Role {
     Tutor, Student, Admin, Moderator
