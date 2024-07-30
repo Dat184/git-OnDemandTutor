@@ -1,5 +1,7 @@
 package org.example.ondemandtutor.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,12 +25,18 @@ public class User {
     private Role role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+    @JsonManagedReference
+    @JsonIgnore
     private Student student;
 
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+    @JsonManagedReference
+    @JsonIgnore
     private Tutor tutor;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String username, String password, String email, Role role) {
         this.username = username;
@@ -37,14 +45,14 @@ public class User {
         this.role = role;
     }
 
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", user_name='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

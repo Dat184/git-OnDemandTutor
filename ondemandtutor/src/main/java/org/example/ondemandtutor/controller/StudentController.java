@@ -20,7 +20,8 @@ public class StudentController {
     @Autowired
     private StudentRepository studentRepository;
     // find all student
-    @GetMapping("")
+
+    @GetMapping("/all")
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
