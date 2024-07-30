@@ -18,10 +18,10 @@ public class Database {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
-                Subject subjectA = new Subject("Java", "Hoc phan lap trinh Java");
-                Subject subjectB = new Subject("Web", "Hoc phan lap trinh Web");
-                logger.info("insert data: {}", subjectRepository.save(subjectA));
-                logger.info("insert data: {}", subjectRepository.save(subjectB));
+//                Subject subjectA = new Subject("Java", "Hoc phan lap trinh Java");
+//                Subject subjectB = new Subject("Web", "Hoc phan lap trinh Web");
+//                logger.info("insert data: {}", subjectRepository.save(subjectA));
+//                logger.info("insert data: {}", subjectRepository.save(subjectB));
             }
         };
     }
