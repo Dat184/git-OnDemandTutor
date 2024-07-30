@@ -13,9 +13,30 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+    private String name;
     private String grade;
     @OneToOne(optional = false, orphanRemoval = true)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+
+    public Student() {}
+
+
+    public Student(String name, String grade) {
+        this.name = name;
+        this.grade = grade;
+
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", grade='" + grade + '\'' +
+                '}';
+    }
 }
