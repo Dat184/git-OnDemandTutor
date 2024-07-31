@@ -29,7 +29,7 @@ public class Booking {
     private TutorService tutorService;
 
     @Column(name = "booking_time", nullable = false)
-    private LocalDateTime bookingTime;
+    private Integer bookingTime;
 
     @Column(name = "total_price", nullable = false)
     private Integer totalPrice;
@@ -38,7 +38,7 @@ public class Booking {
     @Column(name = "status_book", nullable = false)
     private StatusBook statusBook;
 
-    public Booking(Student student, TutorService tutorService, LocalDateTime bookingTime, Integer totalPrice, StatusBook statusBook) {
+    public Booking(Student student, TutorService tutorService, Integer bookingTime, Integer totalPrice, StatusBook statusBook) {
         this.student = student;
         this.tutorService = tutorService;
         this.bookingTime = bookingTime;

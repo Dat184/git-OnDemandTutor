@@ -1,5 +1,7 @@
 package org.example.ondemandtutor.pojo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -27,14 +29,17 @@ public class Tutor {
 
     @OneToOne(optional = false, orphanRemoval = true)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
+    @JsonIgnore
     private User user;
 
-    public Tutor(String name, String degree, String specialty, String bio, Double rating) {
+    public Tutor(String name, String degree, String specialty, String bio, Double rating, User user) {
         this.name = name;
         this.degree = degree;
         this.specialty = specialty;
         this.bio = bio;
         this.rating = rating;
+        this.user = user;
     }
 
 }

@@ -21,7 +21,7 @@ public class TutorController {
         return tutorRepository.findAll();
     }
     @GetMapping("/{id}")
-    ResponseEntity<ResponseObject> findTutorById(long id) {
+    ResponseEntity<ResponseObject> findTutorById( @PathVariable long id) {
         Optional<Tutor> foundTutor = tutorRepository.findById(id);
         return foundTutor.isPresent() ?
                 ResponseEntity.status(HttpStatus.OK).body(

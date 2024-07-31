@@ -58,7 +58,7 @@ public class UserController {
                     user.setPassword(newUser.getPassword());
                     user.setEmail(newUser.getEmail());
                     user.setRole(newUser.getRole());
-                    return userRepository.save(user);
+                      return userRepository.save(user);
                 }).orElseGet(() -> {
                     newUser.setId(id);
                     return userRepository.save(newUser);
