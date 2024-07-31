@@ -1,4 +1,4 @@
-package org.example.ondemandtutor.persistence.entity;
+package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,7 +13,7 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name",unique = true, nullable = false)
     private String name;
     private String description;
 

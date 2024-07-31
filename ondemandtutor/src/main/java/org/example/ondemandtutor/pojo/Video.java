@@ -1,14 +1,18 @@
-package org.example.ondemandtutor.persistence.entity;
+package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@ToString
 @Table(name = "video")
 public class Video {
     @Id
@@ -30,4 +34,12 @@ public class Video {
     @Column(name = "approval_status", nullable = false)
     private ApprovalStatus approvalStatus;
 
+    public Video(Tutor tutor, String videoUrl, String title, String description, LocalDateTime uploadedAt, ApprovalStatus approvalStatus) {
+        this.tutor = tutor;
+        this.videoUrl = videoUrl;
+        this.title = title;
+        this.description = description;
+        this.uploadedAt = uploadedAt;
+        this.approvalStatus = approvalStatus;
+    }
 }

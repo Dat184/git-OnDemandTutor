@@ -1,14 +1,18 @@
-package org.example.ondemandtutor.persistence.entity;
+package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@ToString
 @Table(name = "message")
 public class Message {
     @Id
@@ -31,4 +35,10 @@ public class Message {
     @JoinColumn(name = "chat_id", nullable = false)
     private Chat chat;
 
+    public Message(LocalDateTime createdAt, String messageText, User sender, Chat chat) {
+        this.createdAt = createdAt;
+        this.messageText = messageText;
+        this.sender = sender;
+        this.chat = chat;
+    }
 }

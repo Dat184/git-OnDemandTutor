@@ -1,12 +1,16 @@
-package org.example.ondemandtutor.persistence.entity;
+package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@ToString
 @Table(name = "complaint")
 public class Complaint {
     @Id
@@ -30,4 +34,12 @@ public class Complaint {
     @Column(name = "status")
     private Status status;
 
+    public Complaint(User user, String complaintType, String content, String response, String createdAt, Status status) {
+        this.user = user;
+        this.complaintType = complaintType;
+        this.content = content;
+        this.response = response;
+        this.createdAt = createdAt;
+        this.status = status;
+    }
 }

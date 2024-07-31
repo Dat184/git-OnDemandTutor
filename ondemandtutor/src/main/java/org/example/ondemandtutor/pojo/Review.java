@@ -1,14 +1,18 @@
-package org.example.ondemandtutor.persistence.entity;
+package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@ToString
 @Table(name = "review")
 public class Review {
     @Id
@@ -25,4 +29,10 @@ public class Review {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    public Review(Booking booking, Double rating, String comment, LocalDateTime createdAt) {
+        this.booking = booking;
+        this.rating = rating;
+        this.comment = comment;
+        this.createdAt = createdAt;
+    }
 }
