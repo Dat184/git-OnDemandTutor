@@ -1,0 +1,54 @@
+.detail-Giasu{
+    padding-top: 9rem;
+    display:flex;
+}
+.detail-Giasu img{
+    border-radius: 50%;
+}
+.detail{
+    flex:1;
+    margin:0 40px 0 15px;
+    padding: 20px;
+    background-color: rgb(228, 228, 228);
+    border-radius: 10px;
+    text-align: center;
+}
+.detail div{
+    margin-right:10px;
+}
+.detail button{
+    display:block;
+    margin: 0 auto;
+    height:30px;
+    width:100px;
+    cursor: pointer;
+    background-color: blue;
+    border: none;
+    color: white;  
+    
+}
+.detail button:hover{
+    background-color: rgb(3, 3, 118);
+    border: 1px solid blue;
+}
+
+.describe{
+    flex:3;
+    margin-right:40px;
+    padding: 20px;
+    background-color: rgb(228, 228, 228);
+    border-radius: 10px;
+    
+}
+.describe h1{
+    text-align: center;
+}
+.describe img{
+    width:30px;
+}
+
+.describe span{
+    font-weight: bold;
+    margin-right: 5px;
+   
+}
