@@ -2,13 +2,17 @@ package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@ToString
 @Table(name = "chat")
 public class Chat {
     @Id
@@ -27,6 +31,9 @@ public class Chat {
     @JoinColumn(name = "tutor_id", nullable = false)
     private Tutor tutor;
 
-
-
+    public Chat(LocalDateTime createdAt, Student student, Tutor tutor) {
+        this.createdAt = createdAt;
+        this.student = student;
+        this.tutor = tutor;
+    }
 }

@@ -1,9 +1,12 @@
 package org.example.ondemandtutor.pojo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "admin_log")
 public class AdminLog {
     @Id
@@ -20,6 +24,8 @@ public class AdminLog {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "admin_id", nullable = false)
+    @JsonBackReference
+    @JsonIgnore
     private User admin;
     private String action;
     private String description;
@@ -27,11 +33,11 @@ public class AdminLog {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public AdminLog(User admin, String action, String description, LocalDateTime createdAt) {
-        this.admin = admin;
+    public AdminLog(String action, String description, LocalDateTime createdAt, User admin) {
         this.action = action;
         this.description = description;
         this.createdAt = createdAt;
+        this.admin = admin;
     }
 
 
