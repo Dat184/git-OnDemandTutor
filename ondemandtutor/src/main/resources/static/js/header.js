@@ -9,13 +9,11 @@ document.addEventListener("DOMContentLoaded", function() {
         event.stopPropagation(); // Ngăn sự kiện click lan truyền lên document
         searchButton.classList.toggle('active');
         searchInput.classList.toggle('active');
-        searchInput.style.display = 'block'; // Ẩn nút đăng nhập
+        searchInput.style.display = 'block'; // Hiển thị thanh tìm kiếm
         if (searchInput.classList.contains('active')) {
             searchInput.focus(); // Đưa tiêu điểm vào thanh tìm kiếm khi nó được hiển thị
-        }
-        
-        else {
-            searchInput.style.display = 'block'; // Ẩn thanh tìm kiếm
+        } else {
+            searchInput.style.display = 'block'; // Hiển thị thanh tìm kiếm
         }
     });
 
@@ -24,15 +22,13 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!searchButton.contains(event.target) && !searchInput.contains(event.target)) {
             searchButton.classList.remove('active');
             searchInput.classList.remove('active');
-            searchInput.style.border = 'block';
-            searchInput.style.display = 'block';
+            searchInput.style.display = 'block'; // Đảm bảo thanh tìm kiếm được hiển thị khi không active
         }
     });
 
     // Ngăn sự kiện click lan truyền từ thanh tìm kiếm
     searchInput.addEventListener('click', function(event) {
         event.stopPropagation(); // Ngăn sự kiện click lan truyền lên document
-       
     });
 
     // Xử lý khi nhấn vào nút đăng nhập

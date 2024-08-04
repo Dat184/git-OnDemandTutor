@@ -3,11 +3,8 @@ function loadHeader() {
         .then(response => response.text())
         .then(data => {
             document.getElementById('header').innerHTML = data;
-            // Load the header.js script after the header is inserted
-            const script = document.createElement('script');
-            script.src = "js/header.js";
-            document.body.appendChild(script);
-        });
+        })
+        .catch(error => console.error('Error loading header:', error));
 
 }
 
