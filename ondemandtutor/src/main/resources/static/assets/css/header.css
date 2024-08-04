@@ -1,16 +1,15 @@
-body{
-    margin: 20px auto;
-}
+
 .header{
     display: flex;
     height: 60px;
     width: 100%;
     justify-content:space-between ;
-    background-color: #ccccccf2;
+    background-color: #BC8CF2;
     position: fixed;
     top: 0; /* Ensure the header is at the top of the viewport */
     top: 0; /* Ensure the header is at the top of the viewport */
     left: 0;
+    z-index: 1;
 }
 
 .logo{
