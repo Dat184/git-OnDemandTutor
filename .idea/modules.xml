@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/git-OnDemandTutor.iml" filepath="$PROJECT_DIR$/.idea/git-OnDemandTutor.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ondemandtutor/ondemandtutor.iml" filepath="$PROJECT_DIR$/ondemandtutor/ondemandtutor.iml" />
     </modules>
   </component>
 </project>
