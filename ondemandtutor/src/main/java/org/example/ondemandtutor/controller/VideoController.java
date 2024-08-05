@@ -50,7 +50,6 @@ public class VideoController {
                     video.setVideoUrl(newVideo.getVideoUrl());
                     video.setTitle(newVideo.getTitle());
                     video.setDescription(newVideo.getDescription());
-                    video.setUploadedAt(newVideo.getUploadedAt());
                     video.setApprovalStatus(newVideo.getApprovalStatus());
                     video.setTutor(newVideo.getTutor());
                     return videoRepository.save(video);

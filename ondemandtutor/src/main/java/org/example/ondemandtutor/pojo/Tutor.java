@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -26,20 +28,24 @@ public class Tutor {
     private String specialty;
     private String bio;
     private Double rating;
+    private String profilePicture;
 
     @OneToOne(optional = false, orphanRemoval = true)
     @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
-    @JsonIgnore
     private User user;
 
-    public Tutor(String name, String degree, String specialty, String bio, Double rating, User user) {
+    @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TutorAvailability> tutorAvailabilities = new ArrayList<>();
+
+    public Tutor(String name, String degree, String specialty, String bio, Double rating, User user, String profilePicture) {
         this.name = name;
         this.degree = degree;
         this.specialty = specialty;
         this.bio = bio;
         this.rating = rating;
         this.user = user;
+        this.profilePicture = profilePicture;
     }
 
 }

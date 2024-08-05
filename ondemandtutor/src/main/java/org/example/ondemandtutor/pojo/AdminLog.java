@@ -30,13 +30,11 @@ public class AdminLog {
     private String action;
     private String description;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
 
-    public AdminLog(String action, String description, LocalDateTime createdAt, User admin) {
+    public AdminLog(String action, String description, User admin) {
         this.action = action;
         this.description = description;
-        this.createdAt = createdAt;
+
         this.admin = admin;
     }
 

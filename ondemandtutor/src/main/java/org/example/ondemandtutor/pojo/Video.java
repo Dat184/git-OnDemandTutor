@@ -27,19 +27,15 @@ public class Video {
     private String title;
     private String description;
 
-    @Column(name = "uploaded_at", nullable = false)
-    private LocalDateTime uploadedAt;
-
     @Enumerated
     @Column(name = "approval_status", nullable = false)
     private ApprovalStatus approvalStatus;
 
-    public Video(Tutor tutor, String videoUrl, String title, String description, LocalDateTime uploadedAt, ApprovalStatus approvalStatus) {
+    public Video(Tutor tutor, String videoUrl, String title, String description, ApprovalStatus approvalStatus) {
         this.tutor = tutor;
         this.videoUrl = videoUrl;
         this.title = title;
         this.description = description;
-        this.uploadedAt = uploadedAt;
         this.approvalStatus = approvalStatus;
     }
 }

@@ -20,8 +20,6 @@ public class Chat {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "student_id", nullable = false)
@@ -31,8 +29,7 @@ public class Chat {
     @JoinColumn(name = "tutor_id", nullable = false)
     private Tutor tutor;
 
-    public Chat(LocalDateTime createdAt, Student student, Tutor tutor) {
-        this.createdAt = createdAt;
+    public Chat(Student student, Tutor tutor) {
         this.student = student;
         this.tutor = tutor;
     }

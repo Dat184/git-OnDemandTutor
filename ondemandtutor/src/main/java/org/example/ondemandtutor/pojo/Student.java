@@ -20,7 +20,6 @@ public class Student {
     @OneToOne(optional = false, orphanRemoval = true)
     @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
-    @JsonIgnore
     private User user;
 
 

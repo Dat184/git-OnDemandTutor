@@ -1,10 +1,7 @@
 package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @ToString
 @NoArgsConstructor
+
 @Table(name = "tutor_service")
 public class TutorService {
     @Id
@@ -30,21 +28,26 @@ public class TutorService {
 
     private String description;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @Column(name = "session_rate", nullable = false)
+    private Integer sessionRate;
 
-    @Column(name = "hourly_rate", nullable = false)
-    private Integer hourlyRate;
+    @Column(name = "session_of_week", nullable = false)
+    private Integer sessionOfWeek;
 
-    public TutorService(Tutor tutor, Subject subject, String description, LocalDateTime createdAt, LocalDateTime updatedAt, Integer hourlyRate) {
+    @Column(name = "time_of_session", nullable = false)
+    private Integer timeOfSession;
+
+    @Column(name = "price_of_session", nullable = false)
+    private Integer priceOfSession;
+    TutorService(Tutor tutor, Subject subject, String description, Integer sessionRate, Integer sessionOfWeek, Integer timeOfSession, Integer priceOfSession) {
         this.tutor = tutor;
         this.subject = subject;
         this.description = description;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.hourlyRate = hourlyRate;
+        this.sessionRate = sessionRate;
+        this.sessionOfWeek = sessionOfWeek;
+        this.timeOfSession = timeOfSession;
+        this.priceOfSession = priceOfSession;
     }
+
 }
