@@ -4,25 +4,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ảnh Lướt Qua</title>
-    <script src="../js/openHF.js"></script>
-    
+
+   
+    <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/home.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body >
-   
-    <div  id="header"></div>  
-    <div class="slider-container">
-        <div class="slider">
-            <div class="slide" style="background-image: url('../assets/img/home/slider1.jpg');"></div>
-            <div class="slide" style="background-image: url('../assets/img/home/slider2.jpg');"></div>
-            <div class="slide" style="background-image: url('../assets/img/home/slider3.jpg');"></div>
-        </div>
-        <button class="prev" onclick="prevSlide()">&#10094;</button>
-        <button class="next" onclick="nextSlide()">&#10095;</button>
-    </div>
+    
+    <div class="main">
+    <header class="header">
 
+        <div class="logo-container">
+            <a class="img-logo" href="">
+            <img class="logo" src="../assets/img/logo/snapedit_17228353747082.png" alt="">
+             <p class="text">LEARN TOgetHER</p>  </a>
+        </div>
+        
+        <div class="navbar-container">
+           
+                <a class="nav-box" href="">GIỚI THIỆU</a>
+               
+                <div class="nav-box" >GIA SƯ
+                    <div class="subnav">
+                        <a href="">GIÁO VIÊN</a>
+                        <a href="">SINH VIÊN</a>
+                        <a href="">NƯỚC NGOÀI</a>
+                    </div>
+                </div>
+                <a class="nav-box" href="">BẢNG GIÁ</a>
+           
+                <div class="nav-box" href="">DỊCH VỤ
+                    <div class="subnav">
+                        <a href="">GIA SƯ GIÁO VIÊN</a>
+                        <a href="">GIA SƯ SINH VIÊN</a>
+                        <a href="">GIA SƯ NƯỚC NGOÀI</a>
+                    </div>
+                </div>
+        </div>
+        <div class="login-search-container">
+            <div class="search-container">
+                <input id="searchInput" type="text" class="search-box" placeholder="Tìm kiếm...">
+                <button id="searchButton" class="search-button">    
+                    <i class="search-icon fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+    
+            <div class="login-container">
+                <button id="loginButton" class="login-button">Đăng nhập</button>
+                <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+            </div>
+        </div>
+        
+    </header>
+    <div class="container">
+        <div class="thumb-container">
+            <img class="img-thumb img-thumb-1" src="../assets/img/home/pexels-photo-3184644.jpeg" alt="">
+            <img class="img-thumb img-thumb-2" src="../assets/img/home/pexels-gustavo-fring-4173332.jpg" alt="">
+            <img class="img-thumb img-thumb-3 " src="../assets/img/home/pexels-polina-tankilevitch-6929283.jpg" alt="">
+            <div class="clone-ing-thumb"></div>
+            <div class="clone-ing-thumb-title"></div>
+            <div class="title-container">
+                <h1 class="title">LEARN TOgetHER</h1>
+                <p>Chất lượng | Chuyên nghiệp | Uy tín</p>
+            </div>
+        </div>
+        <div class="reason-container">
+            <div class="reason-box reason-1"></div>
+            <div class="reason-box reason-2"></div>
+            <div class="reason-box reason-3"></div>
+        </div>
+
+    </div>
+    <footer>
+
+        <div class="footer-container">
+        <div class="socials">
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-google-plus"></i></a>
+            <a href=""><i class="fa-brands fa-youtube"></i></a>
+           </div>
+           <div class="footer-nav">
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+           </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright &copy;2024; Designed by <span class="designer">DL</span></p>
+       </div>
+    </footer>
+    </div>
     <script src="../js/home.js"></script>
-    <div  id="footer"></div>
     <script src="../js/header.js"></script>
 </body>
 </html>
