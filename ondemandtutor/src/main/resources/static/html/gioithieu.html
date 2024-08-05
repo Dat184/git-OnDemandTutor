@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="../assets/css/gioithieu.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/header.css">
-    
+    <link rel="stylesheet" href="../asset/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+
     <title>Document</title>
+    
 </head>
 <body>
     
@@ -47,14 +49,24 @@
             <div class="login-search-container">
                 <div class="search-container">
                     <input id="searchInput" type="text" class="search-box" placeholder="Tìm kiếm...">
-                    <button id="searchButton" class="search-button">    
-                        <i class="search-icon fa-solid fa-magnifying-glass"></i>
-                    </button>
+                    
+                        <button id="searchButton" class="search-button">    
+                            <i class="search-icon fa-solid fa-magnifying-glass"></i>
+                        </button>
                 </div>
         
                 <div class="login-container">
+                    <a href="modal.html" class="search-link">
                     <button id="loginButton" class="login-button">Đăng nhập</button>
+                </a>
+                <div class="user-info" id="userInfo">
+                    <span id="usernameDisplay"></span>
                     <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+                    <div id="userDropdown" class="user-dropdown">
+                        <a href="#">Thông tin cá nhân</a>
+                        <a href="#" id="logoutButton">Đăng xuất</a>
+                    </div>
+                </div>
                 </div>
             </div>
             
@@ -96,22 +108,22 @@
                 </div>
             </div>
             <div class="difference-section">
-                <h2>The Wyzant Difference</h2>
+                <h2>Sự khác biệt của Learn Together</h2>
                 <div class="difference-details">
                     <div class="detail">
                         <i class="rate-icon fa-sharp fa-solid fa-ranking-star"></i>
-                        <p>Compare qualifications, hourly rates, and reviews to find the right expert for you.</p>
+                        <p>So sánh trình độ chuyên môn, mức lương theo giờ và đánh giá để tìm chuyên gia phù hợp với bạn.</p>
                     </div>
                     <div class="detail">
                         <i class="rate-icon fa-regular fa-window-restore"></i>
-                        <p>Collaborate with your tutor in the free, browser-based Wyzant Learning Studio.</p>
+                        <p>Hợp tác với gia sư của bạn trong Learn Together miễn phí, dễ sử dụng trên trình duyệt.</p>
                     </div>
                     <div class="detail">
                         <i class="rate-icon fa-solid fa-money-check"></i>
-                        <p>Only pay for the time you need. No subscriptions, no upfront payments. Just affordable results.</p>
+                        <p>Chỉ thanh toán cho thời gian bạn sử dụng. Không có đăng ký, không cần thanh toán trước. Chỉ đơn giản là kết quả hiệu quả và tiết kiệm..</p>
                     </div>
                 </div>
-                <button>GET STARTED</button>
+                <button>BẮT ĐẦU</button>
             </div>
             
            </div>
@@ -143,6 +155,7 @@
                 <p>Copyright &copy;2024; Designed by <span class="designer">DL</span></p>
            </div>
         </footer>
+        
 </div>
 <script src="../js/header.js"></script>
 </body>

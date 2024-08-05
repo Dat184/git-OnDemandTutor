@@ -1,3 +1,4 @@
+/* Header CSS */
 .header {
     display: flex;
     height: 60px;
@@ -38,9 +39,6 @@
     padding: 5px;
 }
 
-.text {
-    margin: 10px;
-}
 /* CSS để làm sáng và zoom logo khi hover */
 .logo-container .logo {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -50,9 +48,10 @@
     transform: scale(1.1); /* Zoom logo lên 10% */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Thêm bóng đổ */
 }
+
 /* CSS để làm sáng và zoom logo khi hover */
 .logo-container .text {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
 .logo-container .text:hover {
@@ -83,17 +82,14 @@
     width: auto;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-   
 }
 
 .subnav a {
     display: block;
-    padding: 8px ;
+    padding: 8px;
     text-decoration: none;
     color: #000;
-    /* border-bottom: 2px solid #888; */
-    margin:0 40px;
-    
+    margin: 0 40px;
 }
 
 .subnav a:hover {
@@ -184,7 +180,14 @@
 .login-container {
     display: flex;
     align-items: center;
-    width: 20%;
+    width: 30%;
+    gap: 10px; /* Khoảng cách giữa tên người dùng và ảnh đại diện */
+}
+
+.search-link {
+    text-decoration: none; 
+    display: flex; 
+    align-items: center; 
 }
 
 .login-button {
@@ -203,13 +206,60 @@
     color: #000000;
 }
 
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Khoảng cách giữa tên người dùng và ảnh đại diện */
+    cursor: pointer;
+}
+
 .avatar {
-    display: none;
+    display: none; /* Ẩn avatar khi chưa đăng nhập */
     width: 40px;
     height: 40px;
     border-radius: 50%;
     border: 2px solid white;
-    margin-left: 50px;
+}
+
+.username {
+    display: none; /* Ẩn tên người dùng khi chưa đăng nhập */
+    font-size: 1.2rem; /* Tăng kích thước font cho tên người dùng */
+    color: #EEEEEE;
+    line-height: 40px; 
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 3%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+
+}
+.user-dropdown.show {
+    display: block;
+}
+.user-dropdown a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    border-bottom: 1px solid #ddd;
+}
+.user-dropdown a:last-child {
+    border-bottom: none;
+}
+.user-dropdown a:hover {
+    background-color: #f0f0f0;
+}
+.login-container.active .username {
+    display: block; /* Hiển thị tên người dùng khi đăng nhập */
+}
+
+.login-container.active .avatar {
+    display: block; /* Hiển thị ảnh đại diện khi đăng nhập */
 }
 
 /* Media Query để ẩn text logo khi kích thước màn hình nhỏ hơn 768px */
@@ -219,7 +269,7 @@
     }
 
     .img-logo {
-        justify-content: none;
+        justify-content: center;
         width: 50%;
     }
 }
