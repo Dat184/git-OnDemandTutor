@@ -236,24 +236,62 @@
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-
+    width: 250px;
+    padding: 10px 20px 20px 20px;
+    margin: 10px;
+    height: 130px;
+    border-radius: 5px;
 }
+
+.user-dropdown::after{
+    cursor: pointer;
+    content: "";
+    position: absolute;
+    right: 4px;
+    top:-25px;
+    border-width: 16px 20px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+}
+
 .user-dropdown.show {
     display: block;
 }
-.user-dropdown a {
-    display: block;
-    padding: 10px;
+
+.sub-menu-link{
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    color: black;
-    border-bottom: 1px solid #ddd;
+    color: #525252;
+    margin: 12px 0;
 }
-.user-dropdown a:last-child {
-    border-bottom: none;
+
+
+.sub-menu-link p{
+    width: 100%;
 }
-.user-dropdown a:hover {
-    background-color: #f0f0f0;
+
+.sub-menu-link img{
+    width: 40px;
+    background-color: #e5e5e5;
+    border-radius: 50px;
+    padding: 8px;
+    margin-right: 15px;
 }
+
+.sub-menu-link i{
+    font-size: 12px;
+    transition: transform 0.5s;
+}
+
+.sub-menu-link:hover i{
+    transform: translateX(5px);
+}
+
+.sub-menu-link:hover p{
+    font-weight: 600;
+}
+
 .login-container.active .username {
     display: block; /* Hiển thị tên người dùng khi đăng nhập */
 }
