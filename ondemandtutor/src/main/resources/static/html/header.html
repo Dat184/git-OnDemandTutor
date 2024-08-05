@@ -1,87 +1,47 @@
-
+<link rel="stylesheet" href="../assets/css/header.css">
+<link rel="stylesheet" href="../asset/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
 <header class="header">
-    <link rel="stylesheet" href="../assets/css/header.css">
-    <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
 
-    <nav class="header__navbar">
-        <div class="header__navbar-logo">
-            <a href="home.html" class="header__navbar-link">
-                <img src="../assets/img/header/logo.png" alt="" class="header__navbar-img">
-            </a>
-            
-        </div>              
+    <div class="logo-container">
+        <a class="img-logo" href="">
+        <img class="logo" src="../assets/img/logo/snapedit_17228353747082.png" alt="">
+         <p class="text">LEARN TOgetHER</p>  </a>
+    </div>
     
-    <ul id="nav">
-        <li>
-            <a href="gioithieu.html">
-                GIỚI THIỆU           
-            </a>
-            
-        </li>
-
-        <li>
-            <a href="giasu.html">
-                GIA SƯ
-                <i class="icon-down fa-sharp fa-solid fa-chevron-down"></i>                    
-            </a>
-            <ul class="subnav">
-                <li><a href="giasusinhvien.html">SINH VIÊN</a></li>                   
-                <li><a href="giasugiaovien.html">GIÁO VIÊN</a></li>
-                <li><a href="giasunuocngoai.html">GIÁO VIÊN NƯỚC NGOÀI</a></li>
-            </ul>  
-        </li>
-        <li>
-            <a href="#">
-                bảng giá
-                <i class="icon-down fa-sharp fa-solid fa-chevron-down"></i>                    
-            </a> 
-        </li>
-        <li>
-            <a href="#">
-                DỊCH VỤ
-                <i class="icon-down fa-sharp fa-solid fa-chevron-down"></i>                    
-            </a>
-            <ul class="subnav">
-                <li><a href="#">GIA SƯ TẠI NHÀ</a></li>                   
-                <li><a href="#">GIA SƯ ONLINE</a></li>
-                <li><a href="#">GIA SƯ CÁC MÔN</a></li>
-            </ul>  
-        </li>
-    </ul>
-    <ul class="header__navbar-list">
-        
-        
-        
-        <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate register-form">Đăng ký</li>
-        <li class="header__navbar-item header__navbar-item--strong login-form">Đăng nhập</li>
-    </ul>
-</nav>
-<!-- Search -->
-<div class="header-with-search">
-    <div class="header__search">
-        <div class="header__search-input-wrap">
-            <div class="header__search-input-wrap2">
-                <input type="text" class="header__search-input" placeholder="Search...">
-                <div class="header__search-history">
-                    <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
+    <div class="navbar-container">
+       
+            <a class="nav-box" href="">GIỚI THIỆU</a>
+           
+            <div class="nav-box" >GIA SƯ
+                <div class="subnav">
+                    <a href="">GIÁO VIÊN</a>
+                    <a href="">SINH VIÊN</a>
+                    <a href="">NƯỚC NGOÀI</a>
                 </div>
             </div>
-            <button class="header__search-btn">
-                <i class="header__search-btn-icon fa-sharp fa-solid fa-magnifying-glass"></i>
+            <a class="nav-box" href="">BẢNG GIÁ</a>
+       
+            <div class="nav-box" href="">DỊCH VỤ
+                <div class="subnav">
+                    <a href="">GIA SƯ GIÁO VIÊN</a>
+                    <a href="">GIA SƯ SINH VIÊN</a>
+                    <a href="">GIA SƯ NƯỚC NGOÀI</a>
+                </div>
+            </div>
+    </div>
+    <div class="login-search-container">
+        <div class="search-container">
+            <input id="searchInput" type="text" class="search-box" placeholder="Tìm kiếm...">
+            <button id="searchButton" class="search-button">    
+                <i class="search-icon fa-solid fa-magnifying-glass"></i>
             </button>
-        </div>              
-        
+        </div>
 
-    
-        
+        <div class="login-container">
+            <button id="loginButton" class="login-button">Đăng nhập</button>
+            <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+        </div>
     </div>
-    </div>
     
-</div>
-
-
-
 </header>
-
-
-
+<script src="../js/header.js"></script>
