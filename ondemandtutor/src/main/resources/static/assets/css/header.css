@@ -1,68 +1,143 @@
-
-.header{
+.header {
     display: flex;
     height: 60px;
     width: 100%;
-    justify-content:space-between ;
+    justify-content: space-between;
     background-color: #BC8CF2;
     position: fixed;
-    top: 0; /* Ensure the header is at the top of the viewport */
+    top: 0;
     left: 0;
     z-index: 1;
+    border-bottom: 5px solid #AA14F0;
 }
 
-.logo{
+.logo-container {
+    width: 25%;
+}
+
+.img-logo {
+    display: flex;
+    height: 100%;
+    justify-self: start;
+    width: 90%;
+    gap: 5px;
+    text-decoration: none;
+    white-space: nowrap;
+    align-items: center;
+    font-size: clamp(0rem, 2vw, 1.8rem);
+    padding-left: 10px;
+    background-color: #AA14F0;
+    color: #EEEEEE;
+    border-radius: 0 30px 0 0;
+}
+
+.logo {
     width: 50px;
-    height:  100%;
-    padding-left: 10px ;
+    height: 50px;
+    border-radius: 50%;
+    padding: 5px;
 }
 
-.navbar-container{
+.text {
+    margin: 10px;
+}
+/* CSS để làm sáng và zoom logo khi hover */
+.logo-container .logo {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-container .logo:hover {
+    transform: scale(1.1); /* Zoom logo lên 10% */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Thêm bóng đổ */
+}
+/* CSS để làm sáng và zoom logo khi hover */
+.logo-container .text {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-container .text:hover {
+    transform: scale(1.1); /* Zoom logo lên 10% */
+    text-shadow: 0 4px 15px rgba(36, 0, 0.8, 0.3); /* Thêm bóng đổ */
+}
+
+.navbar-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 35%;
-    
-
+    z-index: 100;
 }
+
+.nav-box:hover .subnav {
+    display: block;
+}
+
+.subnav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #EEEEEE;
+    color: #000;
+    border: 1px solid #AA14F0;
+    width: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+   
+}
+
+.subnav a {
+    display: block;
+    padding: 8px ;
+    text-decoration: none;
+    color: #000;
+    /* border-bottom: 2px solid #888; */
+    margin:0 40px;
+    
+}
+
+.subnav a:hover {
+    background-color: #BC8CF2;
+    color: #EEEEEE;
+}
+
 .nav-box {
     display: flex;
-    text-decoration: none; 
+    text-decoration: none;
     color: #000000;
     width: 100%;
     justify-content: center;
     align-items: center;
-    border: 2px solid transparent; /* Đặt border mặc định để tạo hiệu ứng khi hover */
+    border: 2px solid transparent;
     border-radius: 5px;
-    transition: all 0.3s ease; /* Hiệu ứng chuyển tiếp khi thay đổi trạng thái */
-    padding: 10px 15px; /* Thêm khoảng cách cho các mục */
-    cursor: pointer; /* Thay đổi con trỏ khi hover */
+    transition: all 0.3s ease;
+    padding: 10px 15px;
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
 }
 
-/* Hiệu ứng khi di chuột qua các mục */
 .nav-box:hover {
-    background-color: #AA14F0; /* Thay đổi màu nền khi hover */
+    background-color: #AA14F0;
     color: #EEEEEE;
-     /* Thay đổi màu chữ khi hover */
-    box-shadow: 0 8px 18px hsl(281, 43%, 37%)(351, 57%, 25%)(0, 0, 0, 0.2); /* Thêm bóng đổ để nổi bật */
+    box-shadow: 0 8px 18px hsl(281, 43%, 37%);
 }
 
-
-.login-search-container{
+.login-search-container {
     display: flex;
-    width: 50%;
+    width: 35%;
     justify-content: end;
+    margin-right: 30px;
 }
-.search-container{
+
+.search-container {
     display: flex;
     justify-content: flex-end;
     width: 60%;
     align-items: center;
-    
 }
 
-.search-button{
-   
+.search-button {
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -73,62 +148,78 @@
     border: 2px solid #000;
     background-color: #BC8CF2;
     transition: all 0.05s ease;
-    
 }
+
 .search-button:hover {
-    background-color: #AA14F0; /* Thay đổi màu nền khi hover */
-    
-    
-    box-shadow: 0 4px 8px hsl(281, 73%, 74%)(0, 0, 0, 0.2); /* Thêm bóng đổ để nổi bật */
+    background-color: #AA14F0;
+    box-shadow: 0 4px 8px hsl(281, 73%, 74%);
 }
+
 .search-button.active {
     border-radius: 0 15px 15px 0;
     width: 30px;
-    height:  30px;
+    height: 30px;
 }
-.search-box{
-   
+
+.search-box {
     border: 1px solid transparent;
     background-color: #BC8CF2;
-    width: 0; /* Ẩn thanh tìm kiếm khi không active */
+    width: 0;
     height: 30px;
-    display: block; /* Hiển thị luôn, điều khiển width để ẩn/hiển thị */
+    display: block;
     padding-left: 10px;
     outline: none;
     box-sizing: border-box;
     transition: width 0.3s ease;
-   
 }
+
 .search-box.active {
-    border:   2px solid black;
-    width: 60%; /* Kích thước của thanh tìm kiếm khi active */
+    border: 2px solid black;
+    width: 60%;
     border-radius: 15px 0 0 15px;
     border-right: none;
+    background-color: #EEEEEE;
 }
-.login-container{
-    display: flex;  
+
+.login-container {
+    display: flex;
     align-items: center;
     width: 20%;
-  
 }
 
 .login-button {
-    background-color: #333;
-    color: white;
+    background-color: #000000;
+    color: #EEEEEE;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    border-radius: 20px ;
+    border-radius: 20px;
     white-space: nowrap;
     margin-left: 10px;
-   
 }
-.avatar{
+
+.login-button:hover {
+    background-color: #EEEEEE;
+    color: #000000;
+}
+
+.avatar {
     display: none;
-   
     width: 40px;
     height: 40px;
     border-radius: 50%;
     border: 2px solid white;
     margin-left: 50px;
+}
+
+/* Media Query để ẩn text logo khi kích thước màn hình nhỏ hơn 768px */
+@media (max-width: 768px) {
+    .text {
+        display: none;
+    }
+
+    .img-logo {
+        justify-content: none;
+        width: 50%;
+    }
 }
