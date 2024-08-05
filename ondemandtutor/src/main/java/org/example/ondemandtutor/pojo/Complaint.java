@@ -27,19 +27,16 @@ public class Complaint {
     private String content;
 
     private String response;
-    @Column(name = "created_at")
-    private String createdAt;
 
     @Enumerated
     @Column(name = "status")
     private Status status;
 
-    public Complaint(User user, String complaintType, String content, String response, String createdAt, Status status) {
+    public Complaint(User user, String complaintType, String content, String response, Status status) {
         this.user = user;
         this.complaintType = complaintType;
         this.content = content;
         this.response = response;
-        this.createdAt = createdAt;
         this.status = status;
     }
 }

@@ -49,7 +49,6 @@ public class AdminLogController {
                 .map(adminLog -> {
                     adminLog.setAction(newAdminLog.getAction());
                     adminLog.setDescription(newAdminLog.getDescription());
-                    adminLog.setCreatedAt(newAdminLog.getCreatedAt());
                     return adminLogRepository.save(adminLog);
                 }).orElseGet(() -> {
                     newAdminLog.setId(id);

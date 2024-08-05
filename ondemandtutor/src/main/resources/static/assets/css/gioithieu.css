@@ -1,4 +1,6 @@
 /* Container for both sections */
+
+
 .container-about {
     display: flex;
     flex-direction: column;
@@ -6,6 +8,7 @@
     text-align: center;
     color: #eeeeee;
     width: 100%;
+
     
 }
 
