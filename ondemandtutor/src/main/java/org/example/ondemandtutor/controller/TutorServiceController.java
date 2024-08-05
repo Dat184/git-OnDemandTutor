@@ -48,9 +48,6 @@ public class TutorServiceController {
         TutorService updatedTutorService = tutorServiceRepository.findById(id)
                 .map(tutorService -> {
                     tutorService.setDescription(newTutorService.getDescription());
-                    tutorService.setCreatedAt(newTutorService.getCreatedAt());
-                    tutorService.setUpdatedAt(newTutorService.getUpdatedAt());
-                    tutorService.setHourlyRate(newTutorService.getHourlyRate());
                     tutorService.setSubject(newTutorService.getSubject());
                     tutorService.setTutor(newTutorService.getTutor());
                     return tutorServiceRepository.save(tutorService);
