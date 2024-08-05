@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    color: white;
+    color: #eeeeee;
     width: 100%;
     
 }
@@ -46,9 +46,10 @@
 /* Learning section */
 .learning-section h2 {
     font-size: 42px;
-    color: rgb(237, 109, 32); /* Theme color */
+    color: #AA14F0; /* Theme color */
     margin-bottom: 20px;
     margin-top: 60px;
+    text-shadow: 0 2px 5px rgba(0, 0.8, 0, 0.2);
 }
 
 .learning-section p {
@@ -63,14 +64,16 @@
     padding: 15px 30px;
     font-size: 1em;
     color: #fff;
-    background-color: #f5811e;
+    background-color: #AA14F0;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .learning-section button:hover {
-    background-color: #e76b00;
+    background-color: #fff;
+    color: #AA14F0;
+    box-shadow: 0 8px 16px #AA14F0;
 }
 
 /* Stats section */
@@ -92,6 +95,12 @@
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for smooth effect */
+}
+
+.circle:hover  {
+    transform: scale(1.1); /* Zoom effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
 }
 
 .circle-img {
@@ -102,7 +111,9 @@
     top: 0;
     left: 0;
     z-index: -1; /* Image behind text */
-}
+} 
+
+
 
 .stat p {
     position: relative;
@@ -126,8 +137,9 @@
 
 .difference-section h2 {
     font-size: 42px;
-    color: #f5811e;
+    color: #AA14F0;
     margin-bottom: 20px;
+    text-shadow: 0 2px 5px rgba(0, 0.8, 0, 0.2);
 }
 
 .difference-details {
@@ -146,8 +158,9 @@
 
 .rate-icon {
     font-size: 40px;
-    color: #60ad56;
+    color: #BC8CF2;
     margin-bottom: 10px; /* Space between icon and text */
+   
 }
 
 .detail p {
@@ -160,7 +173,7 @@
     padding: 15px 30px;
     font-size: 1em;
     color: #fff;
-    background-color: #f5811e;
+    background-color: #AA14F0;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -168,13 +181,18 @@
 }
 
 .difference-section button:hover {
-    background-color: #e76b00;
+    background-color: #fff;
+    color: #AA14F0;
+    box-shadow: 0 8px 16px #AA14F0;
 }
 
 .img-gif {
+    height: 1000px;
+    
 }
 .city{
     width: 100%;
-    height: 700px;
+    height: 100%;
+    border-top: 10px #AA14F0;
 }
 
