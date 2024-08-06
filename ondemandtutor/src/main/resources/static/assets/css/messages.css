@@ -2,10 +2,11 @@ body,
 html {
 	height: 100%;
 	margin: 0;
-	background: #7F7FD5;
 	background: -webkit-linear-gradient(to right, violet, #AA14F0, #BC8CF2);
 	background: linear-gradient(to right, violet, #AA14F0, #BC8CF2);
 }
+
+
 
 .chat {
 	margin-top: auto;
@@ -286,4 +287,42 @@ html {
 	.contacts_card {
 		margin-bottom: 15px !important;
 	}
+}
+
+.header{
+    font-family: 'Times New Roman', Times, serif !important;
+}
+
+.logo-container:hover a{
+    text-decoration: none;
+    color:#eee;
+}
+
+.navbar-container a{
+    text-decoration: none;
+
+}
+
+.logo-container p{
+    margin-top: 14px;
+}
+
+.navbar-container{
+    margin-right: 12px;
+    margin-bottom: 1px;
+}
+
+.login-search-container{
+    margin-right: 45px;
+}
+
+.user-dropdown a{
+    text-decoration: none;
+    color: #525252;
+}
+.sub-menu-link p{
+    margin-bottom: 0;
+}
+.user-dropdown{
+    margin-right: 25px;
 }

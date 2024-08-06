@@ -51,13 +51,17 @@
 
 /* CSS để làm sáng và zoom logo khi hover */
 .logo-container .text {
+    
     transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
 .logo-container .text:hover {
     transform: scale(1.1); /* Zoom logo lên 10% */
     text-shadow: 0 4px 15px rgba(36, 0, 0.8, 0.3); /* Thêm bóng đổ */
+
 }
+
+
 
 .navbar-container {
     display: flex;
