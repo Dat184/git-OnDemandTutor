@@ -190,6 +190,50 @@
     align-items: center; 
 }
 
+
+/* CSS cho biểu tượng tin nhắn */
+.message-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-left: 15px; /* Khoảng cách giữa biểu tượng tin nhắn và các phần tử khác */
+}
+
+.message-link {
+    text-decoration: none;
+    color: #000; /* Màu của biểu tượng tin nhắn */
+    font-size: 1.5em; /* Kích thước biểu tượng tin nhắn */
+    position: relative;
+}
+
+.message-icon {
+    font-size: 1em; /* Kích thước biểu tượng tin nhắn */
+    color: #000; /* Màu của biểu tượng tin nhắn */
+    transition: color 0.3s ease;
+}
+
+.message-icon:hover {
+    color: #AA14F0; /* Màu khi hover */
+}
+
+/* CSS cho hình tròn số lượng tin nhắn */
+.message-count {
+    position: absolute;
+    top: -10px; /* Khoảng cách từ đỉnh biểu tượng */
+    right: -10px; /* Khoảng cách từ bên phải biểu tượng */
+    background-color: red; /* Màu nền hình tròn */
+    color: white; /* Màu chữ trong hình tròn */
+    border-radius: 50%; /* Hình tròn */
+    width: 20px; /* Đường kính hình tròn */
+    height: 20px; /* Đường kính hình tròn */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em; /* Kích thước chữ trong hình tròn */
+    font-weight: bold; /* Đậm chữ */
+}
+
+
 .login-button {
     background-color: #000000;
     color: #EEEEEE;
@@ -211,7 +255,9 @@
     align-items: center;
     gap: 10px; /* Khoảng cách giữa tên người dùng và ảnh đại diện */
     cursor: pointer;
+    width: 100%;
 }
+
 
 .avatar {
     display: none; /* Ẩn avatar khi chưa đăng nhập */
@@ -226,6 +272,7 @@
     font-size: 1.2rem; /* Tăng kích thước font cho tên người dùng */
     color: #EEEEEE;
     line-height: 40px; 
+    width: 200px;
 }
 
 .user-dropdown {

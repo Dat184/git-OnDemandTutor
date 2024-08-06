@@ -70,15 +70,12 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Xử lý đăng xuất
     if (logoutButton) {
         logoutButton.addEventListener('click', function() {
-            // Xóa thông tin đăng nhập
             localStorage.removeItem('loggedIn');
             localStorage.removeItem('username');
             
-            // Chuyển hướng về trang trước đó hoặc trang mặc định
-            const previousPage = localStorage.getItem('previousPage') || 'home.html'; // Thay 'home.html' bằng trang bạn muốn làm trang mặc định nếu không có trang trước đó
+            const previousPage = localStorage.getItem('previousPage') || 'home.html'; 
             window.location.href = previousPage;
         });
     }
