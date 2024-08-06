@@ -33,10 +33,11 @@ document.addEventListener("DOMContentLoaded", function() {
         event.stopPropagation(); // Ngăn sự kiện click lan truyền lên document
     });
 
-    // Lưu trang hiện tại trước khi đăng nhập
+    // Xử lý khi nhấn nút đăng nhập
     if (loginButton) {
         loginButton.addEventListener('click', function() {
             localStorage.setItem('previousPage', window.location.href);
+            window.location.href = 'modal.html'; // Chuyển hướng đến trang đăng nhập
         });
     }
 
@@ -77,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
             localStorage.removeItem('username');
             
             // Chuyển hướng về trang trước đó hoặc trang mặc định
-            const previousPage = localStorage.getItem('previousPage') || 'index.html'; // Thay 'index.html' bằng trang bạn muốn làm trang mặc định nếu không có trang trước đó
+            const previousPage = localStorage.getItem('previousPage') || 'home.html'; // Thay 'home.html' bằng trang bạn muốn làm trang mặc định nếu không có trang trước đó
             window.location.href = previousPage;
         });
     }
