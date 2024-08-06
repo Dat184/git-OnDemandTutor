@@ -33,6 +33,13 @@ document.addEventListener("DOMContentLoaded", function() {
         event.stopPropagation(); // Ngăn sự kiện click lan truyền lên document
     });
 
+    // Lưu trang hiện tại trước khi đăng nhập
+    if (loginButton) {
+        loginButton.addEventListener('click', function() {
+            localStorage.setItem('previousPage', window.location.href);
+        });
+    }
+
     // Xử lý trạng thái đăng nhập
     const loggedIn = localStorage.getItem('loggedIn');
 
@@ -65,9 +72,13 @@ document.addEventListener("DOMContentLoaded", function() {
     // Xử lý đăng xuất
     if (logoutButton) {
         logoutButton.addEventListener('click', function() {
+            // Xóa thông tin đăng nhập
             localStorage.removeItem('loggedIn');
             localStorage.removeItem('username');
-            window.location.href = 'gioithieu.html'; // Chuyển hướng về trang giới thiệu
+            
+            // Chuyển hướng về trang trước đó hoặc trang mặc định
+            const previousPage = localStorage.getItem('previousPage') || 'index.html'; // Thay 'index.html' bằng trang bạn muốn làm trang mặc định nếu không có trang trước đó
+            window.location.href = previousPage;
         });
     }
 });
