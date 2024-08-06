@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    <link rel="stylesheet" href="../assets/css/gioithieu.css">
+    <script src="../js/openHF.js"></script>
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
     <link rel="stylesheet" href="../asset/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
 
     <title>Document</title>
@@ -20,14 +20,14 @@
         <header class="header">
 
             <div class="logo-container">
-                <a class="img-logo" href="../html/home.html">
+                <a class="img-logo" href="">
                 <img class="logo" src="../assets/img/logo/snapedit_17228353747082.png" alt="">
                  <p class="text">LEARN TOgetHER</p>  </a>
             </div>
             
             <div class="navbar-container">
                
-                    <a class="nav-box" href="../html/gioithieu.html">GIỚI THIỆU</a>
+                    <a class="nav-box" href="">GIỚI THIỆU</a>
                    
                     <div class="nav-box" >GIA SƯ
                         <div class="subnav">
@@ -63,7 +63,7 @@
                     <span id="usernameDisplay"></span>
                     <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
                     <div id="userDropdown" class="user-dropdown">
-                        <a href="profile.html" class="sub-menu-link">
+                        <a href="#" class="sub-menu-link">
                             <img src="../assets/img/header/profile.png" alt="">
                             <p>Thông tin cá nhân</p>
                             <i class="fa-solid fa-chevron-right"></i>
@@ -80,66 +80,43 @@
             </div>
             
         </header>
-      
-        <div class="container-about">
-            <div class="intro">
-                <img src="../assets/img/gioithieu/intro.jpg" alt="Intro Image" class="intro-img">
-                <h1>GIỚI THIỆU</h1>
+        <div class="container">
+            <div class="navigation">
+                <ul>
+                 
+    
+                    <li>
+                        <a href="#">
+                            <span class="icon">
+                                <i class="fa-regular fa-user"></i>
+                            </span>
+                            <span class="title-strong">Thông tin cá nhân</span>
+                        </a>
+                    </li>
+    
+                    <li>
+                        <a  class="border" href="#">
+                            <span class="icon">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </span>
+                            <span class="title ">Chỉnh sửa trang cá nhân</span>
+                        </a>
+                    </li>
+    
+                    <li>
+                        <a href="#">
+                            <span class="icon">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </span>
+                            <span class="title">Chỉnh sửa dịch vụ</span>
+                        </a>
+                    </li>
+    
+                   
+                </ul>
             </div>
-        <div class="about-section">
-            <div class="learning-section">
-                <h2>Học Cách Hiệu Quả</h2>
-                <p>Việc học một kèm một luôn mang lại hiệu quả. Chúng tôi đã tin tưởng vào điều đó ngay từ đầu. Nhưng chúng tôi cũng nhận ra rằng nó sẽ hiệu quả hơn nếu trở nên dễ tiếp cận, hợp túi tiền và thuận tiện hơn cho mọi người. Đó chính là lý do chúng tôi xây dựng một hệ thống dễ dàng hơn để kết nối những người cần học với các chuyên gia có thể dạy họ. Và chúng tôi đã thay đổi cách mọi người nghĩ về giáo dục trong quá trình này.</p>
-                <button>TÌM KIẾM GIA SƯ</button>
-            </div>
-            <div class="stats-section">
-                <div class="stat">
-                    <div class="circle">
-                        <img src="../assets/img/gioithieu/subject.jpg" alt="" class="circle-img">
-                        <p>300+<br>Môn học</p>
-
-                    </div>
-                </div>
-                <div class="stat">
-                    <div class="circle">
-                        <img src="../assets/img/gioithieu/lessons.jpg" alt="" class="circle-img">
-                        <p>1,000,000+<br>Khóa học</p>
-
-                    </div>
-                </div>
-                <div class="stat">
-                    <div class="circle">
-                        <img src="../assets/img/gioithieu/instructors.jpg" alt="" class="circle-img">
-                        <p>65,000+<br>Gia sư đáng tin cậy</p>
-
-                    </div>
-                </div>
-            </div>
-            <div class="difference-section">
-                <h2>Sự khác biệt của Learn Together</h2>
-                <div class="difference-details">
-                    <div class="detail">
-                        <i class="rate-icon fa-sharp fa-solid fa-ranking-star"></i>
-                        <p>So sánh trình độ chuyên môn, mức lương theo giờ và đánh giá để tìm chuyên gia phù hợp với bạn.</p>
-                    </div>
-                    <div class="detail">
-                        <i class="rate-icon fa-regular fa-window-restore"></i>
-                        <p>Hợp tác với gia sư của bạn trong Learn Together miễn phí, dễ sử dụng trên trình duyệt.</p>
-                    </div>
-                    <div class="detail">
-                        <i class="rate-icon fa-solid fa-money-check"></i>
-                        <p>Chỉ thanh toán cho thời gian bạn sử dụng. Không có đăng ký, không cần thanh toán trước. Chỉ đơn giản là kết quả hiệu quả và tiết kiệm..</p>
-                    </div>
-                </div>
-                <button>BẮT ĐẦU</button>
-            </div>
-            
-           </div>
-          
         </div>
-        <div class="img-gif">
-            <img src="../assets/img/gioithieu/gif.webp" alt="" class="city">
-         </div>
+    </div>
          <footer>
             <link rel="stylesheet" href="../assets/css/footer.css">
             <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
