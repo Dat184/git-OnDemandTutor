@@ -9,21 +9,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const logoutButton = document.getElementById('logoutButton');
 
     // Xử lý khi nhấn vào nút tìm kiếm
-    if (searchButton) {
-        searchButton.addEventListener('click', function(event) {
-            event.stopPropagation(); // Ngăn sự kiện click lan truyền lên document
-            searchButton.classList.toggle('active');
-            searchInput.classList.toggle('active');
-            searchInput.style.display = searchInput.classList.contains('active') ? 'block' : 'none'; // Hiển thị hoặc ẩn thanh tìm kiếm
-            if (searchInput.classList.contains('active')) {
-                searchInput.focus(); // Đưa tiêu điểm vào thanh tìm kiếm khi nó được hiển thị
-            }
-        });
-    }
+    searchButton.addEventListener('click', function(event) {
+        event.stopPropagation(); // Ngăn sự kiện click lan truyền lên document
+        searchButton.classList.toggle('active');
+        searchInput.classList.toggle('active');
+        searchInput.style.display = searchInput.classList.contains('active') ? 'block' : 'none'; // Hiển thị hoặc ẩn thanh tìm kiếm
+        if (searchInput.classList.contains('active')) {
+            searchInput.focus(); // Đưa tiêu điểm vào thanh tìm kiếm khi nó được hiển thị
+        }
+    });
 
     // Xử lý khi nhấn vào bất kỳ đâu trên tài liệu
     document.addEventListener('click', function(event) {
-        if (searchButton && !searchButton.contains(event.target) && !searchInput.contains(event.target)) {
+        if (!searchButton.contains(event.target) && !searchInput.contains(event.target)) {
             searchButton.classList.remove('active');
             searchInput.classList.remove('active');
             searchInput.style.display = 'none'; // Ẩn thanh tìm kiếm khi không active
@@ -31,9 +29,15 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Ngăn sự kiện click lan truyền từ thanh tìm kiếm
-    if (searchInput) {
-        searchInput.addEventListener('click', function(event) {
-            event.stopPropagation(); // Ngăn sự kiện click lan truyền lên document
+    searchInput.addEventListener('click', function(event) {
+        event.stopPropagation(); // Ngăn sự kiện click lan truyền lên document
+    });
+
+    // Xử lý khi nhấn nút đăng nhập
+    if (loginButton) {
+        loginButton.addEventListener('click', function() {
+            localStorage.setItem('previousPage', window.location.href);
+            window.location.href = 'modal.html'; // Chuyển hướng đến trang đăng nhập
         });
     }
 
@@ -56,26 +60,23 @@ document.addEventListener("DOMContentLoaded", function() {
     // Xử lý dropdown người dùng
     if (userInfo) {
         userInfo.addEventListener('click', function () {
-            if (dropdown) {
-                dropdown.classList.toggle('show');
-            }
+            dropdown.classList.toggle('show');
         });
 
         document.addEventListener('click', function (event) {
-            if (userInfo && !userInfo.contains(event.target) && dropdown) {
+            if (!userInfo.contains(event.target)) {
                 dropdown.classList.remove('show');
             }
         });
     }
 
-    // Xử lý đăng xuất
     if (logoutButton) {
         logoutButton.addEventListener('click', function() {
             localStorage.removeItem('loggedIn');
             localStorage.removeItem('username');
-            const currentPage = window.location.href; // Lưu URL hiện tại
-            localStorage.setItem('redirectAfterLogin', currentPage);
-            window.location.href = 'gioithieu.html'; // Chuyển hướng đến trang đăng nhập hoặc trang cần thiết
+            
+            const previousPage = localStorage.getItem('previousPage') || 'home.html'; 
+            window.location.href = previousPage;
         });
     }
 });

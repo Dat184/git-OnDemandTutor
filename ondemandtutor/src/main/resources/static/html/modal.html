@@ -27,7 +27,7 @@
                     <select name="role" class="role-select">
                         <option value="" disabled selected>Chọn vai trò của bạn</option>
                         <option value="student">Học sinh</option>
-                        <option value="teacher">Giáo viên</option>
+                        <option value="teacher">Gia sư</option>
                     </select>
                     <span class="form-message"></span>
                 </div>
@@ -118,7 +118,8 @@
                     // Gọi API hoặc xử lý dữ liệu ở đây
                     console.log(data);
                     localStorage.setItem('loggedIn', 'true');
-                    window.location.href = 'gioithieu.html';
+                    const previousPage = localStorage.getItem('previousPage') || 'home.html';
+                    window.location.href = previousPage;
                 }
             });
 
@@ -135,7 +136,8 @@
                     // Gọi API hoặc xử lý dữ liệu ở đây
                     console.log(data);
                     localStorage.setItem('loggedIn', 'true');
-                    window.location.href = 'gioithieu.html';
+                    const previousPage = localStorage.getItem('previousPage') || 'home.html';
+                    window.location.href = previousPage;
                 }
             });
         });
