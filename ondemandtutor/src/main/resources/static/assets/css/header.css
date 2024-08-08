@@ -230,12 +230,12 @@
     background-color: red; /* Màu nền hình tròn */
     color: white; /* Màu chữ trong hình tròn */
     border-radius: 50%; /* Hình tròn */
-    width: 20px; /* Đường kính hình tròn */
-    height: 20px; /* Đường kính hình tròn */
+    width: 16px; /* Đường kính hình tròn */
+    height: 16px; /* Đường kính hình tròn */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8em; /* Kích thước chữ trong hình tròn */
+    font-size: 0.6em; /* Kích thước chữ trong hình tròn */
     font-weight: bold; /* Đậm chữ */
 }
 
