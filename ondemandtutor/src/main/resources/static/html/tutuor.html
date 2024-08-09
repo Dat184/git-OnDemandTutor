@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/tutor.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+</head>
+<body >
+    
+    <div class="main">
+        <header class="header">
+
+            <div class="logo-container">
+                <a class="img-logo" href="../html/home.html">
+                <img class="logo" src="../assets/img/logo/snapedit_17228353747082.png" alt="">
+                 <p class="text">LEARN TOgetHER</p>  
+                </a>
+            </div>
+            
+            <div class="navbar-container">
+               
+                    <a class="nav-box" href="../html/gioithieu.html">GIỚI THIỆU</a>
+                   
+                    <div class="nav-box" >GIA SƯ                    
+                    </div>
+                    <a class="nav-box" href="">BẢNG GIÁ</a>
+               
+                    <div class="nav-box" href="">DỊCH VỤ
+                    </div>
+            </div>
+            <div class="login-search-container">
+                <div class="search-container">
+                    <input id="searchInput" type="text" class="search-box" placeholder="Tìm kiếm...">
+                    
+                        <button id="searchButton" class="search-button">    
+                            <i class="search-icon fa-solid fa-magnifying-glass"></i>
+                        </button>
+                </div>
+        
+                <div class="message-container" id="messageContainer">
+                    <a href="messages.html" class="message-link">
+                        <i class="message-icon fa-regular fa-message"></i>                  
+                        <span class="message-count" id="messageCount">0</span>
+                    </a>
+                </div>
+
+                <div class="login-container">
+                    <a href="modal.html" class="search-link">
+                    <button id="loginButton" class="login-button">Đăng nhập</button>
+                </a>
+                <div class="user-info" id="userInfo">
+                    <span id="usernameDisplay"></span>
+                    <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+                    <div id="userDropdown" class="user-dropdown">
+                        <a href="profile.html" class="sub-menu-link">
+                            <img src="../assets/img/header/profile.png" alt="">
+                            <p>Thông tin cá nhân</p>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                        <a href="#" id="logoutButton" class="sub-menu-link">
+                            <img src="../assets/img/header/logout.png" alt="">
+                            <p>Đăng xuất</p>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+                </div>
+            </div>  
+            
+        </header>
+        <div class="tutor-container">
+            <div class="tutor-card">
+                    <div class="tutor-info-actions">
+                        <div class="tutor-info">
+                            <img src="../assets/img/header/profile.png" alt="Tutor Image" class="tutor-image">
+                            <div class="tutor-details">
+                                <h3 class="tutor-name">Phuong Y.</h3>
+                                <div class="tutor-meta">
+                                    <span>🇺🇸 English</span>
+                                    <span>46 active students</span>
+                                    <span>909 lessons</span>
+                                    <span>Speaks English (Native), Vietnamese (Native)</span>
+                                </div>
+                                <p class="tutor-description">Accent Reduction with American English Neutral Accent / Pronunciation and Enunciation / Conversation / Motivational Support Coach...</p>
+                            </div>
+                        </div>
+                        <div class="tutor-actions">
+                            <div class="tutor-rating">
+                                <span class="rating">★ 5</span>
+                                <span class="reviews">14 reviews</span>
+                            </div>
+                            <div class="tutor-price">$50</div>
+                            <button class="book-button">Book trial lesson</button>
+                            <button class="message-button">Send message</button>
+                        </div>
+                    </div>
+                    <!-- Add video next to tutor-info and tutor-actions -->
+                    <div class="tutor-video">
+                        <iframe class="videoo" width="300" height="200" src="https://www.youtube.com/embed/video_id_here" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+            </div>
+            <!-- Add more tutor-card elements if needed -->
+
+            <div class="tutor-card">
+                <div class="tutor-info-actions">
+                    <div class="tutor-info">
+                        <img src="../assets/img/header/profile.png" alt="Tutor Image" class="tutor-image">
+                        <div class="tutor-details">
+                            <h3 class="tutor-name">Phuong Y.</h3>
+                            <div class="tutor-meta">
+                                <span>🇺🇸 English</span>
+                                <span>46 active students</span>
+                                <span>909 lessons</span>
+                                <span>Speaks English (Native), Vietnamese (Native)</span>
+                            </div>
+                            <p class="tutor-description">Accent Reduction with American English Neutral Accent / Pronunciation and Enunciation / Conversation / Motivational Support Coach...</p>
+                        </div>
+                    </div>
+                    <div class="tutor-actions">
+                        <div class="tutor-rating">
+                            <span class="rating">★ 5</span>
+                            <span class="reviews">14 reviews</span>
+                        </div>
+                        <div class="tutor-price">$50</div>
+                        <button class="book-button">Book trial lesson</button>
+                        <button class="message-button">Send message</button>
+                    </div>
+                </div>
+                <!-- Add video next to tutor-info and tutor-actions -->
+                <div class="tutor-video">
+                    <iframe class="videoo" width="300" height="200" src="https://www.youtube.com/embed/video_id_here" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+        </div>
+            </div>
+        </div>
+    <footer>
+        <div class="footer-container">
+        <div class="socials">
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-google-plus"></i></a>
+            <a href=""><i class="fa-brands fa-youtube"></i></a>
+           </div>
+           <div class="footer-nav">
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+           </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright &copy;2024; Designed by <span class="designer">DL</span></p>
+       </div>
+    </footer>
+    </div>
+    <script src="../js/header.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const tutorCards = document.querySelectorAll('.tutor-card');
+    let currentVisibleVideo = null;
+
+    tutorCards.forEach(card => {
+        card.addEventListener('mouseover', () => {
+            // Ẩn video của tất cả gia sư khác
+            tutorCards.forEach(c => {
+                const video = c.querySelector('.tutor-video');
+                if (video) video.style.display = 'none';
+            });
+
+            // Hiển thị video của gia sư hiện tại
+            const video = card.querySelector('.tutor-video');
+            if (video) video.style.display = 'block';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            // Khi không hover vào gia sư, hiển thị video của gia sư đầu tiên
+            if (!Array.from(tutorCards).some(c => c.matches(':hover'))) {
+                const firstVideo = tutorCards[0].querySelector('.tutor-video');
+                if (firstVideo) firstVideo.style.display = 'block';
+            }
+        });
+    });
+
+    // Hiển thị video của gia sư đầu tiên khi trang được tải
+    if (tutorCards.length > 0) {
+        const firstVideo = tutorCards[0].querySelector('.tutor-video');
+        if (firstVideo) firstVideo.style.display = 'block';
+    }
+});
+
+    </script>
+</body>
+</html>
