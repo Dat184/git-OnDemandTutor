@@ -1,10 +1,12 @@
 package org.example.ondemandtutor.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -25,8 +27,9 @@ public class Review {
     private Booking booking;
     private Double rating;
     private String comment;
-
+    @CreationTimestamp
     @Column(name = "created_at")
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime createdAt;
 
     public Review(Booking booking, Double rating, String comment, LocalDateTime createdAt) {

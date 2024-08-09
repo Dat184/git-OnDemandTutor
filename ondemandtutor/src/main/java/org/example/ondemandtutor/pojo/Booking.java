@@ -34,7 +34,7 @@ public class Booking {
     @Column(name = "total_price", nullable = false)
     private Integer totalPrice;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "status_book", nullable = false)
     private StatusBook statusBook;
 
