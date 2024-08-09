@@ -61,7 +61,6 @@ public class ComplaintController {
                     complaint.setComplaintType(newComplaint.getComplaintType());
                     complaint.setContent(newComplaint.getContent());
                     complaint.setResponse(newComplaint.getResponse());
-                    complaint.setCreatedAt(newComplaint.getCreatedAt());
                     complaint.setStatus(newComplaint.getStatus());
                     return complaintRepository.save(complaint);
                 }).orElseGet(() -> {

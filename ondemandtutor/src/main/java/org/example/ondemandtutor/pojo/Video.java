@@ -27,7 +27,7 @@ public class Video {
     private String title;
     private String description;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "approval_status", nullable = false)
     private ApprovalStatus approvalStatus;
 

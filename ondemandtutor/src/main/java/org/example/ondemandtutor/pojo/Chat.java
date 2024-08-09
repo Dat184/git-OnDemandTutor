@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @Entity
@@ -20,17 +18,14 @@ public class Chat {
     @Column(name = "id", nullable = false)
     private Long id;
 
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "student_id", nullable = false)
-    private Student student;
-
+    @ToString.Exclude
     @ManyToOne(optional = false)
     @JoinColumn(name = "tutor_id", nullable = false)
     private Tutor tutor;
 
-    public Chat(Student student, Tutor tutor) {
-        this.student = student;
-        this.tutor = tutor;
-    }
+    @ToString.Exclude
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
+
 }
