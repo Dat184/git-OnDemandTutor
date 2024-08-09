@@ -3,7 +3,7 @@ package org.example.ondemandtutor.service;
 import org.example.ondemandtutor.pojo.Chat;
 import org.example.ondemandtutor.pojo.Message;
 import org.example.ondemandtutor.pojo.User;
-import org.example.ondemandtutor.pojo.request.MessageRequest;
+import org.example.ondemandtutor.dto.request.MessageRequest;
 import org.example.ondemandtutor.repository.MessageRepository;
 import org.example.ondemandtutor.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

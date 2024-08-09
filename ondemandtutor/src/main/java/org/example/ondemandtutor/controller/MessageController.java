@@ -1,7 +1,7 @@
 package org.example.ondemandtutor.controller;
 
 import org.example.ondemandtutor.pojo.Message;
-import org.example.ondemandtutor.pojo.request.MessageRequest;
+import org.example.ondemandtutor.dto.request.MessageRequest;
 import org.example.ondemandtutor.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
