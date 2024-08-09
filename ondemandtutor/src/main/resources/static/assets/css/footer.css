@@ -5,9 +5,10 @@
 }
 
 footer{
-    background-color: #BC8CF2;
+    background: linear-gradient(to bottom , #fff, #F1D3CE);
     font-family: Tahoma ;
     z-index: 1;
+    border-top: 3px solid #fff;
 }
 
 .footer-container{
@@ -31,7 +32,7 @@ footer{
 
 .socials a i{
     font-size: 2em;
-    color: #BC8CF2;
+    color: #F1D3ffCE;
     opacity: 0.9;
 }
 
@@ -57,7 +58,7 @@ footer{
 }
 
 .footer-nav ul li a{
-    color:#fff;
+    color:#000;
     margin: 20px;
     text-decoration: none;
     font-size: 1.3em;
@@ -70,13 +71,13 @@ footer{
 }
 
 .footer-bottom{
-    background-color: #AA14F0;
+    background-color: #F1D3CE;
     padding:20px;
     text-align: center;
 }
 
 .footer-bottom p{
-    color: #fff;
+    color: #000;
 }
 
 .designer{

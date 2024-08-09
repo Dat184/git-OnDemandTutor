@@ -3,8 +3,10 @@
     flex-direction: column;
     position: relative;
     margin-top: 57px;
-    background-color: #000000;
+    background-color: #fff;
     overflow: hidden; 
+    font-family: Tahoma;
+    background: linear-gradient(to bottom , #fff, #F1D3CE, #fff);
 }
 
 .thumb-container {
@@ -25,13 +27,15 @@
     height: 200px;
     grid-column: 1 / 3;
     grid-row: 6 / 7;
-    background: linear-gradient(to top right, violet, #AA14F0, #BC8CF2);
+    background: linear-gradient(to top right, #EECAD5, #F1D3CE,#F6EACB,#D1E9F6);
     z-index: 10;
     border-radius: 50%;
-    box-shadow: 2px 8px 16px #AA14F0;
+    box-shadow: 2px 8px 16px #D1E9F6;
     transform: translateY(100px); /* Vị trí khởi đầu ngoài màn hình */
     opacity: 0; /* Vô hình */
     transition: transform 1s ease, opacity 0.5s ease; /* Hiệu ứng chuyển tiếp */
+    position: sticky;
+    bottom: 10px;
 }
 
 /* Hiệu ứng fly-in khi vào viewport */
@@ -60,7 +64,7 @@
 .img-thumb {
     border-radius: 30px;
   
-    box-shadow: 4px 8px 16px #AA14F0;
+    box-shadow: 4px 8px 16px #D1E9F6;
     transform: translateY(-100px); /* Vị trí khởi đầu ngoài màn hình */
     opacity: 0; /* Vô hình */
     transition: transform 1s ease, opacity 0.5s ease; /* Hiệu ứng chuyển tiếp */
@@ -93,15 +97,16 @@
     height: 50px;
     border-radius:40px ;
     font-size:0.8em ;
-    color: #AA14F0;
-    background-color: #000;
+    color: #000;
+    background-color: #fff;
     font-weight: bold;
     
 }
 .try:hover{
     transform: scale(1.1); /* Zoom logo lên 10% */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Thêm bóng đổ */
+    box-shadow: 0 4px 15px rgb(244, 245, 246); /* Thêm bóng đổ */
     
+   
 }
 .img-thumb-1 {
     width: 230px;
@@ -151,9 +156,9 @@
    
 }
 .clone-ing-thumb-title{
-    box-shadow: 0 8px 16px #AA14F0 ;
-    background: -webkit-linear-gradient(to right,  #AA14F0,violet, #BC8CF2);
-	background: linear-gradient(to right bottom,  #AA14F0,violet, #BC8CF2);
+    /* box-shadow: 0 8px 16px #D1E9F6 ; */
+    /* background: -webkit-linear-gradient(to right,  #EECAD5, #F1D3CE,#D1E9F6);
+    background: linear-gradient(to top right, #EECAD5,#F6EACB,#D1E9F6); */
 
 }
 .clone-ing-thumb-title.animate, .title-container.animate {
@@ -215,11 +220,11 @@
 .clone-para {
     width: 1000px;
     height: 1000px;
-    background: linear-gradient(to right,  #AA14F0,violet, #BC8CF2);
+    background: linear-gradient(to top right, #EECAD5, #F1D3CE,#F6EACB,#D1E9F6);
     border-radius: 50%;
     grid-column: 10 / 14;
     grid-row: 7 / 8;
-    box-shadow: -8px -8px 16px #AA14F0;
+    box-shadow: -8px -8px 16px #D1E9F6;
     align-items: center;
     justify-content: center;
     margin-left: 20px;
@@ -230,13 +235,113 @@
 
 
 
-.reason-container {
+.booking-container {
     
     z-index: 15;
     width: 100%;
     height: 800px;
-    background-color: #eee;
-    
+   
+    position: relative;
+    justify-content: center;
+    display: flex;
+}
+.circle-object{
+  
+    /* background: linear-gradient(to top right, #EECAD5, #F1D3CE,#F6EACB,#D1E9F6); */
+    background-color: #fff;
+    width: 1200px;
+    height: 1200px;
+    border-radius: 80%;
+    position:absolute   ;
+    top: 35%;
+    left:10%;
+    /* box-shadow: 8px -8px 16px #AA14F0 ; */
+    z-index: 20;
+
+   
+}
+.booking-container-lit{
+    margin-top: 60px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: start;
+    z-index: 50;
+    top: 35%;
+    align-items: center;
     
 }
+.booking-text{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 50px;
+    
+}
+.booking-text h1{
+    padding: 20px auto;
+    font-size: 2.9em;
+    color: #000;
+}
+.book-us-container{
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    width: 100%;
+   
+}
+.reason-box {
+    width: 250px;
+    background: #fff;
+    border: 5px solid #F1D3CE;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 20px;
+}
 
+
+.reason-box:hover  {
+    transform: scale(1.1); /* Zoom logo lên 10% */
+    box-shadow: 0 4px 15px rgba(217, 223, 230, 0.36); /* Thêm bóng đổ */
+
+}
+.reason-text{
+    margin-bottom: 5px;
+    margin-top: 20px;
+    font-family: Open Sans;
+    color: #000;
+}
+.reason-acti{
+    margin-bottom: 15px;
+    font-size: 1.3em;
+     color: #000;
+}
+
+.try2{
+    color: #000;
+    width: 180px;
+    height: 50px;
+    border-radius:40px ;
+    font-size:0.8em ;
+    background-color: #fff;
+    font-weight: bold;
+}
+.booking-container-lit a{
+
+    width: 180px;
+   
+    margin-top: 80px;
+    font-weight: bold;
+    font-size: 1.6em;
+    
+    text-decoration: none;
+   
+}
+.booking-container-lit a :hover{
+    transform: scale(1.1); /* Zoom logo lên 10% */
+    box-shadow: 0 4px 15px rgb(244, 245, 246); /* Thêm bóng đổ */
+}
