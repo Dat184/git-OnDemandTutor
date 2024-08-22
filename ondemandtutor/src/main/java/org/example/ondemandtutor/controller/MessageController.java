@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/messages")
+@RequestMapping("/api/messages")
 public class MessageController {
 
     @Autowired
@@ -27,5 +27,10 @@ public class MessageController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    @DeleteMapping("/{messageId}")
+    public ResponseEntity<Message> deleteMessage(@PathVariable Long messageId) {
+        Message message = messageService.deleteMessage(messageId);
+        return ResponseEntity.ok(message);
     }
 }

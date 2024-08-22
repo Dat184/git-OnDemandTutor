@@ -1,21 +1,20 @@
-package org.example.ondemandtutor.pojo;
+package org.example.ondemandtutor.dto.response;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
+@AllArgsConstructor
 public class ResponseObject {
     private String status;
     private String message;
     private Object data;
 
-    public ResponseObject() {}
-
-    public ResponseObject(String status, String message, Object data) {
+    public ResponseObject(String status, String message) {
         this.status = status;
         this.message = message;
-        this.data = data;
     }
 }

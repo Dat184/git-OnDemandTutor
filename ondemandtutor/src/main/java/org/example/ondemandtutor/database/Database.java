@@ -1,9 +1,6 @@
 package org.example.ondemandtutor.database;
 
 
-import org.example.ondemandtutor.pojo.*;
-import org.example.ondemandtutor.repository.AdminLogRepository;
-import org.example.ondemandtutor.repository.StudentRepository;
 import org.example.ondemandtutor.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -43,4 +43,11 @@ public class MessageService {
         return messageRepository.findById(messageId)
                 .orElseThrow(() -> new IllegalArgumentException("Message not found"));
     }
+
+    public Message deleteMessage(Long messageId) {
+        Message message = messageRepository.findById(messageId)
+                .orElseThrow(() -> new IllegalArgumentException("Message not found"));
+        messageRepository.delete(message);
+        return message;
+    }
 }

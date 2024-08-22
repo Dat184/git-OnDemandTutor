@@ -1,8 +1,7 @@
 package org.example.ondemandtutor.controller;
 
 import org.example.ondemandtutor.pojo.Review;
-import org.example.ondemandtutor.pojo.ResponseObject;
-import org.example.ondemandtutor.repository.ReviewRepository;
+import org.example.ondemandtutor.service.ReivewSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,62 +15,33 @@ import java.util.Optional;
 public class ReviewController {
 
     @Autowired
-    private ReviewRepository reviewRepository;
+    private ReivewSerivce reivewSerivce;
 
     @GetMapping("")
-    public List<Review> getAllReviews() {
-        return reviewRepository.findAll();
+    public ResponseEntity<List<Review>> getAllReviews() {
+        return ResponseEntity.ok(reivewSerivce.getAllReviews());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseObject> findReviewById(@PathVariable long id) {
-        Optional<Review> foundReview = reviewRepository.findById(id);
-        return foundReview.isPresent() ?
-                ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponseObject("ok", "Query review successfully", foundReview)
-                ) :
-                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        new ResponseObject("failed", "Cannot find Review with id = " + id, "")
-                );
+    public ResponseEntity<Optional<Review>> getReviewById(@PathVariable Long id) {
+        return ResponseEntity.ok(reivewSerivce.getReviewById(id));
     }
 
-    @PostMapping("/insert")
-    public ResponseEntity<ResponseObject> insertReview(@RequestBody Review newReview) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("ok", "Insert review successfully", reviewRepository.save(newReview))
-        );
+    @PostMapping("/create")
+    public ResponseEntity<Review> createReview(@RequestBody Review review) {
+        Review savedReview = reivewSerivce.createReview(review);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedReview);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseObject> updateReview(@PathVariable long id, @RequestBody Review newReview) {
-        Review updatedReview = reviewRepository.findById(id)
-                .map(review -> {
-                    review.setRating(newReview.getRating());
-                    review.setComment(newReview.getComment());
-                    review.setCreatedAt(newReview.getCreatedAt());
-                    review.setBooking(newReview.getBooking());
-                    return reviewRepository.save(review);
-                }).orElseGet(() -> {
-                    newReview.setId(id);
-                    return reviewRepository.save(newReview);
-                });
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("ok", "Update review successfully", updatedReview)
-        );
+    public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody Review review) {
+        Review updatedReview = reivewSerivce.updateReview(review);
+        return ResponseEntity.ok(updatedReview);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseObject> deleteReview(@PathVariable long id) {
-        boolean exists = reviewRepository.existsById(id);
-        if (exists) {
-            reviewRepository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("ok", "Delete review successfully", "")
-            );
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("failed", "Cannot find Review with id = " + id, "")
-            );
-        }
+    public ResponseEntity<Review> deleteReview(@PathVariable Long id) {
+        reivewSerivce.deleteReview(id);
+        return ResponseEntity.ok().build();
     }
 }
