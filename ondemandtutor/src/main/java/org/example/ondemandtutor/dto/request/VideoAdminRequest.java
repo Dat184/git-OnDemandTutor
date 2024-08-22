@@ -3,11 +3,10 @@ package org.example.ondemandtutor.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
+import org.example.ondemandtutor.pojo.ApprovalStatus;
 @AllArgsConstructor
 @Getter
 @Setter
-public class BookingRequest {
-    private Long studentId;
-    private Long tutorServiceId;
+public class VideoAdminRequest {
+    private ApprovalStatus status;
 }

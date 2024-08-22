@@ -1,8 +1,10 @@
 package org.example.ondemandtutor.controller;
 
+import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.pojo.TutorAvailability;
 import org.example.ondemandtutor.service.TutorAvailabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,25 +23,50 @@ public class TutorAvailabilityController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TutorAvailability> getTutorAvailabilityById(@PathVariable Long id) {
-        return tutorAvailabilityService.getTutorAvailabilityById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ResponseObject> getTutorAvailabilityById(@PathVariable Long id) {
+        try {
+            TutorAvailability tutorAvailability = tutorAvailabilityService.getTutorAvailabilityById(id);
+            ResponseObject response = new ResponseObject("success", "TutorAvailability found", tutorAvailability);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            ResponseObject response = new ResponseObject("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 
-    @PostMapping
-    public TutorAvailability createTutorAvailability(@RequestBody TutorAvailability tutorAvailability) {
-        return tutorAvailabilityService.createTutorAvailability(tutorAvailability);
+    @PostMapping("/create")
+    public ResponseEntity<ResponseObject> createTutorAvailability(@RequestBody TutorAvailability tutorAvailability) {
+        try {
+            TutorAvailability newTutorAvailability = tutorAvailabilityService.createTutorAvailability(tutorAvailability);
+            ResponseObject response = new ResponseObject("success", "TutorAvailability created", newTutorAvailability);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (IllegalArgumentException e) {
+            ResponseObject response = new ResponseObject("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TutorAvailability> updateTutorAvailability(@PathVariable Long id, @RequestBody TutorAvailability tutorAvailabilityDetails) {
-        return ResponseEntity.ok(tutorAvailabilityService.updateTutorAvailability(id, tutorAvailabilityDetails));
+    public ResponseEntity<ResponseObject> updateTutorAvailability(@PathVariable Long id, @RequestBody TutorAvailability tutorAvailability) {
+        try {
+            TutorAvailability updatedTutorAvailability = tutorAvailabilityService.updateTutorAvailability(id, tutorAvailability);
+            ResponseObject response = new ResponseObject("success", "TutorAvailability updated", updatedTutorAvailability);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            ResponseObject response = new ResponseObject("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTutorAvailability(@PathVariable Long id) {
-        tutorAvailabilityService.deleteTutorAvailability(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<ResponseObject> deleteTutorAvailability(@PathVariable Long id) {
+        try {
+            tutorAvailabilityService.deleteTutorAvailability(id);
+            ResponseObject response = new ResponseObject("success", "TutorAvailability deleted");
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            ResponseObject response = new ResponseObject("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 }

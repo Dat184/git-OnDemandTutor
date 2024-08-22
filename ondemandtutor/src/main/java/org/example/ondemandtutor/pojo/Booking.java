@@ -33,5 +33,5 @@ public class Booking {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_book", nullable = false)
-    private StatusBook statusBook;
+    private StatusBook statusBook = StatusBook.Unpaid;
 }

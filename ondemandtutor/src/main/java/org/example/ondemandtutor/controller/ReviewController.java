@@ -1,7 +1,9 @@
 package org.example.ondemandtutor.controller;
 
+import org.example.ondemandtutor.dto.request.ReviewRequest;
+import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.pojo.Review;
-import org.example.ondemandtutor.service.ReivewSerivce;
+import org.example.ondemandtutor.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,7 @@ import java.util.Optional;
 public class ReviewController {
 
     @Autowired
-    private ReivewSerivce reivewSerivce;
+    private ReviewService reivewSerivce;
 
     @GetMapping("")
     public ResponseEntity<List<Review>> getAllReviews() {
@@ -28,20 +30,36 @@ public class ReviewController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Review> createReview(@RequestBody Review review) {
-        Review savedReview = reivewSerivce.createReview(review);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedReview);
+    public ResponseEntity<ResponseObject> createReview(@RequestBody ReviewRequest review) {
+        try {
+            reivewSerivce.createReview(review);
+            return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject("success", "Review created successfully"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject("error", "Review not created"));
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody Review review) {
-        Review updatedReview = reivewSerivce.updateReview(review);
-        return ResponseEntity.ok(updatedReview);
+    public ResponseEntity<ResponseObject> updateReview(@PathVariable Long id, @RequestBody ReviewRequest review) {
+        try {
+            reivewSerivce.updateReview(review, id);
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("success", "Review updated successfully"));
+        } catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("error", e.getMessage()));
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject("error", "Review not updated"));
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Review> deleteReview(@PathVariable Long id) {
-        reivewSerivce.deleteReview(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ResponseObject> deleteReview(@PathVariable Long id) {
+        try {
+            reivewSerivce.deleteReview(id);
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("success", "Review deleted successfully"));
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject("error", "Review not deleted"));
+        }
     }
 }

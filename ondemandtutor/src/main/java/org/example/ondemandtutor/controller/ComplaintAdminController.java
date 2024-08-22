@@ -31,9 +31,15 @@ public class ComplaintAdminController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Complaint> getComplaintById(@PathVariable Long id) {
-        Complaint complaint = complaintAdminService.getComplaintById(id);
-        return ResponseEntity.ok().body(complaint);
+    public ResponseEntity<ResponseObject> getComplaintById(@PathVariable Long id) {
+        try{
+            Complaint complaint = complaintAdminService.getComplaintById(id);
+            ResponseObject response = new ResponseObject("success", "Complaint found", complaint);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (IllegalArgumentException e) {
+            ResponseObject response = new ResponseObject("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
     }
 
     @PutMapping("/{id}")

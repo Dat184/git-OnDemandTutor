@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TutorAvailabilityService {
@@ -18,8 +17,8 @@ public class TutorAvailabilityService {
         return tutorAvailabilityRepository.findAll();
     }
 
-    public Optional<TutorAvailability> getTutorAvailabilityById(Long id) {
-        return tutorAvailabilityRepository.findById(id);
+    public TutorAvailability getTutorAvailabilityById(Long id) {
+        return tutorAvailabilityRepository.findById(id).orElseThrow();
     }
 
     public TutorAvailability createTutorAvailability(TutorAvailability tutorAvailability) {

@@ -47,14 +47,4 @@ public class Message {
     @ManyToOne(optional = false)
     @JoinColumn(name = "chat_id", nullable = false)
     private Chat chat;
-
-    public Message(LocalDateTime createdAt, String messageText, byte[] fileData, String fileName, String fileType, User sender, Chat chat) {
-        this.createdAt = createdAt;
-        this.messageText = messageText;
-        this.fileData = fileData;
-        this.fileName = fileName;
-        this.fileType = fileType;
-        this.sender = sender;
-        this.chat = chat;
-    }
 }

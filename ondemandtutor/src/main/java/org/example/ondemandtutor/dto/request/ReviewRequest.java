@@ -7,7 +7,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class BookingRequest {
-    private Long studentId;
-    private Long tutorServiceId;
+public class ReviewRequest {
+    private Long BookingId;
+    private Double rating;
+    private String comment;
 }
