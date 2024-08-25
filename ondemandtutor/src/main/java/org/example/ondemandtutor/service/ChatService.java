@@ -39,30 +39,12 @@ public class ChatService {
         Chat chat = new Chat();
         chat.setTutor(tutor);
         chat.setStudent(student);
-        Chat savedChat = chatRepository.save(chat);
-        // Trả về phòng chat mới tạo
-        return savedChat;
+        return chatRepository.save(chat);
     }
 
-
-    public Chat getChatById(Long chatId) {
-        return chatRepository.findById(chatId)
-                .orElseThrow(() -> new IllegalArgumentException("Chat not found"));
-    }
-
-    public void deleteChat(Long chatId) {
+    public void deleteChatById(Long chatId) {
         Chat chat = chatRepository.findById(chatId)
                 .orElseThrow(() -> new IllegalArgumentException("Chat not found"));
         chatRepository.delete(chat);
-    }
-
-    // Kiểm tra chat đã tồn tại chưa
-    public boolean chatExists(Long tutorId, Long studentId) {
-        Tutor tutor = tutorRepository.findById(tutorId)
-                .orElseThrow(() -> new IllegalArgumentException("Tutor not found"));
-        Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new IllegalArgumentException("Student not found"));
-
-        return chatRepository.findByTutorAndStudent(tutor, student).isPresent();
     }
 }

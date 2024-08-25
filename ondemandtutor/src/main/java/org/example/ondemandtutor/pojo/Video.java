@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @Entity
@@ -23,19 +21,18 @@ public class Video {
     @ManyToOne(optional = false)
     @JoinColumn(name = "tutor_id", nullable = false)
     private Tutor tutor;
-    private String videoUrl;
+
+    private String name;
+    private String type;
+
+    @Lob
+    @Column(name = "video_data")
+    private byte[] videoData;
+
     private String title;
     private String description;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "approval_status", nullable = false)
-    private ApprovalStatus approvalStatus;
-
-    public Video(Tutor tutor, String videoUrl, String title, String description, ApprovalStatus approvalStatus) {
-        this.tutor = tutor;
-        this.videoUrl = videoUrl;
-        this.title = title;
-        this.description = description;
-        this.approvalStatus = approvalStatus;
-    }
+    private ApprovalStatus approvalStatus = ApprovalStatus.Pending;
 }

@@ -1,6 +1,6 @@
 package org.example.ondemandtutor.controller;
 
-import org.example.ondemandtutor.pojo.ResponseObject;
+import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.pojo.Tutor;
 import org.example.ondemandtutor.repository.TutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;

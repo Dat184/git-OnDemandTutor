@@ -3,6 +3,7 @@ package org.example.ondemandtutor.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
@@ -12,7 +13,5 @@ public class MessageRequest {
     private Long tutorId;
     private Long studentId;
     private String messageText;
-    private byte[] fileData;
-    private String fileName;
-    private String fileType;
+    private MultipartFile file;
 }

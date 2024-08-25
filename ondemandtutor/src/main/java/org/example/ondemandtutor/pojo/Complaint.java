@@ -30,13 +30,6 @@ public class Complaint {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private Status status = Status.Unresolved;
 
-    public Complaint(User user, String complaintType, String content, String response, Status status) {
-        this.user = user;
-        this.complaintType = complaintType;
-        this.content = content;
-        this.response = response;
-        this.status = status;
-    }
 }

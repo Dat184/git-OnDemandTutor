@@ -1,89 +1,70 @@
 package org.example.ondemandtutor.controller;
 
+import org.example.ondemandtutor.dto.request.ComplaintUserRequest;
+import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.pojo.Complaint;
-import org.example.ondemandtutor.pojo.ResponseObject;
-import org.example.ondemandtutor.pojo.Status;
-import org.example.ondemandtutor.repository.ComplaintRepository;
+import org.example.ondemandtutor.service.ComplaintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/complaint")
 public class ComplaintController {
 
     @Autowired
-    private ComplaintRepository complaintRepository;
-
-    @GetMapping("")
-    public List<Complaint> getAllComplaints() {
-        return complaintRepository.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseObject> findById(@PathVariable long id) {
-        Optional<Complaint> foundComplaint = complaintRepository.findById(id);
-        return foundComplaint.isPresent() ?
-                ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponseObject("ok", "Query complaint successfully", foundComplaint)
-                ) :
-                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        new ResponseObject("failed", "Cannot find Complaint with id = " + id, "")
-                );
-    }
+    private ComplaintService complaintService;
 
     @GetMapping("/user/{userId}")
-    public List<Complaint> findByUserId(@PathVariable long userId) {
-        return complaintRepository.findByUserId(userId);
+    public ResponseEntity<List<Complaint>> getComplaintByUserId(@PathVariable long userId) {
+        List<Complaint> complaints = complaintService.getComplaintByUserId(userId);
+        return ResponseEntity.ok().body(complaints);
     }
 
-    @GetMapping("/status/{status}")
-    public List<Complaint> findByStatus(@PathVariable Status status) {
-        return complaintRepository.findByStatus(status);
-    }
+    @PostMapping("/create")
+    public ResponseEntity<ResponseObject> submitComplaint(@RequestBody ComplaintUserRequest complaint) {
+        try{
+            complaintService.submitComplaint(complaint);
+            ResponseObject response = new ResponseObject("success", "Complaint submitted successfully");
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (IllegalArgumentException e) {
+            ResponseObject response = new ResponseObject("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+        catch (Exception e) {
+            ResponseObject response = new ResponseObject("error", "Complaint not submitted");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
 
-    @PostMapping("/insert")
-    public ResponseEntity<ResponseObject> insertComplaint(@RequestBody Complaint newComplaint) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("ok", "Insert complaint successfully", complaintRepository.save(newComplaint))
-        );
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseObject> updateComplaint(@PathVariable long id, @RequestBody Complaint newComplaint) {
-        Complaint updatedComplaint = complaintRepository.findById(id)
-                .map(complaint -> {
-                    complaint.setUser(newComplaint.getUser());
-                    complaint.setComplaintType(newComplaint.getComplaintType());
-                    complaint.setContent(newComplaint.getContent());
-                    complaint.setResponse(newComplaint.getResponse());
-                    complaint.setStatus(newComplaint.getStatus());
-                    return complaintRepository.save(complaint);
-                }).orElseGet(() -> {
-                    newComplaint.setId(id);
-                    return complaintRepository.save(newComplaint);
-                });
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("ok", "Update complaint successfully", updatedComplaint)
-        );
+    public ResponseEntity<ResponseObject> updateComplaint(@PathVariable long id, @RequestBody ComplaintUserRequest complaintRequest) {
+        try {
+            complaintService.updateComplaint(id, complaintRequest);
+            ResponseObject response = new ResponseObject("success", "Complaint updated successfully");
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (IllegalArgumentException e) {
+            ResponseObject response = new ResponseObject("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        } catch (Exception e) {
+            ResponseObject response = new ResponseObject("error", "Complaint not updated");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject> deleteComplaint(@PathVariable long id) {
-        boolean exists = complaintRepository.existsById(id);
-        if (exists) {
-            complaintRepository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("ok", "Delete complaint successfully", "")
-            );
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("failed", "Cannot find Complaint with id = " + id, "")
-            );
+        try {
+            complaintService.deleteComplaint(id);
+            ResponseObject response = new ResponseObject("success", "Complaint deleted successfully");
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            ResponseObject response = new ResponseObject("error", "Complaint not deleted");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 }

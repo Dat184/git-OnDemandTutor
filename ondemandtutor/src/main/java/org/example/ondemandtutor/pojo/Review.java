@@ -31,11 +31,4 @@ public class Review {
     @Column(name = "created_at")
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime createdAt;
-
-    public Review(Booking booking, Double rating, String comment, LocalDateTime createdAt) {
-        this.booking = booking;
-        this.rating = rating;
-        this.comment = comment;
-        this.createdAt = createdAt;
-    }
 }

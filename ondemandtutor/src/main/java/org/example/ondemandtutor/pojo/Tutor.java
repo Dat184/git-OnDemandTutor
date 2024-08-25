@@ -35,9 +35,6 @@ public class Tutor {
     @JsonBackReference
     private User user;
 
-    @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TutorAvailability> tutorAvailabilities = new ArrayList<>();
-
     public Tutor(String name, String degree, String specialty, String bio, Double rating, User user, String profilePicture) {
         this.name = name;
         this.degree = degree;

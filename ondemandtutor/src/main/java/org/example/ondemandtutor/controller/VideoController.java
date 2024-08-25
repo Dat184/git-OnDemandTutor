@@ -1,79 +1,92 @@
 package org.example.ondemandtutor.controller;
 
-import org.example.ondemandtutor.pojo.ResponseObject;
+import org.example.ondemandtutor.dto.request.VideoRequest;
+import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.pojo.Video;
-import org.example.ondemandtutor.repository.VideoRepository;
+import org.example.ondemandtutor.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/api/video")
+@RequestMapping(path = "/api/videos")
 public class VideoController {
 
     @Autowired
-    private VideoRepository videoRepository;
+    private VideoService videoService;
 
-    @GetMapping("")
-    public List<Video> getAllVideos() {
-        return videoRepository.findAll();
+    @PostMapping("/upload")
+    public ResponseEntity<ResponseObject> uploadVideo(
+            @RequestParam("tutorId") Long tutorId,
+            @RequestParam("title") String title,
+            @RequestParam("description") String description,
+            @RequestParam("videoData") MultipartFile videoData) {
+        try {
+            VideoRequest videoRequest = new VideoRequest(tutorId, title, description, videoData);
+            videoService.uploadVideo(videoRequest);
+            ResponseObject response = new ResponseObject("success", "Video uploaded successfully");
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (IOException e) {
+            ResponseObject response = new ResponseObject("error", "Failed to upload video");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        } catch (Exception e) {
+            ResponseObject response = new ResponseObject("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
+    @GetMapping("/approved")
+    public ResponseEntity<List<Video>> getApprovedVideos() {
+        List<Video> videos = videoService.getApprovedVideos();
+        return ResponseEntity.ok().body(videos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseObject> findVideoById(@PathVariable long id) {
-        Optional<Video> foundVideo = videoRepository.findById(id);
-        return foundVideo.isPresent() ?
-                ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponseObject("ok", "Query video successfully", foundVideo)
-                ) :
-                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        new ResponseObject("failed", "Cannot find Video with id = " + id, "")
-                );
-    }
-
-    @PostMapping("/insert")
-    public ResponseEntity<ResponseObject> insertVideo(@RequestBody Video newVideo) {
-        Video savedVideo = videoRepository.save(newVideo);
-        return ResponseEntity.status(HttpStatus.CREATED).body(
-                new ResponseObject("ok", "Insert video successfully", savedVideo)
-        );
+    public ResponseEntity<ResponseObject> getVideoById(@PathVariable Long id) {
+        try {
+            Video video = videoService.getVideoById(id);
+            ResponseObject response = new ResponseObject("success", "Video found", video);
+            return ResponseEntity.ok().body(response);
+        } catch (RuntimeException e) {
+            ResponseObject response = new ResponseObject("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseObject> updateVideo(@PathVariable long id, @RequestBody Video newVideo) {
-        Video updatedVideo = videoRepository.findById(id)
-                .map(video -> {
-                    video.setVideoUrl(newVideo.getVideoUrl());
-                    video.setTitle(newVideo.getTitle());
-                    video.setDescription(newVideo.getDescription());
-                    video.setApprovalStatus(newVideo.getApprovalStatus());
-                    video.setTutor(newVideo.getTutor());
-                    return videoRepository.save(video);
-                }).orElseGet(() -> {
-                    newVideo.setId(id);
-                    return videoRepository.save(newVideo);
-                });
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("ok", "Update video successfully", updatedVideo)
-        );
+    public ResponseEntity<ResponseObject> updateVideoById(
+            @PathVariable Long id,
+            @RequestParam("title") String title,
+            @RequestParam("description") String description,
+            @RequestParam("videoData") MultipartFile videoData) {
+        try {
+            VideoRequest videoRequest = new VideoRequest(null, title, description, videoData);
+            videoService.updateVideoById(id, videoRequest);
+            ResponseObject response = new ResponseObject("success", "Video updated successfully");
+            return ResponseEntity.ok().body(response);
+        } catch (IOException e) {
+            ResponseObject response = new ResponseObject("error", "Failed to update video");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        } catch (Exception e) {
+            ResponseObject response = new ResponseObject("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseObject> deleteVideo(@PathVariable long id) {
-        boolean exists = videoRepository.existsById(id);
-        if (exists) {
-            videoRepository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("ok", "Delete video successfully", "")
-            );
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("failed", "Cannot find Video with id = " + id, "")
-            );
+    public ResponseEntity<ResponseObject> deleteVideoById(@PathVariable Long id) {
+        try {
+            videoService.deleteVideoById(id);
+            ResponseObject response = new ResponseObject("success", "Video deleted successfully");
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            ResponseObject response = new ResponseObject("error", "Failed to delete video");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 }

@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -25,7 +27,7 @@ public class MessageService {
     @Autowired
     private UserRepository userRepository;
 
-    public Message sendMessage(MessageRequest messageRequest) {
+    public Message sendMessage(MessageRequest messageRequest) throws IOException {
         Chat chat = chatService.createChat(messageRequest.getTutorId(), messageRequest.getStudentId());
         User sender = userRepository.getReferenceById(messageRequest.getSenderId());
         Message message = new Message();
@@ -33,14 +35,19 @@ public class MessageService {
         message.setSender(sender);
         message.setCreatedAt(LocalDateTime.now());
         message.setMessageText(messageRequest.getMessageText());
-        message.setFileData(messageRequest.getFileData());
-        message.setFileName(messageRequest.getFileName());
-        message.setFileType(messageRequest.getFileType());
-
+        if(messageRequest.getFile()!= null) {
+            message.setFileData(messageRequest.getFile().getBytes());
+            message.setFileName(messageRequest.getFile().getOriginalFilename());
+            message.setFileType(messageRequest.getFile().getContentType());
+        }
         return messageRepository.save(message);
     }
-    public Message getMessageById(Long messageId) {
-        return messageRepository.findById(messageId)
-                .orElseThrow(() -> new IllegalArgumentException("Message not found"));
+
+    public List<Message> getMessagesByChatId(Long chatId) {
+        return messageRepository.findByChatId(chatId);
+    }
+
+    public void deleteMessage(Long messageId) {
+        messageRepository.deleteById(messageId);
     }
 }

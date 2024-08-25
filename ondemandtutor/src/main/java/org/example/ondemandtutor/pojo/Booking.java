@@ -1,10 +1,9 @@
 package org.example.ondemandtutor.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "booking")
 public class Booking {
     @Id
@@ -24,25 +24,14 @@ public class Booking {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     @JoinColumn(name = "tutor_service_id", nullable = false)
     private TutorService tutorService;
-
-    @Column(name = "booking_time", nullable = false)
-    private Integer bookingTime;
 
     @Column(name = "total_price", nullable = false)
     private Integer totalPrice;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status_book", nullable = false)
-    private StatusBook statusBook;
-
-    public Booking(Student student, TutorService tutorService, Integer bookingTime, Integer totalPrice, StatusBook statusBook) {
-        this.student = student;
-        this.tutorService = tutorService;
-        this.bookingTime = bookingTime;
-        this.totalPrice = totalPrice;
-        this.statusBook = statusBook;
-    }
+    private StatusBook statusBook = StatusBook.Unpaid;
 }
