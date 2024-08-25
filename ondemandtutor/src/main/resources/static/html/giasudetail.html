@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/giasudetail.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+<link rel="stylesheet" href="../asset/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+
+        <div class="logo-container">
+            <a class="img-logo" href="../html/home.html">
+            <!-- <img class="logo" src="../assets/img/logo/snapedit_17228353747082.png" alt=""> -->
+             <p class="text">LEARN TOgetHER</p>  </a>
+        </div>
+        
+        <div class="navbar-container">
+           
+                <a class="nav-box" href="../html/gioithieu.html">GIỚI THIỆU</a>
+               
+                <a class="nav-box" href="./tutor.html">GIA SƯ 
+                    
+                </a>
+                <a class="nav-box" href="">BẢNG GIÁ</a>
+           
+                <a class="nav-box" href="">DỊCH VỤ
+                  
+                </a>
+        </div>
+        <div class="login-search-container">
+            <div class="search-container">
+                <input id="searchInput" type="text" class="search-box" placeholder="Tìm kiếm...">
+                
+                    <button id="searchButton" class="search-button">    
+                        <i class="search-icon fa-solid fa-magnifying-glass"></i>
+                    </button>
+            </div>
+    
+            <div class="login-container">
+                <a href="modal.html" class="search-link">
+                <button id="loginButton" class="login-button">Đăng nhập</button>
+            </a>
+            <div class="user-info" id="userInfo">
+                <span id="usernameDisplay"></span>
+                <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+                <div id="userDropdown" class="user-dropdown">
+                    <a href="./profile.html" class="sub-menu-link">
+                        <img src="../assets/img/header/profile.png" alt="">
+                        <p>Thông tin cá nhân</p>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="#" id="logoutButton" class="sub-menu-link">
+                        <img src="../assets/img/header/logout.png" alt="">
+                        <p>Đăng xuất</p>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    
+                </div>
+            </div>
+            </div>
+        </div>
+        
+    </header>
+    <div class="tutor-container">
+        <div class="rating-hire-price-container">
+            <div class="tutor-video">
+                <iframe class="videoo" width="300" height="200" src="https://www.youtube.com/embed/bg6wwEJ-HjA?start=12" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+            </div>
+            <div class="price"><strong>giá/buổi: </strong> 50000</div>
+           
+            <div class="rating">
+                <span data-rating="5">★</span>
+                <span data-rating="4">★</span>
+                <span data-rating="3">★</span>
+                <span data-rating="2">★</span>
+                <span data-rating="1">★</span>
+            </div>
+            <div class="tutor-button">
+                <button id="nut">yêu cầu thuê</button>   
+                 <a href=""><button id="nut">gửi tin nhắn</button></a>
+            </div>
+            
+        </div>
+       <div class="container-div">
+       
+        <div class="avatar-name-contaier">
+            <img class="avatar-a" src="https://resources.churchofchrist1830.org/wp-content/uploads/2024/02/generic-bio-avatar.png" alt="">
+            <div class="name-tutor">
+                <h4>ho va ten </h4>
+                <p>monhoc</p>
+                <p>chuc vu:</p>
+                <p>mo ta</p>
+               
+            </div>
+        </div>
+        
+        <div class="about-service-container">
+            <h1>Thông tin dịch vụ</h1>
+            <div class="thongtin"><p>thong tin</p></div>
+        </div>
+        <div class="schedule-container">
+            <div class="header-a">
+                <button class="nav-button" id="prev-week">&lt;</button>
+                <span id="week-label">Aug 11–17, 2024</span>
+                <button class="nav-button" id="next-week">&gt;</button>
+                <select id="timezone-selector">
+                    <option value="Asia/Bangkok">Asia/Bangkok (GMT +7:00)</option>
+                    <!-- Add more timezones as needed -->
+                </select>
+            </div>
+            <div class="schedule-grid" id="schedule">
+                <!-- Schedule slots will be generated here -->
+            </div>
+        </div>
+        <div class="respone-tutor-container">
+            
+            <div class="comment-user">
+                <div class="user-info">
+                    <div class="user-avar">
+                        <img src="https://resources.churchofchrist1830.org/wp-content/uploads/2024/02/generic-bio-avatar.png" >
+                    </div>
+                   <div class="user-name">
+                    <strong>name</strong>
+                    <span>date</span>
+                   </div>
+
+                </div>
+                <div class="rating">
+                    <span data-rating="5">★</span>
+                    <span data-rating="4">★</span>
+                    <span data-rating="3">★</span>
+                    <span data-rating="2">★</span>
+                    <span data-rating="1">★</span>
+                </div>
+
+            </div>
+            <div class="client-comment">
+                <p>Oh great, I just started learning web programming languages. So lucky to know your channel. Hopefully in the future you can create many useful videos like this for everyone learning programming </p>
+            </div>
+        </div>
+
+    </div>
+   
+    </div>
+    <footer>
+
+        <div class="footer-container">
+        <div class="socials">
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-google-plus"></i></a>
+            <a href=""><i class="fa-brands fa-youtube"></i></a>
+           </div>
+           <div class="footer-nav">
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+           </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright &copy;2024; Designed by <span class="designer">DL</span></p>
+       </div>
+    </footer>
+    <script src="../js/giasudetail.js"></script>
+    <script src="../js/header.js"></script>
+</body>
+</html>

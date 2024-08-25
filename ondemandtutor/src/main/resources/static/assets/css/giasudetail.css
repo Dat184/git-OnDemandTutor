@@ -1,0 +1,226 @@
+.tutor-container{
+    width: 100%;
+    
+    position: relative;
+    height: 2000px;
+    display: flex;
+    margin: 5px auto;
+    background: linear-gradient(to right bottom  , #F1D3CE, #fff);
+}
+.container-div{
+    width: 1036px;
+  
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    margin-left: 20px;
+    box-shadow: 0 0 5px rgba(44, 42, 42, 0.318);
+    border-radius:15px  ;
+    background-color: #fff;
+}
+.avatar-name-contaier{
+    width: 400px;
+    margin-left: 100px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-top: 100px;
+}
+.avatar-a{
+    width: 100px;
+    height: 100px;
+    margin: 1px auto;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 1px 2px 5px;}
+.name-tutor{
+    
+    width: 60%;
+    font-size: 1.2em;
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+
+.name-tutor h4{
+    font-size: 1.6em;
+    margin:0%;
+   
+}
+.name-tutor p{
+    margin:1%;
+}
+.rating-hire-price-container{
+    position: sticky;
+    width: 400px;
+    height: 390px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    background: linear-gradient(to top right, #EECAD5, #F1D3CE,#F6EACB,#D1E9F6);
+    left: 72%;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(44, 42, 42, 0.318);
+    align-items: center;
+    top: 70px;
+}
+.about-service-container{
+    width: 900px;
+    height: 500px;
+    margin-left: 100px;
+    margin-top: 20px;
+}
+.about-service-container{
+    width: 80%;
+
+}
+.rating {
+    display: flex;
+    direction: row-reverse;
+    justify-content: flex-start;
+  }
+  
+  .rating span {
+    font-size: 2rem;
+    cursor: pointer;
+    color: gray;
+    transition: color 0.3s;
+  }
+  
+  .rating span:hover,
+  .rating span:hover ~ span {
+    color: gold;
+  }
+  
+  .rating span.selected,
+  .rating span.selected ~ span {
+    color: gold;
+  }
+  .tutor-video{
+    padding: 10px;
+    margin-top: 20px;
+   
+  }
+.videoo{
+    border-radius: 15px;
+}
+.tutor-button{
+    width: 80;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+ }
+
+#nut{
+    padding: 15px 30px;
+    font-size: 1em;
+    color: #81767c;
+    background-color: #fff;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}    
+ .price{
+    display: flex;
+    justify-content: start;
+ }
+
+.schedule-container {
+   width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.header-a{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.nav-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.schedule-grid div {
+    text-align: center;
+}
+
+.day-header {
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.time-slot {
+    color: #007BFF;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.time-slot:hover {
+    text-decoration: underline;
+}
+.thongtin{
+    width: 900px;
+    height: 300px;
+    border-top: 1px solid rgba(44, 42, 42, 0.318);
+    
+}.thongtin p{
+   margin: 5px;
+   
+    
+}
+.respone-tutor-container{
+    width: 800px;
+    margin: 30px 100px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+.comment-user{
+    display: flex;
+    justify-content: space-between;
+}
+.user-info{
+    display: flex;
+    
+}
+.user-avar{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.user-avar img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.user-name{
+    display: flex;
+    flex-direction: column;
+}
+.client-comment{
+    white-space: normal;
+    margin-top: 20px;
+    
+}

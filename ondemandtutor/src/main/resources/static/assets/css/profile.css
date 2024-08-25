@@ -32,10 +32,10 @@
   position: relative;
   width: 300px;
   height: 800px;
-  background: #BC8CF2;
+  background: #F1D3CE;
   transition: 0.5s;
   overflow: hidden;
-  border-bottom: 5px solid #AA14F0;
+  border-bottom: 5px solid #EECAD5;
 }
 
 .navigation.active {
@@ -59,7 +59,7 @@
 }
 
 .border {
-  border-top: 5px solid #AA14F0;
+  border-top: 5px solid #EECAD5;
 }
 
 .navigation ul li:hover,

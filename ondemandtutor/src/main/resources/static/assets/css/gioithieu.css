@@ -1,12 +1,12 @@
 /* Container for both sections */
-
+/* background: linear-gradient(to bottom , #fff, #F1D3CE, #fff); */
 
 .container-about {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    color: #eeeeee;
+    color:  #EECAD5;
     width: 100%;
 
     
