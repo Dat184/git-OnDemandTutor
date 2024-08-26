@@ -1,8 +1,8 @@
 package org.example.ondemandtutor.service;
 
-import org.example.ondemandtutor.pojo.TutorAvailability;
+import org.example.ondemandtutor.pojo.TutorAvail;
 import org.example.ondemandtutor.pojo.TutorService;
-import org.example.ondemandtutor.repository.TutorAvailabilityRepository;
+import org.example.ondemandtutor.repository.TutorAvailRepository;
 import org.example.ondemandtutor.repository.TutorServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class TutorServiceService {
     @Autowired
     private TutorServiceRepository tutorServiceRepository;
     @Autowired
-    private TutorAvailabilityRepository tutorAvailabilityRepository;
+    private TutorAvailRepository tutorAvailRepository;
 
     public List<TutorService> getAllTutorServices() {
         return tutorServiceRepository.findAll();
@@ -46,9 +46,9 @@ public class TutorServiceService {
     }
 
     public int getTotalSessionsOfWeek(Long id) {
-        List<TutorAvailability> availabilities = tutorAvailabilityRepository.findByTutorServiceId(id);
+        List<TutorAvail> availabilities = tutorAvailRepository.findByTutorServiceId(id);
         int totalSessions = 0;
-        for (TutorAvailability availability : availabilities) {
+        for (TutorAvail availability : availabilities) {
             if (availability.getMorningAvailable()) {
                 totalSessions++;
             }

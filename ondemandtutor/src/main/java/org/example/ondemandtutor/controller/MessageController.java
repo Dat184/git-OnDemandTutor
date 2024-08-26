@@ -1,5 +1,6 @@
 package org.example.ondemandtutor.controller;
 
+import org.example.ondemandtutor.dto.response.MessageResponse;
 import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.pojo.Message;
 import org.example.ondemandtutor.dto.request.MessageRequest;
@@ -25,20 +26,15 @@ public class MessageController {
             @RequestParam("senderId") Long senderId,
             @RequestParam("tutorId") Long tutorId,
             @RequestParam("studentId") Long studentId,
-            @RequestParam("messageText") String messageText,
+            @RequestParam(value = "messageText", required = false) String messageText,
             @RequestParam(value = "file", required = false) MultipartFile file) {
 
         try {
-            MessageRequest messageRequest = new MessageRequest();
-            messageRequest.setSenderId(senderId);
-            messageRequest.setTutorId(tutorId);
-            messageRequest.setStudentId(studentId);
-            messageRequest.setMessageText(messageText);
-            messageRequest.setFile(file);
+            MessageRequest messageRequest = new MessageRequest(senderId, tutorId, studentId, messageText, file);
 
-            Message message = messageService.sendMessage(messageRequest);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new ResponseObject("success", "Message sent", message));
+            MessageResponse message = messageService.sendMessage(messageRequest);
+            ResponseObject response = new ResponseObject("success", "Message sent", message);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -51,9 +47,14 @@ public class MessageController {
 
     @GetMapping("/{chatId}")
     public ResponseEntity<ResponseObject> getMessagesByChatId(@PathVariable Long chatId) {
-        List<Message> messages = messageService.getMessagesByChatId(chatId);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseObject("success", "Messages retrieved", messages));
+        try {
+            List<MessageResponse> messages = messageService.getMessagesByChatId(chatId);
+            ResponseObject response = new ResponseObject("success", "Messages found", messages);
+            return ResponseEntity.ok().body(response);
+        }  catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ResponseObject("error", e.getMessage()));
+        }
     }
 
     @DeleteMapping("/{messageId}")

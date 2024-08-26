@@ -1,6 +1,7 @@
 package org.example.ondemandtutor.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.pojo.Chat;
 import org.example.ondemandtutor.pojo.Student;
 import org.example.ondemandtutor.pojo.Tutor;
@@ -12,16 +13,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static lombok.AccessLevel.PRIVATE;
 
-@Service
 @RequiredArgsConstructor
+@Service
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class ChatService {
-    @Autowired
-    private final ChatRepository chatRepository;
-    @Autowired
-    private final TutorRepository tutorRepository;
-    @Autowired
-    private final StudentRepository studentRepository;
+    final ChatRepository chatRepository;
+    final TutorRepository tutorRepository;
+    final StudentRepository studentRepository;
 
     // Tạo chat giữa tutor và student
     public Chat createChat(Long tutorId, Long studentId) {

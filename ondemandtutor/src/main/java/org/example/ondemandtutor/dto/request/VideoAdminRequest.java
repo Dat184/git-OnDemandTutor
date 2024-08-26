@@ -1,12 +1,14 @@
 package org.example.ondemandtutor.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.pojo.ApprovalStatus;
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class VideoAdminRequest {
-    private ApprovalStatus status;
+    ApprovalStatus approvalStatus;
 }

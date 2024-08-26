@@ -1,38 +1,35 @@
 package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-@Getter
-@Setter
+@Data
 @Entity
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "video")
 public class Video {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    Long id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "tutor_id", nullable = false)
-    private Tutor tutor;
+    Tutor tutor;
 
-    private String name;
-    private String type;
+    String name;
+    String type;
 
-    @Lob
-    @Column(name = "video_data")
-    private byte[] videoData;
+    @Column(name = "video_url", nullable = false)
+    String videoUrl;
 
-    private String title;
-    private String description;
+    String title;
+    String description;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "approval_status", nullable = false)
-    private ApprovalStatus approvalStatus = ApprovalStatus.Pending;
+    ApprovalStatus approvalStatus = ApprovalStatus.Pending;
 }
