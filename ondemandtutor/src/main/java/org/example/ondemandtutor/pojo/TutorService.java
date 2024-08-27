@@ -2,36 +2,45 @@ package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @Entity
-@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "tutor_service")
 public class TutorService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    Long id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "tutor_id", nullable = false)
-    private Tutor tutor;
+    Tutor tutor;
 
-    @OneToOne(optional = false, orphanRemoval = true)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "subject_id", nullable = false)
-    private Subject subject;
-    private String description;
+    Subject subject;
+
+    String description;
     @Column(name = "session_of_week")
-    private Integer sessionOfWeek = 0;
+    Integer sessionOfWeek = 0;
 
     @Column(name = "time_of_session", nullable = false)
-    private Integer timeOfSession;
+    Integer timeOfSession;
 
     @Column(name = "price_of_session", nullable = false)
-    private Integer priceOfSession;
+    Integer priceOfSession;
+
+    @Column(name = "image_url")
+    String imageUrl;
+
+    String type;
+
+    String name;
 }

@@ -1,64 +1,113 @@
 package org.example.ondemandtutor.service;
 
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.example.ondemandtutor.dto.request.TutorServiceRequest;
+import org.example.ondemandtutor.dto.response.TutorServiceResponse;
+import org.example.ondemandtutor.mapper.TutorServiceMapper;
 import org.example.ondemandtutor.pojo.TutorAvail;
 import org.example.ondemandtutor.pojo.TutorService;
 import org.example.ondemandtutor.repository.TutorAvailRepository;
 import org.example.ondemandtutor.repository.TutorServiceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
+import static lombok.AccessLevel.PRIVATE;
+
+@RequiredArgsConstructor
 @Service
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class TutorServiceService {
-    @Autowired
-    private TutorServiceRepository tutorServiceRepository;
-    @Autowired
-    private TutorAvailRepository tutorAvailRepository;
+    final TutorServiceRepository tutorServiceRepository;
+    final TutorAvailRepository tutorAvailRepository;
+    final TutorServiceMapper tutorServiceMapper;
+    final FirebaseStorageService firebaseStorageService;
 
-    public List<TutorService> getAllTutorServices() {
-        return tutorServiceRepository.findAll();
+    public List<TutorServiceResponse> getAllTutorServices() {
+        return tutorServiceMapper.toTutorServiceResponseList(tutorServiceRepository.findAll());
     }
 
-    public Optional<TutorService> getTutorServiceById(Long id) {
-        return tutorServiceRepository.findById(id);
+    public TutorServiceResponse getTutorServiceById(Long id) {
+        TutorService tutorService = tutorServiceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Tutor service not found"));
+        return tutorServiceMapper.toTutorServiceResponse(tutorService);
     }
 
-    public TutorService createTutorService(TutorService tutorService) {
-        tutorService.setSessionOfWeek(getTotalSessionsOfWeek(tutorService.getId()));
-        return tutorServiceRepository.save(tutorService);
+    public TutorServiceResponse createTutorService(TutorServiceRequest tutorServiceRequest) throws IOException {
+        String imageUrl = null;
+        if (tutorServiceRequest.getImageFile() != null) {
+            String fileName = UUID.randomUUID().toString() + "_" + tutorServiceRequest.getImageFile().getOriginalFilename();
+            InputStream inputStream = tutorServiceRequest.getImageFile().getInputStream();
+            imageUrl = firebaseStorageService.uploadFile(fileName, inputStream, tutorServiceRequest.getImageFile().getContentType());
+        }
+        TutorService tutorService = tutorServiceMapper.toTutorService(tutorServiceRequest);
+        if (imageUrl != null) {
+            tutorService.setName(tutorServiceRequest.getImageFile().getOriginalFilename());
+            tutorService.setType(tutorServiceRequest.getImageFile().getContentType());
+            tutorService.setImageUrl(imageUrl);
+        }
+        TutorService savedTutorService = tutorServiceRepository.save(tutorService);
+        updateTotalSessions(savedTutorService.getId());
+        return tutorServiceMapper.toTutorServiceResponse(savedTutorService);
     }
 
-    public TutorService updateTutorService(Long id, TutorService tutorServiceDetails) {
-        TutorService tutorService = tutorServiceRepository.findById(id).orElseThrow();
-        tutorService.setTutor(tutorServiceDetails.getTutor());
-        tutorService.setSubject(tutorServiceDetails.getSubject());
-        tutorService.setDescription(tutorServiceDetails.getDescription());
-        tutorService.setSessionOfWeek(getTotalSessionsOfWeek(tutorService.getId()));
-        tutorService.setTimeOfSession(tutorServiceDetails.getTimeOfSession());
-        tutorService.setPriceOfSession(tutorServiceDetails.getPriceOfSession());
-        return tutorServiceRepository.save(tutorService);
+    public TutorServiceResponse updateTutorService(Long id, TutorServiceRequest tutorServiceRequest) throws IOException {
+        TutorService tutorService = tutorServiceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Tutor service not found"));
+        if (tutorServiceRequest.getImageFile() != null && !tutorServiceRequest.getImageFile().isEmpty()) {
+            String fileName = UUID.randomUUID().toString() + "_" + tutorServiceRequest.getImageFile().getOriginalFilename();
+            InputStream inputStream = tutorServiceRequest.getImageFile().getInputStream();
+            String imageUrl = firebaseStorageService.uploadFile(fileName, inputStream, tutorServiceRequest.getImageFile().getContentType());
+            tutorService.setName(tutorServiceRequest.getImageFile().getOriginalFilename());
+            tutorService.setType(tutorServiceRequest.getImageFile().getContentType());
+            tutorService.setImageUrl(imageUrl);
+        }
+        tutorServiceMapper.updateTutorServiceFromRequest(tutorServiceRequest, tutorService);
+        TutorService updatedTutorService = tutorServiceRepository.save(tutorService);
+        updateTotalSessions(updatedTutorService.getId());
+        return tutorServiceMapper.toTutorServiceResponse(updatedTutorService);
     }
 
     public void deleteTutorService(Long id) {
+        TutorService tutorService = tutorServiceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Tutor service not found"));
+        if (tutorService.getImageUrl() != null) {
+            firebaseStorageService.deleteFile(tutorService.getImageUrl());
+        }
         tutorServiceRepository.deleteById(id);
     }
 
-    public int getTotalSessionsOfWeek(Long id) {
-        List<TutorAvail> availabilities = tutorAvailRepository.findByTutorServiceId(id);
+
+    public void updateTotalSessions(Long tutorServiceId) {
+        int totalSessions = calculateTotalSessionsForWeek(tutorServiceId);
+        TutorService tutorService = tutorServiceRepository.findById(tutorServiceId)
+                .orElseThrow(() -> new IllegalArgumentException("Tutor service not found"));
+
+        tutorService.setSessionOfWeek(totalSessions);
+        tutorServiceRepository.save(tutorService);
+    }
+
+    private int calculateTotalSessionsForWeek(Long tutorServiceId) {
+        List<TutorAvail> availabilities = tutorAvailRepository.findByTutorServiceId(tutorServiceId);
         int totalSessions = 0;
+
         for (TutorAvail availability : availabilities) {
-            if (availability.getMorningAvailable()) {
+            if (availability.getMorningAvailable() != null && availability.getMorningAvailable()) {
                 totalSessions++;
             }
-            if (availability.getAfternoonAvailable()) {
+            if (availability.getAfternoonAvailable() != null && availability.getAfternoonAvailable()) {
                 totalSessions++;
             }
-            if (availability.getEveningAvailable()) {
+            if (availability.getEveningAvailable() != null && availability.getEveningAvailable()) {
                 totalSessions++;
             }
         }
+
         return totalSessions;
     }
 

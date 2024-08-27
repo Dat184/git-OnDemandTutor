@@ -12,14 +12,14 @@ public class ChatController {
     @Autowired
     private ChatService chatService;
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseObject> deleteChatById(@PathVariable Long id) {
-        try {
-            chatService.deleteChatById(id);
-            return ResponseEntity.ok().body(new ResponseObject("success", "Chat deleted"));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(new ResponseObject("error", e.getMessage()));
-        }
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<ResponseObject> deleteChatById(@PathVariable Long id) {
+//        try {
+//            chatService.deleteChatById(id);
+//            return ResponseEntity.ok().body(new ResponseObject("success", "Chat deleted"));
+//        } catch (IllegalArgumentException e) {
+//            return ResponseEntity.badRequest().body(new ResponseObject("error", e.getMessage()));
+//        }
+//    }
 
 }

@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "booking")
 public class Booking {
@@ -22,7 +23,7 @@ public class Booking {
     Long id;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_id", nullable = false)
     Student student;
 
     @OneToOne(optional = false)
@@ -33,6 +34,6 @@ public class Booking {
     Integer totalPrice;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status_book", nullable = false)
+    @Column(name = "status_book")
     StatusBook statusBook = StatusBook.Unpaid;
 }

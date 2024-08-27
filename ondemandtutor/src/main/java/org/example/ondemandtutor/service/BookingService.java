@@ -10,6 +10,8 @@ import org.example.ondemandtutor.pojo.StatusBook;
 import org.example.ondemandtutor.pojo.TutorService;
 
 import org.example.ondemandtutor.repository.BookingRepository;
+import org.example.ondemandtutor.repository.ReviewRepository;
+import org.example.ondemandtutor.repository.TutorServiceRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,14 +22,15 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class BookingService {
 
-    final TutorServiceService tutorServiceService;
     final BookingRepository bookingRepository;
     final BookingMapper bookingMapper;
-    public BookingResponse createBooking(BookingRequest bookingRequest) {
+    final TutorServiceRepository tutorServiceRepository;
+    final ReviewRepository reviewRepository;
 
+    public BookingResponse createBooking(BookingRequest bookingRequest) {
         Booking booking = bookingMapper.toBooking(bookingRequest);
-        booking.setTotalPrice(getTotalPrice(booking.getId()));
-        return bookingMapper.toBookingResponse(booking);
+        booking.setTotalPrice(getTotalPrice(bookingRequest.getTutorServiceId()));
+        return bookingMapper.toBookingResponse(bookingRepository.save(booking));
     }
 
     public BookingResponse getBookingById(Long id) {
@@ -47,12 +50,10 @@ public class BookingService {
         return bookingMapper.toBookingResponse(bookingRepository.save(booking));
     }
 
-    public int getTotalPrice(Long id){
-        Booking booking = bookingRepository.findById(id).orElseThrow(() -> new RuntimeException("Booking not found"));
-        TutorService tutorService = booking.getTutorService();
-        int sessionsOfWeek = tutorService.getSessionOfWeek();
-        int priceOfSession = tutorService.getPriceOfSession();
-        return sessionsOfWeek * priceOfSession;
+    public int getTotalPrice(Long tutorServiceId) {
+        TutorService tutorService = tutorServiceRepository.findById(tutorServiceId)
+                .orElseThrow(() -> new RuntimeException("Tutor service not found"));
+        return tutorService.getSessionOfWeek() * tutorService.getPriceOfSession();
     }
 
     public List<BookingResponse> findByStudentId(Long studentId) {
@@ -63,5 +64,7 @@ public class BookingService {
 
     public void deleteBooking(Long id){
         bookingRepository.deleteById(id);
+        reviewRepository.deleteByBookingId(id);
+
     }
 }

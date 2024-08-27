@@ -1,36 +1,23 @@
 package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-@Getter
-@Setter
+@Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "subject")
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    Long id;
+
     @Column(name = "name",unique = true, nullable = false)
-    private String name;
-    private String description;
+    String name;
 
-    //constructor
-    public Subject() {}
-
-    public Subject(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return "Subject{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
+    String description;
 }

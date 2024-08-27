@@ -1,48 +1,73 @@
 package org.example.ondemandtutor.service;
 
-import org.example.ondemandtutor.dto.request.ComplaintUserRequest;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.example.ondemandtutor.dto.request.ComplaintAdminRequest;
+import org.example.ondemandtutor.dto.request.ComplaintRequest;
+import org.example.ondemandtutor.dto.response.ComplaintResponse;
+import org.example.ondemandtutor.mapper.ComplaintMapper;
 import org.example.ondemandtutor.pojo.Complaint;
-import org.example.ondemandtutor.pojo.User;
-import org.example.ondemandtutor.repository.ComplaintRepository;
-import org.example.ondemandtutor.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.example.ondemandtutor.pojo.Status;
+import org.example.ondemandtutor.repository.ComplaintRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
-import java.util.Optional;
 
+import static lombok.AccessLevel.PRIVATE;
+
+@RequiredArgsConstructor
 @Service
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class ComplaintService {
+    final ComplaintRepository complaintRepository;
+    final ComplaintMapper complaintMapper;
 
-    @Autowired
-    private ComplaintRepository complaintRepository;
-    @Autowired
-    private UserRepository userRepository;
-
-    public List<Complaint> getComplaintByUserId(Long userId) {
-        return complaintRepository.findByUserId(userId);
+    public List<ComplaintResponse> getComplaintByUserId(Long userId) {
+        List<Complaint> complaints = complaintRepository.findByUserId(userId);
+        return complaintMapper.toComplaintResponseList(complaints);
     }
 
-    public void submitComplaint(ComplaintUserRequest complaintUserRequest) {
-        User user = userRepository.findById(complaintUserRequest.getUserId())
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-        Complaint complaint = new Complaint();
-        complaint.setUser(user);
-        complaint.setComplaintType(complaintUserRequest.getComplaintType());
-        complaint.setContent(complaintUserRequest.getContent());
-        complaintRepository.save(complaint);
+    public ComplaintResponse submitComplaint(ComplaintRequest complaintRequest) {
+        Complaint complaint = complaintMapper.toComplaint(complaintRequest);
+        return complaintMapper.toComplaintResponse(complaintRepository.save(complaint));
     }
 
-    public void updateComplaint(Long id, ComplaintUserRequest complaintUserRequest) {
+    public ComplaintResponse updateComplaint(Long id, ComplaintRequest complaintRequest) {
         Complaint complaint = complaintRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Complaint not found"));
-            complaint.setComplaintType(complaintUserRequest.getComplaintType());
-            complaint.setContent(complaintUserRequest.getContent());
-            complaintRepository.save(complaint);
+        complaintMapper.updateComplaintFromRequest(complaintRequest, complaint);
+        return complaintMapper.toComplaintResponse(complaintRepository.save(complaint));
+    }
 
+    public ComplaintResponse updateComplaintStatus(Long id, ComplaintAdminRequest complaintAdminRequest) {
+        Complaint complaint = complaintRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Complaint not found"));
+        complaint.setStatus(complaintAdminRequest.getStatus());
+        complaint.setResponse(complaintAdminRequest.getResponse());
+        return complaintMapper.toComplaintResponse(complaintRepository.save(complaint));
     }
 
     public void deleteComplaint(Long id) {
         complaintRepository.deleteById(id);
+    }
+
+    public List<ComplaintResponse> getAllComplaints() {
+        return complaintMapper.toComplaintResponseList(complaintRepository.findAll());
+    }
+
+    public ComplaintResponse getComplaintById(Long id) {
+        Complaint complaint = complaintRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Complaint not found"));
+        return complaintMapper.toComplaintResponse(complaint);
+    }
+
+    public List<ComplaintResponse> getComplaintUnresolved() {
+        List<Complaint> complaints = complaintRepository.findByStatus(Status.Unresolved);
+        return complaintMapper.toComplaintResponseList(complaints);
+    }
+
+    public List<ComplaintResponse> getComplaintResolved() {
+        List<Complaint> complaints = complaintRepository.findByStatus(Status.Resolved);
+        return complaintMapper.toComplaintResponseList(complaints);
     }
 }
