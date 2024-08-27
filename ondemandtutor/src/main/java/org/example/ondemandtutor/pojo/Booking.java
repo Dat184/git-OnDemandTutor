@@ -7,10 +7,10 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Data
 @Entity
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -36,4 +36,7 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     @Column(name = "status_book")
     StatusBook statusBook = StatusBook.Unpaid;
+
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<Review> reviews;
 }

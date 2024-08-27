@@ -63,15 +63,15 @@ public class SubjectController {
         }
     }
 
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<ResponseObject> deleteSubject(@PathVariable Long id) {
-//        try {
-//            subjectService.deleteSubject(id);
-//            return ResponseEntity.status(HttpStatus.OK)
-//                    .body(new ResponseObject("ok", "Subject deleted successfully"));
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .body(new ResponseObject("failed", e.getMessage()));
-//        }
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseObject> deleteSubject(@PathVariable Long id) {
+        try {
+            subjectService.deleteSubject(id);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ResponseObject("ok", "Subject deleted successfully"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseObject("failed", e.getMessage()));
+        }
+    }
 }

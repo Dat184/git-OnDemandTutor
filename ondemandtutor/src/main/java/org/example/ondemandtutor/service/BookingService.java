@@ -25,7 +25,6 @@ public class BookingService {
     final BookingRepository bookingRepository;
     final BookingMapper bookingMapper;
     final TutorServiceRepository tutorServiceRepository;
-    final ReviewRepository reviewRepository;
 
     public BookingResponse createBooking(BookingRequest bookingRequest) {
         Booking booking = bookingMapper.toBooking(bookingRequest);
@@ -64,7 +63,5 @@ public class BookingService {
 
     public void deleteBooking(Long id){
         bookingRepository.deleteById(id);
-        reviewRepository.deleteByBookingId(id);
-
     }
 }

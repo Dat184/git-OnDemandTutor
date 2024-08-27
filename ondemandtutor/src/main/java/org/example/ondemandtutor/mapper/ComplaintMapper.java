@@ -11,7 +11,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ComplaintMapper {
-    @Mapping(target = "user.id", source = "userId")
+   @Mapping(target = "user.id", source = "userId")
     Complaint toComplaint(ComplaintRequest complaintRequest);
 
     void updateComplaintFromRequest(ComplaintRequest complaintRequest,@MappingTarget Complaint complaint);

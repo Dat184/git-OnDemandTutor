@@ -4,7 +4,6 @@ import org.example.ondemandtutor.dto.request.SubjectRequest;
 import org.example.ondemandtutor.dto.response.SubjectResponse;
 import org.example.ondemandtutor.pojo.Subject;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.List;

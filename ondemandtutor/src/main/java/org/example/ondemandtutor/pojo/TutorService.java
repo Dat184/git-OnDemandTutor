@@ -5,13 +5,14 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Data
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Data
 @Table(name = "tutor_service")
 public class TutorService {
     @Id
@@ -43,4 +44,7 @@ public class TutorService {
     String type;
 
     String name;
+
+    @OneToMany(mappedBy = "tutorService", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<TutorAvail> tutorAvailabilities;
 }

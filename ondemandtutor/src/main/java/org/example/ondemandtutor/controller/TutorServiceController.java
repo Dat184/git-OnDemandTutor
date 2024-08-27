@@ -84,14 +84,14 @@ public class TutorServiceController {
         }
     }
 
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<ResponseObject> deleteTutorService(@PathVariable Long id) {
-//        try {
-//            tutorServiceService.deleteTutorService(id);
-//            return ResponseEntity.ok(new ResponseObject("success", "Tutor service deleted"));
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .body(new ResponseObject("error", e.getMessage()));
-//        }
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseObject> deleteTutorService(@PathVariable Long id) {
+        try {
+            tutorServiceService.deleteTutorService(id);
+            return ResponseEntity.ok(new ResponseObject("success", "Tutor service deleted"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseObject("error", e.getMessage()));
+        }
+    }
 }

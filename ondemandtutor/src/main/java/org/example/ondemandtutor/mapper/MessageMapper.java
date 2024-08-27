@@ -13,8 +13,8 @@ public interface MessageMapper {
     @Mapping(target = "sender.id", source = "senderId")
     Message toMessage(MessageRequest messageRequest);
 
-    @Mapping(target = "senderId", source = "sender.id")
-    @Mapping(target = "chatId", source = "chat.id")
+   @Mapping(target = "senderId", source = "sender.id")
+   @Mapping(target = "chatId", source = "chat.id")
     MessageResponse toMessageResponse(Message message);
 
 

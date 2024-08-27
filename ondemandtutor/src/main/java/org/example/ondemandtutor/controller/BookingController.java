@@ -64,30 +64,15 @@ public class BookingController {
     }
 
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ResponseObject> updateBookingStatus(@PathVariable long id, @RequestBody StatusBook status) {
-//        try {
-//            BookingResponse bookingResponse = bookingService.updateBookingStatus(id, status);
-//            ResponseObject response = new ResponseObject("success", "Booking status updated successfully", bookingResponse);
-//            return ResponseEntity.status(HttpStatus.OK).body(response);
-//        } catch (IllegalArgumentException e) {
-//            ResponseObject response = new ResponseObject("error", e.getMessage());
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-//        } catch (Exception e) {
-//            ResponseObject response = new ResponseObject("error", "Booking status not updated");
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-//        }
-//    }
-
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<ResponseObject> deleteBooking(@PathVariable Long id) {
-//        try {
-//            bookingService.deleteBooking(id);
-//            ResponseObject response = new ResponseObject("success", "Booking deleted successfully");
-//            return ResponseEntity.status(HttpStatus.OK).body(response);
-//        } catch (Exception e) {
-//            ResponseObject response = new ResponseObject("error", "Booking not deleted");
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-//        }
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseObject> deleteBooking(@PathVariable Long id) {
+        try {
+            bookingService.deleteBooking(id);
+            ResponseObject response = new ResponseObject("success", "Booking deleted successfully");
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            ResponseObject response = new ResponseObject("error", "Booking not deleted");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
 }
