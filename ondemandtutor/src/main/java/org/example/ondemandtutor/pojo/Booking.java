@@ -33,10 +33,6 @@ public class Booking {
     @Column(name = "total_price", nullable = false)
     Integer totalPrice;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status_book")
-    StatusBook statusBook = StatusBook.Unpaid;
-
     @OneToMany(mappedBy = "booking", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<Review> reviews;
 }

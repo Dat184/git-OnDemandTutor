@@ -6,11 +6,9 @@ import org.example.ondemandtutor.dto.request.BookingRequest;
 import org.example.ondemandtutor.dto.response.BookingResponse;
 import org.example.ondemandtutor.mapper.BookingMapper;
 import org.example.ondemandtutor.pojo.Booking;
-import org.example.ondemandtutor.pojo.StatusBook;
 import org.example.ondemandtutor.pojo.TutorService;
 
 import org.example.ondemandtutor.repository.BookingRepository;
-import org.example.ondemandtutor.repository.ReviewRepository;
 import org.example.ondemandtutor.repository.TutorServiceRepository;
 import org.springframework.stereotype.Service;
 
@@ -40,13 +38,6 @@ public class BookingService {
 
     public List<BookingResponse> getAllBookings() {
         return bookingMapper.toBookingResponseList(bookingRepository.findAll());
-    }
-
-    public BookingResponse updateBookingStatus(Long id, StatusBook status) {
-        Booking booking = bookingRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Booking not found"));
-        booking.setStatusBook(status);
-        return bookingMapper.toBookingResponse(bookingRepository.save(booking));
     }
 
     public int getTotalPrice(Long tutorServiceId) {

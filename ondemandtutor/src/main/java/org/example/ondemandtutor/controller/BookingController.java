@@ -3,7 +3,6 @@ package org.example.ondemandtutor.controller;
 import org.example.ondemandtutor.dto.request.BookingRequest;
 import org.example.ondemandtutor.dto.response.BookingResponse;
 import org.example.ondemandtutor.dto.response.ResponseObject;
-import org.example.ondemandtutor.pojo.StatusBook;
 import org.example.ondemandtutor.service.BookingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
