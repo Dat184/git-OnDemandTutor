@@ -11,10 +11,10 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface MessageMapper {
     @Mapping(target = "chat.id", source = "chatId")
-    @Mapping(target = "sender.id", source = "senderId")
+    @Mapping(target = "send.id", source = "sendId")
     Message toMessage(MessageRequest messageRequest);
 
-   @Mapping(target = "senderId", source = "sender.id")
+   @Mapping(target = "sendId", source = "send.id")
    @Mapping(target = "chatId", source = "chat.id")
     MessageResponse toMessageResponse(Message message);
 

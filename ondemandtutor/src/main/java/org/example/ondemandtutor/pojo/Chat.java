@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
@@ -25,5 +27,6 @@ public class Chat {
     @JoinColumn(name = "recipient_id", nullable = false)
     User recipient;
 
-
+    @OneToMany(mappedBy = "chat", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<Message> messages;
 }

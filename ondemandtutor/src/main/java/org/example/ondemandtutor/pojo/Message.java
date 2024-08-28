@@ -31,13 +31,15 @@ public class Message {
     String fileUrl;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "sender_id", nullable = false)
-    User sender;
+    @JoinColumn(name = "send_id", nullable = false)
+    User send;
+
+    String type;
+    String name;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "chat_id", nullable = false)
     Chat chat;
 
-    String type;
-    String name;
+
 }

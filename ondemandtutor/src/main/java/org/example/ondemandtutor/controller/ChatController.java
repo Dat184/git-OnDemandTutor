@@ -3,6 +3,7 @@ package org.example.ondemandtutor.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.ChatRequest;
+import org.example.ondemandtutor.dto.response.ChatResponse;
 import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.pojo.Chat;
 import org.example.ondemandtutor.service.ChatService;
@@ -30,9 +31,9 @@ public class ChatController {
 
     @PostMapping("/create")
     public ResponseEntity<ResponseObject> createChat(@RequestBody ChatRequest chatRequest) {
-        try {
-            Chat chat = chatService.createChat(chatRequest);
-            return ResponseEntity.ok().body(new ResponseObject("success", "Chat created", chat));
+        try{
+            ChatResponse chatResponse = chatService.createChat(chatRequest);
+            return ResponseEntity.ok().body(new ResponseObject("success", "Chat created", chatResponse));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(new ResponseObject("error", e.getMessage()));
         }
