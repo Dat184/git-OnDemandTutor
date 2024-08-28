@@ -1,14 +1,14 @@
 package org.example.ondemandtutor.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ReviewRequest {
-    private Long BookingId;
-    private Double rating;
-    private String comment;
+    Long bookingId;
+    Double rating;
+    String comment;
 }

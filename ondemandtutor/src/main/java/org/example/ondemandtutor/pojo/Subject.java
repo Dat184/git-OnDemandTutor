@@ -1,36 +1,28 @@
 package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-@Getter
-@Setter
+import java.util.List;
+
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "subject")
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
-    @Column(name = "name",unique = true, nullable = false)
-    private String name;
-    private String description;
+    Long id;
 
-    //constructor
-    public Subject() {}
+    @Column(name = "name", unique = true, nullable = false)
+    String name;
 
-    public Subject(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
+    String description;
 
-    @Override
-    public String toString() {
-        return "Subject{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<TutorService> tutorServices;
 }

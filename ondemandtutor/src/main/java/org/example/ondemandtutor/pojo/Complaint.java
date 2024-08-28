@@ -1,13 +1,11 @@
 package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-@Getter
-@Setter
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @NoArgsConstructor
 @ToString
@@ -16,20 +14,20 @@ public class Complaint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    Long id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    User user;
 
     @Column(name = "complaint_type", nullable = false)
-    private String complaintType;
-    private String content;
+    String complaintType;
 
-    private String response;
+    String content;
+    String response;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status = Status.Unresolved;
+    Status status = Status.Unresolved;
 
 }

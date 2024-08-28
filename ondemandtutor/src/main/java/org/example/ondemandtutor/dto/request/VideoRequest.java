@@ -1,16 +1,19 @@
 package org.example.ondemandtutor.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class VideoRequest {
-    private Long tutorId;
-    private String title;
-    private String description;
-    private MultipartFile videoData;
+    Long tutorId;
+    String title;
+    String description;
+    MultipartFile videoData;
+
 }

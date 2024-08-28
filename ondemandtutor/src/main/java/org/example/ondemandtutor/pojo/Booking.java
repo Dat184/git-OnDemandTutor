@@ -3,35 +3,36 @@ package org.example.ondemandtutor.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Getter
-@Setter
 @Entity
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "booking")
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    Long id;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
+    @JoinColumn(name = "student_id", nullable = false)
+    Student student;
 
     @OneToOne(optional = false)
     @JoinColumn(name = "tutor_service_id", nullable = false)
-    private TutorService tutorService;
+    TutorService tutorService;
 
     @Column(name = "total_price", nullable = false)
-    private Integer totalPrice;
+    Integer totalPrice;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status_book", nullable = false)
-    private StatusBook statusBook = StatusBook.Unpaid;
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<Review> reviews;
 }

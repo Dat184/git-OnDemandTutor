@@ -1,8 +1,10 @@
 package org.example.ondemandtutor.controller;
 
+import org.example.ondemandtutor.dto.request.VideoAdminRequest;
 import org.example.ondemandtutor.dto.request.VideoRequest;
 import org.example.ondemandtutor.dto.response.ResponseObject;
-import org.example.ondemandtutor.pojo.Video;
+import org.example.ondemandtutor.dto.response.VideoResponse;
+import org.example.ondemandtutor.pojo.ApprovalStatus;
 import org.example.ondemandtutor.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,8 +30,8 @@ public class VideoController {
             @RequestParam("videoData") MultipartFile videoData) {
         try {
             VideoRequest videoRequest = new VideoRequest(tutorId, title, description, videoData);
-            videoService.uploadVideo(videoRequest);
-            ResponseObject response = new ResponseObject("success", "Video uploaded successfully");
+            VideoResponse videoResponse = videoService.uploadVideo(videoRequest);
+            ResponseObject response = new ResponseObject("success", "Video uploaded successfully", videoResponse);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (IOException e) {
             ResponseObject response = new ResponseObject("error", "Failed to upload video");
@@ -40,16 +42,12 @@ public class VideoController {
         }
     }
 
-    @GetMapping("/approved")
-    public ResponseEntity<List<Video>> getApprovedVideos() {
-        List<Video> videos = videoService.getApprovedVideos();
-        return ResponseEntity.ok().body(videos);
-    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseObject> getVideoById(@PathVariable Long id) {
         try {
-            Video video = videoService.getVideoById(id);
+            VideoResponse video = videoService.getVideoById(id);
             ResponseObject response = new ResponseObject("success", "Video found", video);
             return ResponseEntity.ok().body(response);
         } catch (RuntimeException e) {
@@ -66,8 +64,8 @@ public class VideoController {
             @RequestParam("videoData") MultipartFile videoData) {
         try {
             VideoRequest videoRequest = new VideoRequest(null, title, description, videoData);
-            videoService.updateVideoById(id, videoRequest);
-            ResponseObject response = new ResponseObject("success", "Video updated successfully");
+            VideoResponse videoResponse = videoService.updateVideoById(id, videoRequest);
+            ResponseObject response = new ResponseObject("success", "Video updated successfully", videoResponse);
             return ResponseEntity.ok().body(response);
         } catch (IOException e) {
             ResponseObject response = new ResponseObject("error", "Failed to update video");
@@ -78,15 +76,58 @@ public class VideoController {
         }
     }
 
+    @PutMapping("/approval/{id}")
+    public ResponseEntity<ResponseObject> updateVideoApproval(
+            @PathVariable Long id,
+            @RequestParam("approvalStatus") String approvalStatus) {
+        try {
+            VideoAdminRequest videoAdminRequest = new VideoAdminRequest(ApprovalStatus.valueOf(approvalStatus));
+            VideoResponse videoResponse = videoService.updateVideoApproval(id, videoAdminRequest);
+            ResponseObject response = new ResponseObject("success", "Video approval updated", videoResponse);
+            return ResponseEntity.ok().body(response);
+        } catch (IllegalArgumentException e) {
+            ResponseObject response = new ResponseObject("error", "Invalid approval status");
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject> deleteVideoById(@PathVariable Long id) {
         try {
-            videoService.deleteVideoById(id);
+            videoService.deleteVideo(id);  // Changed method name to match the service
             ResponseObject response = new ResponseObject("success", "Video deleted successfully");
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
             ResponseObject response = new ResponseObject("error", "Failed to delete video");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
+    }
+
+    @GetMapping("")
+    public ResponseEntity<ResponseObject> getVideos() {
+        List<VideoResponse> videos = videoService.getVideos();
+        ResponseObject response = new ResponseObject("success", "All videos retrieved", videos);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/rejections")
+    public ResponseEntity<ResponseObject> getVideoRejections() {
+        List<VideoResponse> videos = videoService.getVideoRejections();
+        ResponseObject response = new ResponseObject("success", "Rejected videos retrieved", videos);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/approvals")
+    public ResponseEntity<ResponseObject> getVideoApprovals() {
+        List<VideoResponse> videos = videoService.getVideoApprovals();
+        ResponseObject response = new ResponseObject("success", "Approved videos retrieved", videos);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/pending")
+    public ResponseEntity<ResponseObject> getVideoPending() {
+        List<VideoResponse> videos = videoService.getVideoPending();
+        ResponseObject response = new ResponseObject("success", "Pending videos retrieved", videos);
+        return ResponseEntity.ok().body(response);
     }
 }

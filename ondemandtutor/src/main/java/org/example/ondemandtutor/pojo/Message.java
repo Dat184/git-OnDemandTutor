@@ -2,16 +2,14 @@ package org.example.ondemandtutor.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @NoArgsConstructor
 @ToString
@@ -20,31 +18,27 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    Long id;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
-    private LocalDateTime createdAt;
+    LocalDateTime createdAt;
 
-    @Lob
     @Column(name = "message_text")
-    private String messageText;
+    String messageText;
 
-    @Lob
-    @Column(name = "file_data")
-    private byte[] fileData;
+    String name;
+    String type;
 
-    @Column(name = "file_name")
-    private String fileName;
-
-    @Column(name = "file_type")
-    private String fileType;
+    @Column(name = "file_url")
+    String fileUrl;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "sender_id", nullable = false)
-    private User sender;
+    User sender;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "chat_id", nullable = false)
-    private Chat chat;
+    Chat chat;
 }

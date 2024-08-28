@@ -1,13 +1,11 @@
 package org.example.ondemandtutor.pojo;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-@Getter
-@Setter
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @NoArgsConstructor
 @ToString
@@ -16,16 +14,14 @@ public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    Long id;
 
-    @ToString.Exclude
     @ManyToOne(optional = false)
     @JoinColumn(name = "tutor_id", nullable = false)
-    private Tutor tutor;
+    Tutor tutor;
 
-    @ToString.Exclude
     @ManyToOne(optional = false)
     @JoinColumn(name = "student_id", nullable = false)
-    private Student student;
+    Student student;
 
 }
