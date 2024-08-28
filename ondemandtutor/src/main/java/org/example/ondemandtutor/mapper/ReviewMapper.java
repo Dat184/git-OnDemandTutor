@@ -11,7 +11,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ReviewMapper {
-    @Mapping(target = "booking.id", source = "bookingId")
+   @Mapping(target = "booking.id", source = "bookingId")
     Review toReview(ReviewRequest reviewRequest);
 
 

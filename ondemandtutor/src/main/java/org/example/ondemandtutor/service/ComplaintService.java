@@ -1,5 +1,6 @@
 package org.example.ondemandtutor.service;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.ComplaintAdminRequest;
@@ -13,14 +14,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static lombok.AccessLevel.PRIVATE;
 
 @RequiredArgsConstructor
 @Service
-@FieldDefaults(level = PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ComplaintService {
-    final ComplaintRepository complaintRepository;
-    final ComplaintMapper complaintMapper;
+    ComplaintRepository complaintRepository;
+    ComplaintMapper complaintMapper;
 
     public List<ComplaintResponse> getComplaintByUserId(Long userId) {
         List<Complaint> complaints = complaintRepository.findByUserId(userId);

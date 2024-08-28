@@ -1,5 +1,6 @@
 package org.example.ondemandtutor.service;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.ReviewRequest;
@@ -7,21 +8,18 @@ import org.example.ondemandtutor.dto.response.ReviewResponse;
 import org.example.ondemandtutor.mapper.ReviewMapper;
 import org.example.ondemandtutor.pojo.Review;
 import org.example.ondemandtutor.repository.ReviewRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
-import static lombok.AccessLevel.PRIVATE;
 
 @RequiredArgsConstructor
 @Service
-@FieldDefaults(level = PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ReviewService {
-    final ReviewRepository reviewRepository;
-    final ReviewMapper reviewMapper;
+    ReviewRepository reviewRepository;
+    ReviewMapper reviewMapper;
     public List<ReviewResponse> getAllReviews() {
         return reviewMapper.toReviewResponseList(reviewRepository.findAll());
     }

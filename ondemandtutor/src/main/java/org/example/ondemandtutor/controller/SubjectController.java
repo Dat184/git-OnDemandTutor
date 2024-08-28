@@ -1,10 +1,12 @@
 package org.example.ondemandtutor.controller;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.SubjectRequest;
 import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.dto.response.SubjectResponse;
 import org.example.ondemandtutor.service.SubjectService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/subject")
+@RequestMapping(path = "/v1/subject")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SubjectController {
 
-    @Autowired
-    private SubjectService subjectService;
+    SubjectService subjectService;
 
     @GetMapping("")
     public ResponseEntity<List<SubjectResponse>> getAllSubjects() {

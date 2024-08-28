@@ -1,13 +1,14 @@
 package org.example.ondemandtutor.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookingRequest {
-    private Long studentId;
-    private Long tutorServiceId;
+    Long studentId;
+    Long tutorServiceId;
 }

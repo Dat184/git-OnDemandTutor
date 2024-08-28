@@ -1,5 +1,6 @@
 package org.example.ondemandtutor.service;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.TutorServiceRequest;
@@ -17,16 +18,14 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
-import static lombok.AccessLevel.PRIVATE;
-
 @RequiredArgsConstructor
 @Service
-@FieldDefaults(level = PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TutorServiceService {
-    final TutorServiceRepository tutorServiceRepository;
-    final TutorAvailRepository tutorAvailRepository;
-    final TutorServiceMapper tutorServiceMapper;
-    final FirebaseStorageService firebaseStorageService;
+    TutorServiceRepository tutorServiceRepository;
+    TutorAvailRepository tutorAvailRepository;
+    TutorServiceMapper tutorServiceMapper;
+    FirebaseStorageService firebaseStorageService;
 
     public List<TutorServiceResponse> getAllTutorServices() {
         return tutorServiceMapper.toTutorServiceResponseList(tutorServiceRepository.findAll());

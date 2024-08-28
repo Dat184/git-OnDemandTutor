@@ -1,5 +1,7 @@
 package org.example.ondemandtutor.controller;
 
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.BookingRequest;
 import org.example.ondemandtutor.dto.response.BookingResponse;
 import org.example.ondemandtutor.dto.response.ResponseObject;
@@ -10,15 +12,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
-@RequestMapping(path = "/api/booking")
+@RequestMapping(path = "/v1/booking")
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
 public class BookingController {
 
-    private final BookingService bookingService;
-
-    public BookingController(BookingService bookingService) {
-        this.bookingService = bookingService;
-    }
+    BookingService bookingService;
 
     @GetMapping("")
     public ResponseEntity<List<BookingResponse>> getAllBookings() {

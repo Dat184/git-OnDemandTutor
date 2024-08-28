@@ -2,6 +2,7 @@ package org.example.ondemandtutor.service;
 
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
@@ -10,13 +11,12 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-import static lombok.AccessLevel.PRIVATE;
 
 @RequiredArgsConstructor
 @Service
-@FieldDefaults(level = PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class FirebaseStorageService {
-    final Bucket bucket;
+    Bucket bucket;
     // Upload file
     public String uploadFile(String fileName, InputStream inputStream, String contentType) throws IOException {
         try {

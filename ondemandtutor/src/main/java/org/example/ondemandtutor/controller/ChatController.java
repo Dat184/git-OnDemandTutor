@@ -1,16 +1,20 @@
 package org.example.ondemandtutor.controller;
 
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.service.ChatService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @RestController
-@RequestMapping(path = "/api/chat")
+@RequestMapping(path = "/v1/chat")
+@RequiredArgsConstructor
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 public class ChatController {
-    @Autowired
-    private ChatService chatService;
+    ChatService chatService;
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject> deleteChatById(@PathVariable Long id) {

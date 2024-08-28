@@ -1,9 +1,11 @@
 package org.example.ondemandtutor.controller;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.pojo.User;
 import org.example.ondemandtutor.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +14,11 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/api/user")
+@RequestMapping(path = "/v1/user")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
-
-    @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @GetMapping("/all")
     public List<User> getAllUsers() {
