@@ -1,6 +1,5 @@
 package org.example.ondemandtutor.service;
 
-import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -32,7 +31,11 @@ public class TutorAvailService {
         return tutorAvailMapper.toTutorAvailResponse(tutorAvail);
     }
 
-    @Transactional
+    public List<TutorAvailResponse> getTutorAvailabilityByTutorServiceId(Long serviceId) {
+        List<TutorAvail> tutorAvail = tutorAvailRepository.findByTutorServiceId(serviceId);
+        return tutorAvailMapper.toTutorAvailResponseList(tutorAvail);
+    }
+
     public TutorAvailResponse createTutorAvailability(TutorAvailRequest tutorAvailRequest) {
         TutorAvail tutorAvail = tutorAvailMapper.toTutorAvail(tutorAvailRequest);
         TutorAvail savedTutorAvail = tutorAvailRepository.save(tutorAvail);
@@ -41,7 +44,7 @@ public class TutorAvailService {
         return tutorAvailMapper.toTutorAvailResponse(savedTutorAvail);
     }
 
-    @Transactional
+
     public TutorAvailResponse updateTutorAvailability(Long id, TutorAvailRequest tutorAvailRequest) {
         TutorAvail tutorAvail = tutorAvailRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Tutor availability not found"));
