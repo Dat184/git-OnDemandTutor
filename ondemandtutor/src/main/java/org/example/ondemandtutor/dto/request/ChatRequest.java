@@ -5,15 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class MessageRequest {
-    Long chatId;
+public class ChatRequest {
     Long senderId;
-    String messageText;
-    MultipartFile file;
+    Long recipientId;
 }

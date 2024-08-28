@@ -1,23 +1,17 @@
 package org.example.ondemandtutor.dto.response;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDateTime;
-
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class MessageResponse {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class ChatResponse {
     Long id;
-    LocalDateTime createdAt;
-    String messageText;
-    String fileUrl;
     Long senderId;
-    Long chatId;
-    String type;
-    String name;
+    Long recipientId;
 }

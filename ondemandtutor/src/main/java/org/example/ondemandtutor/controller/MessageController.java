@@ -25,13 +25,12 @@ public class MessageController {
     @PostMapping("/send")
     public ResponseEntity<ResponseObject> sendMessage(
             @RequestParam("senderId") Long senderId,
-            @RequestParam("tutorId") Long tutorId,
-            @RequestParam("studentId") Long studentId,
+            @RequestParam("chatId") Long chatId ,
             @RequestParam(value = "messageText", required = false) String messageText,
             @RequestParam(value = "file", required = false) MultipartFile file) {
 
         try {
-            MessageRequest messageRequest = new MessageRequest(senderId, tutorId, studentId, messageText, file);
+            MessageRequest messageRequest = new MessageRequest(senderId, chatId, messageText, file);
 
             MessageResponse message = messageService.sendMessage(messageRequest);
             ResponseObject response = new ResponseObject("success", "Message sent", message);

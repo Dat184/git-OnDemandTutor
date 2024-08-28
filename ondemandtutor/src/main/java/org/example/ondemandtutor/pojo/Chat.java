@@ -8,8 +8,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @NoArgsConstructor
-@ToString
+@Builder
 @Table(name = "chat")
+@AllArgsConstructor
 public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,11 +18,12 @@ public class Chat {
     Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "tutor_id", nullable = false)
-    Tutor tutor;
+    @JoinColumn(name = "sender_id", nullable = false)
+    User sender;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "student_id", nullable = false)
-    Student student;
+    @JoinColumn(name = "recipient_id", nullable = false)
+    User recipient;
+
 
 }

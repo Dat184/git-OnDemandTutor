@@ -10,6 +10,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface MessageMapper {
+    @Mapping(target = "chat.id", source = "chatId")
     @Mapping(target = "sender.id", source = "senderId")
     Message toMessage(MessageRequest messageRequest);
 

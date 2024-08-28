@@ -25,23 +25,17 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class MessageService {
     MessageRepository messageRepository;
-    ChatService chatService;
     FirebaseStorageService firebaseStorageService;
     MessageMapper messageMapper;
 
     public MessageResponse sendMessage(MessageRequest messageRequest) throws IOException {
-        Chat chat = chatService.createChat(messageRequest.getTutorId(), messageRequest.getStudentId());
-
         String fileUrl = null;
         if(messageRequest.getFile() != null) {
             String fileName = UUID.randomUUID().toString() + "_" + messageRequest.getFile().getOriginalFilename();
             InputStream inputStream = messageRequest.getFile().getInputStream();
             fileUrl = firebaseStorageService.uploadFile(fileName, inputStream, messageRequest.getFile().getContentType());
         }
-
         Message message = messageMapper.toMessage(messageRequest);
-
-        message.setChat(chat);
         message.setCreatedAt(LocalDateTime.now());
 
         if(fileUrl != null) {
