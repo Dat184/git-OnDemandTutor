@@ -5,12 +5,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.BookingRequest;
 import org.example.ondemandtutor.dto.response.BookingResponse;
+import org.example.ondemandtutor.exception.AppException;
+import org.example.ondemandtutor.exception.ErrorCode;
 import org.example.ondemandtutor.mapper.BookingMapper;
 import org.example.ondemandtutor.pojo.Booking;
+import org.example.ondemandtutor.pojo.Student;
 import org.example.ondemandtutor.pojo.TutorService;
 
+import org.example.ondemandtutor.pojo.User;
 import org.example.ondemandtutor.repository.BookingRepository;
 import org.example.ondemandtutor.repository.TutorServiceRepository;
+import org.example.ondemandtutor.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +28,15 @@ public class BookingService {
     BookingRepository bookingRepository;
     BookingMapper bookingMapper;
     TutorServiceRepository tutorServiceRepository;
+    UserRepository userRepository;
 
     public BookingResponse createBooking(BookingRequest bookingRequest) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(name).orElseThrow(
+                () -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        Student student = (Student) user;
         Booking booking = bookingMapper.toBooking(bookingRequest);
+        booking.setStudent(student);
         booking.setTotalPrice(getTotalPrice(bookingRequest.getTutorServiceId()));
         return bookingMapper.toBookingResponse(bookingRepository.save(booking));
     }

@@ -16,6 +16,5 @@ public class BookingResponse {
     Long id;
     Long studentId;
     Long tutorServiceId;
-    String status;
     Integer totalPrice;
 }

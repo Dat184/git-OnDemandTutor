@@ -15,7 +15,7 @@ public interface VideoMapper {
 
     Video toVideo(VideoRequest videoRequest);
 
-//    @Mapping(target = "tutorId", source = "tutor.id")
+    @Mapping(target = "tutorId", source = "tutor.id")
     VideoResponse toVideoResponse(Video video);
 
     void updateVideoFromRequest(VideoRequest videoRequest, @MappingTarget Video video);

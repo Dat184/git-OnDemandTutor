@@ -41,14 +41,13 @@ public class TutorServiceController {
 
     @PostMapping("/create")
     public ResponseEntity<ResponseObject> createTutorService(
-            @RequestParam("tutorId") Long tutorId,
             @RequestParam("subjectId") Long subjectId,
             @RequestParam("description") String description,
             @RequestParam("timeOfSession") Integer timeOfSession,
             @RequestParam("priceOfSession") Integer priceOfSession,
             @RequestParam(value = "imageFile", required = false) MultipartFile imageUrl) {
         try {
-            TutorServiceRequest tutorServiceRequest = new TutorServiceRequest(tutorId, subjectId, description, timeOfSession, priceOfSession, imageUrl);
+            TutorServiceRequest tutorServiceRequest = new TutorServiceRequest(subjectId, description, timeOfSession, priceOfSession, imageUrl);
             TutorServiceResponse createdTutorService = tutorServiceService.createTutorService(tutorServiceRequest);
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(new ResponseObject("success", "Tutor service created", createdTutorService));
@@ -64,14 +63,13 @@ public class TutorServiceController {
     @PutMapping("/{id}")
     public ResponseEntity<ResponseObject> updateTutorService(
             @PathVariable Long id,
-            @RequestParam("tutorId") Long tutorId,
             @RequestParam("subjectId") Long subjectId,
             @RequestParam("description") String description,
             @RequestParam("timeOfSession") Integer timeOfSession,
             @RequestParam("priceOfSession") Integer priceOfSession,
             @RequestParam(value = "imageFile", required = false) MultipartFile imageUrl) {
         try {
-            TutorServiceRequest tutorServiceRequest = new TutorServiceRequest(tutorId, subjectId, description, timeOfSession, priceOfSession, imageUrl);
+            TutorServiceRequest tutorServiceRequest = new TutorServiceRequest(subjectId, description, timeOfSession, priceOfSession, imageUrl);
             TutorServiceResponse updatedTutorService = tutorServiceService.updateTutorService(id, tutorServiceRequest);
             return ResponseEntity.ok(new ResponseObject("success", "Tutor service updated", updatedTutorService));
         } catch (IOException e) {

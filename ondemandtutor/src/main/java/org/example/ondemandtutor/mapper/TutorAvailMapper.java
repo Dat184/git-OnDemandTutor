@@ -11,10 +11,10 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface TutorAvailMapper {
-//    @Mapping(target = "tutorService.id", source = "tutorServiceId")
+    @Mapping(target = "tutorService.id", source = "tutorServiceId")
     TutorAvail toTutorAvail(TutorAvailRequest tutorAvailRequest);
 
-//    @Mapping(target = "tutorServiceId", source = "tutorService.id")
+    @Mapping(target = "tutorServiceId", source = "tutorService.id")
     TutorAvailResponse toTutorAvailResponse(TutorAvail tutorAvail);
 
     List<TutorAvailResponse> toTutorAvailResponseList(List<TutorAvail> tutorAvails);

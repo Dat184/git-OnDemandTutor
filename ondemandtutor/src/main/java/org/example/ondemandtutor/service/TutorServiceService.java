@@ -5,12 +5,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.TutorServiceRequest;
 import org.example.ondemandtutor.dto.response.TutorServiceResponse;
+import org.example.ondemandtutor.exception.AppException;
+import org.example.ondemandtutor.exception.ErrorCode;
 import org.example.ondemandtutor.mapper.TutorServiceMapper;
+import org.example.ondemandtutor.pojo.Tutor;
 import org.example.ondemandtutor.pojo.TutorAvail;
 import org.example.ondemandtutor.pojo.TutorService;
+import org.example.ondemandtutor.pojo.User;
 import org.example.ondemandtutor.repository.TutorAvailRepository;
 import org.example.ondemandtutor.repository.TutorServiceRepository;
 
+import org.example.ondemandtutor.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -26,6 +32,7 @@ public class TutorServiceService {
     TutorAvailRepository tutorAvailRepository;
     TutorServiceMapper tutorServiceMapper;
     FirebaseStorageService firebaseStorageService;
+    UserRepository userRepository;
 
     public List<TutorServiceResponse> getAllTutorServices() {
         return tutorServiceMapper.toTutorServiceResponseList(tutorServiceRepository.findAll());
@@ -38,6 +45,10 @@ public class TutorServiceService {
     }
 
     public TutorServiceResponse createTutorService(TutorServiceRequest tutorServiceRequest) throws IOException {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(name).orElseThrow(
+                () -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        Tutor tutor = (Tutor) user;
         String imageUrl = null;
         if (tutorServiceRequest.getImageFile() != null) {
             String fileName = UUID.randomUUID().toString() + "_" + tutorServiceRequest.getImageFile().getOriginalFilename();
@@ -45,6 +56,7 @@ public class TutorServiceService {
             imageUrl = firebaseStorageService.uploadFile(fileName, inputStream, tutorServiceRequest.getImageFile().getContentType());
         }
         TutorService tutorService = tutorServiceMapper.toTutorService(tutorServiceRequest);
+        tutorService.setTutor(tutor);
         if (imageUrl != null) {
             tutorService.setName(tutorServiceRequest.getImageFile().getOriginalFilename());
             tutorService.setType(tutorServiceRequest.getImageFile().getContentType());

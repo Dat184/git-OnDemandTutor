@@ -11,7 +11,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface TutorServiceMapper {
-    @Mapping(target = "tutor.id", source = "tutorId")
     @Mapping(target = "subject.id", source = "subjectId")
     TutorService toTutorService(TutorServiceRequest tutorServiceRequest);
 

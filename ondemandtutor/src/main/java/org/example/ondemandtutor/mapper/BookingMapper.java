@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface BookingMapper {
-    @Mapping(target = "student.id", source = "studentId")
+    @Mapping(target = "student.id", ignore = true)
     @Mapping(target = "tutorService.id", source = "tutorServiceId")
     Booking toBooking(BookingRequest bookingRequest);
 

@@ -6,11 +6,17 @@ import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.VideoAdminRequest;
 import org.example.ondemandtutor.dto.request.VideoRequest;
 import org.example.ondemandtutor.dto.response.VideoResponse;
+import org.example.ondemandtutor.exception.AppException;
+import org.example.ondemandtutor.exception.ErrorCode;
 import org.example.ondemandtutor.mapper.VideoMapper;
 import org.example.ondemandtutor.pojo.ApprovalStatus;
+import org.example.ondemandtutor.pojo.Tutor;
+import org.example.ondemandtutor.pojo.User;
 import org.example.ondemandtutor.pojo.Video;
 import org.example.ondemandtutor.repository.TutorRepository;
+import org.example.ondemandtutor.repository.UserRepository;
 import org.example.ondemandtutor.repository.VideoRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -24,22 +30,25 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class VideoService {
     VideoRepository videoRepository;
-    TutorRepository tutorRepository;
+    UserRepository userRepository;
     VideoMapper videoMapper;
     FirebaseStorageService firebaseStorageService;
 
     public VideoResponse uploadVideo(VideoRequest videoRequest) throws IOException {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(name).orElseThrow(
+                () -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        Tutor tutor = (Tutor) user;
         // Tạo tên tệp với UUID để đảm bảo tính duy nhất
         String fileName = UUID.randomUUID().toString() + "_" + videoRequest.getVideoData().getOriginalFilename();
         InputStream inputStream = videoRequest.getVideoData().getInputStream();
         String videoUrl = firebaseStorageService.uploadFile(fileName, inputStream, videoRequest.getVideoData().getContentType());
         // Lưu thông tin vào PostgreSQL
         Video video = videoMapper.toVideo(videoRequest);
+        video.setTutor(tutor);
         video.setName(videoRequest.getVideoData().getOriginalFilename());
         video.setType(videoRequest.getVideoData().getContentType());
         video.setVideoUrl(videoUrl);  // Lưu URL của video
-        video.setTutor(tutorRepository.findById(videoRequest.getTutorId())
-                .orElseThrow(() -> new RuntimeException("Tutor not found")));
 
         // Lưu video vào cơ sở dữ liệu
         return videoMapper.toVideoResponse(videoRepository.save(video));

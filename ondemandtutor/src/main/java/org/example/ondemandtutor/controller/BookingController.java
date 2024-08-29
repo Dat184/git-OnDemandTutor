@@ -48,9 +48,6 @@ public class BookingController {
     @PostMapping("/create")
     public ResponseEntity<ResponseObject> createBooking(@RequestBody BookingRequest bookingRequest) {
         try {
-            if (bookingRequest.getStudentId() == null || bookingRequest.getTutorServiceId() == null) {
-                throw new IllegalArgumentException("Student ID and Tutor Service ID must not be null");
-            }
             BookingResponse bookingResponse = bookingService.createBooking(bookingRequest);
             ResponseObject response = new ResponseObject("success", "Booking created successfully", bookingResponse);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);

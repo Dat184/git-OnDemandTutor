@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class MessageRequest {
     Long chatId;
-    Long sendId;
     String messageText;
     MultipartFile file;
 }

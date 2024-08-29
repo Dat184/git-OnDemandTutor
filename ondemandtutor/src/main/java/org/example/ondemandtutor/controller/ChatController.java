@@ -29,14 +29,14 @@ public class ChatController {
         }
     }
 
-//    @PostMapping("/create")
-//    public ResponseEntity<ResponseObject> createChat(@RequestBody ChatRequest chatRequest) {
-//        try{
-//            ChatResponse chatResponse = chatService.createChat(chatRequest);
-//            return ResponseEntity.ok().body(new ResponseObject("success", "Chat created", chatResponse));
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.badRequest().body(new ResponseObject("error", e.getMessage()));
-//        }
-//    }
+    @PostMapping("/create")
+    public ResponseEntity<ResponseObject> createChat(@RequestBody ChatRequest chatRequest) {
+        try{
+            ChatResponse chatResponse = chatService.createChat(chatRequest);
+            return ResponseEntity.ok().body(new ResponseObject("success", "Chat created", chatResponse));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(new ResponseObject("error", e.getMessage()));
+        }
+    }
 
 }

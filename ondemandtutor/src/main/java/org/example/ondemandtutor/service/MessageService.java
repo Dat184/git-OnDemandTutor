@@ -4,12 +4,17 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.response.MessageResponse;
+import org.example.ondemandtutor.exception.AppException;
+import org.example.ondemandtutor.exception.ErrorCode;
 import org.example.ondemandtutor.mapper.MessageMapper;
 import org.example.ondemandtutor.pojo.Chat;
 import org.example.ondemandtutor.pojo.Message;
 import org.example.ondemandtutor.dto.request.MessageRequest;
+import org.example.ondemandtutor.pojo.User;
 import org.example.ondemandtutor.repository.MessageRepository;
 
+import org.example.ondemandtutor.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 
@@ -27,15 +32,22 @@ public class MessageService {
     MessageRepository messageRepository;
     FirebaseStorageService firebaseStorageService;
     MessageMapper messageMapper;
+    UserRepository userRepository;
 
     public MessageResponse sendMessage(MessageRequest messageRequest) throws IOException {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(name).orElseThrow(
+                () -> new AppException(ErrorCode.USER_NOT_EXISTED));
         String fileUrl = null;
         if(messageRequest.getFile() != null) {
             String fileName = UUID.randomUUID().toString() + "_" + messageRequest.getFile().getOriginalFilename();
             InputStream inputStream = messageRequest.getFile().getInputStream();
             fileUrl = firebaseStorageService.uploadFile(fileName, inputStream, messageRequest.getFile().getContentType());
         }
-        Message message = messageMapper.toMessage(messageRequest);
+        Message message = new Message();
+        message.setSend(user);
+        messageMapper.toMessage(messageRequest);
+
         message.setCreatedAt(LocalDateTime.now());
 
         if(fileUrl != null) {

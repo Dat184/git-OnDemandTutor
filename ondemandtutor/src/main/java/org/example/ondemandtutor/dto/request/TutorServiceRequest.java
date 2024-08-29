@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TutorServiceRequest {
-    Long tutorId;
     Long subjectId;
     String description;
     Integer timeOfSession;

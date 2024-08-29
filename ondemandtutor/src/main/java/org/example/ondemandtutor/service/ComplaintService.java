@@ -37,10 +37,8 @@ public class ComplaintService {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUsername(name).orElseThrow(
                 () -> new AppException(ErrorCode.USER_NOT_EXISTED));
-
-        complaintRequest.setUserId(user.getId());
         Complaint complaint = complaintMapper.toComplaint(complaintRequest);
-
+        complaint.setUser(user);
         return complaintMapper.toComplaintResponse(complaintRepository.save(complaint));
     }
 
