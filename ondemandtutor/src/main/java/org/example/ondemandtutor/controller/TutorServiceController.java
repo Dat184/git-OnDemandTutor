@@ -1,10 +1,12 @@
 package org.example.ondemandtutor.controller;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.TutorServiceRequest;
 import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.dto.response.TutorServiceResponse;
 import org.example.ondemandtutor.service.TutorServiceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +16,11 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tutor-services")
+@RequestMapping("/v1/tutor-services")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TutorServiceController {
-
-    @Autowired
-    private TutorServiceService tutorServiceService;
+    TutorServiceService tutorServiceService;
 
     @GetMapping
     public ResponseEntity<List<TutorServiceResponse>> getAllTutorServices() {

@@ -7,7 +7,7 @@
     <script src="../js/openHF.js"></script>
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/header.css">
-    <link rel="stylesheet" href="../assets/css/profile.css">
+    <link rel="stylesheet" href="../assets/css/dichvu.css">
     <link rel="stylesheet" href="../asset/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
     <title>Document</title>
 </head>
@@ -70,63 +70,20 @@
             
         </header>
         <div class="container">
-            <div class="navigation">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <span class="icon">
-                                <i class="fa-regular fa-user"></i>
-                            </span>
-                            <span class="title-strong">Thông tin cá nhân</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a class="border" href="#">
-                            <span class="icon">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </span>
-                            <span class="title ">Chỉnh sửa trang cá nhân</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                            <span class="icon">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </span>
-                            <span class="title">Chỉnh sửa dịch vụ</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="profile-container">
-                <div class="profile-pic-container" id="profilePicContainer">
-                    <i class="fa-solid fa-camera"></i>                   
-                     <input type="file" id="profilePicInput" accept="image/*" style="display:none;">
+            <div class="dich-vu">
+                <div class="dich-vu-con">
+                <div class="img-dich-vu">
+                    <img src="https://th.bing.com/th/id/OIP.DVhzx3MdOPQyh5teDTU8SQHaE8?w=264&h=180&c=7&r=0&o=5&pid=1.7" alt="">
                 </div>
-                <div class="input-fields">
-                    <div class="input-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" placeholder="Enter your username">
-                    </div>
-                    <div class="input-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your email">
-                    </div>
-                    <div class="input-group">
-                        <label for="phone">Phone</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
-                    </div>
-                    <div class="input-group">
-                        <label for="class">Class</label>
-                        <input type="text" id="class" name="class" placeholder="Enter your class">
-                    </div>
-                    <div class="input-group">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" name="address" placeholder="Enter your address">
-                    </div>
+                <div class="ten-dich-vu">
+                    <strong>tên</strong>
+                    <strong>môn học</strong>
+                    <span>mô tả: Nếu bạn muốn các thẻ span tự động xuống dòng theo chiều rộng của phần tử chứa mà không thay đổi cấu trúc hiển thị, bạn có thể sử dụng thuộc tính white-space: pre-wrap;.</span>
                 </div>
+                 </div>
+                 <div class="xem-them">
+                    <a href=""><button>xem thêm</button></a>
+                 </div>
             </div>
         </div>
         <footer>
@@ -154,23 +111,7 @@
         </footer>
     </div>
     <script src="../js/header.js"></script>
-    <script>
-        document.getElementById('profilePicContainer').addEventListener('click', function () {
-            document.getElementById('profilePicInput').click();
-        });
-
-        document.getElementById('profilePicInput').addEventListener('change', function (event) {
-            const reader = new FileReader();
-            reader.onload = function () {
-                const img = document.createElement('img');
-                img.src = reader.result;
-                img.className = 'avatar-preview';
-                document.getElementById('profilePicContainer').innerHTML = '';
-                document.getElementById('profilePicContainer').appendChild(img);
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        });
-    </script>
+   
 </body>
 
 </html>

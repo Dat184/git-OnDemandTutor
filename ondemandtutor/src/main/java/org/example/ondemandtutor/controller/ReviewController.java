@@ -1,10 +1,12 @@
 package org.example.ondemandtutor.controller;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.ReviewRequest;
 import org.example.ondemandtutor.dto.response.ReviewResponse;
 import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.service.ReviewService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/review")
+@RequestMapping(path = "/v1/review")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ReviewController {
-
-    @Autowired
-    private ReviewService reviewService;
+    ReviewService reviewService;
 
     @GetMapping("")
     public ResponseEntity<List<ReviewResponse>> getAllReviews() {

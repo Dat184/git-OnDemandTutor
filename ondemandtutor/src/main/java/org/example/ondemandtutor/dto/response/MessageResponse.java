@@ -13,11 +13,11 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class MessageResponse {
     Long id;
-    Long senderId;
     LocalDateTime createdAt;
     String messageText;
-    String name;
-    String type;
     String fileUrl;
+    Long sendId;
     Long chatId;
+    String type;
+    String name;
 }

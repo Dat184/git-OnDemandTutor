@@ -1,5 +1,6 @@
 package org.example.ondemandtutor.service;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.BookingRequest;
@@ -13,16 +14,14 @@ import org.example.ondemandtutor.repository.TutorServiceRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import static lombok.AccessLevel.PRIVATE;
-
-@RequiredArgsConstructor
 @Service
-@FieldDefaults(level = PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class BookingService {
 
-    final BookingRepository bookingRepository;
-    final BookingMapper bookingMapper;
-    final TutorServiceRepository tutorServiceRepository;
+    BookingRepository bookingRepository;
+    BookingMapper bookingMapper;
+    TutorServiceRepository tutorServiceRepository;
 
     public BookingResponse createBooking(BookingRequest bookingRequest) {
         Booking booking = bookingMapper.toBooking(bookingRequest);

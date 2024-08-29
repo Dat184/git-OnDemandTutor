@@ -1,8 +1,6 @@
 package org.example.ondemandtutor.service;
 
-import com.google.api.client.util.Value;
-import com.google.cloud.storage.*;
-import com.google.firebase.cloud.StorageClient;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.VideoAdminRequest;
@@ -21,16 +19,14 @@ import java.util.List;
 import java.util.UUID;
 
 
-import static lombok.AccessLevel.PRIVATE;
-
-@RequiredArgsConstructor
 @Service
-@FieldDefaults(level = PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class VideoService {
-    final VideoRepository videoRepository;
-    final TutorRepository tutorRepository;
-    final VideoMapper videoMapper;
-    final FirebaseStorageService firebaseStorageService;
+    VideoRepository videoRepository;
+    TutorRepository tutorRepository;
+    VideoMapper videoMapper;
+    FirebaseStorageService firebaseStorageService;
 
     public VideoResponse uploadVideo(VideoRequest videoRequest) throws IOException {
         // Tạo tên tệp với UUID để đảm bảo tính duy nhất

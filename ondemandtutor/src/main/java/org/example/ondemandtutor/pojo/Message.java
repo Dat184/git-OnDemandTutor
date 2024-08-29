@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @NoArgsConstructor
-@ToString
 @Table(name = "message")
 public class Message {
     @Id
@@ -28,17 +27,19 @@ public class Message {
     @Column(name = "message_text")
     String messageText;
 
-    String name;
-    String type;
-
     @Column(name = "file_url")
     String fileUrl;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "sender_id", nullable = false)
-    User sender;
+    @JoinColumn(name = "send_id", nullable = false)
+    User send;
+
+    String type;
+    String name;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "chat_id", nullable = false)
     Chat chat;
+
+
 }

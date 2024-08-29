@@ -1,6 +1,6 @@
 package org.example.ondemandtutor.service;
 
-import jakarta.transaction.Transactional;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.TutorAvailRequest;
@@ -12,16 +12,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static lombok.AccessLevel.PRIVATE;
-
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TutorAvailService {
 
-    final TutorAvailRepository tutorAvailRepository;
-    final TutorAvailMapper tutorAvailMapper;
-    final TutorServiceService tutorServiceService; // Inject TutorServiceService
+    TutorAvailRepository tutorAvailRepository;
+    TutorAvailMapper tutorAvailMapper;
+    TutorServiceService tutorServiceService;
 
     public List<TutorAvailResponse> getAllTutorAvailabilities() {
         return tutorAvailMapper.toTutorAvailResponseList(tutorAvailRepository.findAll());
@@ -33,26 +31,26 @@ public class TutorAvailService {
         return tutorAvailMapper.toTutorAvailResponse(tutorAvail);
     }
 
-    @Transactional
+    public List<TutorAvailResponse> getTutorAvailabilityByTutorServiceId(Long serviceId) {
+        List<TutorAvail> tutorAvail = tutorAvailRepository.findByTutorServiceId(serviceId);
+        return tutorAvailMapper.toTutorAvailResponseList(tutorAvail);
+    }
+
     public TutorAvailResponse createTutorAvailability(TutorAvailRequest tutorAvailRequest) {
         TutorAvail tutorAvail = tutorAvailMapper.toTutorAvail(tutorAvailRequest);
         TutorAvail savedTutorAvail = tutorAvailRepository.save(tutorAvail);
-
-        // Update total sessions in TutorService
         tutorServiceService.updateTotalSessions(tutorAvail.getTutorService().getId());
 
         return tutorAvailMapper.toTutorAvailResponse(savedTutorAvail);
     }
 
-    @Transactional
+
     public TutorAvailResponse updateTutorAvailability(Long id, TutorAvailRequest tutorAvailRequest) {
         TutorAvail tutorAvail = tutorAvailRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Tutor availability not found"));
 
         tutorAvailMapper.updateTutorAvail(tutorAvail, tutorAvailRequest);
         TutorAvail updatedTutorAvail = tutorAvailRepository.save(tutorAvail);
-
-        // Update total sessions in TutorService
         tutorServiceService.updateTotalSessions(tutorAvail.getTutorService().getId());
 
         return tutorAvailMapper.toTutorAvailResponse(updatedTutorAvail);
@@ -61,10 +59,7 @@ public class TutorAvailService {
     public void deleteTutorAvailability(Long id) {
         TutorAvail tutorAvail = tutorAvailRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Tutor availability not found"));
-
         tutorAvailRepository.deleteById(id);
-
-        // Update total sessions in TutorService
         tutorServiceService.updateTotalSessions(tutorAvail.getTutorService().getId());
     }
 }

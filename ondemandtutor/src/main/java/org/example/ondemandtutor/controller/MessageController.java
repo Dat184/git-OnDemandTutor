@@ -1,11 +1,12 @@
 package org.example.ondemandtutor.controller;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.response.MessageResponse;
 import org.example.ondemandtutor.dto.response.ResponseObject;
-import org.example.ondemandtutor.pojo.Message;
 import org.example.ondemandtutor.dto.request.MessageRequest;
 import org.example.ondemandtutor.service.MessageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,22 +16,21 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/messages")
+@RequestMapping("/v1/messages")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class MessageController {
-
-    @Autowired
-    private MessageService messageService;
+    MessageService messageService;
 
     @PostMapping("/send")
     public ResponseEntity<ResponseObject> sendMessage(
-            @RequestParam("senderId") Long senderId,
-            @RequestParam("tutorId") Long tutorId,
-            @RequestParam("studentId") Long studentId,
+            @RequestParam("sendId") Long sendId,
+            @RequestParam("chatId") Long chatId ,
             @RequestParam(value = "messageText", required = false) String messageText,
             @RequestParam(value = "file", required = false) MultipartFile file) {
 
         try {
-            MessageRequest messageRequest = new MessageRequest(senderId, tutorId, studentId, messageText, file);
+            MessageRequest messageRequest = new MessageRequest(sendId, chatId, messageText, file);
 
             MessageResponse message = messageService.sendMessage(messageRequest);
             ResponseObject response = new ResponseObject("success", "Message sent", message);

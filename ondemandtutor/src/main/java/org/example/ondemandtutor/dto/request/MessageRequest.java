@@ -1,19 +1,19 @@
 package org.example.ondemandtutor.dto.request;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.multipart.MultipartFile;
 
+@AllArgsConstructor
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class MessageRequest {
-    Long senderId;
-    Long tutorId;
-    Long studentId;
+    Long chatId;
+    Long sendId;
     String messageText;
     MultipartFile file;
 }

@@ -1,10 +1,12 @@
 package org.example.ondemandtutor.controller;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.TutorAvailRequest;
 import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.dto.response.TutorAvailResponse;
 import org.example.ondemandtutor.service.TutorAvailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tutor-avail")
+@RequestMapping("/v1/tutor-avail")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TutorAvailController {
-
-    @Autowired
-    private TutorAvailService tutorAvailService;
+    TutorAvailService tutorAvailService;
 
     @GetMapping
     public ResponseEntity<List<TutorAvailResponse>> getAllTutorAvailabilities() {
@@ -35,6 +37,16 @@ public class TutorAvailController {
         }
     }
 
+    @GetMapping("/tutor/{tutorId}")
+    public ResponseEntity<ResponseObject> getTutorAvailabilityByTutorId(@PathVariable Long tutorId) {
+        try {
+            List<TutorAvailResponse> tutorAvailResponses = tutorAvailService.getTutorAvailabilityByTutorServiceId(tutorId);
+            return ResponseEntity.ok(new ResponseObject("success", "TutorAvailability found", tutorAvailResponses));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseObject("error", e.getMessage()));
+        }
+    }
     @PostMapping("/create")
     public ResponseEntity<ResponseObject> createTutorAvailability(@RequestBody TutorAvailRequest tutorAvailRequest) {
         try {
