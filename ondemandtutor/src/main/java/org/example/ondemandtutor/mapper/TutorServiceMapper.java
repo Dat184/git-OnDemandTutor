@@ -11,13 +11,13 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface TutorServiceMapper {
-    @Mapping(target = "tutor.id", source = "tutorId")
-    @Mapping(target = "subject.id", source = "subjectId")
+//    @Mapping(target = "tutor.id", source = "tutorId")
+//    @Mapping(target = "subject.id", source = "subjectId")
     TutorService toTutorService(TutorServiceRequest tutorServiceRequest);
 
-   @Mapping(target = "tutorId", source = "tutor.id")
-    @Mapping(target = "subjectId", source = "subject.id")
-    @Mapping(target = "nameTutor", source = "tutor.name")
+//   @Mapping(target = "tutorId", source = "tutor.id")
+//    @Mapping(target = "subjectId", source = "subject.id")
+//    @Mapping(target = "nameTutor", source = "tutor.name")
     TutorServiceResponse toTutorServiceResponse(TutorService tutorService);
 
     List<TutorServiceResponse> toTutorServiceResponseList(List<TutorService> tutorServices);

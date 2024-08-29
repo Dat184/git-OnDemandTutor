@@ -1,5 +1,8 @@
 package org.example.ondemandtutor.pojo;
 
 public enum Role {
-    Tutor, Student, Admin, Moderator
+    Tutor,
+    Student,
+    Admin,
+    Moderator
 }

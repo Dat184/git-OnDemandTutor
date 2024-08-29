@@ -1,86 +1,45 @@
 package org.example.ondemandtutor.controller;
 
-import org.example.ondemandtutor.dto.response.ResponseObject;
-import org.example.ondemandtutor.pojo.Tutor;
-import org.example.ondemandtutor.repository.TutorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
+import org.example.ondemandtutor.dto.response.ApiResponse;
+import org.example.ondemandtutor.dto.response.StudentResponse;
+import org.example.ondemandtutor.dto.response.TutorResponse;
+import org.example.ondemandtutor.service.StudentService;
+import org.example.ondemandtutor.service.TutorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
-@RequestMapping(path = "/api/tutor")
+@RequestMapping(path = "/v1/tutor")
+@RequiredArgsConstructor
 public class TutorController {
+    private final TutorService tutorService;
+    private final Logger log = LoggerFactory.getLogger(TutorController.class);
 
-    @Autowired
-    private TutorRepository tutorRepository;
+    @GetMapping
+    ApiResponse<List<TutorResponse>> getALlTutors() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
 
-    @GetMapping("/all")
-    public List<Tutor> getAllTutors() {
-        return tutorRepository.findAll();
+        log.info("Admin: {}", authentication.getName());
+        authentication.getAuthorities().forEach(grantedAuthority -> log.info(grantedAuthority.getAuthority()));
+
+        return ApiResponse.<List<TutorResponse>>builder()
+                .result(tutorService.getAllTutors())
+                .build();
     }
-
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseObject> findTutorById(@PathVariable long id) {
-        Optional<Tutor> foundTutor = tutorRepository.findById(id);
-        return foundTutor.isPresent() ?
-                ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponseObject("ok", "Query tutor found", foundTutor)
-                ) :
-                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                        new ResponseObject("notFound", "Cannot find tutor with id = " + id, "")
-                );
+    ApiResponse<TutorResponse> getStudentById(@PathVariable long id) {
+        return ApiResponse.<TutorResponse>builder()
+                .result(tutorService.findTutorById(id))
+                .build();
     }
 
-    @PostMapping("/insert")
-    public ResponseEntity<ResponseObject> insertTutor(@RequestBody Tutor newTutor) {
-        List<Tutor> foundTutors = tutorRepository.findByName(newTutor.getName().trim());
-        if (!foundTutors.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
-                    new ResponseObject("failed", "Tutor already exists", "")
-            );
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("ok", "Insert tutor successful", tutorRepository.save(newTutor))
-            );
-        }
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ResponseObject> updateTutor(@PathVariable long id, @RequestBody Tutor newTutor) {
-        Tutor updatedTutor = tutorRepository.findById(id)
-                .map(tutor -> {
-                    tutor.setName(newTutor.getName());
-                    tutor.setDegree(newTutor.getDegree());
-                    tutor.setSpecialty(newTutor.getSpecialty());
-                    tutor.setBio(newTutor.getBio());
-                    tutor.setRating(newTutor.getRating());
-                    tutor.setProfilePicture(newTutor.getProfilePicture());
-                    return tutorRepository.save(tutor);
-                }).orElseGet(() -> {
-                    newTutor.setId(id);
-                    return tutorRepository.save(newTutor);
-                });
-        return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("ok", "Update tutor successful", updatedTutor)
-        );
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseObject> deleteTutor(@PathVariable long id) {
-        boolean exists = tutorRepository.existsById(id);
-        if (exists) {
-            tutorRepository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("ok", "Delete tutor successful", "")
-            );
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("notFound", "Cannot find tutor with id = " + id, "")
-            );
-        }
-    }
 }
