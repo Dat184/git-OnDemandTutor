@@ -24,21 +24,21 @@ public class ChatService {
     UserRepository userRepository;
     ChatMapper chatMapper;
     // Tạo chat giữa tutor và student
-    public ChatResponse createChat(ChatRequest chatRequest) {
-        User sender = userRepository.findById(chatRequest.getSenderId())
-                .orElseThrow(() -> new IllegalArgumentException("SenderId not found"));
-        User recipient = userRepository.findById(chatRequest.getRecipientId())
-                .orElseThrow(() -> new IllegalArgumentException("RecipientId not found"));
-
-        // Kiểm tra chat đã tồn tại chưa
-        Optional<Chat> existingChat = chatRepository.findBySenderAndRecipient(sender, recipient);
-        if (existingChat.isPresent()) {
-            return chatMapper.toChatResponse(existingChat.get());
-        }
-        // Tạo phòng chat mới
-        Chat chatroom = chatMapper.toChat(chatRequest);
-        return chatMapper.toChatResponse(chatRepository.save(chatroom));
-    }
+//    public ChatResponse createChat(ChatRequest chatRequest) {
+//        User sender = userRepository.findById(chatRequest.getSenderId())
+//                .orElseThrow(() -> new IllegalArgumentException("SenderId not found"));
+//        User recipient = userRepository.findById(chatRequest.getRecipientId())
+//                .orElseThrow(() -> new IllegalArgumentException("RecipientId not found"));
+//
+//        // Kiểm tra chat đã tồn tại chưa
+//        Optional<Chat> existingChat = chatRepository.findBySenderAndRecipient(sender, recipient);
+//        if (existingChat.isPresent()) {
+//            return chatMapper.toChatResponse(existingChat.get());
+//        }
+//        // Tạo phòng chat mới
+//        Chat chatroom = chatMapper.toChat(chatRequest);
+//        return chatMapper.toChatResponse(chatRepository.save(chatroom));
+//    }
 
 
 
