@@ -6,10 +6,15 @@ import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.ComplaintAdminRequest;
 import org.example.ondemandtutor.dto.request.ComplaintRequest;
 import org.example.ondemandtutor.dto.response.ComplaintResponse;
+import org.example.ondemandtutor.exception.AppException;
+import org.example.ondemandtutor.exception.ErrorCode;
 import org.example.ondemandtutor.mapper.ComplaintMapper;
 import org.example.ondemandtutor.pojo.Complaint;
 import org.example.ondemandtutor.pojo.Status;
+import org.example.ondemandtutor.pojo.User;
 import org.example.ondemandtutor.repository.ComplaintRepository;
+import org.example.ondemandtutor.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +26,7 @@ import java.util.List;
 public class ComplaintService {
     ComplaintRepository complaintRepository;
     ComplaintMapper complaintMapper;
+    UserRepository userRepository;
 
     public List<ComplaintResponse> getComplaintByUserId(Long userId) {
         List<Complaint> complaints = complaintRepository.findByUserId(userId);
@@ -28,7 +34,13 @@ public class ComplaintService {
     }
 
     public ComplaintResponse submitComplaint(ComplaintRequest complaintRequest) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(name).orElseThrow(
+                () -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        complaintRequest.setUserId(user.getId());
         Complaint complaint = complaintMapper.toComplaint(complaintRequest);
+
         return complaintMapper.toComplaintResponse(complaintRepository.save(complaint));
     }
 

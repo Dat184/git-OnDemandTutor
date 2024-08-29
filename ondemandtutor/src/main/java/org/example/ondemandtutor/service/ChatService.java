@@ -9,6 +9,8 @@ import org.example.ondemandtutor.mapper.ChatMapper;
 import org.example.ondemandtutor.pojo.Chat;
 import org.example.ondemandtutor.pojo.User;
 import org.example.ondemandtutor.repository.ChatRepository;
+import org.example.ondemandtutor.repository.StudentRepository;
+import org.example.ondemandtutor.repository.TutorRepository;
 import org.example.ondemandtutor.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +39,12 @@ public class ChatService {
 //        }
 //        // Tạo phòng chat mới
 //        Chat chatroom = chatMapper.toChat(chatRequest);
+//
 //        return chatMapper.toChatResponse(chatRepository.save(chatroom));
 //    }
+
+
+
 
 
 
