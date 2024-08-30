@@ -145,7 +145,7 @@
                     Validator.minLength('#login_password', 5, 'Mật khẩu phải có ít nhất 6 ký tự'),
                 ],
                 onSubmit: function (data) {
-                    const name = data.username;
+
                     fetch('http://localhost:8080/v1/auth/log-in', {
                         method: 'POST',
                         headers: {
@@ -164,7 +164,7 @@
                                 localStorage.setItem('token', data.result.token);
                                 localStorage.setItem('loggedIn', 'true');
 
-                                localStorage.setItem('username', name) // đoạn này hiển thị tên
+                                localStorage.setItem('username', data.result.name) // đoạn này hiển thị tên
                                 const previousPage = localStorage.getItem('previousPage') || 'home.html';
                                 window.location.href = previousPage;
                             } else {
