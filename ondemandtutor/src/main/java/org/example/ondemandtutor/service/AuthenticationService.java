@@ -81,10 +81,11 @@ public class AuthenticationService {
             throw new AppException(ErrorCode.UNAUTHENTICATED);
         }
         var token = genarateToken(user);
-
+        var name = user.getName();
         return AuthenticationResponse.builder()
                 .token(token)
                 .authenticated(true)
+                .name(name)
                 .build();
     }
 
