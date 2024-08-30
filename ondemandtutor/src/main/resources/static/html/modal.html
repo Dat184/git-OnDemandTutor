@@ -26,10 +26,10 @@
                 <span>hoặc sử dụng email của bạn để đăng ký</span>
 
                 <div class="form-group">
-                    <select name="role" class="role-select">
+                    <select id="role" name="role" class="role-select">
                         <option value="" disabled selected>Chọn vai trò của bạn</option>
-                        <option value="student">Học sinh</option>
-                        <option value="teacher">Gia sư</option>
+                        <option value="Student">Học sinh</option>
+                        <option value="Tutor">Gia sư</option>
                     </select>
                     <span class="form-message"></span>
                 </div>
@@ -114,7 +114,7 @@
                     Validator.isRequired('select[name="role"]', 'Vui lòng chọn vai trò của bạn'),
                     Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
                     Validator.isRequired('#username', 'Vui lòng nhập tên tài khoản'),
-Validator.isRequired('#email', 'Vui lòng nhập email'),
+                    Validator.isRequired('#email', 'Vui lòng nhập email'),
                     Validator.isEmail('#email', 'Trường này phải là email'),
                     Validator.minLength('#password', 6, 'Mật khẩu phải có ít nhất 6 ký tự'),
                     Validator.isRequired('#password_confirmation', 'Vui lòng nhập lại mật khẩu'),
@@ -144,13 +144,7 @@ Validator.isRequired('#email', 'Vui lòng nhập email'),
                     Validator.isRequired('#login_password', 'Vui lòng nhập mật khẩu'),
                     Validator.minLength('#login_password', 6, 'Mật khẩu phải có ít nhất 6 ký tự'),
                 ],
-                onSubmit: function (data) {
-                    // Gọi API hoặc xử lý dữ liệu ở đây
-                    console.log(data);
-                    localStorage.setItem('loggedIn', 'true');
-                    const previousPage = localStorage.getItem('previousPage') || 'home.html';
-                    window.location.href = previousPage;
-                }
+
             });
         });
     </script>

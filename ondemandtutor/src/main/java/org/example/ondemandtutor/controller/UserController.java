@@ -24,7 +24,7 @@ public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping("/registered")
     ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request) {
 
         return ApiResponse.<UserResponse>builder()
