@@ -19,6 +19,7 @@ public abstract class User {
     private String password;
     private String email;
     private String name;
+    private String address;
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;

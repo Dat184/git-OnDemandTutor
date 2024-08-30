@@ -20,5 +20,6 @@ public class UserUpdateRequest {
     @Size(min = 2, message = "INVALID_NAME")
     private String name;
     private String grade;
+    private String address;
 
 }

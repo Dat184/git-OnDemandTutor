@@ -100,13 +100,15 @@ public class UserService {
                 throw new AppException(ErrorCode.INVALID_PASSWORD);
             user.setPassword(passwordEncoder.encode(request.getPassword()));
         }
+        if (request.getAddress()!=null) {
+            user.setAddress(request.getAddress());
+        }
         //update theo tung role
         if (user instanceof Student) {
             Student student = (Student) user;
             if (request.getGrade() != null) {
                 student.setGrade(request.getGrade());
             }
-
         }
 
         return userMapper.toUserResponse(userRepository.save(user));
