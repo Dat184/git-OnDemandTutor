@@ -116,23 +116,22 @@
                     Validator.isRequired('#username', 'Vui lòng nhập tên tài khoản'),
                     Validator.isRequired('#email', 'Vui lòng nhập email'),
                     Validator.isEmail('#email', 'Trường này phải là email'),
-                    Validator.minLength('#password', 8, 'Mật khẩu phải có ít nhất 6 ký tự'),
+                    Validator.minLength('#password', 8, 'Mật khẩu phải có ít nhất 8 ký tự'),
                     Validator.isRequired('#password_confirmation', 'Vui lòng nhập lại mật khẩu'),
                     Validator.isConfirmed('#password_confirmation', function () {
                         return document.querySelector('#sign-up-form #password').value;
                     }, 'Mật khẩu xác nhận không khớp')
                 ],
-                // onSubmit: function (data) {
-                //     // Show toast message
-                //     showSuccessToast();
-                //
-                //     // Delay redirection by 3 seconds (3000 milliseconds)
-                //     setTimeout(function () {
-                //         localStorage.setItem('loggedIn', 'true');
-                //         const previousPage = localStorage.getItem('previousPage') || 'home.html';
-                //         window.location.href = previousPage;
-                //     }, 2000);
-                // }
+                onSubmit: function (data) {
+                    showSuccessToast();
+
+                    setTimeout(function () {
+                        document.querySelector('.form-container.sign-up').style.display = 'none';
+                        document.querySelector('.form-container.sign-in').style.display = 'block';
+
+                        window.scrollTo(0, 0);
+                    }, 2000);
+                }
             });
 
             Validator({
@@ -160,7 +159,7 @@
                         .then(data => {
                             // Xử lý phản hồi từ API ở đây
                             if (data.code === 1000 && data.result.authenticated) {
-                                // Đăng nhập thành công
+
                                 localStorage.setItem('token', data.result.token);
                                 localStorage.setItem('loggedIn', 'true');
 
@@ -168,13 +167,13 @@
                                 const previousPage = localStorage.getItem('previousPage') || 'home.html';
                                 window.location.href = previousPage;
                             } else {
-                                // Xử lý lỗi
-                                alert('Đăng nhập không thành công: ' + data.message);
+                                showErrorToast();
+
                             }
                         })
                         .catch(error => {
                             console.error('Lỗi:', error);
-                            alert('Có lỗi xảy ra. Vui lòng thử lại sau.');
+
                         });
                 }
 

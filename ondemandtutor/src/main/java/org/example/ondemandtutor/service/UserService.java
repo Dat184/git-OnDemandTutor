@@ -2,6 +2,7 @@ package org.example.ondemandtutor.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.ondemandtutor.dto.request.UpdateImgRequest;
 import org.example.ondemandtutor.dto.request.UserCreationRequest;
 import org.example.ondemandtutor.dto.request.UserUpdateRequest;
 import org.example.ondemandtutor.dto.response.UserResponse;
@@ -19,7 +20,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +35,7 @@ public class UserService {
     private final AdminRepository adminRepository;
     private final StudentRepository studentRepository;
     private final TutorRepository tutorRepository;
+    private final FirebaseStorageService firebaseStorageService;
 
     //create user
     public UserResponse createUser(UserCreationRequest request) {
@@ -85,7 +90,19 @@ public class UserService {
         log.info("In method getUsers");
         return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
     }
-
+    public UserResponse updateImg(Long id, UpdateImgRequest request) throws IOException {
+        User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        String fileUrl = null;
+        if (request.getFile()!= null) {
+            String oldFileName = user.getImgUrl();
+            firebaseStorageService.deleteFile(oldFileName);
+            String fileName = UUID.randomUUID().toString() + "_" + request.getFile().getOriginalFilename();
+            InputStream inputStream = request.getFile().getInputStream();
+            fileUrl = firebaseStorageService.uploadFile(fileName, inputStream, request.getFile().getContentType());
+        }
+        user.setImgUrl(fileUrl);
+        return userMapper.toUserResponse(userRepository.save(user));
+    }
     public UserResponse updateUser(Long id, UserUpdateRequest request) {
         User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
         // map các trường dữ liệu lại
