@@ -4,6 +4,7 @@ package org.example.ondemandtutor.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import org.example.ondemandtutor.dto.request.UpdateImgRequest;
 import org.example.ondemandtutor.dto.request.UserCreationRequest;
 import org.example.ondemandtutor.dto.request.UserUpdateRequest;
 import org.example.ondemandtutor.dto.response.ApiResponse;
@@ -13,7 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -63,6 +66,15 @@ public class UserController {
     ApiResponse<UserResponse> updateUser(@PathVariable long id, @RequestBody UserUpdateRequest request) {
         return ApiResponse.<UserResponse>builder()
                 .result(userService.updateUser(id, request))
+                .build();
+    }
+    @PutMapping("/updateImg/{id}")
+    ApiResponse<UserResponse> updateImg(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file) throws IOException {
+        UpdateImgRequest request = new UpdateImgRequest(file);
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.updateImg(id, request))
                 .build();
     }
 
