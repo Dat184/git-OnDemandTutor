@@ -49,6 +49,5 @@ document.getElementById('sign-up-form').addEventListener('submit', function(even
         })
         .catch((error) => {
             console.error('Error:', error);
-            showErrorToast();
         });
 });

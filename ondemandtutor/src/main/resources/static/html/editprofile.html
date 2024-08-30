@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../js/openHF.js"></script>
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
+    <link rel="stylesheet" href="../asset/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main">
+        <header class="header">
+
+            <div class="logo-container">
+                <a class="img-logo" href="../html/home.html">
+                <!-- <img class="logo" src="../assets/img/logo/snapedit_17228353747082.png" alt=""> -->
+                 <p class="text">LEARN TOgetHER</p>  </a>
+            </div>
+            
+            <div class="navbar-container">
+               
+                    <a class="nav-box" href="../html/gioithieu.html">GIỚI THIỆU</a>
+                   
+                    <a class="nav-box" href="./tutor.html">GIA SƯ 
+                        
+                    </a>
+                    
+               
+                    <a class="nav-box" href="./dichvulist.html">DỊCH VỤ
+                      
+                    </a>
+            </div>
+            <div class="login-search-container">
+                <div class="search-container">
+                    <input id="searchInput" type="text" class="search-box" placeholder="Tìm kiếm...">
+                    
+                        <button id="searchButton" class="search-button">    
+                            <i class="search-icon fa-solid fa-magnifying-glass"></i>
+                        </button>
+                </div>
+        
+                <div class="login-container">
+                    <a href="modal.html" class="search-link">
+                    <button id="loginButton" class="login-button">Đăng nhập</button>
+                </a>
+                <div class="user-info" id="userInfo">
+                    <span id="usernameDisplay"></span>
+                    <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+                    <div id="userDropdown" class="user-dropdown">
+                        <a href="./editprofile.html" class="sub-menu-link">
+                            <img src="../assets/img/header/profile.png" alt="">
+                            <p>Thông tin cá nhân</p>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                        <a href="#" id="logoutButton" class="sub-menu-link">
+                            <img src="../assets/img/header/logout.png" alt="">
+                            <p>Đăng xuất</p>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+                </div>
+            </div>
+            
+        </header>
+        <div class="container">
+            <div class="navigation">
+                <ul>
+                    <li>
+                        <a href="profile.html">
+                            <span class="icon">
+                                <i class="fa-regular fa-user"></i>
+                            </span>
+                            <span class="title-strong">Thông tin cá nhân</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="border" href="editprofile.html">
+                            <span class="icon">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </span>
+                            <span class="title ">Chỉnh sửa trang cá nhân</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <span class="icon">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </span>
+                            <span class="title">Chỉnh sửa dịch vụ</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <span class="icon">
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
+                            <span class="title">Mật khẩu</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="profile-container">
+                <div class="profile-pic-container" id="profilePicContainer">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="file" id="profilePicInput" accept="image/*" style="display:none;">
+                </div>
+                <div class="input-fields">
+                    <div class="input-group">
+                        <label for="username">Họ và tên</label>
+                        <input type="text" id="username" name="username" >
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="input-group">
+                        <label for="grade">Khối</label>
+                        <input type="text" id="grade" name="grade">
+                    </div>
+                    <div class="input-group">
+                        <label for="address">Tỉnh/Thành phố</label>
+                        <select id="address" name="address">
+                            <option value="HCMC">TP. Hồ Chí Minh</option>
+                            <option value="HN">Hà Nội</option>
+                            <option value="DN">Đà Nẵng</option>
+                            <option value="KH">Khánh Hòa</option>
+                            <option value="CT">Cần Thơ</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="submitButton" class="submit-button">Cập nhật thông tin</button>
+
+                </div>
+            </div>
+        </div>
+        <footer>
+            <link rel="stylesheet" href="../assets/css/footer.css">
+            <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+            <div class="footer-container">
+                <div class="socials">
+                    <a href=""><i class="fa-brands fa-facebook"></i></a>
+                    <a href=""><i class="fa-brands fa-instagram"></i></a>
+                    <a href=""><i class="fa-brands fa-twitter"></i></a>
+                    <a href=""><i class="fa-brands fa-google-plus"></i></a>
+                    <a href=""><i class="fa-brands fa-youtube"></i></a>
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="">Home</a></li>
+                        <li><a href="">About</a></li>
+                        <li><a href="">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Copyright &copy;2024; Designed by <span class="designer">DL</span></p>
+            </div>
+        </footer>
+        <div id="passwordModal" class="modal">
+            <div class="modal-content">
+                <div class="wrap">
+                <span class="close-button">&times;</span>
+                <h2>Đổi mật khẩu</h2>
+                <div class="input-group input-modal">
+                    <label for="currentPassword">Mật khẩu hiện tại</label>
+                    <input type="password" id="currentPassword" name="currentPassword">
+                </div>
+                <div class="input-group input-modal">
+                    <label for="newPassword">Mật khẩu mới</label>
+                    <input type="password" id="newPassword" name="newPassword">
+                </div>
+                <div class="input-group input-modal">
+                    <label for="confirmPassword">Nhập lại mật khẩu mới</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword">
+                </div>
+                <button type="submit" id="changePasswordButton" class="submit-button">Đổi mật khẩu</button>
+                </div>
+        </div>
+        </div>
+    </div>
+    <script src="../js/header.js"></script>
+    <script>
+        document.getElementById('profilePicContainer').addEventListener('click', function () {
+            document.getElementById('profilePicInput').click();
+        });
+
+        document.getElementById('profilePicInput').addEventListener('change', function (event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const img = document.createElement('img');
+                img.src = reader.result;
+                img.className = 'avatar-preview';
+                document.getElementById('profilePicContainer').innerHTML = '';
+                document.getElementById('profilePicContainer').appendChild(img);
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        });
+    </script>
+    <script>
+        var modal = document.getElementById("passwordModal");
+
+        var passwordLink = document.querySelector('.navigation li:nth-child(4) a');
+
+        var closeButton = document.getElementsByClassName("close-button")[0];
+
+        passwordLink.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        closeButton.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

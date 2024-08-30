@@ -2,7 +2,10 @@ function toast({ title = "", message = "", type = "info", duration = 3000 }) {
     const main = document.getElementById("toast");
     if (main) {
         const toast = document.createElement("div");
-        const icon = type === "info" ? "info" : type === "success" ? "check" : type === "error" ? "error" : "info";
+        // Cập nhật biểu tượng cho từng loại thông báo
+        const icon = type === "info" ? "info" :
+            type === "success" ? "check" :
+                type === "error" ? "exclamation-circle" : "info";
         const delay = (duration / 1000).toFixed(2);
         toast.classList.add("toast", `toast--${type}`);
         toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
@@ -25,11 +28,21 @@ function toast({ title = "", message = "", type = "info", duration = 3000 }) {
     }
 }
 
+
 function showSuccessToast() {
     toast({
         title: "Thành công",
         message: "Đăng ký thành công. Bạn sẽ được chuyển hướng ngay.",
         type: "success",
+        duration: 3000
+    });
+
+}
+function showErrorToast(message) {
+    toast({
+        title: "Sai tên tài khoản hoặc mật khẩu",
+        message: message || "Vui lòng thử lại!",
+        type: "error",
         duration: 3000
     });
 }
