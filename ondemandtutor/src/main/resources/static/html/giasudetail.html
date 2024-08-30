@@ -49,7 +49,7 @@
                 <span id="usernameDisplay"></span>
                 <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
                 <div id="userDropdown" class="user-dropdown">
-                    <a href="profile.html" class="sub-menu-link">
+                    <a href="./profile.html" class="sub-menu-link">
                         <img src="../assets/img/header/profile.png" alt="">
                         <p>Thông tin cá nhân</p>
                         <i class="fa-solid fa-chevron-right"></i>
@@ -105,20 +105,21 @@
             <h1>Thông tin dịch vụ</h1>
             <div class="thongtin"><p>thong tin</p></div>
         </div>
-        <div class="schedule-container">
-            <div class="header-a">
-                <button class="nav-button" id="prev-week">&lt;</button>
-                <span id="week-label">Aug 11–17, 2024</span>
-                <button class="nav-button" id="next-week">&gt;</button>
-                <select id="timezone-selector">
-                    <option value="Asia/Bangkok">Asia/Bangkok (GMT +7:00)</option>
-                    <!-- Add more timezones as needed -->
-                </select>
-            </div>
-            <div class="schedule-grid" id="schedule">
-                <!-- Schedule slots will be generated here -->
-            </div>
+        <div class="view-schedule-container">
+            <h1>View Schedule</h1>
+            <table id="scheduleTable">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Times</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
         </div>
+    
         <div class="respone-tutor-container">
             
             <div class="comment-user">
