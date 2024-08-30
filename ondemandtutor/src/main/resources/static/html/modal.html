@@ -116,7 +116,7 @@
                     Validator.isRequired('#username', 'Vui lòng nhập tên tài khoản'),
                     Validator.isRequired('#email', 'Vui lòng nhập email'),
                     Validator.isEmail('#email', 'Trường này phải là email'),
-                    Validator.minLength('#password', 6, 'Mật khẩu phải có ít nhất 6 ký tự'),
+                    Validator.minLength('#password', 8, 'Mật khẩu phải có ít nhất 6 ký tự'),
                     Validator.isRequired('#password_confirmation', 'Vui lòng nhập lại mật khẩu'),
                     Validator.isConfirmed('#password_confirmation', function () {
                         return document.querySelector('#sign-up-form #password').value;
@@ -142,7 +142,7 @@
                 rules: [
                     Validator.isRequired('#login_username', 'Vui lòng nhập tên tài khoản'),
                     Validator.isRequired('#login_password', 'Vui lòng nhập mật khẩu'),
-                    Validator.minLength('#login_password', 6, 'Mật khẩu phải có ít nhất 6 ký tự'),
+                    Validator.minLength('#login_password', 8, 'Mật khẩu phải có ít nhất 6 ký tự'),
                 ],
                 onSubmit: function (data) {
                     fetch('http://localhost:8080/v1/auth/log-in', {
@@ -162,7 +162,8 @@
                                 // Đăng nhập thành công
                                 localStorage.setItem('token', data.result.token);
                                 localStorage.setItem('loggedIn', 'true');
-                                window.location.href = 'home.html';
+                                const previousPage = localStorage.getItem('previousPage') || 'home.html';
+                                window.location.href = previousPage;
                             } else {
                                 // Xử lý lỗi
                                 alert('Đăng nhập không thành công: ' + data.message);
