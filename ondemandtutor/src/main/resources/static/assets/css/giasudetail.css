@@ -128,14 +128,7 @@
     justify-content: start;
  }
 
-.schedule-container {
-   width: 700px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
+
 
 .header-a{
     display: flex;
@@ -153,30 +146,7 @@
     cursor: pointer;
 }
 
-.schedule-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-}
 
-.schedule-grid div {
-    text-align: center;
-}
-
-.day-header {
-    font-weight: bold;
-    padding: 10px 0;
-}
-
-.time-slot {
-    color: #007BFF;
-    margin: 5px 0;
-    cursor: pointer;
-}
-
-.time-slot:hover {
-    text-decoration: underline;
-}
 .thongtin{
     width: 900px;
     height: 300px;
@@ -223,4 +193,68 @@
     white-space: normal;
     margin-top: 20px;
     
+}
+.view-schedule-container {
+    max-width: 700px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+thead th {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: left;
+}
+
+tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.time-slot {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+    position: relative;
+}
+
+.time-slot .delete-time-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 5px;
+    padding: 0;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.time-slot .delete-time-btn:hover {
+    background-color: darkred;
 }
