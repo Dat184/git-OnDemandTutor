@@ -12,44 +12,7 @@ loginBtn.addEventListener('click', () => {
     container.classList.remove("active");
 });
 
-document.getElementById('sign-in-form').addEventListener('submit', function(event) {
-    event.preventDefault();
 
-
-    const formData = {
-        username: document.getElementById('login_username').value,
-        password: document.getElementById('login_password').value,
-    };
-
-    // Gửi yêu cầu POST tới BE
-    fetch('http://localhost:8080/v1/auth/log-in', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.code===1000) {
-                console.log('Đăng nhập thành công:', data);
-                window.location.href = 'home.html';
-                // localStorage.setItem('token', data.result.token);
-                showSuccessToast();
-            } else {
-                console.error('Đăng nhập thất bại:', data.message);
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            showErrorToast();
-        });
-});
 
 document.getElementById('sign-up-form').addEventListener('submit', function(event) {
     event.preventDefault();

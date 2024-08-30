@@ -144,6 +144,35 @@
                     Validator.isRequired('#login_password', 'Vui lòng nhập mật khẩu'),
                     Validator.minLength('#login_password', 6, 'Mật khẩu phải có ít nhất 6 ký tự'),
                 ],
+                onSubmit: function (data) {
+                    fetch('http://localhost:8080/v1/auth/log-in', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: data.username,
+                            password: data.password
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Xử lý phản hồi từ API ở đây
+                            if (data.code === 1000 && data.result.authenticated) {
+                                // Đăng nhập thành công
+                                localStorage.setItem('token', data.result.token);
+                                localStorage.setItem('loggedIn', 'true');
+                                window.location.href = 'home.html';
+                            } else {
+                                // Xử lý lỗi
+                                alert('Đăng nhập không thành công: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Lỗi:', error);
+                            alert('Có lỗi xảy ra. Vui lòng thử lại sau.');
+                        });
+                }
 
 
             });
