@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/profile.css">
-    <link rel="stylesheet" href="../asset/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
     <title>Document</title>
 </head>
 
@@ -119,8 +119,8 @@
                     <span id="role">Giáo viên</span>
                 </div>
                 <div class="input-group">
-                    <label for="username">Họ và tên</label>
-                    <span id="username">Nguyễn Văn A</span>
+                    <label for="name">Họ và tên</label>
+                    <span id="name">Nguyễn Văn A</span>
                 </div>
                 <div class="input-group">
                     <label for="email">Email</label>
@@ -128,11 +128,11 @@
                 </div>
                 <div class="input-group">
                     <label for="grade">Khối</label>
-                    <span id="grade">12</span>
+                    <span id="grade">Chưa cập nhật</span>
                 </div>
                 <div class="input-group">
                     <label for="address">Tỉnh/Thành phố</label>
-                    <span id="address">Hà Nội</span>
+                    <span id="address">Chưa cập nhật</span>
                 </div>
             </div>
         </div>
@@ -184,21 +184,47 @@
 </div>
 <script src="../js/header.js"></script>
 <script>
-    document.getElementById('profilePicContainer').addEventListener('click', function () {
-        document.getElementById('profilePicInput').click();
-    });
 
-    document.getElementById('profilePicInput').addEventListener('change', function (event) {
-        const reader = new FileReader();
-        reader.onload = function () {
-            const img = document.createElement('img');
-            img.src = reader.result;
-            img.className = 'avatar-preview';
-            document.getElementById('profilePicContainer').innerHTML = '';
-            document.getElementById('profilePicContainer').appendChild(img);
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    });
+
+
+    async function getMyInfo() {
+        try {
+            const token = localStorage.getItem('token');
+            console.log(token);
+            const response = await fetch('http://localhost:8080/v1/users/myInfo', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                    // Thêm Authorization header nếu cần thiết
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            // Cập nhật thông tin cá nhân lên giao diện
+            document.getElementById('role').innerText = data.result.role;
+            document.getElementById('name').innerText = data.result.name;
+            document.getElementById('email').innerText = data.result.email;
+            if (data.result.grade!=null) {
+                document.getElementById('grade').innerText = data.result.grade;
+            }
+            if (data.result.address != null)
+            {
+                document.getElementById('address').innerText = data.result.address;
+            }
+
+
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+
+    // Gọi hàm getMyInfo khi trang được tải
+    window.onload = getMyInfo;
 </script>
 <script>
     var modal = document.getElementById("passwordModal");
