@@ -22,7 +22,7 @@ document.getElementById('sign-in-form').addEventListener('submit', function(even
     };
 
     // Gửi yêu cầu POST tới BE
-    fetch('/v1/auth/log-in', {
+    fetch('http://localhost:8080/v1/auth/log-in', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -38,6 +38,7 @@ document.getElementById('sign-in-form').addEventListener('submit', function(even
         .then(data => {
             if (data.code===1000) {
                 console.log('Đăng nhập thành công:', data);
+                window.location.href = 'home.html';
                 // localStorage.setItem('token', data.result.token);
                 showSuccessToast();
             } else {
@@ -63,7 +64,7 @@ document.getElementById('sign-up-form').addEventListener('submit', function(even
     };
 
     // Gửi yêu cầu POST tới BE
-    fetch('/v1/users/registered', {
+    fetch('http://localhost:8080/v1/users/registered', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

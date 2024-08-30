@@ -122,17 +122,17 @@
                         return document.querySelector('#sign-up-form #password').value;
                     }, 'Mật khẩu xác nhận không khớp')
                 ],
-                onSubmit: function (data) {
-                    // Show toast message
-                    showSuccessToast();
-
-                    // Delay redirection by 3 seconds (3000 milliseconds)
-                    setTimeout(function () {
-                        localStorage.setItem('loggedIn', 'true');
-                        const previousPage = localStorage.getItem('previousPage') || 'home.html';
-                        window.location.href = previousPage;
-                    }, 2000);
-                }
+                // onSubmit: function (data) {
+                //     // Show toast message
+                //     showSuccessToast();
+                //
+                //     // Delay redirection by 3 seconds (3000 milliseconds)
+                //     setTimeout(function () {
+                //         localStorage.setItem('loggedIn', 'true');
+                //         const previousPage = localStorage.getItem('previousPage') || 'home.html';
+                //         window.location.href = previousPage;
+                //     }, 2000);
+                // }
             });
 
             Validator({
@@ -144,6 +144,7 @@
                     Validator.isRequired('#login_password', 'Vui lòng nhập mật khẩu'),
                     Validator.minLength('#login_password', 6, 'Mật khẩu phải có ít nhất 6 ký tự'),
                 ],
+
 
             });
         });
