@@ -72,11 +72,47 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (logoutButton) {
         logoutButton.addEventListener('click', function() {
-            localStorage.removeItem('loggedIn');
-            localStorage.removeItem('username');
-            
-            const previousPage = localStorage.getItem('previousPage') || 'home.html'; 
-            window.location.href = previousPage;
+            // localStorage.removeItem('loggedIn');
+            // localStorage.removeItem('username');
+            //
+            // const previousPage = localStorage.getItem('previousPage') || 'home.html';
+            // window.location.href = previousPage;
+            const token = localStorage.getItem('token')
+            fetch('http://localhost:8080/v1/auth/log-out' , {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    // Điền thông tin cần thiết cho yêu cầu log-out, nếu có.
+                    token: token
+                })
+            })
+                .then(response => response.json()) // Chuyển đổi phản hồi thành JSON
+                .then(data => {
+                    if (data.code === 1000) {
+                        // Nếu log-out thành công, xóa trạng thái đăng nhập và token từ localStorage
+                        localStorage.removeItem('loggedIn');
+                        localStorage.removeItem('username');
+                        localStorage.removeItem('token'); // Xóa token khỏi localStorage
+
+                        // Chuyển hướng người dùng về trang chủ hoặc trang đăng nhập
+                        const previousPage = localStorage.getItem('previousPage') || 'home.html';
+                        window.location.href = previousPage;
+                    } else {
+                        // Xử lý lỗi nếu mã phản hồi không phải là 1000
+                        console.error('Đăng xuất thất bại với mã lỗi:', data.code);
+                    }
+                })
+                .catch(error => {
+                    // console.error('Đã xảy ra lỗi:', error);
+                    // Vẫn cho đăng xuất dù xảy ra lỗi
+                    localStorage.removeItem('loggedIn');
+                    localStorage.removeItem('username');
+                    localStorage.removeItem('token');
+                    const previousPage = localStorage.getItem('previousPage') || 'home.html';
+                    window.location.href = previousPage;
+                });
         });
     }
 });
