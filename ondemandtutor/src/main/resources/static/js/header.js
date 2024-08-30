@@ -62,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function() {
         userInfo.addEventListener('click', function () {
             dropdown.classList.toggle('show');
         });
-
         document.addEventListener('click', function (event) {
             if (!userInfo.contains(event.target)) {
                 dropdown.classList.remove('show');
