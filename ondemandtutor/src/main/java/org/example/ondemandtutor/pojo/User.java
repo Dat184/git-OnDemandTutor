@@ -24,6 +24,8 @@ public abstract class User {
     @Column(name = "role", nullable = false)
     private Role role;
 
+    private String imgUrl;
+
 
 
 }

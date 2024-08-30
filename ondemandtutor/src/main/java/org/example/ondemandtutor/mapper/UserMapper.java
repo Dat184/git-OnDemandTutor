@@ -11,6 +11,7 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+    @Mapping(target = "imgUrl", source = "imgUrl")
     UserResponse toUserResponse(User user);
 
 }
