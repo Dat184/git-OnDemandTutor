@@ -92,3 +92,20 @@ function convertTo12HourFormat(hour24) {
     const ampm = hour24 >= 12 ? 'PM' : 'AM'; // Xác định AM/PM
     return `${hour}:00 ${ampm}`;
 }
+const videoInput = document.getElementById('videoInput');
+const videoPreview = document.getElementById('videoPreview');
+
+videoInput.addEventListener('change', function() {
+    const file = videoInput.files[0];
+    if (file) {
+        const url = URL.createObjectURL(file);
+        videoPreview.src = url;
+        videoPreview.style.display = 'block';
+    }
+});
+
+// Handle form submission (for demo purposes, we prevent actual submission)
+document.getElementById('uploadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Video uploaded!');
+});
