@@ -99,9 +99,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         // Chuyển hướng người dùng về trang chủ hoặc trang đăng nhập
                         const previousPage = localStorage.getItem('previousPage') || 'home.html';
                         window.location.href = previousPage;
-                    } else {
-                        // Xử lý lỗi nếu mã phản hồi không phải là 1000
-                        console.error('Đăng xuất thất bại với mã lỗi:', data.code);
                     }
                 })
                 .catch(error => {
