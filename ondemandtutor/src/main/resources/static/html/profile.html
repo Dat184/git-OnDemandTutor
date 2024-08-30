@@ -191,7 +191,7 @@
         try {
             const token = localStorage.getItem('token');
             console.log(token);
-            const response = await fetch('http://localhost:8080/v1/users/myInfo', {
+            const response = await fetch('http://localhost:8080/v1/student/myInfo', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -214,6 +214,7 @@
             }
             if (data.result.address != null)
             {
+
                 document.getElementById('address').innerText = data.result.address;
             }
 

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.example.ondemandtutor.dto.response.ApiResponse;
 import org.example.ondemandtutor.dto.response.StudentResponse;
-import org.example.ondemandtutor.pojo.Student;
+import org.example.ondemandtutor.dto.response.UserResponse;
 import org.example.ondemandtutor.service.StudentService;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -37,6 +37,12 @@ public class StudentController {
     ApiResponse<StudentResponse> getStudentById(@PathVariable long id) {
         return ApiResponse.<StudentResponse>builder()
                 .result(studentService.findStudentById(id))
+                .build();
+    }
+    @GetMapping("/myInfo")
+    ApiResponse<StudentResponse> getMyInfo() {
+        return ApiResponse.<StudentResponse>builder()
+                .result(studentService.getMyInfo())
                 .build();
     }
 

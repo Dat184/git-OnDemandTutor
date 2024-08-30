@@ -14,7 +14,4 @@ import lombok.Setter;
 public class Student extends User{
     private String grade;
 
-
-
-
 }

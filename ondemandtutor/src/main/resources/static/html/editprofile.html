@@ -116,8 +116,8 @@
                 </div>
                 <div class="input-fields">
                     <div class="input-group">
-                        <label for="username">Họ và tên</label>
-                        <input type="text" id="username" name="username" >
+                        <label for="name">Họ và tên</label>
+                        <input type="text" id="name" name="username" >
                     </div>
                     <div class="input-group">
                         <label for="email">Email</label>
@@ -130,11 +130,11 @@
                     <div class="input-group">
                         <label for="address">Tỉnh/Thành phố</label>
                         <select id="address" name="address">
-                            <option value="HCMC">TP. Hồ Chí Minh</option>
-                            <option value="HN">Hà Nội</option>
-                            <option value="DN">Đà Nẵng</option>
-                            <option value="KH">Khánh Hòa</option>
-                            <option value="CT">Cần Thơ</option>
+                            <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
+                            <option value="Hà Nội">Hà Nội</option>
+                            <option value="Đà Nẵng">Đà Nẵng</option>
+                            <option value="Khánh Hòa">Khánh Hòa</option>
+                            <option value="Cần Thơ">Cần Thơ</option>
                         </select>
                     </div>
                     <button type="submit" id="submitButton" class="submit-button">Cập nhật thông tin</button>
@@ -225,6 +225,51 @@
                 modal.style.display = "none";
             }
         }
+    </script>
+    <script>
+        document.getElementById('submitButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
+
+            // Lấy giá trị từ các input fields
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const grade = document.getElementById('grade').value;
+            const address = document.getElementById('address').value;
+
+            // Tạo đối tượng request payload
+            const userUpdateRequest = {
+                name: name,
+                email: email,
+                grade: grade,
+                address: address
+            };
+
+            // Lấy Bearer token từ localStorage
+            const token = localStorage.getItem('token');
+
+            // Gọi API PUT để cập nhật thông tin người dùng
+            fetch('http://localhost:8080/v1/users', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(userUpdateRequest)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code === 1000) {
+                        alert('Thông tin người dùng đã được cập nhật thành công!');
+                        // Thực hiện các hành động khác nếu cần, ví dụ như tải lại trang
+                    } else {
+                        alert('Có lỗi xảy ra khi cập nhật thông tin người dùng.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating user info:', error);
+                    alert('Có lỗi xảy ra khi kết nối tới máy chủ.');
+                });
+        });
     </script>
 
 </body>

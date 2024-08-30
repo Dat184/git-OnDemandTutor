@@ -15,5 +15,6 @@ public class UserResponse {
     private String name;
     private String role;
     private String address;
+
     private String imgUrl;
 }
