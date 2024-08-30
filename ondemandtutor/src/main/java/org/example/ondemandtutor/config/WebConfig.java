@@ -12,6 +12,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:63342") // Thay đổi thành URL frontend của bạn
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowedHeaders("");
+                .allowedHeaders("*");
     }
 }

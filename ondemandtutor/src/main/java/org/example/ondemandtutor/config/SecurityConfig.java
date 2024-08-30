@@ -25,7 +25,10 @@ public class SecurityConfig {
             "/v1/auth/introspect",
             "/v1/student",
             "/v1/auth/log-out",
-            "/v1/auth/refresh"
+            "/v1/auth/refresh",
+            "/html/**",
+            "/assets/**",
+            "/js/**"
 
     };
 
@@ -36,6 +39,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(request ->
                 request.requestMatchers(HttpMethod.POST,PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
                         .anyRequest().authenticated());
 
         httpSecurity.oauth2ResourceServer(oauth2 ->
@@ -46,6 +50,7 @@ public class SecurityConfig {
         );
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
+
         return httpSecurity.build();
     }
 
