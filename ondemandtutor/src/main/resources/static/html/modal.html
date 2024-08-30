@@ -142,7 +142,7 @@
                 rules: [
                     Validator.isRequired('#login_username', 'Vui lòng nhập tên tài khoản'),
                     Validator.isRequired('#login_password', 'Vui lòng nhập mật khẩu'),
-                    Validator.minLength('#login_password', 8, 'Mật khẩu phải có ít nhất 6 ký tự'),
+                    Validator.minLength('#login_password', 5, 'Mật khẩu phải có ít nhất 6 ký tự'),
                 ],
                 onSubmit: function (data) {
                     fetch('http://localhost:8080/v1/auth/log-in', {
