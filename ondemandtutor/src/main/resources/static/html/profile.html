@@ -190,7 +190,7 @@
     async function getMyInfo() {
         try {
             const token = localStorage.getItem('token');
-            console.log(token);
+
             const response = await fetch('http://localhost:8080/v1/student/myInfo', {
                 method: 'GET',
                 headers: {
@@ -209,10 +209,11 @@
             document.getElementById('role').innerText = data.result.role;
             document.getElementById('name').innerText = data.result.name;
             document.getElementById('email').innerText = data.result.email;
-            if (data.result.grade!=null) {
+
+            if (!data.result.grade == "" ) {
                 document.getElementById('grade').innerText = data.result.grade;
             }
-            if (data.result.address != null)
+            if (!data.result.address == "")
             {
                 document.getElementById('address').innerText = data.result.address;
             }

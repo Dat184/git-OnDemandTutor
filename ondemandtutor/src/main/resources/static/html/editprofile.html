@@ -117,7 +117,7 @@
                 <div class="input-fields">
                     <div class="input-group">
                         <label for="name">Họ và tên</label>
-                        <input type="text" id="name" name="username" >
+                        <input type="text" id="name" name="name" >
                     </div>
                     <div class="input-group">
                         <label for="email">Email</label>
@@ -271,6 +271,41 @@
                 });
         });
     </script>
+
+<script>
+    async function getMyInfo() {
+        const token = localStorage.getItem('token');
+
+        const response = await fetch('http://localhost:8080/v1/student/myInfo', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+                // Thêm Authorization header nếu cần thiết
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        // Cập nhật thông tin cá nhân lên giao diện
+
+        document.getElementById('name').value = data.result.name;
+        document.getElementById('email').value = data.result.email;
+
+        if (!data.result.grade == "") {
+            document.getElementById('grade').value = data.result.grade;
+        } else {
+            document.getElementById('grade').value = "vui lòng nhập khoois";
+        }
+
+
+    }
+    window.onload = getMyInfo;
+</script>
+
 
 </body>
 
