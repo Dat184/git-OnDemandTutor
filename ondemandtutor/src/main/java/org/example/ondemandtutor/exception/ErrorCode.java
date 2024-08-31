@@ -11,6 +11,7 @@ public enum ErrorCode {
     USER_EXISTED (1001, "User already existed", HttpStatus.BAD_REQUEST),
     USERNAME_INVALID (1001, "Username must be have least 3 character", HttpStatus.BAD_REQUEST),
     INVALID_PASSWORD (1001, "Password must be have least 8 character", HttpStatus.BAD_REQUEST),
+    WRONG_PASSWORD (1001, "Wrong password", HttpStatus.BAD_REQUEST),
     USER_NOT_EXISTED (1001, "User not existed", HttpStatus.NOT_FOUND),
     ADMIN_NOT_EXISTED (1001, "Admin not existed", HttpStatus.BAD_REQUEST),
     INVALID_ROLE (1001, "Invalid role", HttpStatus.BAD_REQUEST),

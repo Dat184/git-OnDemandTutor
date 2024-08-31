@@ -117,7 +117,7 @@ public class UserService {
         }
         if (request.getOldPass()!= null) {
             if (!passwordEncoder.matches(request.getOldPass(), user.getPassword()))
-                throw new AppException(ErrorCode.INVALID_PASSWORD);
+                throw new AppException(ErrorCode.WRONG_PASSWORD);
             user.setPassword(passwordEncoder.encode(request.getPassword()));
         }
         if (request.getAddress()!=null) {
