@@ -1,6 +1,7 @@
 package org.example.ondemandtutor.mapper;
 
 import org.example.ondemandtutor.dto.request.BookingRequest;
+import org.example.ondemandtutor.dto.request.VnPayRequest;
 import org.example.ondemandtutor.dto.response.BookingResponse;
 import org.example.ondemandtutor.pojo.Booking;
 import org.mapstruct.Mapper;
@@ -10,7 +11,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface BookingMapper {
-    @Mapping(target = "student.id", ignore = true)
     @Mapping(target = "tutorService.id", source = "tutorServiceId")
     Booking toBooking(BookingRequest bookingRequest);
 

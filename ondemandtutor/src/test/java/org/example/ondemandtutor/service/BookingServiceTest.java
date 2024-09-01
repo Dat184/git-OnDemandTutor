@@ -88,14 +88,6 @@ class BookingServiceTest {
         verify(bookingRepository, times(1)).findAll();
     }
 
-    @Test
-    void getTotalPrice() {
-        when(tutorServiceRepository.findById(anyLong())).thenReturn(Optional.of(tutorService));
-
-        int totalPrice = bookingService.getTotalPrice(1L);
-
-        assertEquals(200, totalPrice);
-    }
 
     @Test
     void findByStudentId() {

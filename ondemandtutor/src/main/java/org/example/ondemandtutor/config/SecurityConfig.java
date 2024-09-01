@@ -28,7 +28,8 @@ public class SecurityConfig {
             "/v1/auth/refresh",
             "/html/**",
             "/assets/**",
-            "/js/**"
+            "/js/**",
+            "/v1/vnpay/callback"
 
     };
 
