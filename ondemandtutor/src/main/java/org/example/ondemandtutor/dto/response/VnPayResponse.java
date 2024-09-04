@@ -1,4 +1,4 @@
-package org.example.ondemandtutor.dto.request;
+package org.example.ondemandtutor.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class BookingRequest {
-    Long tutorServiceId;
-    Long totalPrice;
-    String transactionId;
-    String responseCode;
+public class VnPayResponse {
+    public String code;
+    public String message;
+    public String paymentUrl;
 }

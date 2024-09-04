@@ -6,9 +6,13 @@ import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.response.MessageResponse;
 import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.dto.request.MessageRequest;
+import org.example.ondemandtutor.pojo.Chat;
+import org.example.ondemandtutor.repository.ChatRepository;
 import org.example.ondemandtutor.service.MessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,8 +25,10 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class MessageController {
     MessageService messageService;
+    SimpMessagingTemplate messagingTemplate;
+    ChatRepository chatRepository;
 
-    @PostMapping("/send")
+    @MessageMapping("/send")
     public ResponseEntity<ResponseObject> sendMessage(
             @RequestParam("chatId") Long chatId ,
             @RequestParam(value = "messageText", required = false) String messageText,
@@ -30,8 +36,13 @@ public class MessageController {
 
         try {
             MessageRequest messageRequest = new MessageRequest(chatId, messageText, file);
-
+            Chat chat = chatRepository.findById(chatId)
+                    .orElseThrow(() -> new IllegalArgumentException("Chat not found"));
+            String recipientUsername = chat.getRecipient().getUsername();
             MessageResponse message = messageService.sendMessage(messageRequest);
+            messagingTemplate.convertAndSendToUser(
+                    recipientUsername, "/queue/messages",
+                    message);
             ResponseObject response = new ResponseObject("success", "Message sent", message);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
 

@@ -8,7 +8,6 @@ import org.example.ondemandtutor.dto.request.UserUpdateRequest;
 import org.example.ondemandtutor.dto.response.UserResponse;
 import org.example.ondemandtutor.exception.AppException;
 import org.example.ondemandtutor.exception.ErrorCode;
-import org.example.ondemandtutor.mapper.StudentMapperImpl;
 import org.example.ondemandtutor.mapper.UserMapper;
 import org.example.ondemandtutor.pojo.*;
 import org.example.ondemandtutor.repository.AdminRepository;
