@@ -140,7 +140,6 @@ public class UserService {
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
-
     // cap nhat thong tin cua ban than
     public UserResponse updateMyinfo(UserUpdateRequest request) {
         var context = SecurityContextHolder.getContext();

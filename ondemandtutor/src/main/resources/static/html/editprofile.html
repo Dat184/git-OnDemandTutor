@@ -130,6 +130,7 @@
                     <div class="input-group">
                         <label for="address">Tỉnh/Thành phố</label>
                         <select id="address" name="address">
+                            <option value="Chưa chọn">Vui lòng chọn thành phố</option>
                             <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
                             <option value="Hà Nội">Hà Nội</option>
                             <option value="Đà Nẵng">Đà Nẵng</option>
@@ -305,7 +306,60 @@
     }
     window.onload = getMyInfo;
 </script>
+    <script>
+        document.getElementById('changePasswordButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
 
+            // Lấy giá trị từ các input fields
+            const currentPassword = document.getElementById('currentPassword').value.trim();
+            const newPassword = document.getElementById('newPassword').value.trim();
+            const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+            // Kiểm tra tính hợp lệ của dữ liệu
+            if (!currentPassword || !newPassword || !confirmPassword) {
+                alert('Vui lòng điền đầy đủ thông tin.');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert('Mật khẩu mới và xác nhận mật khẩu không khớp.');
+                return;
+            }
+
+            // Tạo đối tượng request payload
+            const userUpdateRequest = {
+                oldPass: currentPassword,
+                password: newPassword,
+            };
+
+            // Lấy Bearer token từ localStorage
+            const token = localStorage.getItem('token');
+
+            // Gọi API PUT để cập nhật thông tin người dùng
+            fetch('http://localhost:8080/v1/users', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(userUpdateRequest)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code === 1000) {
+                        alert('Thông tin người dùng đã được cập nhật thành công!');
+                        // Thực hiện các hành động khác nếu cần, ví dụ như tải lại trang
+                    } else {
+                        alert(`Có lỗi xảy ra khi cập nhật thông tin người dùng: ${data.message || 'Lỗi không xác định'}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating user info:', error);
+                    alert('Có lỗi xảy ra khi kết nối tới máy chủ.');
+                });
+        });
+
+    </script>
 
 </body>
 
