@@ -112,3 +112,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+//phân quyền trang tạo dịch vụ
+document.addEventListener('DOMContentLoaded', () => {
+    // Lấy vai trò từ localStorage
+    const userRole = localStorage.getItem('role');
+
+    // Kiểm tra vai trò và thực hiện các hành động dựa trên vai trò
+    if (userRole === 'Tutor') {
+        // Hiển thị phần tử tạo dịch vụ cho Admin
+        document.querySelector('.navbar-container .nav-box.hidden').classList.remove('hidden');
+    }
+});
