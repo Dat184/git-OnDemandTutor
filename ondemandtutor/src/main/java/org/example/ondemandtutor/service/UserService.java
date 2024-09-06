@@ -91,8 +91,10 @@ public class UserService {
         log.info("In method getUsers");
         return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
     }
-    public UserResponse updateImg(Long id, UpdateImgRequest request) throws IOException {
-        User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+    public UserResponse updateImg(UpdateImgRequest request) throws IOException {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(name).orElseThrow(
+                () -> new AppException(ErrorCode.USER_NOT_EXISTED));
         String fileUrl = null;
         if (request.getFile()!= null) {
             String oldFileName = user.getImgUrl();
@@ -105,6 +107,12 @@ public class UserService {
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
+    public UserResponse getImg(){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(name).orElseThrow(
+                () -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        return userMapper.toUserResponse(user);
+    }
     public UserResponse updateUser(Long id, UserUpdateRequest request) {
         User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
         // map các trường dữ liệu lại

@@ -12,5 +12,4 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SubjectRequest {
     String name;
-    String description;
 }
