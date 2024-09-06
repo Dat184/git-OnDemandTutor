@@ -113,14 +113,18 @@
                 </ul>
             </div>
             <div class="profile-container">
-                <div class="profile-pic-container" id="profilePicContainer">
+                <div id="profilePicContainer">
+                    <img id="profilePic" src="" alt="Profile Picture">
                     <i class="fa-solid fa-camera"></i>
-                    <input type="file" id="profilePicInput" accept="image/*" style="display:none;">
                 </div>
+                <input type="file" id="profilePicInput" style="display: none;" accept="image/*" />
+
+
+
                 <div class="input-fields">
                     <div class="input-group">
                         <label for="name">Họ và tên</label>
-                        <input type="text" id="name" name="name" >
+                        <input type="text" id="name" name="name">
                     </div>
                     <div class="input-group">
                         <label for="email">Email</label>
@@ -141,10 +145,11 @@
                             <option value="Cần Thơ">Cần Thơ</option>
                         </select>
                     </div>
-                    <button type="submit" id="submitButton" class="submit-button">Cập nhật thông tin</button>
+                    <button type="submit" id="updateButton" class="submit-button">Cập nhật thông tin và ảnh</button>
 
                 </div>
             </div>
+
         </div>
         <footer>
             <link rel="stylesheet" href="../assets/css/footer.css">
@@ -192,182 +197,7 @@
         </div>
     </div>
     <script src="../js/header.js"></script>
-    <script>
-        document.getElementById('profilePicContainer').addEventListener('click', function () {
-            document.getElementById('profilePicInput').click();
-        });
-
-        document.getElementById('profilePicInput').addEventListener('change', function (event) {
-            const reader = new FileReader();
-            reader.onload = function () {
-                const img = document.createElement('img');
-                img.src = reader.result;
-                img.className = 'avatar-preview';
-                document.getElementById('profilePicContainer').innerHTML = '';
-                document.getElementById('profilePicContainer').appendChild(img);
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        });
-    </script>
-    <script>
-        var modal = document.getElementById("passwordModal");
-
-        var passwordLink = document.querySelector('.navigation li:nth-child(4) a');
-
-        var closeButton = document.getElementsByClassName("close-button")[0];
-
-        passwordLink.onclick = function () {
-            modal.style.display = "block";
-        }
-
-        closeButton.onclick = function () {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-    <script>
-        document.getElementById('submitButton').addEventListener('click', function(event) {
-            event.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
-
-            // Lấy giá trị từ các input fields
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const grade = document.getElementById('grade').value;
-            const address = document.getElementById('address').value;
-
-            // Tạo đối tượng request payload
-            const userUpdateRequest = {
-                name: name,
-                email: email,
-                grade: grade,
-                address: address
-            };
-
-            // Lấy Bearer token từ localStorage
-            const token = localStorage.getItem('token');
-
-            // Gọi API PUT để cập nhật thông tin người dùng
-            fetch('http://localhost:8080/v1/users', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(userUpdateRequest)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.code === 1000) {
-                        alert('Thông tin người dùng đã được cập nhật thành công!');
-
-                        localStorage.removeItem("username");
-                        localStorage.setItem("username", data.result.name)
-
-                        // Thực hiện các hành động khác nếu cần, ví dụ như tải lại trang
-                    } else {
-                        alert('Có lỗi xảy ra khi cập nhật thông tin người dùng.');
-                    }
-                } )
-                .catch(error => {
-                    console.error('Error updating user info:', error);
-                    alert('Có lỗi xảy ra khi kết nối tới máy chủ.');
-                });
-            window.location.reload();
-        });
-    </script>
-
-<script>
-    async function getMyInfo() {
-        const token = localStorage.getItem('token');
-
-        const response = await fetch('http://localhost:8080/v1/student/myInfo', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-                // Thêm Authorization header nếu cần thiết
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        // Cập nhật thông tin cá nhân lên giao diện
-
-        document.getElementById('name').value = data.result.name;
-        document.getElementById('email').value = data.result.email;
-
-        if (!data.result.grade == "") {
-            document.getElementById('grade').value = data.result.grade;
-        } else {
-            document.getElementById('grade').value = "vui lòng nhập khoois";
-        }
-
-
-    }
-    window.onload = getMyInfo;
-</script>
-    <script>
-        document.getElementById('changePasswordButton').addEventListener('click', function(event) {
-            event.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
-
-            // Lấy giá trị từ các input fields
-            const currentPassword = document.getElementById('currentPassword').value.trim();
-            const newPassword = document.getElementById('newPassword').value.trim();
-            const confirmPassword = document.getElementById('confirmPassword').value.trim();
-
-            // Kiểm tra tính hợp lệ của dữ liệu
-            if (!currentPassword || !newPassword || !confirmPassword) {
-                alert('Vui lòng điền đầy đủ thông tin.');
-                return;
-            }
-
-            if (newPassword !== confirmPassword) {
-                alert('Mật khẩu mới và xác nhận mật khẩu không khớp.');
-                return;
-            }
-
-            // Tạo đối tượng request payload
-            const userUpdateRequest = {
-                oldPass: currentPassword,
-                password: newPassword,
-            };
-
-            // Lấy Bearer token từ localStorage
-            const token = localStorage.getItem('token');
-
-            // Gọi API PUT để cập nhật thông tin người dùng
-            fetch('http://localhost:8080/v1/users', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(userUpdateRequest)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.code === 1000) {
-                        alert('Thông tin người dùng đã được cập nhật thành công!');
-                        // Thực hiện các hành động khác nếu cần, ví dụ như tải lại trang
-                    } else {
-                        alert(`Có lỗi xảy ra khi cập nhật thông tin người dùng: ${data.message || 'Lỗi không xác định'}`);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error updating user info:', error);
-                    alert('Có lỗi xảy ra khi kết nối tới máy chủ.');
-                });
-        });
-
-    </script>
+    <script src="../js/profile.js"></script>
 
 </body>
 

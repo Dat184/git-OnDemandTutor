@@ -10,42 +10,48 @@
         <link rel="stylesheet" href="../assets/css/header.css">
         <link rel="stylesheet" href="../assets/css/footer.css">
         <link rel="stylesheet" type="text/css" href="../assets/css/messages.css">
-        
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+
 
 	</head>
 	<body>
-		<header class="header">
-
-			<div class="logo-container">
-				<a class="img-logo" href="../html/home.html">
+	<header class="header">
+		<!--test-->
+		<div class="logo-container">
+			<a class="img-logo" href="../html/home.html">
 				<!-- <img class="logo" src="../assets/img/logo/snapedit_17228353747082.png" alt=""> -->
-				 <p class="text">LEARN TOgetHER</p>  </a>
+				<p class="text">LEARN TOgetHER</p>  </a>
+		</div>
+
+		<div class="navbar-container">
+
+			<a class="nav-box" href="../html/gioithieu.html">GIỚI THIỆU</a>
+
+			<a class="nav-box" href="./tutor.html">GIA SƯ
+
+			</a>
+
+
+			<a class="nav-box" href="./dichvulist.html">DỊCH VỤ
+
+			</a>
+			<a class="nav-box hidden" href="./taodichvu.html">TẠO DỊCH VỤ
+
+			</a>
+		</div>
+		<div class="login-search-container">
+			<div class="search-container">
+				<input id="searchInput" type="text" class="search-box" placeholder="Tìm kiếm...">
+
+				<button id="searchButton" class="search-button">
+					<i class="search-icon fa-solid fa-magnifying-glass"></i>
+				</button>
 			</div>
-			
-			<div class="navbar-container">
-			   
-					<a class="nav-box" href="../html/gioithieu.html">GIỚI THIỆU</a>
-				   
-					<a class="nav-box" href="./tutor.html">GIA SƯ 
-						
-					</a>
-					
-			   
-					<a class="nav-box" href="">DỊCH VỤ
-					  
-					</a>
-			</div>
-			<div class="login-search-container">
-				<div class="search-container">
-					<input id="searchInput" type="text" class="search-box" placeholder="Tìm kiếm...">
-					
-						<button id="searchButton" class="search-button">    
-							<i class="search-icon fa-solid fa-magnifying-glass"></i>
-						</button>
-				</div>
-		
-				<div class="login-container">
-					<a href="modal.html" class="search-link">
+
+			<div class="login-container">
+				<a href="modal.html" class="search-link">
 					<button id="loginButton" class="login-button">Đăng nhập</button>
 				</a>
 				<div class="user-info" id="userInfo">
@@ -62,13 +68,13 @@
 							<p>Đăng xuất</p>
 							<i class="fa-solid fa-chevron-right"></i>
 						</a>
-						
+
 					</div>
 				</div>
-				</div>
 			</div>
-			
-		</header>
+		</div>
+
+	</header>
 		<div class="container-fluid h-100">
 			<div class="row justify-content-center h-100">
 				<div class="col-md-4 col-xl-3 chat"><div class="card mb-sm-3 mb-md-0 contacts_card">

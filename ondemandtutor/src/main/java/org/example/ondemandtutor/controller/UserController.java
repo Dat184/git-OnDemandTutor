@@ -68,15 +68,17 @@ public class UserController {
                 .result(userService.updateUser(id, request))
                 .build();
     }
-    @PutMapping("/updateImg/{id}")
-    ApiResponse<UserResponse> updateImg(
-            @PathVariable Long id,
-            @RequestParam("file") MultipartFile file) throws IOException {
+    @PutMapping("/updateImg")
+    public ApiResponse<UserResponse> updateImg(@RequestParam("file") MultipartFile file) throws IOException {
         UpdateImgRequest request = new UpdateImgRequest(file);
         return ApiResponse.<UserResponse>builder()
-                .result(userService.updateImg(id, request))
+                .result(userService.updateImg(request))
                 .build();
     }
+
+
+
+
 
     @DeleteMapping("/{id}")
     ApiResponse<String> deleteUser(@PathVariable long id) {
@@ -92,5 +94,7 @@ public class UserController {
                 .result(userService.updateMyinfo(request))
                 .build();
     }
+
+
 
 }
