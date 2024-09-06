@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const userInfo = document.getElementById('userInfo');
     const dropdown = document.getElementById('userDropdown');
     const logoutButton = document.getElementById('logoutButton');
+    const defaultImgUrl = 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
 
     // Xử lý khi nhấn vào nút tìm kiếm
     searchButton.addEventListener('click', function(event) {
@@ -46,7 +47,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (loggedIn === 'true') {
         if (loginButton) loginButton.style.display = 'none';
-        if (avatar) avatar.style.display = 'block';
+        if (avatar) {
+            avatar.style.display = 'inline';
+            getMyInfo(); // Lấy thông tin người dùng và cập nhật avatar
+        }
+
         if (usernameDisplay) {
             usernameDisplay.style.display = 'inline';
             usernameDisplay.textContent = localStorage.getItem('username') || 'Your name';
@@ -71,19 +76,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (logoutButton) {
         logoutButton.addEventListener('click', function() {
-            // localStorage.removeItem('loggedIn');
-            // localStorage.removeItem('username');
-            //
-            // const previousPage = localStorage.getItem('previousPage') || 'home.html';
-            // window.location.href = previousPage;
-            const token = localStorage.getItem('token')
-            fetch('http://localhost:8080/v1/auth/log-out' , {
+            const token = localStorage.getItem('token');
+            fetch('http://localhost:8080/v1/auth/log-out', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    // Điền thông tin cần thiết cho yêu cầu log-out, nếu có.
                     token: token
                 })
             })
@@ -101,7 +100,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 })
                 .catch(error => {
-                    // console.error('Đã xảy ra lỗi:', error);
                     // Vẫn cho đăng xuất dù xảy ra lỗi
                     localStorage.removeItem('loggedIn');
                     localStorage.removeItem('username');
@@ -111,12 +109,43 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
         });
     }
-});
 
-//phân quyền trang tạo dịch vụ
-document.addEventListener('DOMContentLoaded', () => {
-    const userRole = localStorage.getItem('role');
-    if (userRole === 'Tutor') {
-        document.querySelector('.navbar-container .nav-box.hidden').classList.remove('hidden');
+    // Phân quyền trang tạo dịch vụ
+    document.addEventListener('DOMContentLoaded', () => {
+        const userRole = localStorage.getItem('role');
+        if (userRole === 'Tutor') {
+            document.querySelector('.navbar-container .nav-box.hidden').classList.remove('hidden');
+        }
+    });
+
+    // Hàm lấy thông tin người dùng và cập nhật avatar
+    async function getMyInfo() {
+        try {
+            const token = localStorage.getItem('token');
+
+            const response = await fetch('http://localhost:8080/v1/student/myInfo', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            const avatarElement = document.getElementById('avatar');
+
+            // Kiểm tra nếu có URL của hình đại diện
+            if (data.result.imgUrl) {
+                avatarElement.src = data.result.imgUrl;
+            } else {
+                avatarElement.src = defaultImgUrl; // Hình đại diện mặc định
+            }
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
     }
 });

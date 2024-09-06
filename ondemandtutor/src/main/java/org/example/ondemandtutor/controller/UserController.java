@@ -76,6 +76,12 @@ public class UserController {
                 .build();
     }
 
+    @GetMapping("/imgUser")
+    ApiResponse<UserResponse> getImgUser() {
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.getImg())
+                .build();
+    }
 
 
 

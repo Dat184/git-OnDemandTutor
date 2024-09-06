@@ -91,12 +91,12 @@ public class UserService {
         log.info("In method getUsers");
         return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
     }
-    public UserResponse updateImg( UpdateImgRequest request) throws IOException {
+    public UserResponse updateImg(UpdateImgRequest request) throws IOException {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUsername(name).orElseThrow(
                 () -> new AppException(ErrorCode.USER_NOT_EXISTED));
         String fileUrl = null;
-        if (request.getFile()!= null) {
+        if (request.getFile() != null) {
             String oldFileName = user.getImgUrl();
             firebaseStorageService.deleteFile(oldFileName);
             String fileName = UUID.randomUUID().toString() + "_" + request.getFile().getOriginalFilename();
@@ -105,6 +105,15 @@ public class UserService {
         }
         user.setImgUrl(fileUrl);
         return userMapper.toUserResponse(userRepository.save(user));
+    }
+
+    public UserResponse getImg() {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(name)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        // Trả về UserResponse có chứa imgUrl
+        return userMapper.toUserResponse(user);
     }
 
 

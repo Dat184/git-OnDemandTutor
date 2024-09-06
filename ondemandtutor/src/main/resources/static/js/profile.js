@@ -1,60 +1,27 @@
-// profile.js
-
-// Handle profile picture upload
-document.getElementById('profilePicContainer').addEventListener('click', function () {
-    document.getElementById('profilePicInput').click();
-});
-
-document.getElementById('profilePicInput').addEventListener('change', function (event) {
-    const file = event.target.files[0];
-    if (file) {
-        const formData = new FormData();
-        formData.append('file', file);
-
-        // Hiển thị ảnh tạm thời
-        const img = document.createElement('img');
-        img.src = URL.createObjectURL(file);
-        img.className = 'avatar-preview';
-        document.getElementById('profilePicContainer').innerHTML = '';
-        document.getElementById('profilePicContainer').appendChild(img);
-
-        // Lấy Bearer token
-        const token = localStorage.getItem('token');
-
-        // Cập nhật ảnh hồ sơ
-        fetch('http://localhost:8080/v1/users/updateImg', {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.code === 1000) {
-                    alert('Ảnh hồ sơ đã được cập nhật thành công!');
-                    // Cập nhật với URL ảnh từ server
-                    const img = document.createElement('img');
-                    img.src = data.result.imageUrl; // URL từ server
-                    img.className = 'avatar-preview';
-                    document.getElementById('profilePicContainer').innerHTML = '';
-                    document.getElementById('profilePicContainer').appendChild(img);
-                } else {
-                    alert('Có lỗi xảy ra khi cập nhật ảnh hồ sơ.');
-                }
-            })
-            .catch(error => {
-                console.error('Lỗi khi cập nhật ảnh hồ sơ:', error);
-                alert('Có lỗi xảy ra khi kết nối tới máy chủ.');
-            });
+// Function to update profile picture display
+// Function to update profile picture display
+function updateProfilePic(imgUrl) {
+    const profilePic = document.querySelector('#profilePicContainer img');
+    if (profilePic) {
+        profilePic.src = imgUrl; // Update the existing image src
+    } else {
+        const newImg = document.createElement('img');
+        newImg.src = imgUrl;
+        newImg.className = 'avatar-preview';
+        document.getElementById('profilePicContainer').appendChild(newImg);
     }
-});
+}
 
-// Fetch user profile picture URL on page load
+// Function to fetch and display profile picture
 async function getProfilePicture() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        console.error('Token not found');
+        return;
+    }
+
     try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8080/v1/users/myImg', {
+        const response = await fetch('http://localhost:8080/v1/users/imgUser', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -67,38 +34,127 @@ async function getProfilePicture() {
         }
 
         const data = await response.json();
-        console.log('Profile Picture URL:', data.result); // Debug: Kiểm tra giá trị URL
-
-        const profilePicContainer = document.getElementById('profilePicContainer');
-        if (data.result) {
-            const img = document.createElement('img');
-            img.src = data.result; // URL từ server
-            img.className = 'avatar-preview';
-            profilePicContainer.innerHTML = ''; // Xóa nội dung cũ
-            profilePicContainer.appendChild(img); // Thêm hình ảnh mới
-        } else {
-            profilePicContainer.innerHTML = 'No profile picture'; // Hiển thị thông báo nếu không có hình ảnh
-        }
+        console.log('Full Response Data:', data);
+        const imgUrl = data.result && data.result.imgUrl ? data.result.imgUrl : 'path-to-default-image.jpg';
+        updateProfilePic(imgUrl);
     } catch (error) {
         console.error('Error fetching profile picture:', error);
+        updateProfilePic('path-to-default-image.jpg'); // Default image on error
     }
 }
 
-window.onload = getProfilePicture;
+// Event listener for profile picture upload
+document.getElementById('profilePicContainer').addEventListener('click', function () {
+    document.getElementById('profilePicInput').click();
+});
+
+document.getElementById('profilePicInput').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        // Display selected image immediately
+        const tempImg = document.querySelector('#profilePicContainer img');
+        if (tempImg) {
+            tempImg.src = URL.createObjectURL(file);
+        } else {
+            const newImg = document.createElement('img');
+            newImg.src = URL.createObjectURL(file);
+            newImg.className = 'avatar-preview';
+            document.getElementById('profilePicContainer').appendChild(newImg);
+        }
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.error('Token not found');
+            return;
+        }
+
+        fetch('http://localhost:8080/v1/users/updateImg', {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('API Response Data:', data); // Log full response data for debugging
+                if (data.code === 1000) { // Assuming 1000 is the success code
+                    alert('Ảnh hồ sơ đã được cập nhật thành công!');
+                    window.location.reload();
+                    updateProfilePic(data.result.imgUrl);
+                } else {
+                    console.error('Có lỗi xảy ra khi cập nhật ảnh hồ sơ:', data.message);
+                    alert('Có lỗi xảy ra khi cập nhật ảnh hồ sơ.');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi khi cập nhật ảnh hồ sơ:', error);
+                alert('Có lỗi xảy ra khi kết nối tới máy chủ.');
+            });
+
+    }
+});
 
 
+
+
+
+
+// Function to fetch and display user info
+async function getMyInfo() {
+    const token = localStorage.getItem('token');
+
+    try {
+        const response = await fetch('http://localhost:8080/v1/student/myInfo', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        // Update UI with user info
+        document.getElementById('name').value = data.result.name;
+        document.getElementById('email').value = data.result.email;
+        const avatarElement = document.getElementById('avatar');
+        const defaultImgUrl = 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
+        if (data.result.imgUrl) { // Kiểm tra nếu có URL của hình đại diện
+            avatarElement.src = data.result.imgUrl;
+
+        } else {
+            avatarElement.src = defaultImgUrl; // Hình đại diện mặc định
+
+        }
+        document.getElementById('grade').value = data.result.grade || "vui lòng nhập khoois";
+
+    } catch (error) {
+        console.error('Error fetching user info:', error);
+        alert('Có lỗi xảy ra khi tải thông tin người dùng.');
+    }
+}
+
+window.onload = function() {
+    getProfilePicture();
+    getMyInfo();
+};
 
 // Handle user info update
 document.getElementById('updateButton').addEventListener('click', function(event) {
     event.preventDefault();
 
-    // Get input values
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const grade = document.getElementById('grade').value;
     const address = document.getElementById('address').value;
 
-    // Prepare request payload
     const userUpdateRequest = {
         name: name,
         email: email,
@@ -106,10 +162,8 @@ document.getElementById('updateButton').addEventListener('click', function(event
         address: address
     };
 
-    // Get Bearer token
     const token = localStorage.getItem('token');
 
-    // Call API to update user info
     fetch('http://localhost:8080/v1/users', {
         method: 'PUT',
         headers: {
@@ -120,9 +174,8 @@ document.getElementById('updateButton').addEventListener('click', function(event
     })
         .then(response => response.json())
         .then(data => {
-            if (data.code === 1000) {
+            if (data.code === 100) {
                 alert('Thông tin người dùng đã được cập nhật thành công!');
-                localStorage.removeItem("username");
                 localStorage.setItem("username", data.result.name);
                 window.location.reload();
             } else {
@@ -135,41 +188,14 @@ document.getElementById('updateButton').addEventListener('click', function(event
         });
 });
 
-// Fetch user info on page load
-async function getMyInfo() {
-    const token = localStorage.getItem('token');
-
-    const response = await fetch('http://localhost:8080/v1/student/myInfo', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    });
-
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    // Update UI with user info
-    document.getElementById('name').value = data.result.name;
-    document.getElementById('email').value = data.result.email;
-    document.getElementById('grade').value = data.result.grade || "vui lòng nhập khoois";
-}
-
-window.onload = getMyInfo;
-
 // Handle password change
 document.getElementById('changePasswordButton').addEventListener('click', function(event) {
     event.preventDefault();
 
-    // Get input values
     const currentPassword = document.getElementById('currentPassword').value.trim();
     const newPassword = document.getElementById('newPassword').value.trim();
     const confirmPassword = document.getElementById('confirmPassword').value.trim();
 
-    // Validate input
     if (!currentPassword || !newPassword || !confirmPassword) {
         alert('Vui lòng điền đầy đủ thông tin.');
         return;
@@ -180,17 +206,14 @@ document.getElementById('changePasswordButton').addEventListener('click', functi
         return;
     }
 
-    // Prepare request payload
     const userUpdateRequest = {
         oldPass: currentPassword,
         password: newPassword,
     };
 
-    // Get Bearer token
     const token = localStorage.getItem('token');
 
-    // Call API to change password
-    fetch('http://localhost:8080/v1/users', {
+    fetch('http://localhost:8080/v1/users/changePassword', { // Update endpoint if necessary
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -201,13 +224,13 @@ document.getElementById('changePasswordButton').addEventListener('click', functi
         .then(response => response.json())
         .then(data => {
             if (data.code === 1000) {
-                alert('Thông tin người dùng đã được cập nhật thành công!');
+                alert('Mật khẩu đã được cập nhật thành công!');
             } else {
-                alert(`Có lỗi xảy ra khi cập nhật thông tin người dùng: ${data.message || 'Lỗi không xác định'}`);
+                alert(`Có lỗi xảy ra khi cập nhật mật khẩu: ${data.message || 'Lỗi không xác định'}`);
             }
         })
         .catch(error => {
-            console.error('Error updating user info:', error);
+            console.error('Error updating password:', error);
             alert('Có lỗi xảy ra khi kết nối tới máy chủ.');
         });
 });
