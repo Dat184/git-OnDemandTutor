@@ -107,33 +107,31 @@ public class UserService {
 
     public UserResponse updateUser(Long id, UserUpdateRequest request) {
         User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
-
-        // Map fields
+        // map các trường dữ liệu lại
         if (request.getName() != null) {
             user.setName(request.getName());
         }
         if (request.getEmail() != null) {
             user.setEmail(request.getEmail());
         }
-        if (request.getAddress() != null) {
-            user.setAddress(request.getAddress());
-        }
-
-        // Handle password change
-        if (request.getOldPass() != null && request.getPassword() != null) {
-            if (!passwordEncoder.matches(request.getOldPass(), user.getPassword())) {
-                throw new AppException(ErrorCode.INVALID_PASSWORD);
-            }
+        if (request.getOldPass()!= null) {
+            if (!passwordEncoder.matches(request.getOldPass(), user.getPassword()))
+                throw new AppException(ErrorCode.WRONG_PASSWORD);
             user.setPassword(passwordEncoder.encode(request.getPassword()));
         }
+        if (request.getAddress()!=null) {
+            user.setAddress(request.getAddress());
+        }
+        //update theo tung role
 
-        // Update specific to role
         if (user instanceof Student) {
             log.info("User is an instance of Student");
             Student student = (Student) user;
             if (request.getGrade() != null) {
                 student.setGrade(request.getGrade());
             }
+
+
         }
 
         return userMapper.toUserResponse(userRepository.save(user));

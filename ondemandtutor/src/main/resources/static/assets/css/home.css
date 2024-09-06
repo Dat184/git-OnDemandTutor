@@ -102,10 +102,11 @@
     font-weight: bold;
     
 }
+
 .try:hover{
     transform: scale(1.1); /* Zoom logo lên 10% */
     box-shadow: 0 4px 15px rgb(244, 245, 246); /* Thêm bóng đổ */
-    
+    cursor: pointer;
    
 }
 .img-thumb-1 {
@@ -329,6 +330,11 @@
     font-size:0.8em ;
     background-color: #fff;
     font-weight: bold;
+}
+.try2:hover{
+    transform: scale(1.1); /* Zoom logo lên 10% */
+    box-shadow: 0 4px 15px rgb(244, 245, 246); /* Thêm bóng đổ */
+    cursor: pointer;
 }
 .booking-container-lit a{
 

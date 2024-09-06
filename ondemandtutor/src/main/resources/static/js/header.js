@@ -112,3 +112,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+//phân quyền trang tạo dịch vụ
+document.addEventListener('DOMContentLoaded', () => {
+    const userRole = localStorage.getItem('role');
+    if (userRole === 'Tutor') {
+        document.querySelector('.navbar-container .nav-box.hidden').classList.remove('hidden');
+    }
+});

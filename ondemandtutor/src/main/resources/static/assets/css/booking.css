@@ -1,0 +1,35 @@
+.container-booking {
+    padding: 20px;
+    margin: 115px auto;
+    max-width: 1200px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #F54EA2;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #aedde5;
+}
+
+.table-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
