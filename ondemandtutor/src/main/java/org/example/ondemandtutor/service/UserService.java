@@ -107,6 +107,7 @@ public class UserService {
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
+<<<<<<< HEAD
     public UserResponse getImg() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUsername(name)
@@ -119,6 +120,14 @@ public class UserService {
 
 
 
+=======
+    public UserResponse getImg(){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(name).orElseThrow(
+                () -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        return userMapper.toUserResponse(user);
+    }
+>>>>>>> 6c43d79f3fcfc451fd78d887f6d5d5ba73ada2aa
     public UserResponse updateUser(Long id, UserUpdateRequest request) {
         User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
         // map các trường dữ liệu lại

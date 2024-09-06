@@ -137,7 +137,7 @@
     justify-content: end;
     margin-right: 30px;
 }
-
+/* 
 .search-container {
     display: flex;
     justify-content: flex-end;
@@ -187,7 +187,7 @@
     border-radius: 15px 0 0 15px;
     border-right: none;
     background-color: #fff;
-}
+} */
 
 .login-container {
     display: flex;
