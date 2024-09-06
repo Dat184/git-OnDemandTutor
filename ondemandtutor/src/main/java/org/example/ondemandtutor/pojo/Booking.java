@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "booking")
+@Table(name = "booking.html")
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
