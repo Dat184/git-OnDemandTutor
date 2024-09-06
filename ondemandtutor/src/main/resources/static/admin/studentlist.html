@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+<div class="main">
+    <header class="header">
+        <div class="logo-container">
+            <a class="img-logo" href="../html/home.html">
+                <p class="text">LEARN TOgetHER</p>
+            </a>
+        </div>
+        <div class="login-search-container">
+            <div class="login-container">
+                <a href="../html/modal.html" class="search-link">
+                    <button id="loginButton" class="login-button">Đăng nhập</button>
+                </a>
+                <div class="user-info" id="userInfo">
+                    <span id="usernameDisplay"></span>
+                    <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+                    <div id="userDropdown" class="user-dropdown">
+                        <a href="#" id="logoutButton" class="sub-menu-link">
+                            <img src="../assets/img/header/logout.png" alt="">
+                            <p>Đăng xuất</p>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </span>
+                        <span class="title-strong">Admin</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="border" href="studentlist.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title ">Danh sách học sinh</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tutorlist.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách gia sư</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách bài đăng</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <h2>Danh sách học sinh</h2>
+            <table class="student-table">
+                <thead>
+                <tr>
+                    <th>Stt</th>
+                    <th>Họ và tên</th>
+                    <th>Email</th>
+                    <th>Tên người dùng</th>
+                    <th>Mật khẩu</th>
+                    <th>Địa chỉ</th>
+                    <th>Khối</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Nguyễn Văn A</td>
+                    <td>nguyenvana@example.com</td>
+                    <td>nguyenvana</td>
+                    <td>********</td>
+                    <td>123 Đường A, Phường B, Quận C</td>
+                    <td>12</td>
+                    <td>
+                        <a href="#" class="edit-link">Sửa</a> |
+                        <a href="#" class="delete-link">Xóa</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Trần Thị B</td>
+                    <td>tranthib@example.com</td>
+                    <td>tranthib</td>
+                    <td>********</td>
+                    <td>456 Đường X, Phường Y, Quận Z</td>
+                    <td>10</td>
+                    <td>
+                        <a href="#" class="edit-link">Sửa</a> |
+                        <a href="#" class="delete-link">Xóa</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
