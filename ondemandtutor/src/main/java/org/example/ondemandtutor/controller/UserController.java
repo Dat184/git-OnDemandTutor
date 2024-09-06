@@ -69,7 +69,6 @@ public class UserController {
                 .build();
     }
     @PutMapping("/updateImg")
-<<<<<<< HEAD
     public ApiResponse<UserResponse> updateImg(@RequestParam("file") MultipartFile file) throws IOException {
         UpdateImgRequest request = new UpdateImgRequest(file);
         return ApiResponse.<UserResponse>builder()
@@ -87,21 +86,6 @@ public class UserController {
 
 
 
-=======
-    ApiResponse<UserResponse> updateImg(
-            @RequestParam("file") MultipartFile file) throws IOException {
-        UpdateImgRequest request = new UpdateImgRequest(file);
-        return ApiResponse.<UserResponse>builder()
-                .result(userService.updateImg(request))
-                .build();
-    }
-    @GetMapping("/imgUser")
-    ApiResponse<UserResponse> getImgUser() {
-        return ApiResponse.<UserResponse>builder()
-                .result(userService.getImg())
-                .build();
-    }
->>>>>>> 6c43d79f3fcfc451fd78d887f6d5d5ba73ada2aa
     @DeleteMapping("/{id}")
     ApiResponse<String> deleteUser(@PathVariable long id) {
         userService.deleteUser(id);

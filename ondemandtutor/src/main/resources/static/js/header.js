@@ -9,30 +9,29 @@ document.addEventListener("DOMContentLoaded", function() {
     const logoutButton = document.getElementById('logoutButton');
     const defaultImgUrl = 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
 
-    // // Xử lý khi nhấn vào nút tìm kiếm
-    // searchButton.addEventListener('click', function(event) {
-    //     event.stopPropagation(); // Ngăn sự kiện click lan truyền lên document
-    //     searchButton.classList.toggle('active');
-    //     searchInput.classList.toggle('active');
-    //     searchInput.style.display = searchInput.classList.contains('active') ? 'block' : 'none'; // Hiển thị hoặc ẩn thanh tìm kiếm
-    //     if (searchInput.classList.contains('active')) {
-    //         searchInput.focus(); // Đưa tiêu điểm vào thanh tìm kiếm khi nó được hiển thị
-    //     }
-    // });
 
-    // // Xử lý khi nhấn vào bất kỳ đâu trên tài liệu
-    // document.addEventListener('click', function(event) {
-    //     if (!searchButton.contains(event.target) && !searchInput.contains(event.target)) {
-    //         searchButton.classList.remove('active');
-    //         searchInput.classList.remove('active');
-    //         searchInput.style.display = 'none'; // Ẩn thanh tìm kiếm khi không active
-    //     }
-    // });
+// Xử lý khi nhấn vào nút tìm kiếm
+    searchButton.addEventListener('click', function(event) {
+        event.stopPropagation();
+        searchButton.classList.toggle('active');
+        searchInput.classList.toggle('active');
+        if (searchInput.classList.contains('active')) {
+            searchInput.focus(); // Đưa tiêu điểm vào thanh tìm kiếm khi nó được hiển thị
+        }
+    });
 
-    // // Ngăn sự kiện click lan truyền từ thanh tìm kiếm
-    // searchInput.addEventListener('click', function(event) {
-    //     event.stopPropagation(); // Ngăn sự kiện click lan truyền lên document
-    // });
+// Ngăn sự kiện click lan truyền từ thanh tìm kiếm
+    searchInput.addEventListener('click', function(event) {
+        event.stopPropagation(); // Ngăn sự kiện click lan truyền lên document
+    });
+
+// Xử lý khi nhấn vào bất kỳ đâu trên tài liệu
+    document.addEventListener('click', function(event) {
+        if (!searchButton.contains(event.target) && !searchInput.contains(event.target)) {
+            searchButton.classList.remove('active');
+            searchInput.classList.remove('active');
+        }
+    });
 
     // Xử lý khi nhấn nút đăng nhập
     if (loginButton) {
