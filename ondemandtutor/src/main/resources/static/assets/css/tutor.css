@@ -172,3 +172,57 @@
 .tutor-card:not(:hover) .tutor-video {
     display: none;
 }
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    width: 900px;
+    align-items: center;
+    margin: 30px;
+}
+
+.search-button {
+    border-radius: 0 15px 15px 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid #000;
+    background-color: #fff;
+    transition: all 0.05s ease;
+}
+
+.search-button:hover {
+    background-color: #fff;
+    box-shadow: 0 4px 8px #f0dde2;
+}
+
+/* .search-button.active {
+    border-radius: 0 15px 15px 0;
+    width: 30px;
+    height: 30px;
+} */
+
+.search-box {
+    border: 2px solid black;
+    background-color: #fff;
+    width: 60%;
+    height: 30px;
+    display: block;
+    padding-left: 10px;
+    outline: none;
+    box-sizing: border-box;
+    /* transition: width 0.3s ease; */
+    border-radius: 15px 0 0 15px;
+    border-right: none;
+}
+/* 
+.search-box.active {
+    border: 2px solid black;
+    width: 60%;
+    border-radius: 15px 0 0 15px;
+    border-right: none;
+    background-color: #fff;
+}  */

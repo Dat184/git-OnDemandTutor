@@ -1,34 +1,38 @@
 .container{
-    margin-top: 90px;
-  
- 
- 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+   width: 100%;
+   margin-top: 90px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 }
 .dich-vu{
-    display: flex;
-    justify-content: space-between;
     
+   
+    padding: 90px;
+    
+    width: 1460px;
+ 
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.dich-vu-con{
+    
+    display: flex;
+  
+    flex-direction: column;
     margin-bottom: 30px;
-    width: 900px;
+    width: 400px;
     background-color: #fff;
     border-radius: 15px  ;
     box-shadow: 5px 5px 15px  #565555 ;
 }
-.dich-vu-con{
-    width: 80%;
-    display: flex;
-    justify-content: start;
-   
-
-}
 .ten-dich-vu{
     display: flex;
     flex-direction: column;
-    width: 50%;
+  
     padding: 20px;
     gap: 5px;
    
@@ -36,13 +40,9 @@
 .ten-dich-vu strong{
     border-bottom: 2px solid #d1cdcdb9;
 }
-.ten-dich-vu span{
-    height: 150px;
-   
-    white-space: normal;
-  
-}.img-dich-vu{
-    width: 50%;
+
+.img-dich-vu{
+   padding-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,11 +54,13 @@
     
     border-radius: 10px;
 }
+
+
 .xem-them{
-    width: 20%;
+   
     display: flex;
+    /* margin-top: 30px; */
     justify-content: center;
-    align-items: center;
     
 }
 .xem-them button{
@@ -70,3 +72,46 @@
     color: #fff;
     
 }
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    width: 900px;
+    align-items: center;
+    margin: 30px;
+}
+
+.search-button {
+    border-radius: 0 15px 15px 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid #000;
+    background-color: #fff;
+    transition: all 0.05s ease;
+}
+
+.search-button:hover {
+    background-color: #fff;
+    box-shadow: 0 4px 8px #f0dde2;
+}
+
+
+
+.search-box {
+    border: 2px solid black;
+    background-color: #fff;
+    width: 60%;
+    height: 30px;
+    display: block;
+    padding-left: 10px;
+    outline: none;
+    box-sizing: border-box;
+    /* transition: width 0.3s ease; */
+    border-radius: 15px 0 0 15px;
+    border-right: none;
+}
+
