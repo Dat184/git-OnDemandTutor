@@ -29,8 +29,8 @@ public class SecurityConfig {
             "/html/**",
             "/assets/**",
             "/js/**",
-            "/v1/vnpay/callback"
-
+            "/v1/vnpay/callback",
+            "/v1/tutor-services"
     };
 
     @Autowired
