@@ -264,15 +264,20 @@
                 .then(data => {
                     if (data.code === 1000) {
                         alert('Thông tin người dùng đã được cập nhật thành công!');
+
+                        localStorage.removeItem("username");
+                        localStorage.setItem("username", data.result.name)
+
                         // Thực hiện các hành động khác nếu cần, ví dụ như tải lại trang
                     } else {
                         alert('Có lỗi xảy ra khi cập nhật thông tin người dùng.');
                     }
-                })
+                } )
                 .catch(error => {
                     console.error('Error updating user info:', error);
                     alert('Có lỗi xảy ra khi kết nối tới máy chủ.');
                 });
+            window.location.reload();
         });
     </script>
 
