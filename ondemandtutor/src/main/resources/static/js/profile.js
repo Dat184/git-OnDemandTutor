@@ -35,11 +35,12 @@ async function getProfilePicture() {
 
         const data = await response.json();
         console.log('Full Response Data:', data);
-        const imgUrl = data.result && data.result.imgUrl ? data.result.imgUrl : 'path-to-default-image.jpg';
+        const defaultImgUrl = 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
+        const imgUrl = data.result && data.result.imgUrl ? data.result.imgUrl : 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
         updateProfilePic(imgUrl);
     } catch (error) {
         console.error('Error fetching profile picture:', error);
-        updateProfilePic('path-to-default-image.jpg'); // Default image on error
+        updateProfilePic('https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7');// Default image on error
     }
 }
 
@@ -137,7 +138,7 @@ async function getMyInfo() {
 
     } catch (error) {
         console.error('Error fetching user info:', error);
-        alert('Có lỗi xảy ra khi tải thông tin người dùng.');
+        alert('Có lỗi xảy ra khi tải thông tin nngười dùng.');
     }
 }
 
@@ -174,7 +175,7 @@ document.getElementById('updateButton').addEventListener('click', function(event
     })
         .then(response => response.json())
         .then(data => {
-            if (data.code === 100) {
+            if (data.code === 1000) {
                 alert('Thông tin người dùng đã được cập nhật thành công!');
                 localStorage.setItem("username", data.result.name);
                 window.location.reload();
@@ -188,49 +189,4 @@ document.getElementById('updateButton').addEventListener('click', function(event
         });
 });
 
-// Handle password change
-document.getElementById('changePasswordButton').addEventListener('click', function(event) {
-    event.preventDefault();
 
-    const currentPassword = document.getElementById('currentPassword').value.trim();
-    const newPassword = document.getElementById('newPassword').value.trim();
-    const confirmPassword = document.getElementById('confirmPassword').value.trim();
-
-    if (!currentPassword || !newPassword || !confirmPassword) {
-        alert('Vui lòng điền đầy đủ thông tin.');
-        return;
-    }
-
-    if (newPassword !== confirmPassword) {
-        alert('Mật khẩu mới và xác nhận mật khẩu không khớp.');
-        return;
-    }
-
-    const userUpdateRequest = {
-        oldPass: currentPassword,
-        password: newPassword,
-    };
-
-    const token = localStorage.getItem('token');
-
-    fetch('http://localhost:8080/v1/users/changePassword', { // Update endpoint if necessary
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(userUpdateRequest)
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.code === 1000) {
-                alert('Mật khẩu đã được cập nhật thành công!');
-            } else {
-                alert(`Có lỗi xảy ra khi cập nhật mật khẩu: ${data.message || 'Lỗi không xác định'}`);
-            }
-        })
-        .catch(error => {
-            console.error('Error updating password:', error);
-            alert('Có lỗi xảy ra khi kết nối tới máy chủ.');
-        });
-});
