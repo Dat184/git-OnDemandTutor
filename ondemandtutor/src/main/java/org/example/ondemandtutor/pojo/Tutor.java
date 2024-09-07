@@ -22,6 +22,4 @@ public class Tutor extends User{
     private Double rating;
     private String profilePicture;
 
-
-
 }
