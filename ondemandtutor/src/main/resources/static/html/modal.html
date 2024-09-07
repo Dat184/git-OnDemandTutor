@@ -158,9 +158,16 @@
                                 localStorage.setItem('token', data.result.token);
                                 localStorage.setItem('loggedIn', 'true');
                                 localStorage.setItem('role',data.result.role);
-                                localStorage.setItem('username', data.result.name) // đoạn này hiển thị tên
+                                localStorage.setItem('username', data.result.name)
+
+                                const role = localStorage.getItem('role');
+                                if(role=='Admin'){
+                                   
+                                    window.location.href = '../admin/studentlist.html';
+                                }else {
                                 const previousPage = localStorage.getItem('previousPage') || 'home.html';
                                 window.location.href = previousPage;
+                                }
                             } else {
                                 showErrorToast();
 
