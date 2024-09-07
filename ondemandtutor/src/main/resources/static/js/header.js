@@ -121,10 +121,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Hàm lấy thông tin người dùng và cập nhật avatar
     async function getMyInfo() {
+        const token = localStorage.getItem('token');
+        console.log(token)
         try {
-            const token = localStorage.getItem('token');
 
-            const response = await fetch('http://localhost:8080/v1/student/myInfo', {
+
+            const response = await fetch('http://localhost:8080/v1/users/myInfo', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -133,7 +135,8 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                const errorData = await response.json();
+                throw new Error(`Network response was not ok: ${errorData.message || 'Unknown error'}`);
             }
 
             const data = await response.json();
