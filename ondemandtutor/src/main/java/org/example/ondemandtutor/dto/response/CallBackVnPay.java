@@ -1,22 +1,19 @@
 package org.example.ondemandtutor.dto.response;
 
-
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Data
+@Builder
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class BookingResponse {
-    Long id;
-    Long studentId;
-    Long tutorServiceId;
-    Long totalPrice;
+public class CallBackVnPay {
+    Long amount;
     String transactionId;
     String responseCode;
+    String message;
+    String code;
 }

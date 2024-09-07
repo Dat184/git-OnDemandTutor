@@ -1,15 +1,13 @@
 package org.example.ondemandtutor.dto.request;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class SubjectRequest {
-    String name;
+public class VnPayRequest {
+    Long totalPrice;
 }

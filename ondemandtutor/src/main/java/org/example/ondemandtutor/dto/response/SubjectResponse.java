@@ -13,5 +13,4 @@ import lombok.experimental.FieldDefaults;
 public class SubjectResponse {
     Long id;
     String name;
-    String description;
 }

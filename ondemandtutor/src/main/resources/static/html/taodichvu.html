@@ -4,14 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../js/openHF.js"></script>
-    <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/header.css">
-    <link rel="stylesheet" href="../assets/css/dichvu.css">
-    <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
-
-    <script src="../js/dichvulist.js"></script>
-    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/taodichvu.css">
+    <title>Chỉnh sửa chi tiết dịch vụ</title>
 </head>
 
 <body>
@@ -68,35 +64,41 @@
                 </div>
                 
             </header>
+
         <div class="container">
-            <div class="search-container">
-                <input id="searchInput" type="text" class="search-box" placeholder="Nhập tên môn học...">
-                
-                    <button id="searchButton" class="search-button">    
-                        <i class="search-icon fa-solid fa-magnifying-glass"></i>
-                    </button>
-            </div>
-            <div class="dich-vu">
-                <div class="dich-vu-con">
-                <div class="img-dich-vu">
-                    <img src="https://th.bing.com/th/id/OIP.DVhzx3MdOPQyh5teDTU8SQHaE8?w=264&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                </div>
-                <div class="ten-dich-vu">
-                    <strong id="serviceName">Tên dịch vụ</strong>
-                    <strong id="serviceSubject">Môn học</strong>
-                    <div class="xem-them">
-                        <a href="servicedetail.html"><button>xem thêm</button></a>
-                    </div>
-                </div>
-               
-            
-                 </div>
-               
-                   
-                 
-                
-            </div>
+            <h1>Chỉnh sửa chi tiết dịch vụ</h1>
+
+            <form id="editForm">
+                <!-- Chỉnh sửa tên dịch vụ -->
+                <label for="tutorName">Tên Gia Sư:</label>
+                <input type="text" id="tutorName" value="Trịnh Trần Phương Tún">
+
+                <!-- Chỉnh sửa mô tả dịch vụ -->
+                <label for="description">Mô tả:</label>
+                <textarea id="description" rows="6">
+Là một thằng con trai, Nghèo như anh, màu trắng đôi bàn tay...
+                </textarea>
+
+                <!-- Chỉnh sửa thời gian giảng dạy -->
+                <label for="schedule">Lịch dạy:</label>
+                <input type="text" id="schedule" value="Thứ 2, Thứ 4, Thứ 6 - 9:00 đến 11:00">
+
+                <!-- Chỉnh sửa hình ảnh -->
+                <label for="image">Hình ảnh:</label>
+                <input type="file" id="image">
+
+                <!-- Chỉnh sửa video -->
+                <label for="videoUrl">Video URL:</label>
+                <input type="text" id="videoUrl" value="https://www.youtube.com/embed/d7mRI7RKTLc">
+
+                <!-- Chỉnh sửa giá khóa học -->
+                <label for="price">Giá khóa học:</label>
+                <input type="text" id="price" value="30 triệu/khóa">
+
+                <button type="submit">Lưu thay đổi</button>
+            </form>
         </div>
+
         <footer>
             <link rel="stylesheet" href="../assets/css/footer.css">
             <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
@@ -121,8 +123,31 @@
             </div>
         </footer>
     </div>
-    <script src="../js/header.js"></script>
-   
+    
+    <script>
+        document.getElementById('editForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Thu thập dữ liệu từ các form nhập liệu
+            const tutorName = document.getElementById('tutorName').value;
+            const description = document.getElementById('description').value;
+            const schedule = document.getElementById('schedule').value;
+            const videoUrl = document.getElementById('videoUrl').value;
+            const price = document.getElementById('price').value;
+            
+            // Xử lý lưu dữ liệu (localStorage hoặc gửi lên server)
+            console.log({
+                tutorName,
+                description,
+                schedule,
+                videoUrl,
+                price
+            });
+
+            // Chuyển hướng về trang chi tiết sau khi lưu
+            window.location.href = './serviceDetail.html';
+        });
+    </script>
 </body>
 
 </html>

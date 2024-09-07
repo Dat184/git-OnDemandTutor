@@ -15,7 +15,7 @@
 <body>
 <div class="main">
     <header class="header">
-
+        <!--test-->
         <div class="logo-container">
             <a class="img-logo" href="../html/home.html">
                 <!-- <img class="logo" src="../assets/img/logo/snapedit_17228353747082.png" alt=""> -->
@@ -32,6 +32,9 @@
 
 
             <a class="nav-box" href="./dichvulist.html">DỊCH VỤ
+
+            </a>
+            <a class="nav-box hidden" href="./taodichvu.html">TẠO DỊCH VỤ
 
             </a>
         </div>
@@ -51,8 +54,9 @@
                 <div class="user-info" id="userInfo">
                     <span id="usernameDisplay"></span>
                     <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+
                     <div id="userDropdown" class="user-dropdown">
-                        <a href="./profile.html" class="sub-menu-link">
+                        <a href="editprofile.html" class="sub-menu-link">
                             <img src="../assets/img/header/profile.png" alt="">
                             <p>Thông tin cá nhân</p>
                             <i class="fa-solid fa-chevron-right"></i>
@@ -111,7 +115,7 @@
         </div>
         <div class="profile-container">
             <div class="profile-pic-container" id="profilePicContainer">
-                <i class="fa-solid fa-user"></i>
+                <img id="profilePic" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Profile Picture" class="profile-pic">
             </div>
             <div class="input-fields">
                 <div class="input-group">
@@ -209,7 +213,16 @@
             document.getElementById('role').innerText = data.result.role;
             document.getElementById('name').innerText = data.result.name;
             document.getElementById('email').innerText = data.result.email;
+            const avatarElement = document.getElementById('avatar');
+            const profilePicElement = document.getElementById('profilePic');
 
+            if (data.result.imgUrl) { // Kiểm tra nếu có URL của hình đại diện
+                avatarElement.src = data.result.imgUrl;
+                profilePicElement.src=data.result.imgUrl;
+            } else {
+                avatarElement.src = 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7'; // Hình đại diện mặc định
+                profilePicElement.src= 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
+            }
             if (!data.result.grade == "" ) {
                 document.getElementById('grade').innerText = data.result.grade;
             }
@@ -247,8 +260,62 @@
             modal.style.display = "none";
         }
     }
-</script>
 
+</script>
+<script>
+    document.getElementById('changePasswordButton').addEventListener('click', function(event) {
+        event.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
+
+        // Lấy giá trị từ các input fields
+        const currentPassword = document.getElementById('currentPassword').value.trim();
+        const newPassword = document.getElementById('newPassword').value.trim();
+        const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+        // Kiểm tra tính hợp lệ của dữ liệu
+        if (!currentPassword || !newPassword || !confirmPassword) {
+            alert('Vui lòng điền đầy đủ thông tin.');
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            alert('Mật khẩu mới và xác nhận mật khẩu không khớp.');
+            return;
+        }
+
+        // Tạo đối tượng request payload
+        const userUpdateRequest = {
+            oldPass: currentPassword,
+            password: newPassword,
+        };
+
+        // Lấy Bearer token từ localStorage
+        const token = localStorage.getItem('token');
+
+        // Gọi API PUT để cập nhật thông tin người dùng
+        fetch('http://localhost:8080/v1/users', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(userUpdateRequest)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 100) {
+                    alert('Thông tin người dùng đã được cập nhật thành công!');
+                    // Thực hiện các hành động khác nếu cần, ví dụ như tải lại trang
+                } else {
+                    alert(`Có lỗi xảy ra khi cập nhật thông tin người dùng: ${data.message || 'Lỗi không xác định'}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error updating user info:', error);
+                alert('Có lỗi xảy ra khi kết nối tới máy chủ.');
+            });
+    });
+
+</script>
 </body>
 
 </html>

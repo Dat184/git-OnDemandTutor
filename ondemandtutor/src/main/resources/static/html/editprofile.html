@@ -9,65 +9,69 @@
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/profile.css">
     <link rel="stylesheet" href="../asset/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+
     <title>Document</title>
 </head>
 
 <body>
     <div class="main">
         <header class="header">
-
+            <!--test-->
             <div class="logo-container">
                 <a class="img-logo" href="../html/home.html">
-                <!-- <img class="logo" src="../assets/img/logo/snapedit_17228353747082.png" alt=""> -->
-                 <p class="text">LEARN TOgetHER</p>  </a>
+                    <!-- <img class="logo" src="../assets/img/logo/snapedit_17228353747082.png" alt=""> -->
+                    <p class="text">LEARN TOgetHER</p>  </a>
             </div>
-            
+
             <div class="navbar-container">
-               
-                    <a class="nav-box" href="../html/gioithieu.html">GIỚI THIỆU</a>
-                   
-                    <a class="nav-box" href="./tutor.html">GIA SƯ 
-                        
-                    </a>
-                    
-               
-                    <a class="nav-box" href="./dichvulist.html">DỊCH VỤ
-                      
-                    </a>
+
+                <a class="nav-box" href="../html/gioithieu.html">GIỚI THIỆU</a>
+
+                <a class="nav-box" href="./tutor.html">GIA SƯ
+
+                </a>
+
+
+                <a class="nav-box" href="./dichvulist.html">DỊCH VỤ
+
+                </a>
+                <a class="nav-box hidden" href="./taodichvu.html">TẠO DỊCH VỤ
+
+                </a>
             </div>
             <div class="login-search-container">
                 <div class="search-container">
                     <input id="searchInput" type="text" class="search-box" placeholder="Tìm kiếm...">
-                    
-                        <button id="searchButton" class="search-button">    
-                            <i class="search-icon fa-solid fa-magnifying-glass"></i>
-                        </button>
+
+                    <button id="searchButton" class="search-button">
+                        <i class="search-icon fa-solid fa-magnifying-glass"></i>
+                    </button>
                 </div>
-        
+
                 <div class="login-container">
                     <a href="modal.html" class="search-link">
-                    <button id="loginButton" class="login-button">Đăng nhập</button>
-                </a>
-                <div class="user-info" id="userInfo">
-                    <span id="usernameDisplay"></span>
-                    <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
-                    <div id="userDropdown" class="user-dropdown">
-                        <a href="./editprofile.html" class="sub-menu-link">
-                            <img src="../assets/img/header/profile.png" alt="">
-                            <p>Thông tin cá nhân</p>
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </a>
-                        <a href="#" id="logoutButton" class="sub-menu-link">
-                            <img src="../assets/img/header/logout.png" alt="">
-                            <p>Đăng xuất</p>
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </a>
-                        
+                        <button id="loginButton" class="login-button">Đăng nhập</button>
+                    </a>
+                    <div class="user-info" id="userInfo">
+                        <span id="usernameDisplay"></span>
+                        <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+                        <div id="userDropdown" class="user-dropdown">
+                            <a href="editprofile.html" class="sub-menu-link">
+                                <img src="../assets/img/header/profile.png" alt="">
+                                <p>Thông tin cá nhân</p>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </a>
+                            <a href="#" id="logoutButton" class="sub-menu-link">
+                                <img src="../assets/img/header/logout.png" alt="">
+                                <p>Đăng xuất</p>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </a>
+
+                        </div>
                     </div>
                 </div>
-                </div>
             </div>
-            
+
         </header>
         <div class="container">
             <div class="navigation">
@@ -110,14 +114,20 @@
                 </ul>
             </div>
             <div class="profile-container">
-                <div class="profile-pic-container" id="profilePicContainer">
-                    <i class="fa-solid fa-camera"></i>
-                    <input type="file" id="profilePicInput" accept="image/*" style="display:none;">
+                <div id="profilePicContainer" class="profile-pic-container">
+                    <img id="profilePic" src="" alt="Profile Picture" style="display: none;">
+                    <i class="fa-solid fa-camera camera-icon"></i>
                 </div>
+                <input type="file" id="profilePicInput" style="display:none;">
+
+
+
+
+
                 <div class="input-fields">
                     <div class="input-group">
                         <label for="name">Họ và tên</label>
-                        <input type="text" id="name" name="name" >
+                        <input type="text" id="name" name="name">
                     </div>
                     <div class="input-group">
                         <label for="email">Email</label>
@@ -138,10 +148,11 @@
                             <option value="Cần Thơ">Cần Thơ</option>
                         </select>
                     </div>
-                    <button type="submit" id="submitButton" class="submit-button">Cập nhật thông tin</button>
+                    <button type="submit" id="updateButton" class="submit-button">Cập nhật </button>
 
                 </div>
             </div>
+
         </div>
         <footer>
             <link rel="stylesheet" href="../assets/css/footer.css">
@@ -189,124 +200,7 @@
         </div>
     </div>
     <script src="../js/header.js"></script>
-    <script>
-        document.getElementById('profilePicContainer').addEventListener('click', function () {
-            document.getElementById('profilePicInput').click();
-        });
-
-        document.getElementById('profilePicInput').addEventListener('change', function (event) {
-            const reader = new FileReader();
-            reader.onload = function () {
-                const img = document.createElement('img');
-                img.src = reader.result;
-                img.className = 'avatar-preview';
-                document.getElementById('profilePicContainer').innerHTML = '';
-                document.getElementById('profilePicContainer').appendChild(img);
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        });
-    </script>
-    <script>
-        var modal = document.getElementById("passwordModal");
-
-        var passwordLink = document.querySelector('.navigation li:nth-child(4) a');
-
-        var closeButton = document.getElementsByClassName("close-button")[0];
-
-        passwordLink.onclick = function () {
-            modal.style.display = "block";
-        }
-
-        closeButton.onclick = function () {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-    <script>
-        document.getElementById('submitButton').addEventListener('click', function(event) {
-            event.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
-
-            // Lấy giá trị từ các input fields
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const grade = document.getElementById('grade').value;
-            const address = document.getElementById('address').value;
-
-            // Tạo đối tượng request payload
-            const userUpdateRequest = {
-                name: name,
-                email: email,
-                grade: grade,
-                address: address
-            };
-
-            // Lấy Bearer token từ localStorage
-            const token = localStorage.getItem('token');
-
-            // Gọi API PUT để cập nhật thông tin người dùng
-            fetch('http://localhost:8080/v1/users', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(userUpdateRequest)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.code === 1000) {
-                        alert('Thông tin người dùng đã được cập nhật thành công!');
-                        // Thực hiện các hành động khác nếu cần, ví dụ như tải lại trang
-                    } else {
-                        alert('Có lỗi xảy ra khi cập nhật thông tin người dùng.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error updating user info:', error);
-                    alert('Có lỗi xảy ra khi kết nối tới máy chủ.');
-                });
-        });
-    </script>
-
-<script>
-    async function getMyInfo() {
-        const token = localStorage.getItem('token');
-
-        const response = await fetch('http://localhost:8080/v1/student/myInfo', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-                // Thêm Authorization header nếu cần thiết
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        // Cập nhật thông tin cá nhân lên giao diện
-        
-        document.getElementById('name').value = data.result.name;
-        document.getElementById('email').value = data.result.email;
-
-        if (!data.result.grade == "") {
-            document.getElementById('grade').value = data.result.grade;
-        } else {
-            document.getElementById('grade').value = "vui lòng nhập khoois";
-        }
-
-
-    }
-    window.onload = getMyInfo;
-</script>
-
+    <script src="../js/profile.js"></script>
 
 </body>
 

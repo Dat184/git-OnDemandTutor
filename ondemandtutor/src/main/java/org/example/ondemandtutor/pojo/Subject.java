@@ -21,8 +21,6 @@ public class Subject {
     @Column(name = "name", unique = true, nullable = false)
     String name;
 
-    String description;
-
     @OneToMany(mappedBy = "subject", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<TutorService> tutorServices;
 }

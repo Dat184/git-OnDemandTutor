@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "booking")
+@Table(name = "booking.html")
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,10 @@ public class Booking {
     TutorService tutorService;
 
     @Column(name = "total_price", nullable = false)
-    Integer totalPrice;
+    Long totalPrice;
+
+    String transactionId;
+    String responseCode;
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<Review> reviews;
