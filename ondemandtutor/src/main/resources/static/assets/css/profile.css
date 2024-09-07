@@ -163,7 +163,12 @@
   left: 220px;
 }
 
-.profile-pic-container {
+
+#profilePicContainer img {
+  display: block !important;
+}
+
+#profilePicContainer {
   position: relative;
   margin-top: 20px;
   width: 200px;
@@ -176,11 +181,31 @@
   cursor: pointer;
   left: -40%;
 }
-
-.profile-pic-container i {
-  font-size: 60px;
-  color: #888;
+#profilePicContainer img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover; /* Cắt ảnh để phù hợp với kích thước container */
 }
+#profilePicContainer i {
+  position: absolute;
+  font-size: 24px; /* Kích thước của biểu tượng */
+  color: #fff; /* Màu của biểu tượng */
+  background-color: rgba(0, 0, 0, 0.5); /* Nền bán trong suốt */
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.profile-pic-container {
+  position: relative;
+  display: inline-block;
+}
+
+
+
+
+
+
 
 .input-group-container {
   display: flex;
@@ -219,7 +244,7 @@
 }
 .submit-button {
   margin-top: 10px;
-  margin-left: 80px;
+  margin-left: 150px;
   background-color: #F38181;
   color: var(--white);
   font-size: 18px;

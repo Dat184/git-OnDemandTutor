@@ -54,6 +54,7 @@
                 <div class="user-info" id="userInfo">
                     <span id="usernameDisplay"></span>
                     <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+
                     <div id="userDropdown" class="user-dropdown">
                         <a href="editprofile.html" class="sub-menu-link">
                             <img src="../assets/img/header/profile.png" alt="">
@@ -114,7 +115,7 @@
         </div>
         <div class="profile-container">
             <div class="profile-pic-container" id="profilePicContainer">
-                <i class="fa-solid fa-user"></i>
+                <img id="profilePic" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Profile Picture" class="profile-pic">
             </div>
             <div class="input-fields">
                 <div class="input-group">
@@ -212,7 +213,16 @@
             document.getElementById('role').innerText = data.result.role;
             document.getElementById('name').innerText = data.result.name;
             document.getElementById('email').innerText = data.result.email;
+            const avatarElement = document.getElementById('avatar');
+            const profilePicElement = document.getElementById('profilePic');
 
+            if (data.result.imgUrl) { // Kiểm tra nếu có URL của hình đại diện
+                avatarElement.src = data.result.imgUrl;
+                profilePicElement.src=data.result.imgUrl;
+            } else {
+                avatarElement.src = 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7'; // Hình đại diện mặc định
+                profilePicElement.src= 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
+            }
             if (!data.result.grade == "" ) {
                 document.getElementById('grade').innerText = data.result.grade;
             }
@@ -292,7 +302,7 @@
         })
             .then(response => response.json())
             .then(data => {
-                if (data.code === 1000) {
+                if (data.code === 100) {
                     alert('Thông tin người dùng đã được cập nhật thành công!');
                     // Thực hiện các hành động khác nếu cần, ví dụ như tải lại trang
                 } else {
