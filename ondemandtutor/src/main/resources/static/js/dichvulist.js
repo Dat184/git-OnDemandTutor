@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             console.log(data); // Kiểm tra dữ liệu nhận được
             if (Array.isArray(data) && data.length > 0) {
-                const servicesList = document.querySelector('.container');
+                const servicesList = document.querySelector('.dich-vu');
                 servicesList.innerHTML = ''; // Xóa nội dung hiện tại
 
                 data.forEach(service => {
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span>Mô tả: ${service.description || 'Mô tả dịch vụ'}</span>
                         </div>
                         <div class="xem-them">
-                            <a href="dichvuchitiet.html?id=${service.id}"><button>Xem thêm</button></a>
+                            <a href=../html/servicedetail.html><button>Xem thêm</button></a>
                         </div>
                     `;
                     servicesList.appendChild(serviceElement);
