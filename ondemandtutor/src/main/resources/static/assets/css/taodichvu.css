@@ -1,0 +1,129 @@
+/* Main container for the service details page */
+.container {
+    width: 1100px;
+    background-color: antiquewhite;
+    margin: 20px auto;
+    padding-top: 90px;
+    border-radius: 10px;
+}
+
+/* Styling for each service section */
+.dich-vu-con {
+    display: flex;
+    padding: 20px 60px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Image container for the service */
+.img-dich-vu img {
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+/* Service name and description */
+.ten-dich-vu {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    line-height: 24px;
+}
+
+.name {
+    font-size: 1.6em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Video section */
+.tutor-video {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.videoo {
+    border-radius: 10px;
+}
+
+/* Schedule container */
+.view-schedule-container {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.view-schedule-container h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Schedule table */
+#scheduleTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#scheduleTable th, #scheduleTable td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+#scheduleTable th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Time and price container */
+.time-and-price-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.time-and-price {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 30%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.the-ngoai {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.thue button {
+    background-color: #ff4747;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.thue button:hover {
+    background-color: #ff7070;
+}
+
+/* Additional styling */
+.thoi-gian, .buoi, .gia {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+/* Hide overflow of content */
+.container, .view-schedule-container, .time-and-price-container {
+    overflow: hidden;
+}
