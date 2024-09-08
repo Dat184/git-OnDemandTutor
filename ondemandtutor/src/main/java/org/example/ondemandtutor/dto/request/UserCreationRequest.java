@@ -20,5 +20,4 @@ public class UserCreationRequest {
     private String name;
     private String role;
 
-
 }

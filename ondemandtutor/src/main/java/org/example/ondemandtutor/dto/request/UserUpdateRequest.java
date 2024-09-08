@@ -20,7 +20,14 @@ public class UserUpdateRequest {
     private String email;
     @Size(min = 2, message = "INVALID_NAME")
     private String name;
-    private String grade;
+    private String grade; // student
     private String address;
+
+    // tutor
+    private String degree;
+    private String specialty;
+    private String bio;
+    private Double rating;
+
 
 }

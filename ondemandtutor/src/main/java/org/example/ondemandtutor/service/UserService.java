@@ -147,8 +147,17 @@ public class UserService {
             if (request.getGrade() != null) {
                 student.setGrade(request.getGrade());
             }
-
-
+        } else if (user instanceof Tutor) {
+            Tutor tutor = (Tutor) user;
+            if (request.getDegree() != null) {
+                tutor.setDegree(request.getDegree());
+            }
+            if (request.getSpecialty()!= null) {
+                tutor.setSpecialty(request.getSpecialty());
+            }
+            if (request.getBio() != null) {
+                tutor.setBio(request.getBio());
+            }
         }
 
         return userMapper.toUserResponse(userRepository.save(user));
