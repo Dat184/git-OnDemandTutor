@@ -16,30 +16,36 @@
     text-align: center;
 }
 .editform{
-    display: flex;
-    flex-direction: column;
+   
     
     
 }
 .form-container{
+    display: flex;
+    flex-direction: column;
     width: 600px;
     /* margin: 20px auto   ; */
 }
-.editform label{
+.form-container label{
     font-size: 1.2em;
     font-weight: bold; 
-
+    padding-bottom: 5px;
 }
-.editform input{
-    width: 600px;
+
+
+.form-container input{
+  
     font-size: 0.8em;
     border-radius: 10px;
     padding: 5px;
     margin: 0 20px auto;
 }
-
-.editform textarea{
-    width: 600px;
+.img{
+    width: 200px;
+    margin: 0 auto;
+}
+.form-container textarea{
+  
     border: 2px solid #000;
     font-size: 0.8em;
     border-radius: 10px;
@@ -52,11 +58,137 @@
 #file-upload-button{
     border-radius: 10px;
 }
-.editform button{
+/* .editform button{
     margin: 20px auto;
     width: 200px;
     font-weight: bold; 
     font-size: 0.8em;
     border-radius: 10px;
     padding: 5px;
+} */
+.content-container {
+    
+    width: 800px;
+    margin: 70px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+h2{
+    text-align: center;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+thead th {
+    background-color: #D1E9F6;
+    padding: 10px;
+    text-align: left;
+}
+
+tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    
+ 
+ 
+
+}
+.add-times{
+    display: flex;
+    flex-wrap: nowrap; /* Không cho phép xuống dòng */
+}
+.times{
+    width: 400px;
+} 
+.time-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.time-slot {
+    background-color: #D1E9F6;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+input[type="time"] {
+    padding: 5px;
+    font-size: 14px;
+}
+
+button.add-time-btn {
+    padding: 5px 10px;
+    background-color: #D1E9F6;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.add-time-btn:hover {
+    background-color: #a0b5c1;
+}
+
+button#saveButton {
+    display: block;
+    width: 600px;
+    padding: 10px;
+    background-color: #D1E9F6;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button#saveButton:hover {
+    background-color: #9fabb1;
+}
+.time-slot {
+    position: relative;
+    background-color: #F1D3CE;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.time-slot .delete-time-btn {
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 5px;
+    padding: 0;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.time-slot .delete-time-btn:hover {
+    background-color: darkred;
 }

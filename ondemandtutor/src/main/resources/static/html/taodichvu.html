@@ -67,19 +67,20 @@
 
         <div class="container">
             <h1>Chỉnh sửa chi tiết dịch vụ</h1>
+            <form id="editForm" class="editform"></form>
             <div class="form-container">
-            <form id="editForm" class="editform">
+            
                    <!-- Chỉnh sửa hình ảnh -->
                    <label for="image">Hình ảnh:</label>
-                   <input type="file" id="image">
+                   <input class="img" type="file" id="image">
                 <!-- Chỉnh sửa tên dịch vụ -->
                 <label for="tutorName">Tên Gia Sư:</label>
                 <input type="text" id="tutorName" value="">
 
                
                 <!-- Chỉnh sửa thời gian giảng dạy -->
-                <label for="schedule">Lịch dạy:</label>
-                <input type="text" id="schedule" value="">
+              
+              
 
              
 
@@ -94,10 +95,104 @@
                 <!-- Chỉnh sửa mô tả dịch vụ -->
                 <label for="description">Mô tả:</label>
                 <textarea id="description" rows="6"></textarea>
-
-                <button type="submit">Lưu thay đổi</button>
-            </form>
+               
+                <!-- <button type="submit">Lưu thay đổi</button> -->
+           
         </div>
+       
+            <div id="edit-schedule-container" class="content-container">
+                
+             
+                    <table id="scheduleTable">
+                        <thead>
+                            <tr>
+                                <th>Ngày</th>
+                                <th>Thời gian</th>
+                                <th>Thêm thời Gian</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Tạo hàng cho từng ngày trong tuần -->
+                            <tr data-day="Sun">
+                                <td>Sunday</td>
+                                <td class="times">
+                                    <div class="time-list"></div>
+                                </td>
+                                <td class="add-times" > <input type="time" class="start-time-input">
+                                    <input type="time" class="end-time-input">
+                                    <button type="button" class="add-time-btn">Add</button>
+                                </td>
+                            </tr>
+                            <tr data-day="Mon">
+                                <td>Monday</td>
+                                <td class="times">
+                                    <div class="time-list"></div>
+                                </td>
+                                <td class="add-times" > <input type="time" class="start-time-input">
+                                    <input type="time" class="end-time-input">
+                                    <button type="button" class="add-time-btn">Add</button>
+                                </td>
+                            </tr>
+                            <tr data-day="Tue">
+                                <td>Tuesday</td>
+                                <td class="times">
+                                    <div class="time-list"></div>
+                                </td>
+                                <td class="add-times" > <input type="time" class="start-time-input">
+                                    <input type="time" class="end-time-input">
+                                    <button type="button" class="add-time-btn">Add</button>
+                                </td>
+                            </tr>
+                            <tr data-day="Wed">
+                                <td>Wednesday</td>
+                                <td class="times">
+                                    <div class="time-list"></div>
+                                </td>
+                                <td class="add-times" > <input type="time" class="start-time-input">
+                                    <input type="time" class="end-time-input">
+                                    <button type="button" class="add-time-btn">Add</button>
+                                </td>
+                            </tr>
+                            <tr data-day="Thu">
+                                <td>Thursday</td>
+                                <td class="times">
+                                    <div class="time-list"></div>
+                                </td>
+                                <td class="add-times" > <input type="time" class="start-time-input">
+                                    <input type="time" class="end-time-input">
+                                    <button type="button" class="add-time-btn">Add</button>
+                                </td>
+                            </tr>
+                            <tr data-day="Fri">
+                                <td>Friday</td>
+                                <td class="times">
+                                    <div class="time-list"></div>
+                                </td>
+                                <td class="add-times" > <input type="time" class="start-time-input">
+                                    <input type="time" class="end-time-input">
+                                    <button type="button" class="add-time-btn">Add</button>
+                                </td>
+                            </tr>
+                            <tr data-day="Sat">
+                                <td>Saturday</td>
+                                <td class="times">
+                                    <div class="time-list"></div>
+                                </td>
+                                <td class="add-times" > <input type="time" class="start-time-input">
+                                    <input type="time" class="end-time-input">
+                                    <button type="button" class="add-time-btn">Add</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+               
+
+                
+            </div>
+        
+      
+         <button id="saveButton">Lưu Những Thay Đổi</button>
+        </form>
         </div>
 
         <footer>
@@ -149,6 +244,7 @@
             window.location.href = './serviceDetail.html';
         });
     </script>
+     <script src="../js/edit_schedule.js"></script>
 </body>
 
 </html>

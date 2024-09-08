@@ -5,7 +5,7 @@ body{
     width: 100%;
     
     position: relative;
-    height: 2000px;
+    height: 1100px;
     display: flex;
     margin: 5px auto;
     background: linear-gradient(to right bottom  , #F1D3CE, #fff);
@@ -17,7 +17,7 @@ body{
     display: flex;
     flex-direction: column;
     margin-top: 100px;
-    margin-left: 20px;
+    margin-left: 70px;
     box-shadow: 0 0 5px rgba(44, 42, 42, 0.318);
     border-radius:15px  ;
     background-color: #fff;
@@ -50,9 +50,21 @@ body{
 }
 .name{
     font-size: 1.6em;
+   
 }
 
+.mota{
+    display: flex;
+    flex-direction: column;
 
+    width: 700px;
+    text-align:  justify;
+    margin: 30px auto;
+    
+}
+.mota strong{
+    font-size: 2em;
+}
 .the-ngoai{
     width: 280px;
     display: flex;
@@ -78,7 +90,7 @@ body{
     /* flex-direction: column; */
     margin-top: 100px;
     background: linear-gradient(to top right, #EECAD5, #F1D3CE,#F6EACB,#D1E9F6);
-    left: 72%;
+    left: 75%;
     border-radius: 15px;
     box-shadow: 0 0 5px rgba(44, 42, 42, 0.318);
     align-items: center;
