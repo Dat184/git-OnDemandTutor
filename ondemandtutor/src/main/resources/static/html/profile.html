@@ -302,10 +302,10 @@
         })
             .then(response => response.json())
             .then(data => {
-                if (data.code === 100) {
+                if (data.code === 1000) {
                     alert('Thông tin người dùng đã được cập nhật thành công!');
-                    // Thực hiện các hành động khác nếu cần, ví dụ như tải lại trang
-                } else {
+                    window.location.reload();
+                    } else {
                     alert(`Có lỗi xảy ra khi cập nhật thông tin người dùng: ${data.message || 'Lỗi không xác định'}`);
                 }
             })

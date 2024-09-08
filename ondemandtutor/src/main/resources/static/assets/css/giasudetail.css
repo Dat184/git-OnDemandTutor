@@ -108,13 +108,13 @@
     border-radius: 15px;
 }
 .tutor-button{
-    width: 80;
+
     display: flex;
     justify-content: space-between;
     gap: 20px;
  }
 
-#nut{
+.nut{
     padding: 15px 30px;
     font-size: 1em;
     color: #81767c;

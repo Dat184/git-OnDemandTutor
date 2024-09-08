@@ -6,6 +6,7 @@ import org.example.ondemandtutor.dto.request.UpdateImgRequest;
 import org.example.ondemandtutor.dto.request.UserCreationRequest;
 import org.example.ondemandtutor.dto.request.UserUpdateRequest;
 import org.example.ondemandtutor.dto.response.UserResponse;
+import org.example.ondemandtutor.pojo.Role;
 import org.example.ondemandtutor.exception.AppException;
 import org.example.ondemandtutor.exception.ErrorCode;
 import org.example.ondemandtutor.mapper.UserMapper;

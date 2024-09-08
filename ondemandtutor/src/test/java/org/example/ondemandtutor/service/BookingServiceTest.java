@@ -43,15 +43,15 @@ class BookingServiceTest {
     private BookingResponse bookingResponse;
     private TutorService tutorService;
 
-    @BeforeEach
-    void setUp() {
-        booking = new Booking();
-        bookingRequest = new BookingRequest(1L, 1L);
-        bookingResponse = new BookingResponse(1L, 1L, 1L, "CONFIRMED", 200);
-        tutorService = new TutorService();
-        tutorService.setSessionOfWeek(2);
-        tutorService.setPriceOfSession(100);
-    }
+//    @BeforeEach
+//    void setUp() {
+//        booking = new Booking();
+//        bookingRequest = new BookingRequest(1L, 1L);
+//        bookingResponse = new BookingResponse(1L, 1L, 1L, "CONFIRMED", 200);
+//        tutorService = new TutorService();
+//        tutorService.setSessionOfWeek(2);
+//        tutorService.setPriceOfSession(100);
+//    }
 
     @Test
     void createBooking() {
