@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const service = data.data;
             console.log(service);
             // Hiển thị tên gia sư
-            document.querySelector('.name').textContent = service.name || "Chưa cập nhật tên gia sư";
+            document.querySelector('.name').textContent = service.nameTutor || "Chưa cập nhật tên gia sư";
 
             // Hiển thị môn học
             return fetchSubjectNameById(service.subjectId).then(subjectName => {
