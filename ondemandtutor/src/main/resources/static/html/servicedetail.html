@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                
+              </div>  
             </header>
             <div class="contai">
             <div class="container">
@@ -160,7 +160,7 @@
         </footer>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
     const scheduleTableBody = document.querySelector('#scheduleTable tbody');
 
     // Load schedule data from localStorage
@@ -191,8 +191,6 @@
                 const timeSlotDiv = document.createElement('div');
                 timeSlotDiv.className = 'time-slot';
                 timeSlotDiv.textContent = timeSlot;
-
-                // Không thêm deleteButton vào đây
                 timeListDiv.appendChild(timeSlotDiv);
             });
 
@@ -206,6 +204,7 @@
     // Initialize schedule
     loadScheduleData();
 });
+
     </script>
     <script src="../js/header.js"></script>
    

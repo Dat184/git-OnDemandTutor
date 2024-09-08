@@ -1,9 +1,12 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const saveButton = document.getElementById('saveButton');
+document.querySelectorAll('.add-time-btn').forEach(function(button) {
+    button.addEventListener('click', function() {
+        const parentRow = this.closest('tr');
+        const day = parentRow.getAttribute('data-day');
+        const timeSelect = parentRow.querySelector('.time-select');
+        const selectedTime = timeSelect.value;
 
-    // Load existing schedule from localStorage
-    const loadScheduleData = () => {
-        const storedData = JSON.parse(localStorage.getItem('scheduleData')) || {
+        // Lấy danh sách thời gian từ localStorage
+        const scheduleData = JSON.parse(localStorage.getItem('scheduleData')) || {
             Sun: [],
             Mon: [],
             Tue: [],
@@ -12,100 +15,88 @@ document.addEventListener('DOMContentLoaded', () => {
             Fri: [],
             Sat: []
         };
-        document.querySelectorAll('#scheduleTable tbody tr').forEach(row => {
-            const day = row.dataset.day;
-            const timeListDiv = row.querySelector('.time-list');
-            timeListDiv.innerHTML = ''; // Clear existing time slots
-            storedData[day].forEach(timeSlot => {
-                const timeSlotDiv = document.createElement('div');
-                timeSlotDiv.className = 'time-slot';
-                timeSlotDiv.textContent = timeSlot;
-                
-                const deleteButton = document.createElement('button');
-                deleteButton.className = 'delete-time-btn';
-                deleteButton.textContent = '';
-                deleteButton.addEventListener('click', () => {
-                    timeSlotDiv.remove();
-                });
-                
-                timeSlotDiv.appendChild(deleteButton);
-                timeListDiv.appendChild(timeSlotDiv);
-            });
+
+        // Thêm thời gian đã chọn vào đúng ngày
+        scheduleData[day].push(selectedTime);
+
+        // Lưu lại vào localStorage
+        localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
+
+        // Tạo phần tử mới để hiển thị thời gian đã chọn trên trang hiện tại
+        const timeList = parentRow.querySelector('.time-list'); // Thẻ div chứa danh sách thời gian
+        const newTimeDiv = document.createElement('div'); // Tạo một thẻ div mới
+        newTimeDiv.className = 'time-slot'; // Đặt class cho thẻ mới
+        newTimeDiv.textContent = selectedTime; // Gán nội dung là thời gian đã chọn
+        
+        // Thêm nút để xóa thời gian
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'X'; // Nội dung nút xóa
+        removeBtn.classList.add('remove-time-btn');
+        newTimeDiv.appendChild(removeBtn); // Thêm nút xóa vào thẻ div thời gian
+        
+        // Thêm thời gian vào danh sách
+        timeList.appendChild(newTimeDiv);
+
+        // Xử lý sự kiện xóa thời gian
+        removeBtn.addEventListener('click', function() {
+            timeList.removeChild(newTimeDiv);
+            // Cập nhật lại localStorage khi xóa
+            const index = scheduleData[day].indexOf(selectedTime);
+            if (index > -1) {
+                scheduleData[day].splice(index, 1);
+            }
+            localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
         });
+    });
+});
+   // Khi trang được tải, hiển thị các buổi đã được lưu trong localStorage
+window.addEventListener('load', function() {
+    const scheduleData = JSON.parse(localStorage.getItem('scheduleData')) || {
+        Sun: [],
+        Mon: [],
+        Tue: [],
+        Wed: [],
+        Thu: [],
+        Fri: [],
+        Sat: []
     };
 
-    // Initialize schedule data
-    loadScheduleData();
+    // Duyệt qua các hàng tr để tìm thời gian cho từng ngày
+    document.querySelectorAll('tr').forEach(function(row) {
+        const day = row.getAttribute('data-day'); // Lấy ngày từ thuộc tính data-day
+        const timeList = row.querySelector('.time-list'); // Lấy div .time-list để thêm thời gian
 
-    // Save schedule data to localStorage
-    saveButton.addEventListener('click', () => {
-        const newScheduleData = {};
-        document.querySelectorAll('#scheduleTable tbody tr').forEach(row => {
-            const day = row.dataset.day;
-            const timeSlots = [];
-            row.querySelectorAll('.time-list .time-slot').forEach(slot => {
-                timeSlots.push(slot.textContent.trim());
-            });
-            newScheduleData[day] = timeSlots;
-        });
-
-        localStorage.setItem('scheduleData', JSON.stringify(newScheduleData));
-        alert('Schedule saved successfully!');
-    });
-
-    // Add time slot
-    document.querySelectorAll('.add-time-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const row = button.closest('tr');
-            const startTime = row.querySelector('.start-time-input').value;
-            const endTime = row.querySelector('.end-time-input').value;
-            if (startTime && endTime) {
-                const startHour = parseInt(startTime.split(':')[0], 10);
-                const endHour = parseInt(endTime.split(':')[0], 10);
-                const startFormatted = convertTo12HourFormat(startHour);
-                const endFormatted = convertTo12HourFormat(endHour);
-                const timeSlot = `${startFormatted} - ${endFormatted}`;
-                const timeSlotDiv = document.createElement('div');
-                timeSlotDiv.className = 'time-slot';
-                timeSlotDiv.textContent = timeSlot;
+        // Kiểm tra nếu có thời gian cho ngày hiện tại trong localStorage
+        if (scheduleData[day] && scheduleData[day].length > 0) {
+            scheduleData[day].forEach(function(time) {
+                // Tạo phần tử mới để hiển thị thời gian đã chọn
+                const newTimeDiv = document.createElement('div'); // Tạo một thẻ div mới
+                newTimeDiv.className = 'time-slot'; // Đặt class cho thẻ mới
+                newTimeDiv.textContent = time; // Gán nội dung là thời gian đã chọn
                 
-                const deleteButton = document.createElement('button');
-                deleteButton.className = 'delete-time-btn';
-                deleteButton.textContent = '';
-                deleteButton.addEventListener('click', () => {
-                    timeSlotDiv.remove();
+                // Thêm nút để xóa thời gian
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'X'; // Nội dung nút xóa
+                removeBtn.classList.add('remove-time-btn');
+                newTimeDiv.appendChild(removeBtn); // Thêm nút xóa vào thẻ div thời gian
+                
+                // Thêm thời gian vào div time-list
+                timeList.appendChild(newTimeDiv);
+
+                // Xử lý sự kiện xóa thời gian
+                removeBtn.addEventListener('click', function() {
+                    timeList.removeChild(newTimeDiv);
+
+                    // Cập nhật lại localStorage khi xóa
+                    const index = scheduleData[day].indexOf(time);
+                    if (index > -1) {
+                        scheduleData[day].splice(index, 1);
+                    }
+                    localStorage.setItem('scheduleData', JSON.stringify(scheduleData));
                 });
-                
-                timeSlotDiv.appendChild(deleteButton);
-                row.querySelector('.time-list').appendChild(timeSlotDiv);
-                
-                row.querySelector('.start-time-input').value = '';
-                row.querySelector('.end-time-input').value = '';
-            } else {
-                alert('Please enter both start and end times.');
-            }
-        });
+            });
+        }
     });
 });
-function convertTo12HourFormat(hour24) {
-    const hour = hour24 % 12 || 12; // Chuyển đổi giờ 0 thành 12
-    const ampm = hour24 >= 12 ? 'PM' : 'AM'; // Xác định AM/PM
-    return `${hour}:00 ${ampm}`;
-}
-const videoInput = document.getElementById('videoInput');
-const videoPreview = document.getElementById('videoPreview');
 
-videoInput.addEventListener('change', function() {
-    const file = videoInput.files[0];
-    if (file) {
-        const url = URL.createObjectURL(file);
-        videoPreview.src = url;
-        videoPreview.style.display = 'block';
-    }
-});
 
-// Handle form submission (for demo purposes, we prevent actual submission)
-document.getElementById('uploadForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    alert('Video uploaded!');
-});
