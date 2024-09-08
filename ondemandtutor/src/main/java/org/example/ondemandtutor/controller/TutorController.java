@@ -42,4 +42,11 @@ public class TutorController {
                 .build();
     }
 
+    @GetMapping("/myInfo")
+    ApiResponse<TutorResponse> getMyInfo() {
+        return ApiResponse.<TutorResponse>builder()
+                .result(tutorService.getMyInfo())
+                .build();
+    }
+
 }

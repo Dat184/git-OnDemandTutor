@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
-    fetch('http://localhost:8080/v1/users', {
+    fetch('http://localhost:8080/v1/student', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -12,12 +12,30 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(data);
             if (window.location.pathname.includes('studentlist.html')) {
                 populateStudents(data.result);
-            } else if (window.location.pathname.includes('tutorlist.html')) {
+            }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:8080/v1/tutor', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (window.location.pathname.includes('tutorlist.html')) {
                 populateTutors(data.result);
             }
         })
         .catch(error => console.error('Error fetching data:', error));
 });
+
+
 
 function populateStudents(users) {
     const tableBody = document.querySelector('#student-table tbody');
