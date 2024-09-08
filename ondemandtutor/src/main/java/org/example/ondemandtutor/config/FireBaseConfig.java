@@ -5,6 +5,7 @@ import com.google.cloud.storage.Bucket;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.StorageClient;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class FireBaseConfig {
 
     @Bean
+    @ConditionalOnMissingBean(FirebaseApp.class)  // Only initialize if FirebaseApp is not already mocked
     public FirebaseApp initFireBase() throws IOException {
         String serviceAccountPath = "ondemandtutor/serviceAccountKey.json";
         FileInputStream serviceAccountStream = new FileInputStream(serviceAccountPath);
