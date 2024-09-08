@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const scheduleTableBody = document.querySelector('#scheduleTable tbody');
-
     // Load schedule data from localStorage
     const loadScheduleData = () => {
         const scheduleData = JSON.parse(localStorage.getItem('scheduleData')) || {
@@ -64,3 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
+
