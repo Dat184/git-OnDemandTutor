@@ -1,129 +1,62 @@
-/* Main container for the service details page */
-.container {
-    width: 1100px;
-    background-color: antiquewhite;
-    margin: 20px auto;
-    padding-top: 90px;
-    border-radius: 10px;
-}
-
-/* Styling for each service section */
-.dich-vu-con {
-    display: flex;
-    padding: 20px 60px;
-    justify-content: space-around;
-    align-items: center;
-}
-
-/* Image container for the service */
-.img-dich-vu img {
-    width: 300px;
-    height: 200px;
-    border-radius: 10px;
-}
-
-/* Service name and description */
-.ten-dich-vu {
+.container{
+    width: 1000px;
+    margin-top: 90px;
+    margin-bottom: 50px;
+    padding: 50px;
+   border-radius: 20px;
+    background: linear-gradient(to top right, #EECAD5, #F1D3CE,#F6EACB,#D1E9F6);
+    box-shadow: 0 10px 10px rgb(209, 233, 246);
+    margin-left: 240px ;
+    margin-right: 100px ;
     display: flex;
     flex-direction: column;
-    width: 500px;
-    line-height: 24px;
-}
-
-.name {
-    font-size: 1.6em;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-/* Video section */
-.tutor-video {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.videoo {
-    border-radius: 10px;
-}
-
-/* Schedule container */
-.view-schedule-container {
-    width: 100%;
-    margin-top: 30px;
-}
-
-.view-schedule-container h1 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-/* Schedule table */
-#scheduleTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0 auto;
-    background-color: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-#scheduleTable th, #scheduleTable td {
-    padding: 12px;
-    text-align: center;
-    border: 1px solid #ccc;
-}
-
-#scheduleTable th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-/* Time and price container */
-.time-and-price-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-}
-
-.time-and-price {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    width: 30%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.the-ngoai {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    width: 100%;
 }
-
-.thue button {
-    background-color: #ff4747;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+.container h1{
+    text-align: center;
 }
-
-.thue button:hover {
-    background-color: #ff7070;
+.editform{
+    display: flex;
+    flex-direction: column;
+    
+    
 }
-
-/* Additional styling */
-.thoi-gian, .buoi, .gia {
+.form-container{
+    width: 600px;
+    /* margin: 20px auto   ; */
+}
+.editform label{
     font-size: 1.2em;
-    margin: 10px 0;
+    font-weight: bold; 
+
+}
+.editform input{
+    width: 600px;
+    font-size: 0.8em;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 20px auto;
 }
 
-/* Hide overflow of content */
-.container, .view-schedule-container, .time-and-price-container {
-    overflow: hidden;
+.editform textarea{
+    width: 600px;
+    border: 2px solid #000;
+    font-size: 0.8em;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 20px auto;
+    resize: none;
+}
+
+
+#file-upload-button{
+    border-radius: 10px;
+}
+.editform button{
+    margin: 20px auto;
+    width: 200px;
+    font-weight: bold; 
+    font-size: 0.8em;
+    border-radius: 10px;
+    padding: 5px;
 }

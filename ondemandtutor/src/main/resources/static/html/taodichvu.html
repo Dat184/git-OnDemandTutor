@@ -67,36 +67,37 @@
 
         <div class="container">
             <h1>Chỉnh sửa chi tiết dịch vụ</h1>
-
-            <form id="editForm">
+            <div class="form-container">
+            <form id="editForm" class="editform">
+                   <!-- Chỉnh sửa hình ảnh -->
+                   <label for="image">Hình ảnh:</label>
+                   <input type="file" id="image">
                 <!-- Chỉnh sửa tên dịch vụ -->
                 <label for="tutorName">Tên Gia Sư:</label>
-                <input type="text" id="tutorName" value="Trịnh Trần Phương Tún">
+                <input type="text" id="tutorName" value="">
 
-                <!-- Chỉnh sửa mô tả dịch vụ -->
-                <label for="description">Mô tả:</label>
-                <textarea id="description" rows="6">
-Là một thằng con trai, Nghèo như anh, màu trắng đôi bàn tay...
-                </textarea>
-
+               
                 <!-- Chỉnh sửa thời gian giảng dạy -->
                 <label for="schedule">Lịch dạy:</label>
-                <input type="text" id="schedule" value="Thứ 2, Thứ 4, Thứ 6 - 9:00 đến 11:00">
+                <input type="text" id="schedule" value="">
 
-                <!-- Chỉnh sửa hình ảnh -->
-                <label for="image">Hình ảnh:</label>
-                <input type="file" id="image">
+             
 
-                <!-- Chỉnh sửa video -->
+                <!-- Chỉnh sửa video
                 <label for="videoUrl">Video URL:</label>
-                <input type="text" id="videoUrl" value="https://www.youtube.com/embed/d7mRI7RKTLc">
+                <input type="text" id="videoUrl" value="https://www.youtube.com/embed/d7mRI7RKTLc"> -->
 
                 <!-- Chỉnh sửa giá khóa học -->
                 <label for="price">Giá khóa học:</label>
-                <input type="text" id="price" value="30 triệu/khóa">
+                <input type="text" id="price" value="">
+                
+                <!-- Chỉnh sửa mô tả dịch vụ -->
+                <label for="description">Mô tả:</label>
+                <textarea id="description" rows="6"></textarea>
 
                 <button type="submit">Lưu thay đổi</button>
             </form>
+        </div>
         </div>
 
         <footer>
