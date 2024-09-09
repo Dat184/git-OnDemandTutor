@@ -9,7 +9,7 @@
     <script src="../js/header.js"></script>
     <script src="../js/admin.js"></script>
     <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
-    <title>Document</title>
+    <title>Chỉnh Sửa Môn Học</title>
 </head>
 
 <body>
@@ -55,7 +55,7 @@
                         <span class="icon">
                             <i class="fa-solid fa-list"></i>
                         </span>
-                        <span class="title ">Danh sách học sinh</span>
+                        <span class="title">Danh sách học sinh</span>
                     </a>
                 </li>
                 <li>
@@ -83,7 +83,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="subjectlist.html">
+                    <a class="border" href="subjectlist.html">
                         <span class="icon">
                             <i class="fa-solid fa-list"></i>
                         </span>
@@ -92,51 +92,79 @@
                 </li>
             </ul>
         </div>
-        <div class="content">
-            <h2>Danh sách học sinh</h2>
-            <table class="student-table" id="student-table">
-                <thead>
-                <tr>
-                    <th>Stt</th>
-                    <th>Họ và tên</th>
-                    <th>Email</th>
-                    <th>Tên người dùng</th>
-                    <th>Địa chỉ</th>
-                    <th>Khối</th>
-                    <th>Thao tác</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Nguyễn Văn A</td>
-                    <td>nguyenvana@example.com</td>
-                    <td>nguyenvana</td>
-                    <td>123 Đường A, Phường B, Quận C</td>
-                    <td>12</td>
-                    <td>
-                        <a href="#" class="edit-link">Sửa</a> |
-                        <a href="#" class="delete-link">Xóa</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Trần Thị B</td>
-                    <td>tranthib@example.com</td>
-                    <td>tranthib</td>
-                    <td>456 Đường X, Phường Y, Quận Z</td>
-                    <td>10</td>
-                    <td>
-                        <a href="#" class="edit-link">Sửa</a> |
-                        <a href="#" class="delete-link">Xóa</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="form-container">
+            <h2>Chỉnh Sửa Môn Học</h2>
+            <form id="editSubjectForm">
+                <div class="form-group">
+                    <label for="subjectName">Tên môn học</label>
+                    <input type="text" id="subjectName" name="subjectName" required>
+                </div>
+                <button type="submit" class="btn">Cập nhật</button>
+            </form>
         </div>
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('token'); // Get the token from local storage
+        const urlParams = new URLSearchParams(window.location.search);
+        const subjectId = urlParams.get('id');  // Get the ID from the URL
+
+        const apiUrl = `http://localhost:8080/v1/subject/${subjectId}`; // API endpoint
+
+        if (subjectId) {
+            // Fetch the existing subject details
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Use the token in Authorization header
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    if (data && data.result) {
+                        const subject = data.result;
+                        document.getElementById('subjectName').value = subject.name || '';
+                    }
+                })
+                .catch(error => console.error('Error fetching subject details:', error));
+        }
+
+        // Handle form submission for updating the subject
+        document.getElementById('editSubjectForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const updatedSubjectName = document.getElementById('subjectName').value;
+
+            if (subjectId) {
+                fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Use the token in Authorization header
+                    },
+                    body: JSON.stringify({
+                        name: updatedSubjectName
+                    }),
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Cập nhật thành công!');
+                            window.location.href = 'subjectlist.html'; // Redirect back to the subject list
+                        } else {
+                            alert('Cập nhật thất bại. Vui lòng thử lại.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error updating subject:', error);
+                    });
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
-    <script src="../js/header.js"></script>
-    <script src="../js/admin.js"></script>
+    <script src="../js/header.js" defer></script>
+    <script src="../js/addsubject.js" defer></script>
     <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
-    <title>Document</title>
+    <title>Thêm Môn Học</title>
 </head>
 
 <body>
@@ -44,99 +44,67 @@
             <ul>
                 <li>
                     <a href="#">
-                        <span class="icon">
-                            <i class="fa-solid fa-user-tie"></i>
-                        </span>
+                            <span class="icon">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </span>
                         <span class="title-strong">Admin</span>
                     </a>
                 </li>
                 <li>
                     <a class="border" href="studentlist.html">
-                        <span class="icon">
-                            <i class="fa-solid fa-list"></i>
-                        </span>
-                        <span class="title ">Danh sách học sinh</span>
+                            <span class="icon">
+                                <i class="fa-solid fa-list"></i>
+                            </span>
+                        <span class="title">Danh sách học sinh</span>
                     </a>
                 </li>
                 <li>
                     <a href="tutorlist.html">
-                        <span class="icon">
-                            <i class="fa-solid fa-list"></i>
-                        </span>
+                            <span class="icon">
+                                <i class="fa-solid fa-list"></i>
+                            </span>
                         <span class="title">Danh sách gia sư</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span class="icon">
-                            <i class="fa-solid fa-list"></i>
-                        </span>
+                            <span class="icon">
+                                <i class="fa-solid fa-list"></i>
+                            </span>
                         <span class="title">Danh sách bài đăng</span>
                     </a>
                 </li>
                 <li>
                     <a href="addsubject.html">
-                        <span class="icon">
-                            <i class="fa-solid fa-list"></i>
-                        </span>
+                            <span class="icon">
+                                <i class="fa-solid fa-list"></i>
+                            </span>
                         <span class="title">Thêm môn học</span>
                     </a>
                 </li>
                 <li>
                     <a href="subjectlist.html">
-                        <span class="icon">
-                            <i class="fa-solid fa-list"></i>
-                        </span>
+                            <span class="icon">
+                                <i class="fa-solid fa-list"></i>
+                            </span>
                         <span class="title">Danh sách môn học</span>
                     </a>
                 </li>
             </ul>
         </div>
-        <div class="content">
-            <h2>Danh sách học sinh</h2>
-            <table class="student-table" id="student-table">
-                <thead>
-                <tr>
-                    <th>Stt</th>
-                    <th>Họ và tên</th>
-                    <th>Email</th>
-                    <th>Tên người dùng</th>
-                    <th>Địa chỉ</th>
-                    <th>Khối</th>
-                    <th>Thao tác</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Nguyễn Văn A</td>
-                    <td>nguyenvana@example.com</td>
-                    <td>nguyenvana</td>
-                    <td>123 Đường A, Phường B, Quận C</td>
-                    <td>12</td>
-                    <td>
-                        <a href="#" class="edit-link">Sửa</a> |
-                        <a href="#" class="delete-link">Xóa</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Trần Thị B</td>
-                    <td>tranthib@example.com</td>
-                    <td>tranthib</td>
-                    <td>456 Đường X, Phường Y, Quận Z</td>
-                    <td>10</td>
-                    <td>
-                        <a href="#" class="edit-link">Sửa</a> |
-                        <a href="#" class="delete-link">Xóa</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="add-content">
+            <h2>Thêm Môn Học</h2>
+            <form id="addSubjectForm">
+                <div class="form-group">
+                    <label for="name">Tên Môn Học:</label>
+                    <input type="text" id="name" name="name" required placeholder="Nhập tên môn học">
+                </div>
+                <button type="submit" class="addBtn">Thêm</button>
+                <div id="responseMessage"></div>
+            </form>
         </div>
     </div>
 </div>
-
 </body>
 
 </html>

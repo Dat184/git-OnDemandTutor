@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <script src="../js/header.js"></script>
+    <script src="../js/admin.js"></script>
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+    <title>Danh Sách Môn Học</title>
+</head>
+
+<body>
+<div class="main">
+    <header class="header">
+        <div class="logo-container">
+            <a class="img-logo" href="../admin/studentlist.html">
+                <p class="text">LEARN TOgetHER</p>
+            </a>
+        </div>
+        <div class="login-search-container">
+            <div class="login-container">
+                <a href="../html/modal.html" class="search-link">
+                    <button id="loginButton" class="login-button">Đăng nhập</button>
+                </a>
+                <div class="user-info" id="userInfo">
+                    <span id="usernameDisplay"></span>
+                    <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+                    <div id="userDropdown" class="user-dropdown">
+                        <a href="#" id="logoutButton" class="sub-menu-link">
+                            <img src="../assets/img/header/logout.png" alt="">
+                            <p>Đăng xuất</p>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </span>
+                        <span class="title-strong">Admin</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="studentlist.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách học sinh</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tutorlist.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách gia sư</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách bài đăng</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="addsubject.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Thêm môn học</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="border" href="subjectlist.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách môn học</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="table-container">
+            <h2>Danh sách môn học</h2>
+            <table id="subject-table" class="subject-table">
+                <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên môn học</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('token');
+
+        // Fetch and populate subjects if on the subject list page
+        if (window.location.pathname.includes('subjectlist.html')) {
+            fetch('http://localhost:8080/v1/subject', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('API Response:', data); // Log the entire response
+                    populateSubjects(data); // Pass the array directly
+                    attachDeleteHandlers(); // Add delete handlers after populating
+                })
+                .catch(error => console.error('Error fetching subjects:', error));
+        }
+    });
+
+    function populateSubjects(subjects) {
+        const tableBody = document.querySelector('#subject-table tbody');
+        if (!tableBody) {
+            console.error('Table body for subjects not found');
+            return;
+        }
+        tableBody.innerHTML = ''; // Clear previous content
+
+        if (subjects.length > 0) {
+            subjects.forEach((subject, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${subject.name || 'Chưa Cập Nhật'}</td>
+                <td>
+                    <a href="editsubject.html?id=${subject.id}" class="edit-link">Sửa</a>
+                    <a href="#" class="delete-link" data-id="${subject.id}" data-type="subject">Xóa</a>
+                </td>
+            `;
+                tableBody.appendChild(row);
+            });
+        } else {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td colspan="3">Không có môn học để hiển thị.</td>`;
+            tableBody.appendChild(row);
+        }
+    }
+
+    function attachDeleteHandlers() {
+        const deleteLinks = document.querySelectorAll('.delete-link');
+        deleteLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const id = event.target.dataset.id;
+                const itemType = event.target.dataset.type;
+                if (confirm('Bạn có chắc chắn muốn xóa?')) {
+                    if (itemType === 'subject') {
+                        deleteSubject(id);
+                    }
+                }
+            });
+        });
+    }
+
+    function deleteSubject(id) {
+        const token = localStorage.getItem('token');
+        fetch(`http://localhost:8080/v1/subject/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Xóa môn học thành công');
+                    location.reload(); // Refresh the page to update the list
+                } else {
+                    alert('Đã xảy ra lỗi khi xóa môn học');
+                }
+            })
+            .catch(error => console.error('Error deleting subject:', error));
+    }
+
+</script>
+
+</body>
+
+</html>
