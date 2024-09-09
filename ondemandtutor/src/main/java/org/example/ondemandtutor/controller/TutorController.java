@@ -1,6 +1,7 @@
 package org.example.ondemandtutor.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.ondemandtutor.dto.request.UserUpdateRequest;
 import org.example.ondemandtutor.dto.response.ApiResponse;
 import org.example.ondemandtutor.dto.response.StudentResponse;
 import org.example.ondemandtutor.dto.response.TutorResponse;
@@ -8,11 +9,9 @@ import org.example.ondemandtutor.service.StudentService;
 import org.example.ondemandtutor.service.TutorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,5 +47,17 @@ public class TutorController {
                 .result(tutorService.getMyInfo())
                 .build();
     }
-
+    @PutMapping("/{id}")
+    ApiResponse<TutorResponse> updateTutor(
+            @PathVariable Long id,
+            @RequestBody UserUpdateRequest updateRequest) {
+        return ApiResponse.<TutorResponse>builder()
+                .result(tutorService.updateTutor(id, updateRequest))
+                .build();
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTutor(@PathVariable Long id) {
+        tutorService.deleteTutor(id);
+        return ResponseEntity.noContent().build(); // Returns HTTP 204 No Content
+    }
 }

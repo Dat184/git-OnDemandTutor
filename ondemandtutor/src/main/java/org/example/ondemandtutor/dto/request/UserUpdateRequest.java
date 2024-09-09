@@ -12,7 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class UserUpdateRequest {
-
+    @Size(min = 3, message = "USERNAME_INVALID")
+    private String username;
     private String oldPass;
     @Size(min = 8, message = "INVALID_PASSWORD")
     private String password;
@@ -28,6 +29,6 @@ public class UserUpdateRequest {
     private String specialty;
     private String bio;
     private Double rating;
-
+    private String subjectId;
 
 }

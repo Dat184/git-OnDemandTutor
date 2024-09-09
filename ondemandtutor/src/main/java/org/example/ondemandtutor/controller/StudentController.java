@@ -3,12 +3,14 @@ package org.example.ondemandtutor.controller;
 import lombok.RequiredArgsConstructor;
 
 
+import org.example.ondemandtutor.dto.request.UserUpdateRequest;
 import org.example.ondemandtutor.dto.response.ApiResponse;
 import org.example.ondemandtutor.dto.response.StudentResponse;
 import org.example.ondemandtutor.dto.response.UserResponse;
 import org.example.ondemandtutor.service.StudentService;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,5 +47,17 @@ public class StudentController {
                 .result(studentService.getMyInfo())
                 .build();
     }
-
+    @PutMapping("/{id}")
+    ApiResponse<StudentResponse> updateStudent(
+            @PathVariable Long id,
+            @RequestBody UserUpdateRequest updateRequest) {
+        return ApiResponse.<StudentResponse>builder()
+                .result(studentService.updateStudent(id, updateRequest))
+                .build();
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+        studentService.deleteStudent(id);
+        return ResponseEntity.noContent().build(); // Returns HTTP 204 No Content
+    }
 }

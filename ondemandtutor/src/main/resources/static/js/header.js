@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function() {
     const searchButton = document.getElementById('searchButton');
     const searchInput = document.getElementById('searchInput');
@@ -17,29 +16,28 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelector('.navbar-container .nav-box.hidden').classList.remove('hidden');
     }
 
-//
-// // Xử lý khi nhấn vào nút tìm kiếm
-//     searchButton.addEventListener('click', function(event) {
-//         event.stopPropagation();
-//         searchButton.classList.toggle('active');
-//         searchInput.classList.toggle('active');
-//         if (searchInput.classList.contains('active')) {
-//             searchInput.focus(); // Đưa tiêu điểm vào thanh tìm kiếm khi nó được hiển thị
-//         }
-//     });
-//
-// // Ngăn sự kiện click lan truyền từ thanh tìm kiếm
-//     searchInput.addEventListener('click', function(event) {
-//         event.stopPropagation(); // Ngăn sự kiện click lan truyền lên document
-//     });
-//
-// // Xử lý khi nhấn vào bất kỳ đâu trên tài liệu
-//     document.addEventListener('click', function(event) {
-//         if (!searchButton.contains(event.target) && !searchInput.contains(event.target)) {
-//             searchButton.classList.remove('active');
-//             searchInput.classList.remove('active');
-//         }
-//     });
+    // Xử lý khi nhấn vào nút tìm kiếm
+    // searchButton.addEventListener('click', function(event) {
+    //     event.stopPropagation();
+    //     searchButton.classList.toggle('active');
+    //     searchInput.classList.toggle('active');
+    //     if (searchInput.classList.contains('active')) {
+    //         searchInput.focus(); // Đưa tiêu điểm vào thanh tìm kiếm khi nó được hiển thị
+    //     }
+    // });
+
+    // Ngăn sự kiện click lan truyền từ thanh tìm kiếm
+    // searchInput.addEventListener('click', function(event) {
+    //     event.stopPropagation(); // Ngăn sự kiện click lan truyền lên document
+    // });
+
+    // Xử lý khi nhấn vào bất kỳ đâu trên tài liệu
+    // document.addEventListener('click', function(event) {
+    //     if (!searchButton.contains(event.target) && !searchInput.contains(event.target)) {
+    //         searchButton.classList.remove('active');
+    //         searchInput.classList.remove('active');
+    //     }
+    // });
 
     // Xử lý khi nhấn nút đăng nhập
     if (loginButton) {
@@ -117,15 +115,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-
-
     // Hàm lấy thông tin người dùng và cập nhật avatar
     async function getMyInfo() {
         const token = localStorage.getItem('token');
         console.log(token)
         try {
-
-
             const response = await fetch('http://localhost:8080/v1/users/myInfo', {
                 method: 'GET',
                 headers: {
@@ -147,6 +141,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 avatarElement.src = data.result.imgUrl;
             } else {
                 avatarElement.src = defaultImgUrl; // Hình đại diện mặc định
+            }
+
+            // Update profile link based on user role
+            const profileLink = document.querySelector('#userDropdown .sub-menu-link');
+            if (profileLink) {
+                if (userRole === 'Tutor') {
+                    profileLink.href = 'profiletutor.html';
+                } else {
+                    profileLink.href = 'profile.html';
+                }
             }
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
