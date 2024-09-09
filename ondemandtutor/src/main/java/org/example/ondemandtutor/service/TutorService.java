@@ -29,7 +29,7 @@ public class TutorService {
         return tutorRepository.findAll().stream().map(tutorMapper::toTutorResponse).toList();
     }
 
-    @PostAuthorize("returnObject.username == authentication.name")
+    @PreAuthorize("hasRole('Admin')")
     public TutorResponse findTutorById(Long id) {
         return tutorMapper.toTutorResponse(tutorRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));
