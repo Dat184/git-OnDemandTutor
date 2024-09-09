@@ -122,7 +122,7 @@
 
         const urlParams = new URLSearchParams(window.location.search);
         const studentId = urlParams.get('id');  // Get the ID from the URL
-        console.log(studentId);
+
         if (studentId) {
             fetch(`http://localhost:8080/v1/student/${studentId}`, {
                 method: 'GET',
