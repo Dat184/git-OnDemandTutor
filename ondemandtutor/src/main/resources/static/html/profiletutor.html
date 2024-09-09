@@ -130,8 +130,8 @@
                     <span id="email">nguyenvana@example.com</span>
                 </div>
                 <div class="input-group">
-                    <label for="grade">Khối</label>
-                    <span id="grade">Chưa cập nhật</span>
+                    <label for="subjectId">Khóa học</label>
+                    <span id="subjectId">Chưa cập nhật</span>
                 </div>
                 <div class="input-group">
                     <label for="address">Tỉnh/Thành phố</label>
@@ -194,7 +194,7 @@
         try {
             const token = localStorage.getItem('token');
 
-            const response = await fetch('http://localhost:8080/v1/student/myInfo', {
+                const response = await fetch('http://localhost:8080/v1/tutor/myInfo', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -222,8 +222,8 @@
                 avatarElement.src = 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7'; // Hình đại diện mặc định
                 profilePicElement.src= 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
             }
-            if (!data.result.grade == "" ) {
-                document.getElementById('grade').innerText = data.result.grade;
+            if (!data.result.subjectId == "" ) {
+                document.getElementById('subjectId').innerText = data.result.subjectId;
             }
             if (!data.result.address == "")
             {
@@ -304,7 +304,7 @@
                 if (data.code === 1000) {
                     alert('Thông tin người dùng đã được cập nhật thành công!');
                     window.location.reload();
-                    } else {
+                } else {
                     alert(`Có lỗi xảy ra khi cập nhật thông tin người dùng: ${data.message || 'Lỗi không xác định'}`);
                 }
             })

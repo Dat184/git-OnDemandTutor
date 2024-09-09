@@ -36,7 +36,8 @@ public class StudentService {
         return studentRepository.findAll().stream().map(studentMapper::toStudentResponse).toList();
     }
 
-    @PostAuthorize("returnObject.username == authentication.name")
+
+    @PreAuthorize("hasRole('Admin')")
     public StudentResponse findStudentById(Long id) {
         return studentMapper.toStudentResponse(studentRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));

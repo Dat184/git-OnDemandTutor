@@ -11,8 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(data => {
             const tutors = data.result;
+            console.log(tutors);
 
-            const tutorContainer = document.querySelector('.tutor-container');
+            const tutorContainer = document.querySelector('.container');
             tutorContainer.innerHTML = '';
 
             tutors.forEach(tutor => {
@@ -35,6 +36,7 @@ function createTutorCard(tutor) {
 
     const tutorImageUrl = tutor.imageUrl || '../assets/img/header/profile.png';
 
+
     tutorCard.innerHTML = `
         <div class="tutor-info-actions">
             <div class="tutor-info">
@@ -42,12 +44,11 @@ function createTutorCard(tutor) {
                 <div class="tutor-details">
                     <h3 class="tutor-name">${tutor.name || 'N/A'}</h3>
                     <div class="tutor-meta">
-                        <span>🇺🇸 ${tutor.language || 'N/A'}</span>
-                        <span>${tutor.activeStudents || '0'} active students</span>
-                        <span>${tutor.lessons || '0'} lessons</span>
-                        <span>${tutor.speaks || 'N/A'}</span>
+                      
+                        <span>${tutor.email}</span>
+                        
                     </div>
-                    <p class="tutor-description">${tutor.description || 'No description available'}</p>
+                    <p class="tutor-description">${tutor.bio || 'No description available'}</p>
                 </div>
             </div>
             <div class="tutor-actions">

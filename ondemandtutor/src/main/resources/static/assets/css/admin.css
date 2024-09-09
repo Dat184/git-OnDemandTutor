@@ -219,4 +219,94 @@
 }
 
 
+/* ========== Edit Content Form ========== */
+.edit-content {
+    background-color: var(--white);
+    padding: 20px;
+    margin-top: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.edit-content h2 {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: var(--blue);
+}
+
+.edit-content form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.edit-content label {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--black1);
+    margin-bottom: 5px;
+}
+
+.edit-content input[type="text"],
+.edit-content input[type="email"],
+.edit-content input[type="password"],
+.edit-content input[type="number"],
+.edit-content textarea {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid var(--gray);
+    border-radius: 5px;
+    font-size: 14px;
+    color: var(--black1);
+    background-color: #FCE383;
+}
+
+.edit-content textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.edit-content input:focus,
+.edit-content textarea:focus {
+    outline: none;
+    border-color: var(--blue);
+    background-color: #FCE383;
+}
+
+.edit-content .form-actions {
+    grid-column: 1 / 3;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+
+.save-btn { padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #4CAF50;
+    color: white;
+    margin-top: 20px;
+    margin-left: 180px;
+}
+
+.edit-content .save-btn:hover {
+    background-color: #45a049;
+}
+
+.edit-content .cancel-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.edit-content .cancel-btn:hover {
+    background-color: #e53935;
+}
+
+
 

@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/profile.css">
-    <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+    <link rel="stylesheet" href="../asset/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+
     <title>Document</title>
 </head>
 
@@ -53,7 +54,6 @@
                 <div class="user-info" id="userInfo">
                     <span id="usernameDisplay"></span>
                     <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
-
                     <div id="userDropdown" class="user-dropdown">
                         <a href="editprofile.html" class="sub-menu-link">
                             <img src="../assets/img/header/profile.png" alt="">
@@ -113,32 +113,45 @@
             </ul>
         </div>
         <div class="profile-container">
-            <div class="profile-pic-container" id="profilePicContainer">
-                <img id="profilePic" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Profile Picture" class="profile-pic">
+            <div id="profilePicContainer" class="profile-pic-container">
+                <img id="profilePic" src=""  style="display: none;">
+                <i class="fa-solid fa-camera camera-icon"></i>
             </div>
+            <input type="file" id="profilePicInput" style="display:none;">
+
+
+
+
+
             <div class="input-fields">
                 <div class="input-group">
-                    <label for="role">Chức vụ</label>
-                    <span id="role">Giáo viên</span>
-                </div>
-                <div class="input-group">
                     <label for="name">Họ và tên</label>
-                    <span id="name">Nguyễn Văn A</span>
+                    <input type="text" id="name" name="name">
                 </div>
                 <div class="input-group">
                     <label for="email">Email</label>
-                    <span id="email">nguyenvana@example.com</span>
+                    <input type="email" id="email" name="email">
                 </div>
                 <div class="input-group">
-                    <label for="grade">Khối</label>
-                    <span id="grade">Chưa cập nhật</span>
+                    <label for="subjectId">Khóa học</label>
+                    <input type="text" id="subjectId" name="subjectId">
                 </div>
                 <div class="input-group">
                     <label for="address">Tỉnh/Thành phố</label>
-                    <span id="address">Chưa cập nhật</span>
+                    <select id="address" name="address">
+                        <option value="Chưa chọn">Vui lòng chọn thành phố</option>
+                        <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
+                        <option value="Hà Nội">Hà Nội</option>
+                        <option value="Đà Nẵng">Đà Nẵng</option>
+                        <option value="Khánh Hòa">Khánh Hòa</option>
+                        <option value="Cần Thơ">Cần Thơ</option>
+                    </select>
                 </div>
+                <button type="submit" id="updateButton" class="submit-button">Cập nhật </button>
+
             </div>
         </div>
+
     </div>
     <footer>
         <link rel="stylesheet" href="../assets/css/footer.css">
@@ -186,135 +199,8 @@
     </div>
 </div>
 <script src="../js/header.js"></script>
-<script>
+<script src="../js/profiletutor.js"></script>
 
-
-
-    async function getMyInfo() {
-        try {
-            const token = localStorage.getItem('token');
-
-            const response = await fetch('http://localhost:8080/v1/student/myInfo', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                    // Thêm Authorization header nếu cần thiết
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            // Cập nhật thông tin cá nhân lên giao diện
-            document.getElementById('role').innerText = data.result.role;
-            document.getElementById('name').innerText = data.result.name;
-            document.getElementById('email').innerText = data.result.email;
-            const avatarElement = document.getElementById('avatar');
-            const profilePicElement = document.getElementById('profilePic');
-
-            if (data.result.imgUrl) { // Kiểm tra nếu có URL của hình đại diện
-                avatarElement.src = data.result.imgUrl;
-                profilePicElement.src=data.result.imgUrl;
-            } else {
-                avatarElement.src = 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7'; // Hình đại diện mặc định
-                profilePicElement.src= 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
-            }
-            if (!data.result.grade == "" ) {
-                document.getElementById('grade').innerText = data.result.grade;
-            }
-            if (!data.result.address == "")
-            {
-                document.getElementById('address').innerText = data.result.address;
-            }
-
-
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-        }
-    }
-
-    // Gọi hàm getMyInfo khi trang được tải
-    window.onload = getMyInfo;
-</script>
-<script>
-    var modal = document.getElementById("passwordModal");
-
-    var passwordLink = document.querySelector('.navigation li:nth-child(4) a');
-
-    var closeButton = document.getElementsByClassName("close-button")[0];
-
-    passwordLink.onclick = function () {
-        modal.style.display = "block";
-    }
-
-    closeButton.onclick = function () {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-
-</script>
-<script>
-    document.getElementById('changePasswordButton').addEventListener('click', function(event) {
-        event.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
-
-        // Lấy giá trị từ các input fields
-        const currentPassword = document.getElementById('currentPassword').value.trim();
-        const newPassword = document.getElementById('newPassword').value.trim();
-        const confirmPassword = document.getElementById('confirmPassword').value.trim();
-
-        // Kiểm tra tính hợp lệ của dữ liệu
-        if (!currentPassword || !newPassword || !confirmPassword) {
-            alert('Vui lòng điền đầy đủ thông tin.');
-            return;
-        }
-
-        if (newPassword !== confirmPassword) {
-            alert('Mật khẩu mới và xác nhận mật khẩu không khớp.');
-            return;
-        }
-
-        // Tạo đối tượng request payload
-        const userUpdateRequest = {
-            oldPass: currentPassword,
-            password: newPassword,
-        };
-
-        // Lấy Bearer token từ localStorage
-        const token = localStorage.getItem('token');
-
-        // Gọi API PUT để cập nhật thông tin người dùng
-        fetch('http://localhost:8080/v1/users', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(userUpdateRequest)
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.code === 1000) {
-                    alert('Thông tin người dùng đã được cập nhật thành công!');
-                    window.location.reload();
-                    } else {
-                    alert(`Có lỗi xảy ra khi cập nhật thông tin người dùng: ${data.message || 'Lỗi không xác định'}`);
-                }
-            })
-            .catch(error => {
-                console.error('Error updating user info:', error);
-                alert('Có lỗi xảy ra khi kết nối tới máy chủ.');
-            });
-    });
-
-</script>
 </body>
 
 </html>
