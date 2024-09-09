@@ -37,7 +37,12 @@
                 </a>
             </div>
             <div class="login-search-container">
-
+                <div class="message-container" id="messageContainer">
+                    <a href="messages.html" class="message-link">
+                        <i class="message-icon fa-regular fa-message"></i>
+                        <span class="message-count" id="messageCount">0</span>
+                    </a>
+                </div>
 
                 <div class="login-container">
                     <a href="modal.html" class="search-link">
@@ -74,9 +79,7 @@
                    <label for="image">Hình ảnh:</label>
                    <input class="img" type="file" id="image">
                 <!-- Chỉnh sửa tên dịch vụ -->
-                <label for="tutorName">Tên Gia Sư:</label>
-                <input type="text" id="tutorName" value="">
-
+             
                
                 <!-- Chỉnh sửa thời gian giảng dạy -->
               
@@ -112,7 +115,7 @@
                             <tr>
                                 <th>Ngày</th>
                                 <th>Thời gian</th>
-                                <th>Thêm thời Gian</th>
+                                <!-- <th>Thêm thời Gian</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -120,99 +123,71 @@
                             <tr data-day="Sun">
                                 <td>Sunday</td>
                                 <td class="times">
-                                    <div class="time-list"></div>
-                                </td>
-                                <td class="add-times">
-                                    <select class="time-select">
-                                        <option value="Sáng">Sáng</option>
-                                        <option value="Chiều">Chiều</option>
-                                        <option value="Tối">Tối</option>
-                                    </select>
-                                    <button type="button" class="add-time-btn">Add</button>
+                                    <div class="time-list">
+                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                    </div>
                                 </td>
                             </tr>
                             <tr data-day="Mon">
                                 <td>Monday</td>
                                 <td class="times">
-                                    <div class="time-list"></div>
-                                </td>
-                                <td class="add-times">
-                                    <select class="time-select">
-                                        <option value="Sáng">Sáng</option>
-                                        <option value="Chiều">Chiều</option>
-                                        <option value="Tối">Tối</option>
-                                    </select>
-                                    <button type="button" class="add-time-btn">Add</button>
+                                    <div class="time-list">
+                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                    </div>
                                 </td>
                             </tr>
                             <tr data-day="Tue">
                                 <td>Tuesday</td>
                                 <td class="times">
-                                    <div class="time-list"></div>
-                                </td>
-                                <td class="add-times">
-                                    <select class="time-select">
-                                        <option value="Sáng">Sáng</option>
-                                        <option value="Chiều">Chiều</option>
-                                        <option value="Tối">Tối</option>
-                                    </select>
-                                    <button type="button" class="add-time-btn">Add</button>
+                                    <div class="time-list">
+                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                    </div>
                                 </td>
                             </tr>
                             <tr data-day="Wed">
                                 <td>Wednesday</td>
                                 <td class="times">
-                                    <div class="time-list"></div>
-                                </td>
-                                <td class="add-times">
-                                    <select class="time-select">
-                                        <option value="Sáng">Sáng</option>
-                                        <option value="Chiều">Chiều</option>
-                                        <option value="Tối">Tối</option>
-                                    </select>
-                                    <button type="button" class="add-time-btn">Add</button>
+                                    <div class="time-list">
+                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                    </div>
                                 </td>
                             </tr>
                             <tr data-day="Thu">
                                 <td>Thursday</td>
                                 <td class="times">
-                                    <div class="time-list"></div>
-                                </td>
-                                <td class="add-times">
-                                    <select class="time-select">
-                                        <option value="Sáng">Sáng</option>
-                                        <option value="Chiều">Chiều</option>
-                                        <option value="Tối">Tối</option>
-                                    </select>
-                                    <button type="button" class="add-time-btn">Add</button>
+                                    <div class="time-list">
+                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                    </div>
                                 </td>
                             </tr>
                             <tr data-day="Fri">
                                 <td>Friday</td>
                                 <td class="times">
-                                    <div class="time-list"></div>
-                                </td>
-                                <td class="add-times">
-                                    <select class="time-select">
-                                        <option value="Sáng">Sáng</option>
-                                        <option value="Chiều">Chiều</option>
-                                        <option value="Tối">Tối</option>
-                                    </select>
-                                    <button type="button" class="add-time-btn">Add</button>
+                                    <div class="time-list">
+                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                    </div>
                                 </td>
                             </tr>
                             <tr data-day="Sat">
                                 <td>Saturday</td>
                                 <td class="times">
-                                    <div class="time-list"></div>
-                                </td>
-                                <td class="add-times">
-                                    <select class="time-select">
-                                        <option value="Sáng">Sáng</option>
-                                        <option value="Chiều">Chiều</option>
-                                        <option value="Tối">Tối</option>
-                                    </select>
-                                    <button type="button" class="add-time-btn">Add</button>
+                                    <div class="time-list">
+                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>

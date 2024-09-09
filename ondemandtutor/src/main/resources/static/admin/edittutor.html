@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <script src="../js/header.js"></script>
+    <!--    <script src="../js/admin.js" defer></script>-->
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+    <title>Edit Student</title>
+</head>
+
+<body>
+<div class="main">
+    <header class="header">
+        <div class="logo-container">
+            <a class="img-logo" href="../html/home.html">
+                <p class="text">LEARN TOgetHER</p>
+            </a>
+        </div>
+        <div class="login-search-container">
+            <div class="login-container">
+                <a href="../html/modal.html" class="search-link">
+                    <button id="loginButton" class="login-button">Đăng nhập</button>
+                </a>
+                <div class="user-info" id="userInfo">
+                    <span id="usernameDisplay"></span>
+                    <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+                    <div id="userDropdown" class="user-dropdown">
+                        <a href="#" id="logoutButton" class="sub-menu-link">
+                            <img src="../assets/img/header/logout.png" alt="">
+                            <p>Đăng xuất</p>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </span>
+                        <span class="title-strong">Admin</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="border" href="studentlist.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách học sinh</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tutorlist.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách gia sư</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách bài đăng</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="edit-content">
+            <h2>Chỉnh sửa thông tin học sinh</h2>
+            <form id="edit-student-form">
+                <table>
+                    <tr>
+                        <th>Họ và tên</th>
+                        <td><input type="text" id="name" name="name" required></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td><input type="email" id="email" name="email" required></td>
+                    </tr>
+
+
+                    <tr>
+                        <th>Địa chỉ</th>
+                        <td><input type="text" id="address" name="address" required></td>
+                    </tr>
+                    <tr>
+                        <th>Khóa học</th>
+                        <td><input type="text" id="subjectId" name="subjectId" required></td>
+                    </tr>
+                </table>
+            </form>
+            <button class="save-btn" id="saveButton" type="submit">Lưu thay đổi</button>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('token');
+
+        console.log(token); // Check if the token exists and is correct
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const tutorId = urlParams.get('id');  // Get the ID from the URL
+
+        if (tutorId) {
+            fetch(`http://localhost:8080/v1/tutor/${tutorId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('API Response:', data);  // Check if the response structure is as expected
+                    if (data && data.result) {
+                        const tutor = data.result;
+                        document.getElementById('name').value = tutor.name || '';
+                        document.getElementById('email').value = tutor.email || '';
+                        document.getElementById('address').value = tutor.address || '';
+                        document.getElementById('subjectId').value = tutor.subjectId || '';
+                    }
+                })
+                .catch(error => console.error('Error fetching tutor details:', error));
+
+        }
+
+        document.getElementById('saveButton').addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const updatedTutor = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                grade: document.getElementById('subjectId').value
+            };
+
+            if (tutorId) {
+                fetch(`http://localhost:8080/v1/tutor/${tutorId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(updatedTutor)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Thông tin học sinh đã được cập nhật thành công');
+                            window.location.href = 'tutorlist.html';
+                        } else {
+                            alert('Đã xảy ra lỗi khi cập nhật thông tin học sinh');
+                        }
+                    })
+                    .catch(error => console.error('Error updating tutor details:', error));
+            }
+        });
+    });
+
+</script>
+
+</body>
+
+</html>
