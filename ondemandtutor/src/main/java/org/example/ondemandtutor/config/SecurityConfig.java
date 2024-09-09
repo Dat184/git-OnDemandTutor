@@ -31,7 +31,9 @@ public class SecurityConfig {
             "/js/**",
             "/v1/vnpay/callback",
             "/v1/tutor-services",
-            "/v1/users/imgUser"
+            "/v1/users/imgUser",
+            "/v1/subject",
+            "/v1/subject/insert"
     };
 
     @Autowired

@@ -5,9 +5,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.SubjectRequest;
 import org.example.ondemandtutor.dto.response.SubjectResponse;
+import org.example.ondemandtutor.exception.AppException;
+import org.example.ondemandtutor.exception.ErrorCode;
 import org.example.ondemandtutor.mapper.SubjectMapper;
 import org.example.ondemandtutor.pojo.Subject;
 import org.example.ondemandtutor.repository.SubjectRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,7 +44,11 @@ public class SubjectService {
         return subjectMapper.toSubjectResponse(subjectRepository.save(subject));
     }
 
+    @PreAuthorize("hasRole('Admin')")
     public void deleteSubject(Long id) {
+        if (!subjectRepository.existsById(id)) {
+            throw new AppException(ErrorCode.USER_NOT_EXISTED);
+        }
         subjectRepository.deleteById(id);
     }
 
