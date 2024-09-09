@@ -31,18 +31,24 @@ body{
     border-radius: 20px;
 }
 .dich-vu-con{
-    width: 1000px;
+    background: linear-gradient(to top right, #EECAD5, #F1D3CE,#F6EACB,#D1E9F6);
+    width: 700px;
     display: flex;
-    padding: 20px 80px;
-    justify-content: space-around;
+    padding: 20px 30px;
+    justify-content: center;
     margin: 20px auto;
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgba(44, 42, 42, 0.318);
 }
 
 .ten-dich-vu{
     display: flex;
     flex-direction: column;
     width: 300px;
+    margin-top: 20px;
+    justify-content: start;
     line-height: 23px;
+    margin-left: 50px;
 
 }
 .ten-dich-vu span{
