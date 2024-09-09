@@ -152,13 +152,14 @@
                     })
                         .then(response => response.json())
                         .then(data => {
-                            // Xử lý phản hồi từ API ở đây
+
                             if (data.code === 1000 && data.result.authenticated) {
 
                                 localStorage.setItem('token', data.result.token);
                                 localStorage.setItem('loggedIn', 'true');
                                 localStorage.setItem('role',data.result.role);
                                 localStorage.setItem('username', data.result.name)
+
 
                                 const role = localStorage.getItem('role');
                                 if(role=='Admin'){

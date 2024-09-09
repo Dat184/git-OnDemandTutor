@@ -72,43 +72,38 @@
 
         <div class="container">
             <h1>Chỉnh sửa chi tiết dịch vụ</h1>
-            <form id="editForm" class="editform">
+            <form id="editForminfor" class="editform">
+                <div class="form-container">
+                    <!-- Chỉnh sửa hình ảnh -->
+                    <label for="image">Hình ảnh:</label>
+                    <input class="img" type="file" id="image" name="imageFile">
 
-            <div class="form-container">
-            
-                   <!-- Chỉnh sửa hình ảnh -->
-                   <label for="image">Hình ảnh:</label>
-                   <input class="img" type="file" id="image">
-                <!-- Chỉnh sửa tên dịch vụ -->
-             
-               
-                <!-- Chỉnh sửa thời gian giảng dạy -->
-              
-              
-                <label for="chonmon">Chọn môn học:</label>
-                <select class="time-select" id="chonmon">
-                    <option value="Toán">Toán</option>
-                    <option value="Văn">Văn</option>
-                    <option value="Anh">Anh</option>
-                </select>
+                    <!-- Chỉnh sửa môn học -->
+                    <label for="chonmon">Chọn môn học:</label>
+                    <select class="time-select" id="chonmon" name="subjectId">
+                        <option value="1">Toán</option>
+                        <option value="2">Văn</option>
+                        <option value="3">Anh</option>
+                    </select>
 
-                <!-- Chỉnh sửa video
-                <label for="videoUrl">Video URL:</label>
-                <input type="text" id="videoUrl" value="https://www.youtube.com/embed/d7mRI7RKTLc"> -->
+                    <!-- Chỉnh sửa thời gian giảng dạy -->
+                    <label for="timeOfSession">Thời gian giảng dạy (phút):</label>
+                    <input type="number" id="timeOfSession" name="timeOfSession" value="" placeholder="Nhập thời gian giảng dạy">
 
-                <!-- Chỉnh sửa giá khóa học -->
-                <label for="price">Giá khóa học:</label>
-                <input type="text" id="price" value="">
-                
-                <!-- Chỉnh sửa mô tả dịch vụ -->
-                <label for="description">Mô tả:</label>
-                <textarea id="description" rows="6"></textarea>
-               
-                <!-- <button type="submit">Lưu thay đổi</button> -->
+                    <!-- Chỉnh sửa giá khóa học -->
+                    <label for="priceOfSession">Giá khóa học:</label>
+                    <input type="text" id="priceOfSession" name="priceOfSession" value="" placeholder="Nhập giá khóa học">
 
-        </div>
-       
-            <div id="edit-schedule-container" class="content-container">
+                    <!-- Chỉnh sửa mô tả dịch vụ -->
+                    <label for="description">Mô tả:</label>
+                    <textarea id="description" name="description" rows="6" placeholder="Nhập mô tả dịch vụ"></textarea>
+
+                    <!-- Nút lưu thay đổi -->
+
+                </div>
+            </form>
+            <form id="availabilityForm">
+                <div id="edit-schedule-container" class="content-container">
                 
              
                     <table id="scheduleTable">
@@ -125,9 +120,9 @@
                                 <td>Sunday</td>
                                 <td class="times">
                                     <div class="time-list">
-                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                        <label><input type="checkbox" name="Sun_Morning" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="Sun_Afternoon" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="Sun_Evening" value="Tối"> Tối</label>
                                     </div>
                                 </td>
                             </tr>
@@ -135,9 +130,9 @@
                                 <td>Monday</td>
                                 <td class="times">
                                     <div class="time-list">
-                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                        <label><input type="checkbox" name="Mon_Morning" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="Mon_Afternoon" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="Mon_Evening" value="Tối"> Tối</label>
                                     </div>
                                 </td>
                             </tr>
@@ -145,9 +140,9 @@
                                 <td>Tuesday</td>
                                 <td class="times">
                                     <div class="time-list">
-                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                        <label><input type="checkbox" name="Tue_Morning" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="Tue_Afternoon" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="Tue_Evening" value="Tối"> Tối</label>
                                     </div>
                                 </td>
                             </tr>
@@ -155,9 +150,9 @@
                                 <td>Wednesday</td>
                                 <td class="times">
                                     <div class="time-list">
-                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                        <label><input type="checkbox" name="Wed_Morning" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="Wed_Afternoon" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="Wed_Evening" value="Tối"> Tối</label>
                                     </div>
                                 </td>
                             </tr>
@@ -165,9 +160,9 @@
                                 <td>Thursday</td>
                                 <td class="times">
                                     <div class="time-list">
-                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                        <label><input type="checkbox" name="Thu_Morning" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="Thu_Afternoon" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="Thu_Evening" value="Tối"> Tối</label>
                                     </div>
                                 </td>
                             </tr>
@@ -175,9 +170,9 @@
                                 <td>Friday</td>
                                 <td class="times">
                                     <div class="time-list">
-                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                        <label><input type="checkbox" name="Fri_Morning" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="Fri_Afternoon" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="Fri_Evening" value="Tối"> Tối</label>
                                     </div>
                                 </td>
                             </tr>
@@ -185,22 +180,23 @@
                                 <td>Saturday</td>
                                 <td class="times">
                                     <div class="time-list">
-                                        <label><input type="checkbox" name="MondayTimes" value="Sáng"> Sáng</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Chiều"> Chiều</label>
-                                        <label><input type="checkbox" name="MondayTimes" value="Tối"> Tối</label>
+                                        <label><input type="checkbox" name="Sat_Morning" value="Sáng"> Sáng</label>
+                                        <label><input type="checkbox" name="Sat_Afternoon" value="Chiều"> Chiều</label>
+                                        <label><input type="checkbox" name="Sat_Evening" value="Tối"> Tối</label>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+
                
 
                 
             </div>
-        
-      
-         <button id="saveButton" type="submit">Lưu Những Thay Đổi</button>
-        </form>
+            </form>
+
+            <button id="saveButton" type="submit">Lưu Những Thay Đổi</button>
+
         </div>
 
         <footer>
@@ -231,74 +227,12 @@
 
 
 
-    <script>
-        document.querySelectorAll('.add-time-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const row = this.closest('tr'); // Lấy hàng hiện tại
-                const selectElement = row.querySelector('.time-select'); // Lấy phần tử select
-                const selectedTime = selectElement.value; // Lấy giá trị thời gian đã chọn
-                const timeList = row.querySelector('.time-list'); // Lấy div chứa danh sách thời gian
-
-                // Kiểm tra xem thời gian đã có trong danh sách chưa
-                const existingTime = Array.from(timeList.children)
-                    .some(item => item.textContent.includes(selectedTime));
-
-                if (existingTime) {
-                    // Nếu thời gian đã có, xóa nó khỏi danh sách và cập nhật giá trị false
-                    Array.from(timeList.children).forEach(item => {
-                        if (item.textContent.includes(selectedTime)) {
-                            timeList.removeChild(item);
-                        }
-                    });
-                    console.log(`Time slot '${selectedTime}' removed. Result: false`);
-                } else {
-                    // Nếu thời gian chưa có, thêm nó vào danh sách và cập nhật giá trị true
-                    const newTimeDiv = document.createElement('div'); // Tạo thẻ div mới
-                    newTimeDiv.className = 'time-slot'; // Đặt class cho thẻ mới
-                    newTimeDiv.textContent = selectedTime; // Gán nội dung là thời gian đã chọn
-
-                    // Tạo nút xóa và thêm vào thẻ div thời gian
-                    const removeBtn = document.createElement('button');
-                    removeBtn.textContent = 'X'; // Nội dung nút xóa
-                    removeBtn.classList.add('remove-time-btn');
-                    newTimeDiv.appendChild(removeBtn); // Thêm nút xóa vào thẻ div thời gian
-
-                    timeList.appendChild(newTimeDiv); // Thêm thẻ div mới vào danh sách
-                    console.log(`Time slot '${selectedTime}' added. Result: true`);
-
-                    // Thêm sự kiện click cho nút xóa
-                    removeBtn.addEventListener('click', function() {
-                        timeList.removeChild(newTimeDiv); // Xóa thẻ div thời gian khỏi danh sách
-                        console.log(`Time slot '${selectedTime}' removed. Result: false`);
-                    });
-                }
-
-                // Cập nhật các thời gian còn lại
-                updateOtherTimes(row, selectedTime);
-            });
-        });
-
-        function updateOtherTimes(currentRow, selectedTime) {
-            // Lấy tất cả các hàng trong bảng
-            document.querySelectorAll('#scheduleTable tbody tr').forEach(row => {
-                if (row !== currentRow) { // Bỏ qua hàng hiện tại
-                    const timeListDiv = row.querySelector('.time-list');
-                    const timeItems = Array.from(timeListDiv.children);
-
-                    timeItems.forEach(item => {
-                        if (item.textContent.includes(selectedTime)) {
-                            item.textContent = `${selectedTime} - false`;
-                        }
-                    });
-                }
-            });
-        }
-    </script>
 
 
 
 <!--    <script src="../js/edit_schedule.js"></script>-->
     <script src="../js/header.js"></script>
+<script src="../js/taodichvu.js"></script>
 </body>
 
 </html>
