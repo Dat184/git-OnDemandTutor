@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                
+            </div>
             </header>
             <div class="contai">
             <div class="container">
@@ -125,7 +125,7 @@
               
                 <div class="the-ngoai">
                     <div class="time-and-price">
-                        <div class="thoi gian"><strong>2tieng 1 buoi</strong></div>
+                        <div class="thoigian"><strong>2tieng 1 buoi</strong></div>
                         <div class="buoi"><strong>3 buổi</strong></div>
                         <div class="gia"><strong>30 triệu/khóa </strong></div>
                     </div>
@@ -159,54 +159,7 @@
             </div>
         </footer>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-    const scheduleTableBody = document.querySelector('#scheduleTable tbody');
 
-    // Load schedule data from localStorage
-    const loadScheduleData = () => {
-        const scheduleData = JSON.parse(localStorage.getItem('scheduleData')) || {
-            Sun: [],
-            Mon: [],
-            Tue: [],
-            Wed: [],
-            Thu: [],
-            Fri: [],
-            Sat: []
-        };
-
-        // Render schedule data
-        for (const [day, timeSlots] of Object.entries(scheduleData)) {
-            const row = document.createElement('tr');
-            
-            const dayCell = document.createElement('td');
-            dayCell.textContent = day;
-            row.appendChild(dayCell);
-            
-            const timesCell = document.createElement('td');
-            const timeListDiv = document.createElement('div');
-            timeListDiv.className = 'time-list';
-
-            timeSlots.forEach(timeSlot => {
-                const timeSlotDiv = document.createElement('div');
-                timeSlotDiv.className = 'time-slot';
-                timeSlotDiv.textContent = timeSlot;
-
-                // Không thêm deleteButton vào đây
-                timeListDiv.appendChild(timeSlotDiv);
-            });
-
-            timesCell.appendChild(timeListDiv);
-            row.appendChild(timesCell);
-            
-            scheduleTableBody.appendChild(row);
-        }
-    };
-
-    // Initialize schedule
-    loadScheduleData();
-});
-    </script>
     <script src="../js/header.js"></script>
    
 </body>

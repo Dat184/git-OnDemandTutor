@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <img src="${imageUrl}" alt="${service.name || 'Tên dịch vụ'}">
                         </div>
                         <div class="ten-dich-vu">
-                            <strong>${service.name || 'Tên dịch vụ'}</strong>
+                            <strong>${service.nameTutor || 'Tên dịch vụ'}</strong>
                             <strong>${service.subjectName}</strong>
                             <span>Mô tả: ${service.description || 'Mô tả dịch vụ'}</span>
                         </div>
