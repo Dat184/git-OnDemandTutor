@@ -80,7 +80,7 @@ public class UserService {
         return userMapper.toUserResponse(user);
     }
 
-    @PostAuthorize("returnObject.username == authentication.name")
+    @PreAuthorize("hasRole('Admin')")
     public UserResponse findUserById(Long id) {
         log.info("In method findUserById");
         return userMapper.toUserResponse(userRepository.findById(id)
