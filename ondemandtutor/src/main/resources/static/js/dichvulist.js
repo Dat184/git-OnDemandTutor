@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Lỗi khi gọi API chi tiết môn học');
             }
             const data = await response.json();
-            return data.data.name;
+            console.log(data);
+            return data.result.name;
         } catch (error) {
             console.error('Lỗi khi gọi API chi tiết môn học', error);
             return 'Chưa xác định'; // Trả về giá trị mặc định nếu có lỗi
