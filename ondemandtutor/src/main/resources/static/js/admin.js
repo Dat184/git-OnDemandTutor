@@ -59,7 +59,7 @@ function populateStudents(users) {
                 <td>${student.address || 'Chưa Cập Nhật'}</td>
                 <td>${student.grade || 'Chưa Cập Nhật'}</td>
                 <td>
-                    <a href="editstudent.html?id=${student.id}" class="edit-link">Sửa</a> |
+                    <a href="editstudent.html?id=${student.id}" class="edit-link">Sửa</a> 
                     <a href="#" class="delete-link" data-id="${student.id}">Xóa</a>
                 </td>
             `;
