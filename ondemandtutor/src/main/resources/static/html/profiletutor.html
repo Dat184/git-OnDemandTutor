@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../js/openHF.js"></script>
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/profile.css">
@@ -130,8 +129,8 @@
                     <span id="email">nguyenvana@example.com</span>
                 </div>
                 <div class="input-group">
-                    <label for="subjectId">Khóa học</label>
-                    <span id="subjectId">Chưa cập nhật</span>
+                    <label for="bio">Mô tả</label>
+                    <span id="bio">Chưa cập nhật</span>
                 </div>
                 <div class="input-group">
                     <label for="address">Tỉnh/Thành phố</label>
@@ -222,8 +221,8 @@
                 avatarElement.src = 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7'; // Hình đại diện mặc định
                 profilePicElement.src= 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
             }
-            if (!data.result.subjectId == "" ) {
-                document.getElementById('subjectId').innerText = data.result.subjectId;
+            if (!data.result.bio == "" ) {
+                document.getElementById('bio').innerText = data.result.bio;
             }
             if (!data.result.address == "")
             {
