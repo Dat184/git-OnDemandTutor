@@ -43,7 +43,7 @@ function populateStudents(users) {
         console.error('Table body for students not found');
         return;
     }
-    tableBody.innerHTML = ''; // Xóa nội dung cũ bảng học sinh
+    tableBody.innerHTML = ''; // Clear previous content
 
     const filteredStudents = users.filter(user => user.role === 'Student');
 
@@ -55,11 +55,11 @@ function populateStudents(users) {
                 <td>${student.name || 'Chưa Cập Nhật'}</td>
                 <td>${student.email || 'Chưa Cập Nhật'}</td>
                 <td>${student.username || 'Chưa Cập Nhật'}</td>
-                <td>********</td>
+                <td>${student.password || 'Chưa Cập Nhật'}</td> <!-- Show password here -->
                 <td>${student.address || 'Chưa Cập Nhật'}</td>
                 <td>${student.grade || 'Chưa Cập Nhật'}</td>
                 <td>
-                    <a href="#" class="edit-link" data-id="${student.id}">Sửa</a> |
+                    <a href="editstudent.html?id=${student.id}" class="edit-link">Sửa</a> |
                     <a href="#" class="delete-link" data-id="${student.id}">Xóa</a>
                 </td>
             `;
@@ -78,7 +78,7 @@ function populateTutors(users) {
         console.error('Table body for tutors not found');
         return;
     }
-    tableBody.innerHTML = ''; // Xóa nội dung cũ bảng gia sư
+    tableBody.innerHTML = ''; // Clear previous content
 
     const filteredTutors = users.filter(user => user.role === 'Tutor');
 
@@ -90,7 +90,7 @@ function populateTutors(users) {
                 <td>${tutor.name || 'Chưa Cập Nhật'}</td>
                 <td>${tutor.email || 'Chưa Cập Nhật'}</td>
                 <td>${tutor.username || 'Chưa Cập Nhật'}</td>
-                <td>********</td>
+                <td>${tutor.password || 'Chưa Cập Nhật'}</td> <!-- Show password here -->
                 <td>${tutor.address || 'Chưa Cập Nhật'}</td>
                 <td>${tutor.grade || 'Chưa Cập Nhật'}</td>
                 <td>
@@ -106,3 +106,6 @@ function populateTutors(users) {
         tableBody.appendChild(row);
     }
 }
+
+
+
