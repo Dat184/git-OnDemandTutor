@@ -25,7 +25,9 @@ public class TutorService {
     private TutorMapper tutorMapper;
     @Autowired
     private UserRepository userRepository;
-    @PreAuthorize("hasRole('Admin')")
+
+
+
     public List<TutorResponse> getAllTutors() throws AppException {
         return tutorRepository.findAll().stream().map(tutorMapper::toTutorResponse).toList();
     }
