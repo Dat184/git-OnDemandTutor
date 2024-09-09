@@ -72,7 +72,8 @@
 
         <div class="container">
             <h1>Chỉnh sửa chi tiết dịch vụ</h1>
-            <form id="editForm" class="editform"></form>
+            <form id="editForm" class="editform">
+
             <div class="form-container">
             
                    <!-- Chỉnh sửa hình ảnh -->
@@ -84,8 +85,8 @@
                 <!-- Chỉnh sửa thời gian giảng dạy -->
               
               
-                <label for="chọn môn">Chọn môn học:</label>
-                <select class="time-select">
+                <label for="chonmon">Chọn môn học:</label>
+                <select class="time-select" id="chonmon">
                     <option value="Toán">Toán</option>
                     <option value="Văn">Văn</option>
                     <option value="Anh">Anh</option>
@@ -104,7 +105,7 @@
                 <textarea id="description" rows="6"></textarea>
                
                 <!-- <button type="submit">Lưu thay đổi</button> -->
-           
+
         </div>
        
             <div id="edit-schedule-container" class="content-container">
@@ -226,7 +227,7 @@
             </div>
         
       
-         <button id="saveButton">Lưu Những Thay Đổi</button>
+         <button id="saveButton" type="submit">Lưu Những Thay Đổi</button>
         </form>
         </div>
 
@@ -254,32 +255,77 @@
             </div>
         </footer>
     </div>
-    
+
+
+
+
     <script>
-        document.getElementById('editForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+        document.querySelectorAll('.add-time-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const row = this.closest('tr'); // Lấy hàng hiện tại
+                const selectElement = row.querySelector('.time-select'); // Lấy phần tử select
+                const selectedTime = selectElement.value; // Lấy giá trị thời gian đã chọn
+                const timeList = row.querySelector('.time-list'); // Lấy div chứa danh sách thời gian
 
-            // Thu thập dữ liệu từ các form nhập liệu
-            const tutorName = document.getElementById('tutorName').value;
-            const description = document.getElementById('description').value;
-            const schedule = document.getElementById('schedule').value;
-            const videoUrl = document.getElementById('videoUrl').value;
-            const price = document.getElementById('price').value;
-            
-            // Xử lý lưu dữ liệu (localStorage hoặc gửi lên server)
-            console.log({
-                tutorName,
-                description,
-                schedule,
-                videoUrl,
-                price
+                // Kiểm tra xem thời gian đã có trong danh sách chưa
+                const existingTime = Array.from(timeList.children)
+                    .some(item => item.textContent.includes(selectedTime));
+
+                if (existingTime) {
+                    // Nếu thời gian đã có, xóa nó khỏi danh sách và cập nhật giá trị false
+                    Array.from(timeList.children).forEach(item => {
+                        if (item.textContent.includes(selectedTime)) {
+                            timeList.removeChild(item);
+                        }
+                    });
+                    console.log(`Time slot '${selectedTime}' removed. Result: false`);
+                } else {
+                    // Nếu thời gian chưa có, thêm nó vào danh sách và cập nhật giá trị true
+                    const newTimeDiv = document.createElement('div'); // Tạo thẻ div mới
+                    newTimeDiv.className = 'time-slot'; // Đặt class cho thẻ mới
+                    newTimeDiv.textContent = selectedTime; // Gán nội dung là thời gian đã chọn
+
+                    // Tạo nút xóa và thêm vào thẻ div thời gian
+                    const removeBtn = document.createElement('button');
+                    removeBtn.textContent = 'X'; // Nội dung nút xóa
+                    removeBtn.classList.add('remove-time-btn');
+                    newTimeDiv.appendChild(removeBtn); // Thêm nút xóa vào thẻ div thời gian
+
+                    timeList.appendChild(newTimeDiv); // Thêm thẻ div mới vào danh sách
+                    console.log(`Time slot '${selectedTime}' added. Result: true`);
+
+                    // Thêm sự kiện click cho nút xóa
+                    removeBtn.addEventListener('click', function() {
+                        timeList.removeChild(newTimeDiv); // Xóa thẻ div thời gian khỏi danh sách
+                        console.log(`Time slot '${selectedTime}' removed. Result: false`);
+                    });
+                }
+
+                // Cập nhật các thời gian còn lại
+                updateOtherTimes(row, selectedTime);
             });
-
-            // Chuyển hướng về trang chi tiết sau khi lưu
-            window.location.href = './serviceDetail.html';
         });
+
+        function updateOtherTimes(currentRow, selectedTime) {
+            // Lấy tất cả các hàng trong bảng
+            document.querySelectorAll('#scheduleTable tbody tr').forEach(row => {
+                if (row !== currentRow) { // Bỏ qua hàng hiện tại
+                    const timeListDiv = row.querySelector('.time-list');
+                    const timeItems = Array.from(timeListDiv.children);
+
+                    timeItems.forEach(item => {
+                        if (item.textContent.includes(selectedTime)) {
+                            item.textContent = `${selectedTime} - false`;
+                        }
+                    });
+                }
+            });
+        }
     </script>
-     <script src="../js/edit_schedule.js"></script>
+
+
+
+<!--    <script src="../js/edit_schedule.js"></script>-->
     <script src="../js/header.js"></script>
 </body>
 
