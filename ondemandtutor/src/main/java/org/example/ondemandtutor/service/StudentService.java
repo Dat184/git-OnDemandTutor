@@ -58,4 +58,28 @@ public class StudentService {
 
         return studentMapper.toStudentResponse(student);
     }
+    @PreAuthorize("hasRole('Admin')")
+    public StudentResponse updateStudent(Long id, UserUpdateRequest updateRequest) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+
+        // Update student fields based on updateRequest
+        if (updateRequest.getName() != null) student.setName(updateRequest.getName());
+        if (updateRequest.getEmail() != null) student.setEmail(updateRequest.getEmail());
+        if (updateRequest.getAddress() != null) student.setAddress(updateRequest.getAddress());
+        if (updateRequest.getGrade() != null) student.setGrade(updateRequest.getGrade());
+
+        studentRepository.save(student);
+
+        return studentMapper.toStudentResponse(student);
+    }
+
+    @PreAuthorize("hasRole('Admin')")
+    public void deleteStudent(Long id) {
+        if (!studentRepository.existsById(id)) {
+            throw new AppException(ErrorCode.USER_NOT_EXISTED);
+        }
+        studentRepository.deleteById(id);
+    }
+
 }
