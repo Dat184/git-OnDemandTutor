@@ -381,3 +381,7 @@ tbody td {
 .but-con{
     display: flex;
 }
+.img-ser{
+    width: 500px;
+    height: 300px;
+}
