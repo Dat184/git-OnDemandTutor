@@ -74,8 +74,8 @@ public class BookingController {
         }
     }
     @PostMapping("/getBooking")
-    public ResponseEntity<Optional<BookingResponse>> getBookingByTutorServiceAndStudent(@RequestBody BookingRequest bookingRequest) {
-        Optional<BookingResponse> booking = bookingService.findBookingByTutorServiceAndStudent(bookingRequest.getTutorServiceId(), bookingRequest.getStudentId());
+    public ResponseEntity<Optional<BookingResponse>> getBookingByTutorAndStudent(@RequestBody BookingRequest bookingRequest) {
+        Optional<BookingResponse> booking = bookingService.findBookingByTutorAndStudent(bookingRequest.getTutorId(), bookingRequest.getStudentId());
         return ResponseEntity.ok().body(booking);
     }
 }

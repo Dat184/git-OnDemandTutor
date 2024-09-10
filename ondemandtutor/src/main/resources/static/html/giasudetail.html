@@ -125,7 +125,7 @@
             
             <div class="but-con">
             <input type="text" id="respone" name="priceOfSession" value="" placeholder="viết phản hồi...">
-            <button class="send-button"><i class="fas fa-paper-plane"></i>
+            <button class="send-button" type="submit"><i class="fas fa-paper-plane"></i>
             </button>
         </div>
         </div>
@@ -206,15 +206,29 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('API Response:', data[0]);  // Check if the response structure is as expected
+                    console.log('API Response:', data);  // Check if the response structure is as expected
 
-                        document.querySelector('#subjectId').innerHTML = `${data[0].nameSubject}` || '';
-                        document.getElementById('grade').value = student.grade || '';
-                        document.querySelector('.thoigian strong').innerHTML = `${service.timeOfSession || "Chưa cập nhật"} giờ/buổi`;
+                    const uniqueSubjects = new Set();
+
+                    // Assuming `data` is an array of subjects
+                    data.result.forEach(item => {
+                        if (item.nameSubject) {
+                            uniqueSubjects.add(item.nameSubject);
+                        }
+                    });
+
+                    // Convert the Set to an array and join the subjects into a single string
+                    const subjectsArray = Array.from(uniqueSubjects);
+                    const subjectsText = subjectsArray.join(', ');
+                    // document.querySelector('#subjectId').innerHTML = `${data.result[i].nameSubject}` || '';
+                    document.querySelector('#subjectId').innerHTML = subjectsText || 'No subjects available';
+
+
+
 
 
                 })
-                .catch(error => console.error('Error fetching student details:', error));
+                .catch(error => console.error('Error fetching tutor details:', error));
 
         }
 
@@ -290,6 +304,76 @@ document.querySelectorAll('.rating input[type="radio"]').forEach(radio => {
         }
     });
 </script>
+<!--<script>-->
+<!--    const token = localStorage.getItem('token');-->
+<!--    const studentId = localStorage.getItem('id');-->
+<!--    console.log(studentId);-->
+<!--    const urlParams = new URLSearchParams(window.location.search);-->
+<!--    const tutorId = urlParams.get('id');-->
+
+<!--    if (tutorId) {-->
+<!--        fetch(`http://localhost:8080/v1/booking/getBooking`, {-->
+<!--            method: 'POST',-->
+<!--            headers: {-->
+<!--                'Content-Type': 'application/json',-->
+<!--                'Authorization': `Bearer ${token}`-->
+<!--            },-->
+<!--            body: JSON.stringify({-->
+<!--                studentId: studentId,-->
+<!--                tutorId: tutorId-->
+<!--            })-->
+<!--        })-->
+<!--            .then(response => response.json())-->
+<!--            .then(hasBooking => {-->
+<!--                console.log(hasBooking);-->
+<!--                if (hasBooking!=null) {-->
+<!--                    // Show the review section if booking exists-->
+<!--                    document.querySelector('.write-comment').style.display = 'block';-->
+
+<!--                    // Add event listener for review submission-->
+<!--                    document.querySelector('.send-button').addEventListener('click', () => {-->
+<!--                        const rating = document.querySelector('input[name="rating"]:checked').value;-->
+<!--                        const comment = document.getElementById('response').value;-->
+
+<!--                        // Check if rating and comment are provided-->
+<!--                        if (!rating || !comment.trim()) {-->
+<!--                            alert('Vui lòng đánh giá và nhập bình luận.');-->
+<!--                            return;-->
+<!--                        }-->
+
+<!--                        // Submit the review-->
+<!--                        fetch('http://localhost:8080/v1/reviews', {-->
+<!--                            method: 'POST',-->
+<!--                            headers: {-->
+<!--                                'Content-Type': 'application/json',-->
+<!--                                'Authorization': `Bearer ${token}`-->
+<!--                            },-->
+<!--                            body: JSON.stringify({-->
+<!--                                rating: parseFloat(rating),-->
+<!--                                comment: comment,-->
+<!--                                bookingId: hasBooking.bookingId // Assuming bookingId is returned in the response-->
+<!--                            })-->
+<!--                        })-->
+<!--                            .then(response => response.json())-->
+<!--                            .then(data => {-->
+<!--                                console.log('Review submitted successfully:', data);-->
+<!--                                // Reload the page or update the reviews section dynamically-->
+<!--                                location.reload(); // Refresh page to show new review-->
+<!--                            })-->
+<!--                            .catch(error => console.error('Error submitting review:', error));-->
+<!--                    });-->
+<!--                } else {-->
+<!--                    // Hide the review section if no booking is found-->
+<!--                    document.querySelector('.write-comment').style.display = 'none';-->
+<!--                    alert('Bạn phải đặt khóa học với giảng viên này để có thể bình luận.');-->
+<!--                }-->
+<!--            })-->
+<!--            .catch(error => console.error('Error checking booking:', error));-->
+<!--    } else {-->
+<!--        console.error('Tutor ID is missing.');-->
+<!--    }-->
+
+<!--</script>-->
 <script src="../js/header.js"></script>
 </body>
 </html>

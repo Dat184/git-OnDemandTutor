@@ -17,4 +17,5 @@ public class BookingRequest {
     Long totalPrice;
     String transactionId;
     String responseCode;
+    Long tutorId;
 }

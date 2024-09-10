@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Xử lý trạng thái đăng nhập
     const loggedIn = localStorage.getItem('loggedIn');
-
+    console.log(localStorage.getItem('id'));
     if (loggedIn === 'true') {
         if (loginButton) loginButton.style.display = 'none';
         if (avatar) {
@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         localStorage.removeItem('loggedIn');
                         localStorage.removeItem('username');
                         localStorage.removeItem('token'); // Xóa token khỏi localStorage
+                        localStorage.removeItem('id');
 
                         // Chuyển hướng người dùng về trang chủ hoặc trang đăng nhập
                         if(userRole==='Admin'){
@@ -123,6 +124,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     localStorage.removeItem('loggedIn');
                     localStorage.removeItem('username');
                     localStorage.removeItem('token');
+                    localStorage.removeItem('id');
 
                     if(userRole==='Admin'){
                         window.location.href = 'home.html';
