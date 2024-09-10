@@ -327,7 +327,7 @@ button#saveButton:hover {
                     <button id="edit-schedule-btn">Chỉnh sửa lịch trình</button>
                     <button id="upload-video-btn">Thêm video</button>
                 </div>
-                <div id="edit-schedule-container" class="content-container">
+                <!-- <div id="edit-schedule-container" class="content-container">
                     <h1>Edit Schedule</h1>
                     <form id="editScheduleForm">
                         <table id="scheduleTable">
@@ -339,7 +339,7 @@ button#saveButton:hover {
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Tạo hàng cho từng ngày trong tuần -->
+                               
                                 <tr data-day="Sun">
                                     <td>Sunday</td>
                                     <td class="times">
@@ -415,6 +415,33 @@ button#saveButton:hover {
                     </form>
 
                     <button id="saveButton">Save Changes</button>
+                </div>  -->
+                <div id="edit-schedule-container" class="content-container">
+                    <h2>Danh sách dịch vụ</h2>
+                    <table id="subject-table" class="subject-table">
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên môn học</th>
+                            <th>Số buổi học</th>
+                            <th>Giá khóa học</th>
+                            <th>Thao tác</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>toán</td>
+                                <td>3 buổi/tuần</td>
+                             
+                                <td>12</td>
+                                <td>
+                                    <a href="#" class="edit-link">Sửa lịch học</a> |
+                                    <a href="#" class="delete-link">Xóa</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                    </table>
                 </div>
                 <div id="upload-video-container" class="content-container hidden">
                     <h1>Upload Video</h1>

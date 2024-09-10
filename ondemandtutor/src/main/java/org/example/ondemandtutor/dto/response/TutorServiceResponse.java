@@ -21,4 +21,5 @@ public class TutorServiceResponse {
     String type;
     String name;
     String nameTutor;
+    String nameSubject;
 }

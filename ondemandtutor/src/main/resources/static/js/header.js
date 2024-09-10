@@ -41,10 +41,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Xử lý khi nhấn nút đăng nhập
     if (loginButton) {
-        loginButton.addEventListener('click', function() {
-            localStorage.setItem('previousPage', window.location.href);
-            window.location.href = 'modal.html'; // Chuyển hướng đến trang đăng nhập
-        });
+        if(userRole==='Admin'){
+            loginButton.addEventListener('click', function() {
+                window.location.href = '../admin/studentlist.html';
+            });
+        }
+        else {
+            loginButton.addEventListener('click', function() {
+                localStorage.setItem('previousPage', window.location.href);
+                window.location.href = 'modal.html'; // Chuyển hướng đến trang đăng nhập
+            });
+        }
+
     }
 
     // Xử lý trạng thái đăng nhập
@@ -98,10 +106,16 @@ document.addEventListener("DOMContentLoaded", function() {
                         localStorage.removeItem('loggedIn');
                         localStorage.removeItem('username');
                         localStorage.removeItem('token'); // Xóa token khỏi localStorage
-                        localStorage.removeItem('role');
+
                         // Chuyển hướng người dùng về trang chủ hoặc trang đăng nhập
-                        const previousPage = localStorage.getItem('previousPage') || 'home.html';
-                        window.location.href = previousPage;
+                        if(userRole==='Admin'){
+                            window.location.href = '../html/home.html';
+                        }else {
+                            const previousPage = localStorage.getItem('previousPage') || 'home.html';
+                            window.location.href = previousPage;
+                        }
+
+                        localStorage.removeItem('role');
                     }
                 })
                 .catch(error => {
@@ -109,8 +123,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     localStorage.removeItem('loggedIn');
                     localStorage.removeItem('username');
                     localStorage.removeItem('token');
-                    const previousPage = localStorage.getItem('previousPage') || 'home.html';
-                    window.location.href = previousPage;
+
+                    if(userRole==='Admin'){
+                        window.location.href = 'home.html';
+                    }else {
+                        const previousPage = localStorage.getItem('previousPage') || 'home.html';
+                        window.location.href = previousPage;
+                    }
+
+                    localStorage.removeItem('role');
                 });
         });
     }
@@ -148,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (profileLink) {
                 if (userRole === 'Tutor') {
                     profileLink.href = 'profiletutor.html';
-                } else {
+                } else if(userRole==='Student') {
                     profileLink.href = 'profile.html';
                 }
             }
