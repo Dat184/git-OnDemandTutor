@@ -157,9 +157,50 @@
    
     
 }
+
+.write-comment{
+    
+    display: flex;
+    width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 5px auto;
+}
+
+.write-comment input{
+    width: 780px;
+    padding: 5px ;
+   border: none;
+   outline: none; 
+   border-bottom: 2px solid black;
+
+}
+.send-button {
+    background-color: transparent; 
+    color: #F1D3CE;
+    border: none;
+   
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  
+}
+
+
+
+
+
+.send-button:focus {
+    outline: none;
+}
 .respone-tutor-container{
     width: 800px;
-    margin: 30px 100px;
+    margin:  10px auto;
     background: #fff;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -194,6 +235,7 @@
     margin-top: 20px;
     
 }
+
 .view-schedule-container {
     max-width: 700px;
     margin: 20px auto;
