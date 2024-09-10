@@ -166,7 +166,7 @@ document.getElementById('updateButton').addEventListener('click', function(event
 
     const token = localStorage.getItem('token');
 
-    fetch('http://localhost:8080/v1/tutor', {
+    fetch('http://localhost:8080/v1/users', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
