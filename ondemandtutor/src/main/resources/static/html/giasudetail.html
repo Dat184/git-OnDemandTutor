@@ -66,15 +66,14 @@
 
 
         </div>
-        <div class="price"><strong>giá/buổi: </strong> 50000</div>
 
-        <div class="rating">
-            <span data-rating="5">★</span>
-            <span data-rating="4">★</span>
-            <span data-rating="3">★</span>
-            <span data-rating="2">★</span>
-            <span data-rating="1">★</span>
-        </div>
+<!--        <div class="rating">-->
+<!--            <span data-rating="5">★</span>-->
+<!--            <span data-rating="4">★</span>-->
+<!--            <span data-rating="3">★</span>-->
+<!--            <span data-rating="2">★</span>-->
+<!--            <span data-rating="1">★</span>-->
+<!--        </div>-->
         <div class="tutor-button">
             <button class="nut">yêu cầu thuê</button>
             <a href=""><button class="nut">gửi tin nhắn</button></a>
@@ -168,6 +167,28 @@
         <p>Copyright &copy;2024; Designed by <span class="designer">DL</span></p>
     </div>
 </footer>
+<div id="serviceModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Dịch vụ của gia sư</h2>
+        <div id="serviceList">
+            <!-- Example service item -->
+            <div class="dich-vu-con">
+                <div class="img-dich-vu">
+                    <img class="img-dv" src="https://th.bing.com/th/id/OIP.DVhzx3MdOPQyh5teDTU8SQHaE8?w=264&h=180&c=7&r=0&o=5&pid=1.7" alt="">
+                </div>
+                <div class="ten-dich-vu">
+                    <strong id="modalServiceName">Tên dịch vụ</strong>
+                    <strong id="modalServiceSubject">Môn học</strong>
+                    <div class="xem-them">
+                        <a href="servicedetail.html"><button>xem thêm</button></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more services as needed -->
+        </div>
+    </div>
+</div>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const token = localStorage.getItem('token');
@@ -242,10 +263,67 @@
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
+        // Mở modal khi nhấn vào nút "yêu cầu thuê"
+        document.querySelector('.nut').addEventListener('click', function () {
+            const token = localStorage.getItem('token');
+            const tutorId = new URLSearchParams(window.location.search).get('id');
+
+            // Hiển thị modal
+            const modal = document.getElementById('serviceModal');
+            modal.style.display = 'block';
+
+            // Gọi API để lấy danh sách các dịch vụ của tutor
+            if (tutorId) {
+                fetch(`http://localhost:8080/v1/tutor-services/tutor/${tutorId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        const serviceList = document.getElementById('serviceList');
+                        serviceList.innerHTML = ''; // Xóa danh sách cũ
+
+                        // Hiển thị danh sách dịch vụ
+                        data.forEach(service => {
+                            const serviceItem = document.createElement('div');
+                            serviceItem.className = 'service-item';
+                            serviceItem.innerHTML = `
+                    <img src="${service.imageUrl}" alt="">
+                    <h3>${service.nameTutor}</h3>
+                    <p>Môn học: ${service.nameSubject} </p>
+                    <p>Mô tả: ${service.description} </p>
+                `;
+                            serviceList.appendChild(serviceItem);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching services:', error));
+            }
+        });
+
+        // Đóng modal khi nhấn vào nút đóng
+        document.querySelector('.close').addEventListener('click', function () {
+            const modal = document.getElementById('serviceModal');
+            modal.style.display = 'none';
+        });
+
+        // Đóng modal khi nhấn bên ngoài
+        window.addEventListener('click', function (event) {
+            const modal = document.getElementById('serviceModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+
     }
 
     // Gọi hàm getMyInfo khi trang được tải
     window.onload = getMyInfo;
+</script>
+<script>
+
 </script>
 <script src="../js/header.js"></script>
 </body>
