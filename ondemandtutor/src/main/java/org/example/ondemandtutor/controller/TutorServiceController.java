@@ -38,6 +38,11 @@ public class TutorServiceController {
                     .body(new ResponseObject("error", e.getMessage()));
         }
     }
+    @GetMapping("/tutor/{tutorId}")
+    public ResponseEntity<List<TutorServiceResponse>> getTutorServicesByTutorId(@PathVariable Long tutorId) {
+        List<TutorServiceResponse> tutorServices = tutorServiceService.findTutorServicesByTutorId(tutorId);
+        return ResponseEntity.ok(tutorServices);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<ResponseObject> createTutorService(
