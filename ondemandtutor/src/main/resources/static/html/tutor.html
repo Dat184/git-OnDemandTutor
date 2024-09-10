@@ -141,38 +141,42 @@
     <script src="../js/header.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-    const tutorCards = document.querySelectorAll('.tutor-card');
-    let currentVisibleVideo = null;
+            const tutorCards = document.querySelectorAll('.tutor-card');
+            let currentVisibleVideo = null;
 
-    tutorCards.forEach(card => {
-        card.addEventListener('mouseover', () => {
-            // Ẩn video của tất cả gia sư khác
-            tutorCards.forEach(c => {
-                const video = c.querySelector('.tutor-video');
-                if (video) video.style.display = 'none';
+            tutorCards.forEach(card => {
+                card.addEventListener('mouseover', () => {
+                    tutorCards.forEach(c => {
+                        const video = c.querySelector('.tutor-video');
+                        if (video) video.style.display = 'none';
+                    });
+
+                    const video = card.querySelector('.tutor-video');
+                    if (video) video.style.display = 'block';
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    if (!Array.from(tutorCards).some(c => c.matches(':hover'))) {
+                        const firstVideo = tutorCards[0].querySelector('.tutor-video');
+                        if (firstVideo) firstVideo.style.display = 'block';
+                    }
+                });
             });
 
-            // Hiển thị video của gia sư hiện tại
-            const video = card.querySelector('.tutor-video');
-            if (video) video.style.display = 'block';
-        });
-
-        card.addEventListener('mouseleave', () => {
-            // Khi không hover vào gia sư, hiển thị video của gia sư đầu tiên
-            if (!Array.from(tutorCards).some(c => c.matches(':hover'))) {
+            if (tutorCards.length > 0) {
                 const firstVideo = tutorCards[0].querySelector('.tutor-video');
                 if (firstVideo) firstVideo.style.display = 'block';
             }
+
+            // Handle the book button click
+            document.querySelectorAll('.book-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const tutorId = button.getAttribute('data-id');
+                    window.location.href = `./giasudetail.html?id=${tutorId}`;
+                });
+            });
         });
-    });
-
-    // Hiển thị video của gia sư đầu tiên khi trang được tải
-    if (tutorCards.length > 0) {
-        const firstVideo = tutorCards[0].querySelector('.tutor-video');
-        if (firstVideo) firstVideo.style.display = 'block';
-    }
-});
-
+    </script>
     </script>
 </body>
 </html>
