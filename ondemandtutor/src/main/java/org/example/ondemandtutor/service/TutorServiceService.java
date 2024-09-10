@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -37,6 +38,29 @@ public class TutorServiceService {
     public List<TutorServiceResponse> getAllTutorServices() {
         return tutorServiceMapper.toTutorServiceResponseList(tutorServiceRepository.findAll());
     }
+
+//    public List<TutorServiceResponse> findTutorServicesByTutorId(Long tutorId) {
+//        List<TutorService> tutorServices = tutorServiceRepository.findByTutorId(tutorId);
+//        return tutorServiceMapper.toTutorServiceResponseList(tutorServices);
+//    }
+
+    public List<TutorServiceResponse> findTutorServicesByTutorId(Long tutorId) {
+        List<TutorService> tutorServices = tutorServiceRepository.findByTutorId(tutorId);
+
+        // Map TutorService to TutorServiceResponse and set subject name
+        return tutorServices.stream().map(tutorService -> {
+            TutorServiceResponse response = tutorServiceMapper.toTutorServiceResponse(tutorService);
+
+            // Lấy tên môn học trực tiếp từ đối tượng Subject
+            response.setNameSubject(tutorService.getSubject().getName());
+
+            return response;
+        }).collect(Collectors.toList());
+    }
+
+
+
+
 
     public TutorServiceResponse getTutorServiceById(Long id) {
         TutorService tutorService = tutorServiceRepository.findById(id)
@@ -121,5 +145,7 @@ public class TutorServiceService {
 
         return totalSessions;
     }
+
+
 
 }

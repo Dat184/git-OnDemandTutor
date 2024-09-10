@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.example.ondemandtutor.dto.request.TutorServiceRequest;
+import org.example.ondemandtutor.dto.response.ApiResponse;
 import org.example.ondemandtutor.dto.response.ResponseObject;
 import org.example.ondemandtutor.dto.response.TutorServiceResponse;
 import org.example.ondemandtutor.service.TutorServiceService;
@@ -37,6 +38,13 @@ public class TutorServiceController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ResponseObject("error", e.getMessage()));
         }
+    }
+    @GetMapping("/tutor/{tutorId}")
+    public ApiResponse<List<TutorServiceResponse>> getTutorServicesByTutorId(@PathVariable Long tutorId) {
+        List<TutorServiceResponse> tutorServices = tutorServiceService.findTutorServicesByTutorId(tutorId);
+        return ApiResponse.<List<TutorServiceResponse>>builder()
+                .result(tutorServices)
+                .build();
     }
 
     @PostMapping("/create")
