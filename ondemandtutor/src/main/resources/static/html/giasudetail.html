@@ -87,14 +87,14 @@
             <img class="avatar-a" src="https://resources.churchofchrist1830.org/wp-content/uploads/2024/02/generic-bio-avatar.png" alt="">
             <div class="name-tutor">
                 <h4> <span id="tutorName"></span> </h4>
-                <p>monhoc</p>
+                <p id="subjectId">monhoc</p>
 
             </div>
         </div>
 
         <div class="about-service-container">
-            <h1>Mô tả</h1>
-            <div class="thongtin"><p>thong tin</p></div>
+            <h1 >Mô tả</h1>
+            <div id="bio" class="thongtin"><p>thong tin</p></div>
         </div>
         <!-- <div class="view-schedule-container">
             <h1>View Schedule</h1>
@@ -142,80 +142,103 @@
 
 </div>
 <footer>
+    <div class="footer-container">
+        <div class="socials">
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+            <a href=""><i class="fa-brands fa-google-plus"></i></a>
+            <a href=""><i class="fa-brands fa-youtube"></i></a>
+        </div>
+        <div class="footer-nav">
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="">About</a></li>
+                <li><a href="">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright &copy;2024; Designed by <span class="designer">DL</span></p>
+    </div>
+</footer>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Lấy token từ localStorage
         const token = localStorage.getItem('token');
-        console.log(token); // Kiểm tra xem token có tồn tại và đúng không
-
-        // Lấy ID gia sư từ URL
         const urlParams = new URLSearchParams(window.location.search);
-        const tutorId = urlParams.get('id');  // Lấy ID từ URL
+        const tutorId = urlParams.get('id');  // Get the tutor ID from the URL
 
-        if (tutorId) {
-            fetch(`http://localhost:8080/v1/tutor/${tutorId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('API Response:', data);  // Check if the response structure is as expected
+        // Fetch tutor details by tutorId
+        async function fetchTutorDetails(tutorId) {
+            const tutorApiUrl = `http://localhost:8080/v1/tutor/${tutorId}`; // API endpoint for tutor details
+
+            if (tutorId) {
+                try {
+                    const response = await fetch(tutorApiUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Error fetching tutor details');
+                    }
+
+                    const data = await response.json();
+                    console.log(data); // Check the data structure
+
                     if (data && data.result) {
                         const tutor = data.result;
-                        console.log(tutor);
-                        document.querySelector('#tutorName').textContent = tutor.name || '';
-                        document.querySelector('.name-tutor p').textContent = `Môn học: ${tutor.subject || 'N/A'}`;
-                        document.querySelector('.thongtin').textContent = tutor.bio || 'No description available';
-                        document.querySelector('.price').innerHTML = `<strong>Giá/buổi:</strong> ${tutor.price || 'N/A'}`;
-                        document.querySelector('.videoo').src = tutor.videoUrl || 'https://www.youtube.com/embed/default_video_id';
+                        document.getElementById('tutorName').textContent = tutor.name || 'Unknown Tutor';
 
-                        // Xử lý đánh giá
-                        const ratingSpans = document.querySelectorAll('.rating span');
-                        const rating = tutor.rating || 0;
-                        ratingSpans.forEach((span, index) => {
-                            if (index < rating) {
-                                span.classList.add('selected');
-                            } else {
-                                span.classList.remove('selected');
-                            }
-                        });
-
-                        // Xử lý phản hồi từ khách hàng nếu có
-                        // document.querySelector('.client-comment p').textContent = tutor.clientComment || 'No comments';
-                    } else {
-                        console.error('Gia sư không được tìm thấy');
+                        // Fetch the subject based on the tutor's subjectId
+                        if (tutor.subjectId) {
+                            fetchSubjectNameById(tutor.subjectId);
+                        }
                     }
-                })
-                .catch(error => console.error('Lỗi khi lấy dữ liệu gia sư:', error));
+                } catch (error) {
+                    console.error('Error fetching tutor details:', error);
+                }
+            }
         }
 
+        // Fetch subject name by subjectId
+        async function fetchSubjectNameById(subjectId) {
+            const subjectApiUrl = `http://localhost:8080/v1/subject/${subjectId}`; // API endpoint for subject details
 
-
-
-
-
-
-        // Xử lý đánh giá sao
-        document.querySelectorAll('.rating span').forEach(star => {
-            star.addEventListener('click', function() {
-                const rating = this.getAttribute('data-rating');
-
-                document.querySelectorAll('.rating span').forEach(star => {
-                    star.classList.remove('selected');
+            try {
+                const response = await fetch(subjectApiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
                 });
 
-                for (let i = 0; i < rating; i++) {
-                    document.querySelectorAll('.rating span')[i].classList.add('selected');
+                if (!response.ok) {
+                    throw new Error('Error fetching subject details');
                 }
 
-                console.log(`Rating selected: ${rating}`);
-            });
-        });
+                const data = await response.json();
+                console.log(data); // Check the data structure
+
+                if (data && data.result) {
+                    const subject = data.result;
+                    document.getElementById('subjectId').textContent = subject.name || 'Unknown Subject';
+                }
+            } catch (error) {
+                console.error('Error fetching subject details:', error);
+            }
+        }
+
+        // Call the function to fetch tutor details
+        fetchTutorDetails(tutorId);
     });
+
 </script>
+
 <script src="../js/header.js"></script>
 </body>
 </html>
