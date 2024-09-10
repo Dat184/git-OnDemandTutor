@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/profile.css">
     <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+    <script src="../js/edit_schedule.js"></script>
     <title>Edit Schedule</title>
     <style>
 .conten-service-container{
@@ -459,22 +460,21 @@ button#saveButton:hover {
                     <table id="subject-table" class="subject-table">
                         <thead>
                         <tr>
-                            <th>STT</th>
+                            <th>ID Dịch Vụ</th>
                             <th>Tên môn học</th>
                             <th>Số buổi học</th>
                             <th>Giá khóa học</th>
                             <th>Thao tác</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="datadichvu">
                             <tr>
-                                <td>1</td>
-                                <td>toán</td>
-                                <td>3 buổi/tuần</td>
-                             
-                                <td>12</td>
+                                <td id="iddichvu">1</td>
+                                <td id="mon">toán</td>
+                                <td id="buoi">3 buổi/tuần</td>
+                                <td id="gia">12</td>
                                 <td>
-                                    <a href="#" class="edit-link">Sửa lịch học</a> |
+                                    <a href="#" class="edit-link" data-id="${element.id}">Sửa lịch học</a> |
                                     <a href="#" class="delete-link">Xóa</a>
                                 </td>
                             </tr>
@@ -615,12 +615,12 @@ button#saveButton:hover {
 
 
 </div> -->
-
-<div id="editScheduleModal" class="modal-Schedule">
+<form id="availabilityForm">
+    <div id="editScheduleModal" class="modal-Schedule">
     <div class="modal-content-Schedule">
       <span class="close">&times;</span>
       <h2>Sửa lịch học</h2>
-      
+        <input type="hidden" id="serviceId">
         <table id="scheduleTable">
           <thead>
             <tr>
@@ -705,26 +705,10 @@ button#saveButton:hover {
         <button id="saveButton" type="submit">Lưu Những Thay Đổi</button>
     </div>
   </div>
+</form>
     <script src="../js/header.js"></script>
-    <script src="../js/edit_schedule.js"></script>
-    <script>
-        document.getElementById('profilePicContainer').addEventListener('click', function () {
-            document.getElementById('profilePicInput').click();
-        });
 
-        document.getElementById('profilePicInput').addEventListener('change', function (event) {
-            const reader = new FileReader();
-            reader.onload = function () {
-                const img = document.createElement('img');
-                img.src = reader.result;
-                img.className = 'avatar-preview';
-                document.getElementById('profilePicContainer').innerHTML = '';
-                document.getElementById('profilePicContainer').appendChild(img);
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        });
 
-    </script>
     <script>
         var modal = document.getElementById("passwordModal");
 
@@ -755,34 +739,6 @@ document.getElementById('upload-video-btn').addEventListener('click', function()
     document.getElementById('upload-video-container').classList.add('active');
 });
     </script>
-    <script>
-        // Get the modal for editing the schedule
-var scheduleModal = document.getElementById("editScheduleModal");
 
-// Get the link that opens the modal
-var scheduleLink = document.querySelector(".edit-link");
-
-// Get the <span> element that closes the modal
-var scheduleCloseBtn = scheduleModal.querySelector(".close");
-
-// When the user clicks the link, open the modal
-scheduleLink.onclick = function(event) {
-  event.preventDefault(); // Prevent the default action
-  scheduleModal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-scheduleCloseBtn.onclick = function() {
-  scheduleModal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == scheduleModal) {
-    scheduleModal.style.display = "none";
-  }
-}
-
-    </script>
 </body>
 </html>
