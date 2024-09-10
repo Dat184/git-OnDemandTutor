@@ -171,22 +171,6 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Dịch vụ của gia sư</h2>
-        <div id="serviceList">
-            <!-- Example service item -->
-            <div class="dich-vu-con">
-                <div class="img-dich-vu">
-                    <img class="img-dv" src="https://th.bing.com/th/id/OIP.DVhzx3MdOPQyh5teDTU8SQHaE8?w=264&h=180&c=7&r=0&o=5&pid=1.7" alt="">
-                </div>
-                <div class="ten-dich-vu">
-                    <strong id="modalServiceName">Tên dịch vụ</strong>
-                    <strong id="modalServiceSubject">Môn học</strong>
-                    <div class="xem-them">
-                        <a href="servicedetail.html"><button>xem thêm</button></a>
-                    </div>
-                </div>
-            </div>
-            <!-- Add more services as needed -->
-        </div>
     </div>
 </div>
 <script>
@@ -210,9 +194,7 @@
                 .then(data => {
                     console.log('API Response:', data[0]);  // Check if the response structure is as expected
 
-                        document.querySelector('#tutorName').innerHTML = `${data[0].nameTutor}` || '';
                         document.querySelector('#subjectId').innerHTML = `${data[0].nameSubject}` || '';
-                    document.querySelector('#bio').innerHTML = `${data[0].description}` || '';
                         document.getElementById('grade').value = student.grade || '';
                         document.querySelector('.thoigian strong').innerHTML = `${service.timeOfSession || "Chưa cập nhật"} giờ/buổi`;
 
@@ -230,32 +212,37 @@
     async function getMyInfo() {
         try {
             const token = localStorage.getItem('token');
+            const urlParams = new URLSearchParams(window.location.search);
+            const tutorId = urlParams.get('id');
 
-            const response = await fetch('http://localhost:8080/v1/tutor/myInfo', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                    // Thêm Authorization header nếu cần thiết
+            {
+                const response = await fetch(`http://localhost:8080/v1/tutor/${tutorId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                        // Thêm Authorization header nếu cần thiết
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
-            });
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
+                const data = await response.json();
+                console.log("logggg",data);
+                // Cập nhật thông tin cá nhân lên giao diện
+                document.querySelector('#tutorName').innerHTML = `${data.result.name}` || '';
+                document.querySelector('#bio').innerHTML = `${data.result.bio}` || '';
 
-            const data = await response.json();
-            console.log(data);
-            // Cập nhật thông tin cá nhân lên giao diện
-            const avatarElement = document.getElementById('avatar');
-            const profilePicElement = document.getElementById('avatar-a');
+                const profilePicElement = document.getElementById('avatar-a');
 
-            if (data.result.imgUrl) { // Kiểm tra nếu có URL của hình đại diện
-                avatarElement.src = data.result.imgUrl;
-                profilePicElement.src=data.result.imgUrl;
-            } else {
-                avatarElement.src = 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7'; // Hình đại diện mặc định
-                profilePicElement.src= 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
+
+                if (data.result.imgUrl) { // Kiểm tra nếu có URL của hình đại diện
+                    profilePicElement.src = data.result.imgUrl;
+                } else {
+                    profilePicElement.src = 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
+                }
             }
 
 
@@ -263,59 +250,8 @@
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
-        // Mở modal khi nhấn vào nút "yêu cầu thuê"
-        document.querySelector('.nut').addEventListener('click', function () {
-            const token = localStorage.getItem('token');
-            const tutorId = new URLSearchParams(window.location.search).get('id');
 
-            // Hiển thị modal
-            const modal = document.getElementById('serviceModal');
-            modal.style.display = 'block';
 
-            // Gọi API để lấy danh sách các dịch vụ của tutor
-            if (tutorId) {
-                fetch(`http://localhost:8080/v1/tutor-services/tutor/${tutorId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        const serviceList = document.getElementById('serviceList');
-                        serviceList.innerHTML = ''; // Xóa danh sách cũ
-
-                        // Hiển thị danh sách dịch vụ
-                        data.forEach(service => {
-                            const serviceItem = document.createElement('div');
-                            serviceItem.className = 'service-item';
-                            serviceItem.innerHTML = `
-                    <img src="${service.imageUrl}" alt="">
-                    <h3>${service.nameTutor}</h3>
-                    <p>Môn học: ${service.nameSubject} </p>
-                    <p>Mô tả: ${service.description} </p>
-                `;
-                            serviceList.appendChild(serviceItem);
-                        });
-                    })
-                    .catch(error => console.error('Error fetching services:', error));
-            }
-        });
-
-        // Đóng modal khi nhấn vào nút đóng
-        document.querySelector('.close').addEventListener('click', function () {
-            const modal = document.getElementById('serviceModal');
-            modal.style.display = 'none';
-        });
-
-        // Đóng modal khi nhấn bên ngoài
-        window.addEventListener('click', function (event) {
-            const modal = document.getElementById('serviceModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        });
 
     }
 
@@ -323,7 +259,14 @@
     window.onload = getMyInfo;
 </script>
 <script>
-
+    document.querySelector('.nut').addEventListener('click', function () {
+        const tutorId = new URLSearchParams(window.location.search).get('id');
+        if (tutorId) {
+            window.location.href = `tutorservice.html?tutorId=${tutorId}`;
+        } else {
+            window.location.href = 'tutorservice.html';
+        }
+    });
 </script>
 <script src="../js/header.js"></script>
 </body>
