@@ -9,215 +9,43 @@
     <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
     <title>Edit Schedule</title>
     <style>
-.conten-service-container{
-    display: flex;
-    flex-direction: column;
-    width: 1200px;
-    margin: 70px auto;
-}
- .button-container {
-    display: flex;
-    justify-content: end;
-    margin-bottom: 20px;
-    gap :10px;
-    margin-right: 20px;
-}
 
-.button-container button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
+        /*subjectlist*/
+        .table-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 100px;
+        }
 
-.button-container button:hover {
-    background-color: #4CAF50;
-}
+        .subject-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-.content-container {
-    display: none;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 5px;
-}
+        .subject-table th, .subject-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
 
-.content-container.active {
-    display: block;
-}
+        .subject-table th {
+            background-color: #F02FC2;
+            color: white;
+        }
 
-.hidden {
-    display: none;
-}
-.edit-schedule-container {
-    
-    width: 1000px;
-    margin: 70px auto;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+        .subject-table tr:nth-child(even) {
+            background-color: var(--gray);
+        }
 
-h1 {
-    text-align: center;
-}
-h2{
-    text-align: center;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-thead th {
-    background-color: #f2f2f2;
-    padding: 10px;
-    text-align: left;
-}
-
-tbody td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.time-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.time-slot {
-    background-color: #4CAF50;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    display: inline-block;
-}
-
-input[type="time"] {
-    padding: 5px;
-    font-size: 14px;
-}
-
-button.add-time-btn {
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button.add-time-btn:hover {
-    background-color: #45a049;
-}
-
-button#saveButton {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button#saveButton:hover {
-    background-color: #45a049;
-}
-.time-slot {
-    position: relative;
-    background-color: #4CAF50;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    display: inline-block;
-}
-
-.time-slot .delete-time-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 12px;
-    cursor: pointer;
-    margin-left: 5px;
-    padding: 0;
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    width: 18px;
-    height: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: red;
-    border-radius: 50%;
-}
-
-.time-slot .delete-time-btn:hover {
-    background-color: darkred;
-}
-.upload-video-container {
-    margin-top: 50px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.upload-video-container h1,
-.upload-video-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#uploadForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#uploadForm label,
-#uploadForm input,
-#uploadForm button {
-    margin: 10px 0;
-}
-
-#uploadForm input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#uploadForm button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#uploadForm button:hover {
-    background-color: #45a049;
-}
-
-#videoPreview {
-    margin: 20px auto;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+        .subject-table tr:hover {
+            background-color: #eea0db;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -278,11 +106,11 @@ button#saveButton:hover {
     </div>
 
 </header>
-    
+
     <main>
-     
+
         <div class="container">
-       
+
             <div class="navigation">
                 <ul>
                     <li>
@@ -293,7 +121,7 @@ button#saveButton:hover {
                             <span class="title-strong">Thông tin cá nhân</span>
                         </a>
                     </li>
-    
+
                     <li>
                         <a class="border" href="editprofiletutor.html">
                                 <span class="icon">
@@ -302,7 +130,7 @@ button#saveButton:hover {
                             <span class="title ">Chỉnh sửa trang cá nhân</span>
                         </a>
                     </li>
-    
+
                     <li>
                         <a href="edit_schedule.html">
                                 <span class="icon">
@@ -311,7 +139,7 @@ button#saveButton:hover {
                             <span class="title">Chỉnh sửa dịch vụ</span>
                         </a>
                     </li>
-    
+
                     <li>
                         <a href="#">
                                 <span class="icon">
@@ -322,117 +150,22 @@ button#saveButton:hover {
                     </li>
                 </ul>
             </div>
-            <div class="conten-service-container">
-                <div class="button-container">
-                    <button id="edit-schedule-btn">Chỉnh sửa lịch trình</button>
-                    <button id="upload-video-btn">Thêm video</button>
-                </div>
-                <div id="edit-schedule-container" class="content-container">
-                    <h1>Edit Schedule</h1>
-                    <form id="editScheduleForm">
-                        <table id="scheduleTable">
-                            <thead>
-                                <tr>
-                                    <th>Day</th>
-                                    <th>Times</th>
-                                    <th>Add Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Tạo hàng cho từng ngày trong tuần -->
-                                <tr data-day="Sun">
-                                    <td>Sunday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                                <tr data-day="Mon">
-                                    <td>Monday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                                <tr data-day="Tue">
-                                    <td>Tuesday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                                <tr data-day="Wed">
-                                    <td>Wednesday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                                <tr data-day="Thu">
-                                    <td>Thursday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                                <tr data-day="Fri">
-                                    <td>Friday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                                <tr data-day="Sat">
-                                    <td>Saturday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
-
-                    <button id="saveButton">Save Changes</button>
-                </div>
-                <div id="upload-video-container" class="content-container hidden">
-                    <h1>Upload Video</h1>
-
-                    <!-- Video Upload Form -->
-                    <form id="uploadForm">
-                        <label for="videoInput">Choose a video to upload:</label>
-                        <input type="file" id="videoInput" accept="video/*">
-                        <button type="submit">Upload</button>
-                    </form>
-                
-                    <!-- Display Uploaded Video -->
-                    <h2>Preview</h2>
-                    <video id="videoPreview" width="640" height="360" controls style="display:none;">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-          </div>
+            <div class="table-container">
+                <h2>CÁC DỊCH VỤ ĐÃ TẠO</h2>
+                <table id="subject-table" class="subject-table">
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên môn học</th>
+                        <th>Số buổi học</th>
+                        <th>Giá khóa học</th>
+                        <th>Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 
