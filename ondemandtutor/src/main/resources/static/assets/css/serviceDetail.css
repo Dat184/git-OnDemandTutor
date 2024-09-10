@@ -4,20 +4,20 @@ body{
 .contai{
     width: 100%;
     
-    position: relative;
-    height: 1100px;
-    display: flex;
+   display: flex;
+    justify-content: center;
+   
     margin: 5px auto;
     background: linear-gradient(to right bottom  , #F1D3CE, #fff);
 }
 .container{
-    width: 1036px;
+    width: 1000px;
   
-    position: absolute;
+    
     display: flex;
     flex-direction: column;
     margin-top: 100px;
-    margin-left: 70px;
+   
     box-shadow: 0 0 5px rgba(44, 42, 42, 0.318);
     border-radius:15px  ;
     background-color: #fff;
@@ -47,8 +47,9 @@ body{
     width: 300px;
     margin-top: 20px;
     justify-content: start;
-    line-height: 23px;
+    line-height: 25px;
     margin-left: 50px;
+    
 
 }
 .ten-dich-vu span{
@@ -109,6 +110,7 @@ body{
     font-size: 1.6em;
 }
 .thue button{
+    margin-top: 20px;
     background-color: #000000;
    
     border: none;
