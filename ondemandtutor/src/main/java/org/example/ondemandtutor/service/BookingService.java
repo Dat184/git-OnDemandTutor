@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -56,5 +57,9 @@ public class BookingService {
 
     public void deleteBooking(Long id){
         bookingRepository.deleteById(id);
+    }
+    public Optional<BookingResponse> findBookingByTutorServiceAndStudent(Long tutorServiceId, Long studentId) {
+        Optional<Booking> booking = bookingRepository.findBookingByTutorServiceIdAndStudentId(tutorServiceId, studentId);
+        return booking.map(bookingMapper::toBookingResponse);
     }
 }

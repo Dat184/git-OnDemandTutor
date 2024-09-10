@@ -111,11 +111,22 @@
             </table>
         </div> -->
         <div class="write-comment">
-                
-            <input type="text" id="respone" name="priceOfSession" value="" placeholder="viết phản hồi...">
-            <button class="send-button"><i class="fas fa-paper-plane"></i>
-            </button>
+            <div class="rating">
+                <input type="radio" name="rating" id="star5" value="5">
+                <label for="star5" title="5 stars">&#9733;</label>
+                <input type="radio" name="rating" id="star4" value="4">
+                <label for="star4" title="4 stars">&#9733;</label>
+                <input type="radio" name="rating" id="star3" value="3">
+                <label for="star3" title="3 stars">&#9733;</label>
+                <input type="radio" name="rating" id="star2" value="2">
+                <label for="star2" title="2 stars">&#9733;</label>
+                <input type="radio" name="rating" id="star1" value="1">
+                <label for="star1" title="1 star">&#9733;</label>
+            </div>
+            <input type="text" id="response" name="response" placeholder="Viết phản hồi...">
+            <button class="send-button"><i class="fas fa-paper-plane"></i></button>
         </div>
+        
         <div class="respone-tutor-container">
 
             <div class="comment-user">
@@ -203,23 +214,15 @@
 
 
 
-
         // Xử lý đánh giá sao
-        document.querySelectorAll('.rating span').forEach(star => {
-            star.addEventListener('click', function() {
-                const rating = this.getAttribute('data-rating');
+        document.querySelectorAll('.rating input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+        let ratingValue = document.querySelector('input[name="rating"]:checked').value;
+        console.log('Đánh giá sao:', ratingValue);
+        // Bạn có thể gửi giá trị ratingValue tới server ở đây nếu cần.
+    });
+});
 
-                document.querySelectorAll('.rating span').forEach(star => {
-                    star.classList.remove('selected');
-                });
-
-                for (let i = 0; i < rating; i++) {
-                    document.querySelectorAll('.rating span')[i].classList.add('selected');
-                }
-
-                console.log(`Rating selected: ${rating}`);
-            });
-        });
     });
 </script>
 <script src="../js/header.js"></script>

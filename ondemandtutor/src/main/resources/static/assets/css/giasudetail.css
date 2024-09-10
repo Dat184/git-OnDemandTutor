@@ -300,3 +300,42 @@ tbody td {
 .time-slot .delete-time-btn:hover {
     background-color: darkred;
 }
+.write-comment {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.rating {
+    display: flex;
+    direction: rtl; /* Ensures that clicking on a star selects the correct number */
+}
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label {
+    font-size: 24px;
+    color: #ccc; /* Default color for unselected stars */
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+
+.rating input[type="radio"]:checked ~ label {
+    color: #f39c12; /* Color for selected stars */
+}
+
+.rating input[type="radio"]:checked ~ input[type="radio"] ~ label {
+    color: #ccc; /* Ensure previous stars are unselected */
+}
+
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #f39c12; /* Color for hovered stars */
+}
+
+.send-button {
+    margin-top: 10px;
+}
