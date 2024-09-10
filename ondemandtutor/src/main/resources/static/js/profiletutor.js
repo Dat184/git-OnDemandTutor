@@ -123,6 +123,7 @@ async function getMyInfoTutor() {
 
         const data = await response.json();
         // Update UI with user info
+        console.log(data)
         document.getElementById('name').value = data.result.name;
         document.getElementById('email').value = data.result.email;
         const avatarElement = document.getElementById('avatar');
@@ -134,7 +135,7 @@ async function getMyInfoTutor() {
             avatarElement.src = defaultImgUrl; // Hình đại diện mặc định
 
         }
-        document.getElementById('subjectId').value = data.result.subjectId || "vui lòng nhập khóa học";
+        document.getElementById('bio').value = data.result.bio || "";
 
     } catch (error) {
         console.error('Error fetching user info:', error);
@@ -153,19 +154,19 @@ document.getElementById('updateButton').addEventListener('click', function(event
 
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
-    const subjectId = document.getElementById('subjectId').value;
+    const bio = document.getElementById('bio').value;
     const address = document.getElementById('address').value;
 
     const userUpdateRequest = {
         name: name,
         email: email,
-        subjectId: subjectId,
+        bio: bio,
         address: address
     };
 
     const token = localStorage.getItem('token');
 
-    fetch('http://localhost:8080/v1/users', {
+    fetch('http://localhost:8080/v1/tutor', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

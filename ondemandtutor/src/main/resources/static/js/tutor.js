@@ -34,7 +34,7 @@ function createTutorCard(tutor) {
     const tutorCard = document.createElement('div');
     tutorCard.classList.add('tutor-card');
 
-    const tutorImageUrl = tutor.imageUrl || '../assets/img/header/profile.png';
+    const tutorImageUrl = tutor.imgUrl || '../assets/img/header/profile.png';
 
 
     tutorCard.innerHTML = `

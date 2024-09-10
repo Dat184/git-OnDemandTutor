@@ -225,7 +225,37 @@
     </div>
 
 
+    <script>
+        // Hàm để tải dữ liệu môn học từ API và cập nhật <select>
+        async function loadSubjects() {
+            try {
+                const response = await fetch('http://localhost:8080/v1/subject');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const subjects = await response.json();
 
+                const selectElement = document.getElementById('chonmon');
+
+                // Xóa tất cả các tùy chọn hiện có
+                selectElement.innerHTML = '';
+
+                // Thêm các tùy chọn mới vào <select>
+                subjects.forEach(subject => {
+                    const option = document.createElement('option');
+                    option.value = subject.id; // hoặc tùy thuộc vào cấu trúc của SubjectResponse
+                    option.textContent = subject.name; // hoặc tùy thuộc vào cấu trúc của SubjectResponse
+                    selectElement.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Có lỗi xảy ra:', error);
+                alert('Có lỗi xảy ra khi tải dữ liệu môn học.');
+            }
+        }
+
+        // Gọi hàm khi trang được tải
+        document.addEventListener('DOMContentLoaded', loadSubjects);
+    </script>
 
 
 

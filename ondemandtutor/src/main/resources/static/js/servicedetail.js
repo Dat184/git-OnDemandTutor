@@ -144,7 +144,7 @@ function fetchSubjectNameById(id) {
             }
             return response.json();
         })
-        .then(data => data.data.name)
+        .then(data => data.result.name)
         .catch(error => {
             console.error('Lỗi khi gọi API chi tiết môn học', error);
             return 'Chưa xác định'; // Trả về giá trị mặc định nếu có lỗi
