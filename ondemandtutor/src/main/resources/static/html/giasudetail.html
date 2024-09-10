@@ -84,7 +84,7 @@
     <div class="container-div">
 
         <div class="avatar-name-contaier">
-            <img class="avatar-a" src="https://resources.churchofchrist1830.org/wp-content/uploads/2024/02/generic-bio-avatar.png" alt="">
+            <img id="avatar-a" class="avatar-a" src="https://resources.churchofchrist1830.org/wp-content/uploads/2024/02/generic-bio-avatar.png" alt="">
             <div class="name-tutor">
                 <h4> <span id="tutorName"></span> </h4>
                 <p id="subjectId">monhoc</p>
@@ -171,80 +171,82 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const token = localStorage.getItem('token');
+
+        console.log(token); // Check if the token exists and is correct
+
         const urlParams = new URLSearchParams(window.location.search);
-        const tutorId = urlParams.get('id');  // Get the tutor ID from the URL
+        const tutorId = urlParams.get('id');  // Get the ID from the URL
 
-        // Fetch tutor details by tutorId
-        async function fetchTutorDetails(tutorId) {
-            const tutorApiUrl = `http://localhost:8080/v1/tutor/${tutorId}`; // API endpoint for tutor details
-
-            if (tutorId) {
-                try {
-                    const response = await fetch(tutorApiUrl, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        }
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('Error fetching tutor details');
-                    }
-
-                    const data = await response.json();
-                    console.log(data); // Check the data structure
-
-                    if (data && data.result) {
-                        const tutor = data.result;
-                        document.getElementById('tutorName').textContent = tutor.name || 'Unknown Tutor';
-
-                        // Fetch the subject based on the tutor's subjectId
-                        if (tutor.subjectId) {
-                            fetchSubjectNameById(tutor.subjectId);
-                        }
-                    }
-                } catch (error) {
-                    console.error('Error fetching tutor details:', error);
+        if (tutorId) {
+            fetch(`http://localhost:8080/v1/tutor-services/tutor/${tutorId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 }
-            }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('API Response:', data[0]);  // Check if the response structure is as expected
+
+                        document.querySelector('#tutorName').innerHTML = `${data[0].nameTutor}` || '';
+                        document.querySelector('#subjectId').innerHTML = `${data[0].nameSubject}` || '';
+                    document.querySelector('#bio').innerHTML = `${data[0].description}` || '';
+                        document.getElementById('grade').value = student.grade || '';
+                        document.querySelector('.thoigian strong').innerHTML = `${service.timeOfSession || "Chưa cập nhật"} giờ/buổi`;
+
+
+                })
+                .catch(error => console.error('Error fetching student details:', error));
+
         }
 
-        // Fetch subject name by subjectId
-        async function fetchSubjectNameById(subjectId) {
-            const subjectApiUrl = `http://localhost:8080/v1/subject/${subjectId}`; // API endpoint for subject details
 
-            try {
-                const response = await fetch(subjectApiUrl, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Error fetching subject details');
-                }
-
-                const data = await response.json();
-                console.log(data); // Check the data structure
-
-                if (data && data.result) {
-                    const subject = data.result;
-                    document.getElementById('subjectId').textContent = subject.name || 'Unknown Subject';
-                }
-            } catch (error) {
-                console.error('Error fetching subject details:', error);
-            }
-        }
-
-        // Call the function to fetch tutor details
-        fetchTutorDetails(tutorId);
     });
 
 </script>
+<script>
+    async function getMyInfo() {
+        try {
+            const token = localStorage.getItem('token');
 
+            const response = await fetch('http://localhost:8080/v1/tutor/myInfo', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                    // Thêm Authorization header nếu cần thiết
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            console.log(data);
+            // Cập nhật thông tin cá nhân lên giao diện
+            const avatarElement = document.getElementById('avatar');
+            const profilePicElement = document.getElementById('avatar-a');
+
+            if (data.result.imgUrl) { // Kiểm tra nếu có URL của hình đại diện
+                avatarElement.src = data.result.imgUrl;
+                profilePicElement.src=<data className="result imgU"></data>rl;
+            } else {
+                avatarElement.src = 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7'; // Hình đại diện mặc định
+                profilePicElement.src= 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
+            }
+
+
+
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    }
+
+    // Gọi hàm getMyInfo khi trang được tải
+    window.onload = getMyInfo;
+</script>
 <script src="../js/header.js"></script>
 </body>
 </html>
