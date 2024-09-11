@@ -489,14 +489,17 @@ button#saveButton:hover {
                         <input type="file" id="videoInput" accept="video/*">
                         <button type="submit">Upload</button>
                     </form>
-                
+
                     <!-- Display Uploaded Video -->
                     <h2>Preview</h2>
                     <video id="videoPreview" width="640" height="360" controls style="display:none;">
                         Your browser does not support the video tag.
                     </video>
                 </div>
-          </div>
+
+
+
+            </div>
         </div>
     </main>
 
@@ -617,7 +620,7 @@ button#saveButton:hover {
 <form id="availabilityForm">
     <div id="editScheduleModal" class="modal-Schedule">
     <div class="modal-content-Schedule">
-      <span class="close">&times;</span>
+      <span  id="closelhModal" class="close">&times;</span>
       <h2>Sửa lịch học</h2>
         <input type="hidden" id="serviceId">
         <table id="scheduleTable">
