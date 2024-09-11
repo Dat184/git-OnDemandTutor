@@ -3,8 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch('http://localhost:8080/v1/tutor',{
         method: 'GET',
         headers:  {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Content-Type': 'application/json'
         }
 
     })

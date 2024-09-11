@@ -195,8 +195,8 @@
             fetch(`http://localhost:8080/v1/tutor-services/tutor/${tutorId}`, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Content-Type': 'application/json'
+
                 }
             })
                 .then(response => response.json())
@@ -242,9 +242,7 @@
                 const response = await fetch(`http://localhost:8080/v1/tutor/${tutorId}`, {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                        // Thêm Authorization header nếu cần thiết
+                        'Content-Type': 'application/json'
                     }
                 });
 
