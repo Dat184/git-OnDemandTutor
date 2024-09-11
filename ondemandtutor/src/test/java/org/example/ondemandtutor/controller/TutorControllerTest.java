@@ -18,12 +18,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.nio.file.Paths.get;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -110,15 +114,23 @@ public class TutorControllerTest {
     }
 
     @Test
+    @WithMockUser
     void getInfor() throws Exception {
-        when(tutorService.findTutorById(anyLong())).thenReturn(tutorResponse);
+
+        when(tutorService.getMyInfo()).thenReturn(tutorResponse);
 
         mockMVC.perform(MockMvcRequestBuilders
                 .get("/v1/tutor/myInfo")
-                .header("Authorization", "Bearer "+ getToken())
+                .header("Authorization", "Bearer " + getToken())
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("code").value("1000"));
+                .andExpect(jsonPath("$.result.id").value(tutorResponse.getId()))
+                .andExpect(jsonPath("$.result.username").value(tutorResponse.getUsername()))
+                .andExpect(jsonPath("$.result.email").value(tutorResponse.getEmail()))
+                .andExpect(jsonPath("$.result.name").value(tutorResponse.getName()))
+                .andExpect(jsonPath("$.result.imgUrl").value(tutorResponse.getImgUrl()))
+                .andExpect(jsonPath("$.result.role").value(tutorResponse.getRole()));
+
     }
 
 
