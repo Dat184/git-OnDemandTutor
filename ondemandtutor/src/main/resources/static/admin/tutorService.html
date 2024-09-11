@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <script src="../js/header.js"></script>
+    <script src="../js/admin.js"></script>
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+<div class="main">
+    <header class="header">
+        <div class="logo-container">
+            <a class="img-logo" href="../admin/studentlist.html">
+                <p class="text">LEARN TOgetHER</p>
+            </a>
+        </div>
+        <div class="login-search-container">
+            <div class="login-container">
+                <a href="../html/modal.html" class="search-link">
+                    <button id="loginButton" class="login-button">Đăng nhập</button>
+                </a>
+                <div class="user-info" id="userInfo">
+                    <span id="usernameDisplay"></span>
+                    <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+                    <div id="userDropdown" class="user-dropdown">
+                        <a href="#" id="logoutButton" class="sub-menu-link">
+                            <img src="../assets/img/header/logout.png" alt="">
+                            <p>Đăng xuất</p>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </span>
+                        <span class="title-strong">Admin</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="border" href="studentlist.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title ">Danh sách học sinh</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tutorlist.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách gia sư</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tutorService.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách bài đăng</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="addsubject.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Thêm môn học</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="subjectlist.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách môn học</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <h2>Danh sách Dịch Vụ</h2>
+            <table class="student-table" id="service-table">
+                <thead>
+                <tr>
+                    <th>Stt</th>
+                    <th>Họ và tên</th>
+                    <th>Môn</th>
+                    <th>Thời gian giảng dạy (phút)</th>
+                    <th>Giá khóa học (VND)</th>
+                    <th>Số buổi trong tuần</th>
+                    <th>Mô tả</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Vỗ Quốc Huy</td>
+                    <td>Toán</td>
+                    <td>120</td>
+                    <td>120000</td>
+                    <td>Chuyên toán lớp 9</td>
+                    <td>
+                        <a href="#" class="edit-link">Sửa</a> |
+                        <a href="#" class="delete-link">Xóa</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Trần Thị B</td>
+                    <td>tranthib@example.com</td>
+                    <td>tranthib</td>
+                    <td>456 Đường X, Phường Y, Quận Z</td>
+                    <td>10</td>
+                    <td>
+                        <a href="#" class="edit-link">Sửa</a> |
+                        <a href="#" class="delete-link">Xóa</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
