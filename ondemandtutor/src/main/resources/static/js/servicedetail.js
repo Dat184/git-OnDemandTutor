@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Fetch tutor availability
                 if (service.id) {
                     console.log('Tutor ID:', service.id);
-                    return fetch(`http://localhost:8080/v1/tutor-avail/tutor/${service.id}`, {
+                    return fetch(`http://localhost:8080/v1/tutor-avail/tutorService/${service.id}`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
