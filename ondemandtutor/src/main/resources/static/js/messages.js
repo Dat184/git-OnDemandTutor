@@ -79,6 +79,20 @@ $(document).ready(function(){
 			console.error('Lỗi khi lấy danh sách phòng chat:', error);
 		}
 	}
+
+	function filterChats() {
+		const searchValue = document.getElementById('searchInput').value.toLowerCase();
+		const chatElements = document.querySelectorAll('.contacts li');
+
+		chatElements.forEach(chatElement => {
+			const recipientName = chatElement.querySelector('.user_info span').innerText.toLowerCase();
+			if (recipientName.includes(searchValue)) {
+				chatElement.style.display = '';
+			} else {
+				chatElement.style.display = 'none';
+			}
+		});
+	}
 	async function deleteChat() {
 		const urlParams = new URLSearchParams(window.location.search);
 		const chatId = urlParams.get('chatId');
@@ -241,7 +255,8 @@ $(document).ready(function(){
 		}
 		initEventListeners();
 	}
-
+	document.getElementById('searchInput').addEventListener('input', filterChats);
+	getListChatByUser();
 	init();
 	connect();
 });
