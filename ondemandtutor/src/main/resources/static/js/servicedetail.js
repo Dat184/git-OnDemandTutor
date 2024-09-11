@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function fetchSubjectNameById(id) {
-    const token = localStorage.getItem('token');
+
     if (!id) {
         console.error('Invalid subject ID');
         return Promise.resolve('Chưa xác định');
