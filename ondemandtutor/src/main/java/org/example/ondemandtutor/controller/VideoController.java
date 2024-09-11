@@ -27,11 +27,9 @@ public class VideoController {
 
     @PostMapping("/upload")
     public ResponseEntity<ResponseObject> uploadVideo(
-            @RequestParam("title") String title,
-            @RequestParam("description") String description,
             @RequestParam("videoData") MultipartFile videoData) {
         try {
-            VideoRequest videoRequest = new VideoRequest(title, description, videoData);
+            VideoRequest videoRequest = new VideoRequest(videoData);
             VideoResponse videoResponse = videoService.uploadVideo(videoRequest);
             ResponseObject response = new ResponseObject("success", "Video uploaded successfully", videoResponse);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -61,11 +59,9 @@ public class VideoController {
     @PutMapping("/{id}")
     public ResponseEntity<ResponseObject> updateVideoById(
             @PathVariable Long id,
-            @RequestParam("title") String title,
-            @RequestParam("description") String description,
             @RequestParam("videoData") MultipartFile videoData) {
         try {
-            VideoRequest videoRequest = new VideoRequest(title, description, videoData);
+            VideoRequest videoRequest = new VideoRequest(videoData);
             VideoResponse videoResponse = videoService.updateVideoById(id, videoRequest);
             ResponseObject response = new ResponseObject("success", "Video updated successfully", videoResponse);
             return ResponseEntity.ok().body(response);

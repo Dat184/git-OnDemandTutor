@@ -46,8 +46,6 @@ public class VideoService {
         // Lưu thông tin vào PostgreSQL
         Video video = videoMapper.toVideo(videoRequest);
         video.setTutor(tutor);
-        video.setName(videoRequest.getVideoData().getOriginalFilename());
-        video.setType(videoRequest.getVideoData().getContentType());
         video.setVideoUrl(videoUrl);  // Lưu URL của video
 
         // Lưu video vào cơ sở dữ liệu
@@ -79,8 +77,6 @@ public class VideoService {
             String newFileName = UUID.randomUUID().toString() + "_" + videoRequest.getVideoData().getOriginalFilename();
             InputStream inputStream = videoRequest.getVideoData().getInputStream();
             String url = firebaseStorageService.uploadFile(newFileName, inputStream, videoRequest.getVideoData().getContentType());
-            video.setName(videoRequest.getVideoData().getOriginalFilename());
-            video.setType(videoRequest.getVideoData().getContentType());
             video.setVideoUrl(url);
         }
         return videoMapper.toVideoResponse(videoRepository.save(video));

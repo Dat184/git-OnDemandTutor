@@ -207,7 +207,30 @@
             .catch(error => {
                 console.error('Error fetching service data:', error);
             });
+        fetch('http://localhost:8080/v1/vnpay/callback?' + new URLSearchParams(params))
+            .then(response => response.json())
+            .then(data => {
+                if (data.result.code === 'success') {
+                    // Lưu dữ liệu nếu cần
+                    // Ví dụ: lưu vào localStorage
+                    localStorage.setItem('transactionId', data.result.transactionId);
+                    localStorage.setItem('amount', data.result.amount);
+
+                    // Chuyển hướng tới trang booking
+                    window.location.href = '/booking.html';
+                } else {
+                    // Xử lý lỗi và chuyển hướng tới trang lỗi
+                    window.location.href = '/paymentFailed.html';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Xử lý lỗi và chuyển hướng tới trang lỗi
+                window.location.href = '/paymentFailed.html';
+            });
+
     });
+
 
 </script>
 </script>

@@ -16,18 +16,12 @@ public class Video {
     @Column(name = "id", nullable = false)
     Long id;
 
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     @JoinColumn(name = "tutor_id", nullable = false)
     Tutor tutor;
 
-    String name;
-    String type;
-
     @Column(name = "video_url", nullable = false)
     String videoUrl;
-
-    String title;
-    String description;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "approval_status", nullable = false)
