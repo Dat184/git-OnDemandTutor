@@ -112,4 +112,10 @@ public class VideoService {
         List<Video> videos = videoRepository.findByApprovalStatus(ApprovalStatus.Pending);
         return videoMapper.toVideoResponseList(videos);
     }
+    public List<VideoResponse> getVideosByTutorId(Long id) {
+        Tutor tutor = (Tutor) userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Tutor not found"));
+        List<Video> videos = videoRepository.findByTutor(tutor);
+        return videoMapper.toVideoResponseList(videos);
+    }
 }
