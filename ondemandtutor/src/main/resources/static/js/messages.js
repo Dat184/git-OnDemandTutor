@@ -199,7 +199,6 @@ $(document).ready(function(){
 
 		const isCurrentUser = message.userNameSender === currentUsernameSender;
 
-		// Kiểm tra nếu `timestamp` tồn tại và hợp lệ
 		let createdAt = new Date();
 
 		const timeString = createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
