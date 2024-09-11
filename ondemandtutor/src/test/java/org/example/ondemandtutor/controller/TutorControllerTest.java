@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.nio.file.Paths.get;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -75,6 +76,8 @@ public class TutorControllerTest {
                 .role("Tutor")
                 .build();
 
+
+
         tutorResponseList = new ArrayList<>();
         tutorResponseList.add(tutorResponse);
     }
@@ -121,7 +124,6 @@ public class TutorControllerTest {
 
         mockMVC.perform(MockMvcRequestBuilders
                 .get("/v1/tutor/myInfo")
-                .header("Authorization", "Bearer " + getToken())
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.result.id").value(tutorResponse.getId()))
@@ -134,20 +136,11 @@ public class TutorControllerTest {
     }
 
 
-    private String getToken() throws Exception {
-        String userName = "admin";
-        String password = "admin";
-
-        String response = mockMVC.perform(MockMvcRequestBuilders
-                        .post("/v1/auth/log-in")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content("{\"username\":\"" + userName + "\",\"password\":\"" + password + "\"}"))
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        System.out.println("Login Response: " + response);
-        return new ObjectMapper().readTree(response).get("result").get("token").asText();
-
-    }
+//    @Test
+//    @WithMockUser
+//    void updateTutor() throws Exception {
+//        when(tutorService.updateTutor(anyLong(),any())).thenReturn(tutorResponse);
+//
+//        mockMVC.perform(MockMvcRequestBuilders)
+//    }
 }

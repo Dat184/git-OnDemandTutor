@@ -27,7 +27,6 @@ public class VideoController {
 
     @PostMapping("/upload")
     public ResponseEntity<ResponseObject> uploadVideo(
-
             @RequestParam("videoData") MultipartFile videoData) {
         try {
             VideoRequest videoRequest = new VideoRequest(videoData);
@@ -42,6 +41,24 @@ public class VideoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
+
+    @PostMapping("/uploadOrUpdate")
+    public ResponseEntity<ResponseObject> uploadOrUpdateVideo(
+            @RequestParam("videoData") MultipartFile videoData) {
+        try {
+            VideoRequest videoRequest = new VideoRequest(videoData);
+            VideoResponse videoResponse = videoService.uploadOrUpdateVideo(videoRequest);
+            ResponseObject response = new ResponseObject("success", "Video uploaded/updated successfully", videoResponse);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (IOException e) {
+            ResponseObject response = new ResponseObject("error", "Failed to upload video");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        } catch (Exception e) {
+            ResponseObject response = new ResponseObject("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
 
 
 
@@ -60,8 +77,6 @@ public class VideoController {
     @PutMapping("/{id}")
     public ResponseEntity<ResponseObject> updateVideoById(
             @PathVariable Long id,
-            @RequestParam("title") String title,
-            @RequestParam("description") String description,
             @RequestParam("videoData") MultipartFile videoData) {
         try {
             VideoRequest videoRequest = new VideoRequest(videoData);
@@ -131,10 +146,10 @@ public class VideoController {
         ResponseObject response = new ResponseObject("success", "Pending videos retrieved", videos);
         return ResponseEntity.ok().body(response);
     }
-    @GetMapping("/tutor/{tutorId}")
-    public ResponseEntity<ResponseObject> getVideosByTutorId(@PathVariable Long tutorId) {
-        List<VideoResponse> videos = videoService.getVideosByTutorId(tutorId);
-        ResponseObject response = new ResponseObject("success", "Videos retrieved", videos);
-        return ResponseEntity.ok().body(response);
-    }
+//    @GetMapping("/tutor/{tutorId}")
+//    public ResponseEntity<ResponseObject> getVideosByTutorId(@PathVariable Long tutorId) {
+//        List<VideoResponse> videos = videoService.getVideosByTutorId(tutorId);
+//        ResponseObject response = new ResponseObject("success", "Videos retrieved", videos);
+//        return ResponseEntity.ok().body(response);
+//    }
 }

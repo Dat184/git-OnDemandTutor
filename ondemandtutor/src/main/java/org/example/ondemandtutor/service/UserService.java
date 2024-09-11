@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.ondemandtutor.dto.request.UpdateImgRequest;
 import org.example.ondemandtutor.dto.request.UserCreationRequest;
 import org.example.ondemandtutor.dto.request.UserUpdateRequest;
+import org.example.ondemandtutor.dto.request.VideoRequest;
 import org.example.ondemandtutor.dto.response.UserResponse;
 import org.example.ondemandtutor.pojo.Role;
 import org.example.ondemandtutor.exception.AppException;
@@ -75,7 +76,6 @@ public class UserService {
 
         User user = userRepository.findByUsername(name).orElseThrow(
                 () -> new AppException(ErrorCode.USER_NOT_EXISTED));
-
 
         return userMapper.toUserResponse(user);
     }
