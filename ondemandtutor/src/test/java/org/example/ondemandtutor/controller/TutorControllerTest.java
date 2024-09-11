@@ -123,8 +123,8 @@ public class TutorControllerTest {
 
 
     private String getToken() throws Exception {
-        String userName = "Huythu1";
-        String password = "12345678";
+        String userName = "admin";
+        String password = "admin";
 
         String response = mockMVC.perform(MockMvcRequestBuilders
                         .post("/v1/auth/log-in")
