@@ -19,4 +19,5 @@ public class ReviewResponse {
     String comment;
     LocalDateTime createdAt;
     String name;
+    Long tutorId;
 }

@@ -37,10 +37,10 @@ public class TutorAvailController {
         }
     }
 
-    @GetMapping("/tutor/{tutorId}")
-    public ResponseEntity<ResponseObject> getTutorAvailabilityByTutorId(@PathVariable Long tutorId) {
+    @GetMapping("/tutorService/{tutorServiceId}")
+    public ResponseEntity<ResponseObject> getTutorAvailabilityByTutorId(@PathVariable Long tutorServiceId) {
         try {
-            List<TutorAvailResponse> tutorAvailResponses = tutorAvailService.getTutorAvailabilityByTutorServiceId(tutorId);
+            List<TutorAvailResponse> tutorAvailResponses = tutorAvailService.getTutorAvailabilityByTutorServiceId(tutorServiceId);
             return ResponseEntity.ok(new ResponseObject("success", "TutorAvailability found", tutorAvailResponses));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
