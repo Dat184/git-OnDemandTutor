@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             data.result.forEach(tutor => {
                 const tutorId = tutor.id;
-                localStorage.setItem('id', tutorId);
+                localStorage.setItem('senderId', tutorId);
                 console.log('Tutor ID:', tutorId);
             } );
 
@@ -67,4 +67,32 @@ function createTutorCard(tutor) {
     `;
 
     return tutorCard;
+}
+const url = 'http://localhost:8080';
+function createChat(tutorId) {
+    const token = localStorage.getItem('token');
+
+    fetch(url + '/v1/chat/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            recipientId: tutorId
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('API Response:', data); // Kiểm tra phản hồi của API
+            const chatId = data.data.id; // Đảm bảo rằng data.id tồn tại
+            if (chatId) {
+                window.location.href = `../html/messages.html?chatId=${chatId}`;
+            } else {
+                console.error('Chat ID không có trong phản hồi');
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi khi tạo phòng chat:', error);
+        });
 }

@@ -39,4 +39,18 @@ public class ChatController {
         }
     }
 
+    @GetMapping("/getChat")
+    public ResponseEntity<ResponseObject> getChatBySenderId() {
+        return ResponseEntity.ok().body(new ResponseObject("success", "Chat retrieved", chatService.getChatBySenderId()));
+    }
+
+    @GetMapping("/getChat/{id}")
+    public ResponseEntity<ResponseObject> getChatById(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok().body(new ResponseObject("success", "Chat retrieved", chatService.getChatById(id)));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(new ResponseObject("error", e.getMessage()));
+        }
+    }
+
 }
