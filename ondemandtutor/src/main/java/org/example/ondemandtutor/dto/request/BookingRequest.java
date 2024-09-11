@@ -12,8 +12,10 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class BookingRequest {
+    Long studentId;
     Long tutorServiceId;
     Long totalPrice;
     String transactionId;
     String responseCode;
+    Long tutorId;
 }

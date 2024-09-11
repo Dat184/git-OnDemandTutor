@@ -31,4 +31,8 @@ public class Review {
     @Column(name = "created_at")
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
     LocalDateTime createdAt;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "tutor_id", nullable = false)
+    Tutor tutor;
 }

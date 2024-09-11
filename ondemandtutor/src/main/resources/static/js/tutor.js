@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             data.result.forEach(tutor => {
                 const tutorId = tutor.id;
-                localStorage.setItem('id', tutorId);
+                localStorage.setItem('idtutor', tutorId);
                 console.log('Tutor ID:', tutorId);
             } );
 
