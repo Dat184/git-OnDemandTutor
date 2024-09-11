@@ -34,6 +34,36 @@ public class VideoService {
     VideoMapper videoMapper;
     FirebaseStorageService firebaseStorageService;
 
+    public VideoResponse uploadOrUpdateVideo(VideoRequest videoRequest) throws IOException {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(name).orElseThrow(
+                () -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        Tutor tutor = (Tutor) user;
+        // Kiểm tra xem gia sư đã có video hay chưa
+        Video existingVideo = videoRepository.findByTutor(tutor);
+
+        if (existingVideo != null) {
+            // Xóa video cũ từ Firebase
+            firebaseStorageService.deleteFile(existingVideo.getVideoUrl());
+            // Xóa video cũ khỏi cơ sở dữ liệu
+            videoRepository.delete(existingVideo);
+        }
+
+        // Upload video mới
+        String fileName = UUID.randomUUID().toString() + "_" + videoRequest.getVideoData().getOriginalFilename();
+        InputStream inputStream = videoRequest.getVideoData().getInputStream();
+        String videoUrl = firebaseStorageService.uploadFile(fileName, inputStream, videoRequest.getVideoData().getContentType());
+
+        // Lưu thông tin video mới
+        Video video = videoMapper.toVideo(videoRequest);
+        video.setTutor(tutor);
+        video.setVideoUrl(videoUrl);  // Lưu URL của video
+
+        // Lưu video vào cơ sở dữ liệu
+        return videoMapper.toVideoResponse(videoRepository.save(video));
+    }
+
+
     public VideoResponse uploadVideo(VideoRequest videoRequest) throws IOException {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUsername(name).orElseThrow(
@@ -46,8 +76,6 @@ public class VideoService {
         // Lưu thông tin vào PostgreSQL
         Video video = videoMapper.toVideo(videoRequest);
         video.setTutor(tutor);
-        video.setName(videoRequest.getVideoData().getOriginalFilename());
-        video.setType(videoRequest.getVideoData().getContentType());
         video.setVideoUrl(videoUrl);  // Lưu URL của video
 
         // Lưu video vào cơ sở dữ liệu
@@ -79,8 +107,6 @@ public class VideoService {
             String newFileName = UUID.randomUUID().toString() + "_" + videoRequest.getVideoData().getOriginalFilename();
             InputStream inputStream = videoRequest.getVideoData().getInputStream();
             String url = firebaseStorageService.uploadFile(newFileName, inputStream, videoRequest.getVideoData().getContentType());
-            video.setName(videoRequest.getVideoData().getOriginalFilename());
-            video.setType(videoRequest.getVideoData().getContentType());
             video.setVideoUrl(url);
         }
         return videoMapper.toVideoResponse(videoRepository.save(video));
@@ -112,4 +138,10 @@ public class VideoService {
         List<Video> videos = videoRepository.findByApprovalStatus(ApprovalStatus.Pending);
         return videoMapper.toVideoResponseList(videos);
     }
+//    public List<VideoResponse> getVideosByTutorId(Long id) {
+//        Tutor tutor = (Tutor) userRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Tutor not found"));
+//        List<Video> videos = videoRepository.findByTutor(tutor);
+//        return videoMapper.toVideoResponseList(videos);
+//    }
 }

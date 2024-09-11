@@ -9,7 +9,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ChatMapper {
 
-    Chat toChat(ChatRequest chatRequest);
 
     @Mapping(target = "senderId", source = "sender.id")
     @Mapping(target = "recipientId", source = "recipient.id")

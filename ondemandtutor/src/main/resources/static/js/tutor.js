@@ -1,33 +1,57 @@
 document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem('token');
-    fetch('http://localhost:8080/v1/tutor',{
-        method: 'GET',
-        headers:  {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
+    const searchButton = document.getElementById('searchButton');
+    const searchInput = document.getElementById('searchInput');
+    const tutorContainer = document.querySelector('.container');
 
-    })
-        .then(response => response.json())
-        .then(data => {
-            const tutors = data.result;
-            console.log(tutors);
-
-            const tutorContainer = document.querySelector('.container');
-            tutorContainer.innerHTML = '';
-
-            tutors.forEach(tutor => {
-                const tutorCard = createTutorCard(tutor);
-                tutorContainer.appendChild(tutorCard);
-            });
-
-            data.result.forEach(tutor => {
-                const tutorId = tutor.id;
-                localStorage.setItem('idtutor', tutorId);
-                console.log('Tutor ID:', tutorId);
-            } );
-
+    // Fetch and display tutors
+    function fetchTutors(searchQuery = '') {
+        fetch('http://localhost:8080/v1/tutor', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
+            .then(response => response.json())
+            .then(data => {
+                const tutors = data.result;
+                console.log(tutors);
+
+                tutorContainer.innerHTML = '';
+
+                // Filter tutors based on search query
+                const filteredTutors = tutors.filter(tutor => {
+                    return tutor.name.toLowerCase().includes(searchQuery.toLowerCase());
+                });
+
+                filteredTutors.forEach(tutor => {
+                    const tutorCard = createTutorCard(tutor);
+                    tutorContainer.appendChild(tutorCard);
+                });
+
+                filteredTutors.forEach(tutor => {
+                    const tutorId = tutor.id;
+                    localStorage.setItem('idtutor', tutorId);
+                    console.log('Tutor ID:', tutorId);
+                });
+            });
+    }
+
+    // Initial fetch of all tutors
+    fetchTutors();
+
+    // Event listener for search button
+    searchButton.addEventListener('click', () => {
+        const searchQuery = searchInput.value;
+        fetchTutors(searchQuery);
+    });
+
+    // Event listener for enter key press in search input
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            searchButton.click();
+        }
+    });
 });
 
 function createTutorCard(tutor) {
@@ -58,7 +82,7 @@ function createTutorCard(tutor) {
                 </div>
                 <div class="tutor-price">$${tutor.price || '0'}</div>
                 <a href="../html/giasudetail.html?id=${tutor.id}"><button class="book-button">Book trial lesson</button></a>
-                <a href="../html/messages.html?tutorId=${tutor.id}"><button class="message-button">Send message</button></a>
+                <button class="message-button" onclick="createChat(${tutor.id})">Send message</button>
             </div>
         </div>
         <div class="tutor-video">
@@ -67,4 +91,32 @@ function createTutorCard(tutor) {
     `;
 
     return tutorCard;
+}
+const url = 'http://localhost:8080';
+function createChat(tutorId) {
+    const token = localStorage.getItem('token');
+
+    fetch(url + '/v1/chat/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            recipientId: tutorId
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('API Response:', data); // Kiểm tra phản hồi của API
+            const chatId = data.data.id; // Đảm bảo rằng data.id tồn tại
+            if (chatId) {
+                window.location.href = `../html/messages.html?chatId=${chatId}`;
+            } else {
+                console.error('Chat ID không có trong phản hồi');
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi khi tạo phòng chat:', error);
+        });
 }

@@ -13,4 +13,6 @@ import java.util.Optional;
 @Repository
 public interface ChatRepository extends JpaRepository<Chat, Long> {
     Optional<Chat> findBySenderAndRecipient(User sender, User recipient);
+    List<Chat> findBySender(User sender);
+    List<Chat> findByRecipient(User recipient);
 }

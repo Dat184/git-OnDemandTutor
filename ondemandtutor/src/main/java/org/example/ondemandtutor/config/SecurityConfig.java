@@ -30,6 +30,8 @@ public class SecurityConfig {
             "/assets/**",
             "/js/**",
             "/v1/vnpay/callback",
+            "/v1/vnpay/payment",
+            "/v1/vnpay/**",
             "/v1/tutor-services",
             "/v1/users/imgUser",
             "/v1/subject",
@@ -37,6 +39,15 @@ public class SecurityConfig {
             "/v1/booking/**",
             "/v1/tutor/**",
             "/v1/review/**"
+            "/v1/tutor",
+            "/v1/tutor-services/tutor/**",
+            "/v1/tutor/**",
+            "/v1/tutor-avail/tutorService/**",
+            "/v1/tutor-services/**",
+            "/v1/subject/**",
+            "/v1/tutor/**",
+            "/ws/**",
+            "/v1/message/**",
     };
 
     @Autowired

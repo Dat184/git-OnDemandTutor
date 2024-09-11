@@ -16,8 +16,9 @@ public class MessageResponse {
     LocalDateTime createdAt;
     String messageText;
     String fileUrl;
-    Long sendId;
+    String userNameSender;
+    String userNameRecipient;
     Long chatId;
-    String type;
-    String name;
+    String typeMessage;
+    String recipientImgUrl;
 }

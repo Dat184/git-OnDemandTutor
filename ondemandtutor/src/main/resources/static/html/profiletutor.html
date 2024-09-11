@@ -41,7 +41,6 @@
             <div class="message-container" id="messageContainer">
                 <a href="messages.html" class="message-link">
                     <i class="message-icon fa-regular fa-message"></i>
-                    <span class="message-count" id="messageCount">0</span>
                 </a>
             </div>
 
@@ -211,6 +210,7 @@
             document.getElementById('role').innerText = data.result.role;
             document.getElementById('name').innerText = data.result.name;
             document.getElementById('email').innerText = data.result.email;
+
             const avatarElement = document.getElementById('avatar');
             const profilePicElement = document.getElementById('profilePic');
 
@@ -223,6 +223,7 @@
             }
             if (!data.result.bio == "" ) {
                 document.getElementById('bio').innerText = data.result.bio;
+                console.log(data.result.bio);
             }
             if (!data.result.address == "")
             {

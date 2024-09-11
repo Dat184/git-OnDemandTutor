@@ -16,6 +16,7 @@ public abstract class User {
 
     @Column(name = "user_name", nullable = false)
     private String username;
+
     private String password;
     private String email;
     private String name;
