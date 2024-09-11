@@ -139,6 +139,7 @@
                     Validator.minLength('#login_password', 5, 'Mật khẩu phải có ít nhất 6 ký tự'),
                 ],
                 onSubmit: function (data) {
+                    localStorage.setItem('username2', data.username)
 
                     fetch('http://localhost:8080/v1/auth/log-in', {
                         method: 'POST',
@@ -155,16 +156,15 @@
 
                             if (data.code === 1000 && data.result.authenticated) {
 
-                                localStorage.setItem('id',data.result.id);
                                 localStorage.setItem('token', data.result.token);
                                 localStorage.setItem('loggedIn', 'true');
                                 localStorage.setItem('role',data.result.role);
                                 localStorage.setItem('username', data.result.name)
+                                localStorage.setItem('id',data.result.id);
 
 
                                 const role = localStorage.getItem('role');
                                 if(role=='Admin'){
-
                                     window.location.href = '../admin/studentlist.html';
                                 }else {
                                 const previousPage = localStorage.getItem('previousPage') || 'home.html';

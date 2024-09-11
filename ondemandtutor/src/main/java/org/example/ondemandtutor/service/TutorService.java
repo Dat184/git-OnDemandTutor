@@ -61,6 +61,7 @@ public class TutorService {
         if (updateRequest.getName() != null) tutor.setName(updateRequest.getName());
         if (updateRequest.getEmail() != null) tutor.setEmail(updateRequest.getEmail());
         if (updateRequest.getAddress() != null) tutor.setAddress(updateRequest.getAddress());
+        if (updateRequest.getBio() != null) tutor.setBio(updateRequest.getBio());
 
         tutorRepository.save(tutor);
 

@@ -11,4 +11,5 @@ public class ReviewRequest {
     Long bookingId;
     Double rating;
     String comment;
+    Long tutorId;
 }

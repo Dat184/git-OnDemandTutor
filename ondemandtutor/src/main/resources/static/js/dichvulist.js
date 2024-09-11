@@ -60,8 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span>Mô tả: ${service.description || 'Mô tả dịch vụ'}</span>
                         </div>
                         <div class="xem-them">
-                            <button class="xem-them-btn" data-id=${service.id}>Xem thêm</button>
-                        </div>
+<a href="servicedetail.html?serviceId=${service.id}">
+    <button>xem thêm</button>
+</a>                        </div>
                     `;
                     servicesList.appendChild(serviceElement);
                 });

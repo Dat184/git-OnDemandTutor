@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -71,5 +72,10 @@ public class BookingController {
             ResponseObject response = new ResponseObject("error", "Booking not deleted");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
+    }
+    @PostMapping("/getBooking")
+    public ResponseEntity<Optional<BookingResponse>> getBookingByTutorAndStudent(@RequestBody BookingRequest bookingRequest) {
+        Optional<BookingResponse> booking = bookingService.findBookingByTutorAndStudent(bookingRequest.getTutorId(), bookingRequest.getStudentId());
+        return ResponseEntity.ok().body(booking);
     }
 }

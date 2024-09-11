@@ -34,6 +34,8 @@ public class SecurityConfig {
             "/v1/users/imgUser",
             "/v1/subject",
             "/v1/subject/insert",
+            "/v1/booking/**",
+            "/v1/tutor/**",
             "/ws/**",
             "/v1/message/**",
     };

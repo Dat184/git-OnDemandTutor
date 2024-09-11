@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/profile.css">
     <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+    <script src="../js/edit_schedule.js"></script>
     <title>Edit Schedule</title>
     <style>
 .conten-service-container{
@@ -218,6 +219,44 @@ button#saveButton:hover {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+/*  */
+/* The Modal (background) */
+.modal-Schedule {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content */
+.modal-content-Schedule {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
     </style>
 </head>
 <body>
@@ -420,22 +459,21 @@ button#saveButton:hover {
                     <table id="subject-table" class="subject-table">
                         <thead>
                         <tr>
-                            <th>STT</th>
+                            <th>ID Dịch Vụ</th>
                             <th>Tên môn học</th>
                             <th>Số buổi học</th>
                             <th>Giá khóa học</th>
                             <th>Thao tác</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="datadichvu">
                             <tr>
-                                <td>1</td>
-                                <td>toán</td>
-                                <td>3 buổi/tuần</td>
-                             
-                                <td>12</td>
+                                <td id="iddichvu">1</td>
+                                <td id="mon">toán</td>
+                                <td id="buoi">3 buổi/tuần</td>
+                                <td id="gia">12</td>
                                 <td>
-                                    <a href="#" class="edit-link">Sửa lịch học</a> |
+                                    <a href="#" class="edit-link" data-id="${element.id}">Sửa lịch học</a> |
                                     <a href="#" class="delete-link">Xóa</a>
                                 </td>
                             </tr>
@@ -486,26 +524,190 @@ button#saveButton:hover {
             </div>
     </div>
     </div>
+<!-- <div id="edit-schedule" class="content-container">
+
+
+    <table id="scheduleTable">
+        <thead>
+        <tr>
+            <th>Ngày</th>
+            <th>Thời gian</th>
+       
+        </tr>
+        </thead>
+        <tbody>
+       
+        <tr data-day="Sun">
+            <td>Sunday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Sun_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Sun_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Sun_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        <tr data-day="Mon">
+            <td>Monday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Mon_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Mon_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Mon_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        <tr data-day="Tue">
+            <td>Tuesday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Tue_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Tue_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Tue_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        <tr data-day="Wed">
+            <td>Wednesday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Wed_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Wed_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Wed_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        <tr data-day="Thu">
+            <td>Thursday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Thu_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Thu_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Thu_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        <tr data-day="Fri">
+            <td>Friday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Fri_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Fri_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Fri_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        <tr data-day="Sat">
+            <td>Saturday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Sat_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Sat_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Sat_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+
+</div> -->
+<form id="availabilityForm">
+    <div id="editScheduleModal" class="modal-Schedule">
+    <div class="modal-content-Schedule">
+      <span class="close">&times;</span>
+      <h2>Sửa lịch học</h2>
+        <input type="hidden" id="serviceId">
+        <table id="scheduleTable">
+          <thead>
+            <tr>
+              <th>Ngày</th>
+              <th>Thời gian</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Repeat rows for each day as in your original HTML -->
+            <tr data-day="Sun">
+              <td>Sunday</td>
+              <td class="times">
+                <div class="time-list">
+                  <label><input type="checkbox" name="Sun_Morning" value="Sáng"> Sáng</label>
+                  <label><input type="checkbox" name="Sun_Afternoon" value="Chiều"> Chiều</label>
+                  <label><input type="checkbox" name="Sun_Evening" value="Tối"> Tối</label>
+                </div>
+              </td>
+            </tr>
+            <tr data-day="Mon">
+                <td>Monday</td>
+                <td class="times">
+                    <div class="time-list">
+                        <label><input type="checkbox" name="Mon_Morning" value="Sáng"> Sáng</label>
+                        <label><input type="checkbox" name="Mon_Afternoon" value="Chiều"> Chiều</label>
+                        <label><input type="checkbox" name="Mon_Evening" value="Tối"> Tối</label>
+                    </div>
+                </td>
+            </tr>
+            <tr data-day="Tue">
+                <td>Tuesday</td>
+                <td class="times">
+                    <div class="time-list">
+                        <label><input type="checkbox" name="Tue_Morning" value="Sáng"> Sáng</label>
+                        <label><input type="checkbox" name="Tue_Afternoon" value="Chiều"> Chiều</label>
+                        <label><input type="checkbox" name="Tue_Evening" value="Tối"> Tối</label>
+                    </div>
+                </td>
+            </tr>
+            <tr data-day="Wed">
+                <td>Wednesday</td>
+                <td class="times">
+                    <div class="time-list">
+                        <label><input type="checkbox" name="Wed_Morning" value="Sáng"> Sáng</label>
+                        <label><input type="checkbox" name="Wed_Afternoon" value="Chiều"> Chiều</label>
+                        <label><input type="checkbox" name="Wed_Evening" value="Tối"> Tối</label>
+                    </div>
+                </td>
+            </tr>
+            <tr data-day="Thu">
+                <td>Thursday</td>
+                <td class="times">
+                    <div class="time-list">
+                        <label><input type="checkbox" name="Thu_Morning" value="Sáng"> Sáng</label>
+                        <label><input type="checkbox" name="Thu_Afternoon" value="Chiều"> Chiều</label>
+                        <label><input type="checkbox" name="Thu_Evening" value="Tối"> Tối</label>
+                    </div>
+                </td>
+            </tr>
+            <tr data-day="Fri">
+                <td>Friday</td>
+                <td class="times">
+                    <div class="time-list">
+                        <label><input type="checkbox" name="Fri_Morning" value="Sáng"> Sáng</label>
+                        <label><input type="checkbox" name="Fri_Afternoon" value="Chiều"> Chiều</label>
+                        <label><input type="checkbox" name="Fri_Evening" value="Tối"> Tối</label>
+                    </div>
+                </td>
+            </tr>
+            <tr data-day="Sat">
+                <td>Saturday</td>
+                <td class="times">
+                    <div class="time-list">
+                        <label><input type="checkbox" name="Sat_Morning" value="Sáng"> Sáng</label>
+                        <label><input type="checkbox" name="Sat_Afternoon" value="Chiều"> Chiều</label>
+                        <label><input type="checkbox" name="Sat_Evening" value="Tối"> Tối</label>
+                    </div>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        <button id="saveButton" type="submit">Lưu Những Thay Đổi</button>
+    </div>
+  </div>
+</form>
     <script src="../js/header.js"></script>
-    <script src="../js/edit_schedule.js"></script>
-    <script>
-        document.getElementById('profilePicContainer').addEventListener('click', function () {
-            document.getElementById('profilePicInput').click();
-        });
 
-        document.getElementById('profilePicInput').addEventListener('change', function (event) {
-            const reader = new FileReader();
-            reader.onload = function () {
-                const img = document.createElement('img');
-                img.src = reader.result;
-                img.className = 'avatar-preview';
-                document.getElementById('profilePicContainer').innerHTML = '';
-                document.getElementById('profilePicContainer').appendChild(img);
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        });
 
-    </script>
     <script>
         var modal = document.getElementById("passwordModal");
 
@@ -536,5 +738,6 @@ document.getElementById('upload-video-btn').addEventListener('click', function()
     document.getElementById('upload-video-container').classList.add('active');
 });
     </script>
+
 </body>
 </html>
