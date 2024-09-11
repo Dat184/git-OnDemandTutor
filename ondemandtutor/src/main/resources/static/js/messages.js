@@ -2,12 +2,14 @@ $(document).ready(function(){
 	$('#action_menu_btn').click(function(){
 		$('.action_menu').toggle();
 	});
+
 	const token = localStorage.getItem('token');
 	const url = 'http://localhost:8080';
 	let stompClient = null;
 	let currentChatId = '';
 	let currentUsernameSender = localStorage.getItem('username2');
 	let currentUsernameRecipient = '';
+	let recipientImgUrl = '';
 	async function loadChat(chatId) {
 		try {
 			const response = await fetch(`${url}/v1/chat/getChat/${chatId}`, {
@@ -22,6 +24,7 @@ $(document).ready(function(){
 			document.querySelector('.user_lg').src = chat.imgUrl || 'https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg';
 			document.querySelector('.user_name_lg span').innerText = chat.recipientName || 'No Name';
 			currentUsernameRecipient = chat.userNameRecipient;
+			recipientImgUrl = chat.imgUrl;
 		} catch (error) {
 			console.error('Lỗi khi lấy chi tiết phòng chat:', error);
 		}
@@ -113,11 +116,15 @@ $(document).ready(function(){
 	}
 	function onConnected() {
 		stompClient.subscribe(`/user/${currentUsernameSender}/queue/messages`, (message) => {
-			console.log('Received message:', message);
-			const messageData = JSON.parse(message.body);
-			displayMessage(messageData);
+			try {
+				const messageData = JSON.parse(message.body);
+				displayMessage(messageData);
+			} catch (error) {
+				console.error('Error parsing message body:', error);
+			}
 		});
 	}
+
 
 	function onError(error) {
 		console.error('WebSocket error:', error);
@@ -128,6 +135,26 @@ $(document).ready(function(){
 			return;
 		}
 
+		// Kiểm tra các tham số đầu vào
+		if (!chatId) {
+			console.error('Error: Missing chatId');
+			alert('Vui lòng chọn một cuộc trò chuyện để gửi tin nhắn.');
+			return;
+		}
+
+		if (!userNameSender) {
+			console.error('Error: Missing userNameSender');
+			alert('Không thể xác định người gửi. Vui lòng đăng nhập lại.');
+			return;
+		}
+
+		if (!userNameRecipient) {
+			console.error('Error: Missing userNameRecipient');
+			alert('Không thể xác định người nhận. Vui lòng chọn một người để nhắn tin.');
+			return;
+		}
+
+		// Tạo đối tượng tin nhắn
 		const chatMessage = {
 			chatId: chatId,
 			userNameSender: userNameSender,
@@ -141,8 +168,10 @@ $(document).ready(function(){
 			displayMessage(chatMessage);
 		} catch (error) {
 			console.error('Error sending message:', error);
+			alert('Có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại.');
 		}
 	}
+
 	async function loadMessages(chatId) {
 		try {
 			const response = await fetch(`${url}/v1/messages/${chatId}`, {
@@ -169,14 +198,17 @@ $(document).ready(function(){
 		}
 
 		const isCurrentUser = message.userNameSender === currentUsernameSender;
-		const createdAt = new Date(message.createdAt);
+
+		// Kiểm tra nếu `timestamp` tồn tại và hợp lệ
+		let createdAt = new Date();
+
 		const timeString = createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
 		const today = new Date().toLocaleDateString();
 		const dateString = createdAt.toLocaleDateString() === today ? 'Today' : createdAt.toLocaleDateString();
 
 		const messageHtml = `
         <div class="d-flex justify-content-${isCurrentUser ? 'end' : 'start'} mb-4">
-            ${!isCurrentUser ? `<div class="img_cont_msg"><img src="${message.senderImgUrl || 'https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg'}" class="rounded-circle user_img_msg"></div>` : ''}
+            ${!isCurrentUser ? `<div class="img_cont_msg"><img src="${recipientImgUrl || 'https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg'}" class="rounded-circle user_img_msg"></div>` : ''}
             <div class="msg_cotainer${isCurrentUser ? '_send' : ''}">
                 ${message.messageText}
                 <span class="msg_time">${timeString}, ${dateString}</span>
@@ -186,6 +218,8 @@ $(document).ready(function(){
 		msgContainer.innerHTML += messageHtml;
 		msgContainer.scrollTop = msgContainer.scrollHeight;
 	}
+
+
 	function initEventListeners() {
 		document.getElementById('btn_delete').addEventListener('click', deleteChat);
 
@@ -194,6 +228,7 @@ $(document).ready(function(){
 			const messageContent = messageInput.value;
 			if (messageContent) {
 				await sendMessage(currentChatId, currentUsernameSender, currentUsernameRecipient, messageContent);
+				messageInput.value = '';
 			}
 		});
 	}

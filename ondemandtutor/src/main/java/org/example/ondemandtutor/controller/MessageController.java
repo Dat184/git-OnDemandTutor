@@ -37,17 +37,8 @@ public class MessageController {
         try {
 
             MessageResponse message = messageService.sendMessage(messageRequest);
-            messagingTemplate.convertAndSendToUser(messageRequest.getUserNameRecipient(),"/queue/messages", new MessageResponse(
-                    message.getId(),
-                    message.getCreatedAt(),
-                    message.getMessageText(),
-                    message.getFileUrl(),
-                    message.getUserNameSender(),
-                    message.getUserNameRecipient(),
-                    message.getChatId(),
-                    message.getTypeMessage(),
-                    message.getRecipientImgUrl()
-            ));
+
+            messagingTemplate.convertAndSendToUser(messageRequest.getUserNameRecipient(),"/queue/messages", messageRequest);
             ResponseObject response = new ResponseObject("success", "Message sent", message);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
 

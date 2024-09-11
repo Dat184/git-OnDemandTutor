@@ -65,13 +65,18 @@ public class ChatService {
         } else {
             chats = chatRepository.findByRecipient(currentUser);
         }
-        return chats.stream().map(chat -> ChatResponse.builder()
+        return chats.stream().map(chat ->
+                        ChatResponse.builder()
                         .id(chat.getId())
                         .senderId(chat.getSender().getId())
+
                         .recipientId(chat.getRecipient().getId())
                         .recipientName(currentUser.equals(chat.getSender())
                                 ? chat.getRecipient().getName()
                                 : chat.getSender().getName())
+                        .userNameRecipient(currentUser.equals(chat.getSender())
+                                ? chat.getRecipient().getUsername()
+                                : chat.getSender().getUsername())
                         .imgUrl(currentUser.equals(chat.getSender())
                                 ? chat.getRecipient().getImgUrl()
                                 : chat.getSender().getImgUrl())
@@ -101,6 +106,9 @@ public class ChatService {
                         ? chat.getRecipient().getName()
                         : chat.
                         getSender().getName())
+                .userNameRecipient(currentUser.equals(chat.getSender())
+                        ? chat.getRecipient().getUsername()
+                        : chat.getSender().getUsername())
                 .imgUrl(currentUser.equals(chat.getSender())
                         ? chat.getRecipient().getImgUrl()
                         : chat.getSender().getImgUrl())
