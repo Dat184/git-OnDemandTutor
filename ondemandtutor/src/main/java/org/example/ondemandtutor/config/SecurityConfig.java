@@ -30,6 +30,8 @@ public class SecurityConfig {
             "/assets/**",
             "/js/**",
             "/v1/vnpay/callback",
+            "/v1/vnpay/payment",
+            "/v1/vnpay/**",
             "/v1/tutor-services",
             "/v1/users/imgUser",
             "/v1/subject",

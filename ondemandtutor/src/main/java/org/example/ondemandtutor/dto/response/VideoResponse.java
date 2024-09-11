@@ -13,10 +13,6 @@ import org.example.ondemandtutor.pojo.ApprovalStatus;
 public class VideoResponse {
     Long id;
     Long tutorId;
-    String name;
-    String type;
     String videoUrl;
-    String title;
-    String description;
     ApprovalStatus approvalStatus;
 }

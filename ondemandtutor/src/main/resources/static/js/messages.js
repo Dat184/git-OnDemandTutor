@@ -241,7 +241,8 @@ $(document).ready(function(){
 		}
 		initEventListeners();
 	}
-
+	document.getElementById('searchInput').addEventListener('input', filterChats);
+	getListChatByUser();
 	init();
 	connect();
 });
