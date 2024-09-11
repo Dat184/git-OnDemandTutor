@@ -31,7 +31,6 @@
         <div class="message-container" id="messageContainer">
             <a href="messages.html" class="message-link">
                 <i class="message-icon fa-regular fa-message"></i>
-                <span class="message-count" id="messageCount">0</span>
             </a>
         </div>
 
@@ -196,8 +195,8 @@
             fetch(`http://localhost:8080/v1/tutor-services/tutor/${tutorId}`, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Content-Type': 'application/json'
+
                 }
             })
                 .then(response => response.json())
@@ -243,9 +242,7 @@
                 const response = await fetch(`http://localhost:8080/v1/tutor/${tutorId}`, {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                        // Thêm Authorization header nếu cần thiết
+                        'Content-Type': 'application/json'
                     }
                 });
 

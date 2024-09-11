@@ -268,14 +268,14 @@ public class UserControllerTest {
 
     }
 
-        private String getToken() throws Exception {
+    private String getToken() throws Exception {
         String userName = "admin";
         String password = "admin";
 
         String respone = mockMVC.perform(MockMvcRequestBuilders
-                .post("/v1/auth/log-in")
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content("{\"username\":\"" + userName + "\",\"password\":\"" + password + "\"}"))
+                        .post("/v1/auth/log-in")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content("{\"username\":\"" + userName + "\",\"password\":\"" + password + "\"}"))
                 .andReturn()
                 .getResponse()
                 .getContentAsString();

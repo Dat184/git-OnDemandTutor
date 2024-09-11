@@ -35,7 +35,15 @@ public class SecurityConfig {
             "/v1/subject",
             "/v1/subject/insert",
             "/v1/booking/**",
-            "/v1/tutor/**"
+            "/v1/tutor",
+            "/v1/tutor-services/tutor/**",
+            "/v1/tutor/**",
+            "/v1/tutor-avail/tutorService/**",
+            "/v1/tutor-services/**",
+            "/v1/subject/**",
+            "/v1/tutor/**",
+            "/ws/**",
+            "/v1/message/**",
     };
 
     @Autowired
