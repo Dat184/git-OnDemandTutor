@@ -88,4 +88,9 @@ public class BookingService {
         return Optional.empty();
     }
 
+    public Optional<BookingResponse> findBookingByTutorService(Long tutorServiceId) {
+        Optional<Booking> booking = bookingRepository.findBookingByTutorServiceId(tutorServiceId);
+        return booking.map(bookingMapper::toBookingResponse);
+    }
+
 }

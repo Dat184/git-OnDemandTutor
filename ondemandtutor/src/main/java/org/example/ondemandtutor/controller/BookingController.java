@@ -78,4 +78,10 @@ public class BookingController {
         Optional<BookingResponse> booking = bookingService.findBookingByTutorAndStudent(bookingRequest.getTutorId(), bookingRequest.getStudentId());
         return ResponseEntity.ok().body(booking);
     }
+    @GetMapping("/TutorService/{tutorServiceId}")
+    public ResponseEntity<Optional<BookingResponse>> getBookingByTutorService(@PathVariable Long tutorServiceId) {
+        Optional<BookingResponse> booking = bookingService.findBookingByTutorService(tutorServiceId);
+        return ResponseEntity.ok().body(booking);
+    }
+
 }
