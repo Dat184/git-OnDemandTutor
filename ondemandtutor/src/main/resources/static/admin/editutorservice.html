@@ -226,45 +226,40 @@
     function updateService(serviceId) {
         const token = localStorage.getItem('token');
 
-        const formData = new FormData(document.getElementById('editTutorServiceForm'));
         const data = {
-            nameTutor: formData.get('nameTutor'),
-            subjectId: formData.get('subject'),  // Include the selected subject
-            timeOfSession: formData.get('timeOfSession'),
-            priceOfSession: formData.get('priceOfSession'),
-            sessionOfWeek: formData.get('sessionOfWeek'),
-            description: formData.get('description')
+            nameTutor: document.getElementById('nameTutor').value,
+            subjectId: document.getElementById('subject').value,  // Corrected ID
+            timeOfSession: document.getElementById('timeOfSession').value,
+            priceOfSession: document.getElementById('priceOfSession').value,
+            sessionOfWeek: document.getElementById('sessionOfWeek').value,
+            description: document.getElementById('description').value,
+            imageFile: '',
+
         };
 
         console.log(data);
+        if (serviceId) {
+            fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Thông tin học sinh đã được cập nhật thành công');
+                        window.location.href = 'tutorService.html';
+                    } else {
+                        alert('Đã xảy ra lỗi khi cập nhật thông tin học sinh');
+                    }
+                })
+                .catch(error => console.error('Error updating student details:', error));
 
-        fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    // If the server responds with an error status, log the status and message
-                    return response.text().then(errorText => {
-                        throw new Error(`Error ${response.status}: ${errorText}`);
-                    });
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Service updated successfully:', data);
-                window.location.href = 'tutorService.html'; // Redirect after successful update
-            })
-            .catch(error => {
-                // Handle errors by logging them
-                console.error('Error updating service:', error.message);
-                alert(`Failed to update service: ${error.message}`);
-            });
+        }
     }
+
 
 </script>
 
