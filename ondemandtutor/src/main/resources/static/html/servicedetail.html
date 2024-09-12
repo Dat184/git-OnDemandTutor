@@ -139,6 +139,16 @@
         // Store serviceId into localStorage
         localStorage.setItem('serviceId', serviceId);
 
+        // Check if user is logged in
+        if (!token) {
+            btnThue.addEventListener('click', () => {
+                // Save the current page URL before redirecting
+                localStorage.setItem('previousPage', window.location.href);
+                window.location.href = 'modal.html'; // Redirect to login modal
+            });
+            return;
+        }
+
         // Fetch service information
         fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
             method: 'GET',
@@ -161,12 +171,13 @@
                 console.log(serviceData);
                 amount = serviceData.data.priceOfSession * serviceData.data.sessionOfWeek;
                 console.log(amount);
+
                 // Event listener for the payment button
                 btnThue.addEventListener('click', () => {
-
                     const paymentData = {
                         totalPrice: amount
                     };
+
                     // Create payment request to VNPay
                     fetch('http://localhost:8080/v1/vnpay/payment', {
                         method: 'POST',
@@ -200,6 +211,8 @@
             });
     });
 </script>
+
+
 
 
 </body>
