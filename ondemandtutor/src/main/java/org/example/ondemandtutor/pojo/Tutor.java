@@ -20,5 +20,4 @@ public class Tutor extends User{
     private String specialty;
     private String bio;
     private Double rating;
-
 }

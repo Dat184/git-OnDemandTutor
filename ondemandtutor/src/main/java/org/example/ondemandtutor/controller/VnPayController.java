@@ -1,6 +1,7 @@
 package org.example.ondemandtutor.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.ondemandtutor.dto.request.VnPayRequest;
 import org.example.ondemandtutor.dto.response.ApiResponse;
@@ -9,6 +10,7 @@ import org.example.ondemandtutor.dto.response.VnPayResponse;
 import org.example.ondemandtutor.service.VnPayService;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -26,7 +28,7 @@ public class VnPayController {
 
     // Endpoint to handle VNPay return callback
     @GetMapping("/callback")
-    public ApiResponse<CallBackVnPay> handlePaymentReturn(@RequestParam Map<String, String> params) {
-        return vnPayService.handleVnPayReturn(params);
+    public void handleReturnCallback(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        vnPayService.handleVnPayReturn(request, response);
     }
 }

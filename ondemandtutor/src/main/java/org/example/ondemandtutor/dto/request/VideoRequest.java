@@ -12,7 +12,5 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class VideoRequest {
-
     MultipartFile videoData;
-
 }
