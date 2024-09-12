@@ -26,7 +26,7 @@
                 </tr>
                 </tbody>
             </table>
-            <button id="saveBookingButton" class="btn btn-primary">Lưu đơn hàng</button>
+            <button id="saveBookingButton" class="btn btn-primary">Đến trang booking</button>
         </div>
     </div>
 </div>
@@ -44,7 +44,7 @@
     const responseCode = getUrlParam('vnp_ResponseCode');
     const studentId = localStorage.getItem('id');
     const tutorServiceId = localStorage.getItem('serviceId');
-    const token = "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiIiLCJzdWIiOiJob2FuZzEyMyIsImV4cCI6MTcyNjEwNjM5NywiaWF0IjoxNzI2MTAyNzk3LCJqdGkiOiJlMzc3ZGQxMy0yMzJjLTQxODQtYTE5ZS1mODIzYzBjNzgwOTQiLCJzY29wZSI6IlN0dWRlbnQifQ.OY0Gvj5mx6vinccniIXJMeHzMcBheqJlO5cFRczcJQAbejHcZCXWZjUSohPkXw2FwmSIXpcQerKA-rg6EsQRCA";
+    const token = localStorage.getItem('token');
     // Display the extracted data in the HTML
     document.getElementById('totalPrice').innerText = totalPrice + ' VND';
     document.getElementById('transactionId').innerText = transactionId;

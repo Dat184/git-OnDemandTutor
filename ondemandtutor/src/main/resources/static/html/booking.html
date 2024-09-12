@@ -138,7 +138,7 @@
 
         // Extract studentId from URL
         const studentId = getUrlParam('studentId');
-        const token = "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiIiLCJzdWIiOiJob2FuZzEyMyIsImV4cCI6MTcyNjEwNjM5NywiaWF0IjoxNzI2MTAyNzk3LCJqdGkiOiJlMzc3ZGQxMy0yMzJjLTQxODQtYTE5ZS1mODIzYzBjNzgwOTQiLCJzY29wZSI6IlN0dWRlbnQifQ.OY0Gvj5mx6vinccniIXJMeHzMcBheqJlO5cFRczcJQAbejHcZCXWZjUSohPkXw2FwmSIXpcQerKA-rg6EsQRCA";
+        const token = localStorage.getItem('token');
 
         // Fetch bookings based on studentId
         fetch(`http://localhost:8080/v1/booking/student/${studentId}`, {
