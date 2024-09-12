@@ -146,10 +146,16 @@ public class VideoController {
         ResponseObject response = new ResponseObject("success", "Pending videos retrieved", videos);
         return ResponseEntity.ok().body(response);
     }
-//    @GetMapping("/tutor/{tutorId}")
-//    public ResponseEntity<ResponseObject> getVideosByTutorId(@PathVariable Long tutorId) {
-//        List<VideoResponse> videos = videoService.getVideosByTutorId(tutorId);
-//        ResponseObject response = new ResponseObject("success", "Videos retrieved", videos);
-//        return ResponseEntity.ok().body(response);
-//    }
+    @GetMapping("/tutor/{tutorId}")
+    public ResponseEntity<ResponseObject> getVideoByTutorId(@PathVariable Long tutorId) {
+        try {
+            VideoResponse video = videoService.getVideoByTutorId(tutorId);
+            ResponseObject response = new ResponseObject("success", "Video retrieved", video);
+            return ResponseEntity.ok().body(response);
+        } catch (RuntimeException e) {
+            ResponseObject response = new ResponseObject("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    }
+
 }

@@ -285,7 +285,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const formData = new FormData();
         formData.append('videoData', videoData);
 
-        fetch('http://localhost:8080/v1/videos/upload', {
+        fetch('http://localhost:8080/v1/videos/uploadOrUpdate', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`  // Chỉ thiết lập header Authorization
@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    alert('Video đã được tải lên thành công!');
+                    alert('Video đã được chỉnh sửa thành công!');
                     const videoPreview = document.getElementById('videoPreview');
                     videoPreview.src = URL.createObjectURL(videoData);
                     videoPreview.style.display = 'block';
