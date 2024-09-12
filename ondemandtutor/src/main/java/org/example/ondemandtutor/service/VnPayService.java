@@ -1,6 +1,7 @@
 package org.example.ondemandtutor.service;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -14,7 +15,10 @@ import org.example.ondemandtutor.util.VnPayUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -45,114 +49,160 @@ public class VnPayService {
                 .build();
     }
 
-    public ApiResponse<CallBackVnPay> handleVnPayReturn(@RequestParam Map<String, String> params) {
-        // Xác thực chữ ký trả về từ VNPay
+//    public ApiResponse<CallBackVnPay> handleVnPayReturn(@RequestParam Map<String, String> params) {
+//        // Xác thực chữ ký trả về từ VNPay
+//        String vnpSecureHash = params.get("vnp_SecureHash");
+//        params.remove("vnp_SecureHash");
+//        String hashData = VnPayUtil.getPaymentURL(params, false);
+//        String calculatedHash = VnPayUtil.hmacSHA512(vnPayConfig.getHashSecret(), hashData);
+//
+//        // Kiểm tra chữ ký
+//        if (!vnpSecureHash.equals(calculatedHash)) {
+//            return ApiResponse.<CallBackVnPay>builder()
+//                    .code(400)
+//                    .message("Bad Request")
+//                    .result(CallBackVnPay.builder()
+//                            .code("error")
+//                            .message("Invalid signature")
+//                            .build())
+//                    .build();
+//        }
+//
+//        // Kiểm tra trạng thái giao dịch
+//        String responseCode = params.get("vnp_ResponseCode");
+//        switch (responseCode) {
+//            case "00":
+//                // Giao dịch thành công
+//                String transactionId = params.get("vnp_TransactionNo");
+//                long amount = Long.parseLong(params.get("vnp_Amount")) / 100L;
+//                return ApiResponse.<CallBackVnPay>builder()
+//                        .code(200)
+//                        .message("Success")
+//                        .result(CallBackVnPay.builder()
+//                                .amount(amount)
+//                                .transactionId(transactionId)
+//                                .responseCode(responseCode)
+//                                .message("Payment successful")
+//                                .code("success")
+//                                .build())
+//                        .build();
+//
+//            case "11":
+//                // Đã hết hạn chờ thanh toán
+//                return ApiResponse.<CallBackVnPay>builder()
+//                        .code(400)
+//                        .message("Transaction Timeout")
+//                        .result(CallBackVnPay.builder()
+//                                .code("error")
+//                                .message("Transaction timeout. Please try again.")
+//                                .responseCode(responseCode)
+//                                .build())
+//                        .build();
+//
+//            case "12":
+//                // Tài khoản của khách hàng bị khóa
+//                return ApiResponse.<CallBackVnPay>builder()
+//                        .code(400)
+//                        .message("Account Locked")
+//                        .result(CallBackVnPay.builder()
+//                                .code("error")
+//                                .message("Your card/account is locked. Please contact your bank for assistance.")
+//                                .responseCode(responseCode)
+//                                .build())
+//                        .build();
+//
+//            case "13":
+//                // Nhập sai mật khẩu xác thực giao dịch (OTP)
+//                return ApiResponse.<CallBackVnPay>builder()
+//                        .code(400)
+//                        .message("Incorrect OTP")
+//                        .result(CallBackVnPay.builder()
+//                                .code("error")
+//                                .message("Incorrect OTP. Please try again.")
+//                                .responseCode(responseCode)
+//                                .build())
+//                        .build();
+//
+//            case "24":
+//                // Giao dịch bị hủy
+//                return ApiResponse.<CallBackVnPay>builder()
+//                        .code(400)
+//                        .message("Transaction Canceled")
+//                        .result(CallBackVnPay.builder()
+//                                .code("error")
+//                                .message("Transaction was canceled by the user.")
+//                                .responseCode(responseCode)
+//                                .build())
+//                        .build();
+//
+//            case "51":
+//                // Tài khoản không đủ số dư
+//                return ApiResponse.<CallBackVnPay>builder()
+//                        .code(400)
+//                        .message("Insufficient Funds")
+//                        .result(CallBackVnPay.builder()
+//                                .code("error")
+//                                .message("Insufficient funds in the account. Please check your balance.")
+//                                .responseCode(responseCode)
+//                                .build())
+//                        .build();
+//            default:
+//                // Giao dịch không thành công
+//                return ApiResponse.<CallBackVnPay>builder()
+//                        .code(400)
+//                        .message("Bad Request")
+//                        .result(CallBackVnPay.builder()
+//                                .code("error")
+//                                .message("Payment failed")
+//                                .responseCode(responseCode)
+//                                .build())
+//                        .build();
+//        }
+//    }
+
+    public void handleVnPayReturn(HttpServletRequest request, HttpServletResponse response) throws IOException, IOException {
+        // Extract parameters from the request
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Map<String, String> params = parameterMap.entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> entry.getValue()[0]
+                ));
+
+        // Verify the signature from VNPay
         String vnpSecureHash = params.get("vnp_SecureHash");
         params.remove("vnp_SecureHash");
         String hashData = VnPayUtil.getPaymentURL(params, false);
         String calculatedHash = VnPayUtil.hmacSHA512(vnPayConfig.getHashSecret(), hashData);
 
-        // Kiểm tra chữ ký
+        // Check the signature
         if (!vnpSecureHash.equals(calculatedHash)) {
-            return ApiResponse.<CallBackVnPay>builder()
-                    .code(400)
-                    .message("Bad Request")
-                    .result(CallBackVnPay.builder()
-                            .code("error")
-                            .message("Invalid signature")
-                            .build())
-                    .build();
+            response.sendRedirect("/html/PaymentError.html?message=Invalid+signature");
+            return;
         }
 
-        // Kiểm tra trạng thái giao dịch
+        // Check transaction status
         String responseCode = params.get("vnp_ResponseCode");
         switch (responseCode) {
             case "00":
-                // Giao dịch thành công
+                // Transaction successful
                 String transactionId = params.get("vnp_TransactionNo");
                 long amount = Long.parseLong(params.get("vnp_Amount")) / 100L;
-                return ApiResponse.<CallBackVnPay>builder()
-                        .code(200)
-                        .message("Success")
-                        .result(CallBackVnPay.builder()
-                                .amount(amount)
-                                .transactionId(transactionId)
-                                .responseCode(responseCode)
-                                .message("Payment successful")
-                                .code("success")
-                                .build())
-                        .build();
-
-            case "11":
-                // Đã hết hạn chờ thanh toán
-                return ApiResponse.<CallBackVnPay>builder()
-                        .code(400)
-                        .message("Transaction Timeout")
-                        .result(CallBackVnPay.builder()
-                                .code("error")
-                                .message("Transaction timeout. Please try again.")
-                                .responseCode(responseCode)
-                                .build())
-                        .build();
-
-            case "12":
-                // Tài khoản của khách hàng bị khóa
-                return ApiResponse.<CallBackVnPay>builder()
-                        .code(400)
-                        .message("Account Locked")
-                        .result(CallBackVnPay.builder()
-                                .code("error")
-                                .message("Your card/account is locked. Please contact your bank for assistance.")
-                                .responseCode(responseCode)
-                                .build())
-                        .build();
-
-            case "13":
-                // Nhập sai mật khẩu xác thực giao dịch (OTP)
-                return ApiResponse.<CallBackVnPay>builder()
-                        .code(400)
-                        .message("Incorrect OTP")
-                        .result(CallBackVnPay.builder()
-                                .code("error")
-                                .message("Incorrect OTP. Please try again.")
-                                .responseCode(responseCode)
-                                .build())
-                        .build();
+                response.sendRedirect("/html/PaymentSuccess.html?vnp_Amount=" + amount
+                        + "&vnp_TransactionNo=" + transactionId
+                        + "&vnp_ResponseCode=00");
+                break;
 
             case "24":
-                // Giao dịch bị hủy
-                return ApiResponse.<CallBackVnPay>builder()
-                        .code(400)
-                        .message("Transaction Canceled")
-                        .result(CallBackVnPay.builder()
-                                .code("error")
-                                .message("Transaction was canceled by the user.")
-                                .responseCode(responseCode)
-                                .build())
-                        .build();
+                // Transaction canceled
+                response.sendRedirect("/html/PaymentCanceled.html?message=Transaction+was+canceled+by+the+user");
+                break;
 
-            case "51":
-                // Tài khoản không đủ số dư
-                return ApiResponse.<CallBackVnPay>builder()
-                        .code(400)
-                        .message("Insufficient Funds")
-                        .result(CallBackVnPay.builder()
-                                .code("error")
-                                .message("Insufficient funds in the account. Please check your balance.")
-                                .responseCode(responseCode)
-                                .build())
-                        .build();
             default:
-                // Giao dịch không thành công
-                return ApiResponse.<CallBackVnPay>builder()
-                        .code(400)
-                        .message("Bad Request")
-                        .result(CallBackVnPay.builder()
-                                .code("error")
-                                .message("Payment failed")
-                                .responseCode(responseCode)
-                                .build())
-                        .build();
+                // Transaction failed
+                response.sendRedirect("/html/PaymentError.html?message=Payment+failed");
+                break;
         }
     }
+
 }

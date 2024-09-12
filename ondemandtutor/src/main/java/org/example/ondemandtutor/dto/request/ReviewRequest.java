@@ -12,4 +12,6 @@ public class ReviewRequest {
     Double rating;
     String comment;
     Long tutorId;
+    Long studentId; // Thêm trường studentId
+    String createdAt; // Thêm trường createdAt
 }

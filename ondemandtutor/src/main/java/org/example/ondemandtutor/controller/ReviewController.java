@@ -21,8 +21,10 @@ public class ReviewController {
     ReviewService reviewService;
 
 
-
-
+    @GetMapping("/tutor/reviews/{id}")
+    public List<ReviewResponse> getTutorReviews(@PathVariable Long id) {
+        return reviewService.getReviewsByTutorId(id);
+    }
     @GetMapping("")
     public ResponseEntity<List<ReviewResponse>> getAllReviews() {
         List<ReviewResponse> reviews = reviewService.getAllReviews();
