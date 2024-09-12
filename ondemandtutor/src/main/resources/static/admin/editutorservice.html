@@ -228,12 +228,12 @@
 
         const formData = new FormData(document.getElementById('editTutorServiceForm'));
         const data = {
-            nameTutor: 'Test Tutor',
-            subjectId: 1, // Assuming 1 is a valid subject ID
-            timeOfSession: 60, // A reasonable test value
-            priceOfSession: 1000, // A reasonable test value
-            sessionOfWeek: 2,
-            description: 'Test description'
+            nameTutor: formData.get('nameTutor'),
+            subjectId: formData.get('subject'),  // Include the selected subject
+            timeOfSession: formData.get('timeOfSession'),
+            priceOfSession: formData.get('priceOfSession'),
+            sessionOfWeek: formData.get('sessionOfWeek'),
+            description: formData.get('description')
         };
 
         console.log(data);
@@ -257,7 +257,7 @@
             })
             .then(data => {
                 console.log('Service updated successfully:', data);
-                window.location.href = 'tutorlist.html'; // Redirect after successful update
+                window.location.href = 'tutorService.html'; // Redirect after successful update
             })
             .catch(error => {
                 // Handle errors by logging them
