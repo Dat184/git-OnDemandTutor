@@ -228,14 +228,16 @@
 
         const formData = new FormData(document.getElementById('editTutorServiceForm'));
         const data = {
-
             nameTutor: formData.get('nameTutor'),
+            subjectId: formData.get('subject'),  // Include the selected subject
             timeOfSession: formData.get('timeOfSession'),
             priceOfSession: formData.get('priceOfSession'),
             sessionOfWeek: formData.get('sessionOfWeek'),
             description: formData.get('description')
         };
+
         console.log(data);
+
         fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
             method: 'PUT',
             headers: {
@@ -246,16 +248,24 @@
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    // If the server responds with an error status, log the status and message
+                    return response.text().then(errorText => {
+                        throw new Error(`Error ${response.status}: ${errorText}`);
+                    });
                 }
                 return response.json();
             })
             .then(data => {
                 console.log('Service updated successfully:', data);
-                window.location.href = 'tutorlist.html'; // Redirect after successful update
+                window.location.href = 'tutorService.html'; // Redirect after successful update
             })
-            .catch(error => console.error('Error updating service:', error));
+            .catch(error => {
+                // Handle errors by logging them
+                console.error('Error updating service:', error.message);
+                alert(`Failed to update service: ${error.message}`);
+            });
     }
+
 </script>
 
 </body>
