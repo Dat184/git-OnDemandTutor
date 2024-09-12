@@ -12,9 +12,5 @@ import java.util.List;
 public interface VideoRepository extends JpaRepository<Video, Long> {
     List<Video> findByApprovalStatus(ApprovalStatus approvalStatus);
     Video findByTutor(Tutor tutor);
-<<<<<<< HEAD
 
-=======
-    Video findByTutorId(Long tutorId);
->>>>>>> d9db7788e5fe5885ce2ea66a39072446771d2510
 }

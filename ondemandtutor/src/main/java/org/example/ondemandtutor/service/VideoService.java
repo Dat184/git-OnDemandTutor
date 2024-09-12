@@ -139,7 +139,7 @@ public class VideoService {
         List<Video> videos = videoRepository.findByApprovalStatus(ApprovalStatus.Pending);
         return videoMapper.toVideoResponseList(videos);
     }
-<<<<<<< HEAD
+
     public VideoResponse getVideoByTutorId(Long tutorId) {
         Tutor tutor = (Tutor) userRepository.findById(tutorId)
                 .orElseThrow(() -> new IllegalArgumentException("Tutor not found"));
@@ -147,12 +147,7 @@ public class VideoService {
         if (video == null) {
             throw new RuntimeException("No video found for this tutor");
         }
-=======
-    public VideoResponse getVideosByTutorId(Long id) {
-        Tutor tutor = (Tutor) tutorRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Tutor not found"));
-        Video video = videoRepository.findByTutorId(id);
->>>>>>> d9db7788e5fe5885ce2ea66a39072446771d2510
+
         return videoMapper.toVideoResponse(video);
     }
 }
