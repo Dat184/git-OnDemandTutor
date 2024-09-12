@@ -47,4 +47,7 @@ public class TutorService {
 
     @OneToMany(mappedBy = "tutorService", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<TutorAvail> tutorAvailabilities;
+
+    @OneToOne(mappedBy = "tutorService", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    Booking booking;
 }

@@ -161,38 +161,67 @@
                 console.log(serviceData);
                 amount = serviceData.data.priceOfSession * serviceData.data.sessionOfWeek;
                 console.log(amount);
-                // Event listener for the payment button
-                btnThue.addEventListener('click', () => {
 
-                    const paymentData = {
-                        totalPrice: amount
-                    };
-                    // Create payment request to VNPay
-                    fetch('http://localhost:8080/v1/vnpay/payment', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify(paymentData)
+                // Check if booking already exists
+                fetch(`http://localhost:8080/v1/Booking/${serviceId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                    .then(response => {
+                        if (response.status === 401) {
+                            throw new Error('Unauthorized: Please check your authentication token.');
+                        }
+                        if (!response.ok) {
+                            throw new Error('Failed to check booking status');
+                        }
+                        return response.json();
                     })
-                        .then(response => {
-                            if (response.status === 401) {
-                                throw new Error('Unauthorized: Please check your authentication token.');
-                            }
-                            if (!response.ok) {
-                                throw new Error('Failed to create payment request');
-                            }
-                            return response.json();
-                        })
-                        .then(paymentResponse => {
-                            window.location.href = paymentResponse.result.paymentUrl;
-                        })
-                        .catch(error => {
-                            console.error('Error during payment process:', error);
-                            alert('Vui longg dang nhap');
+                    .then(bookingExists => {
+                        if (bookingExists) {
+                            alert('You have already made a booking for this service.');
+                            return;
+                        }
+
+                        // Event listener for the payment button
+                        btnThue.addEventListener('click', () => {
+                            const paymentData = {
+                                totalPrice: amount
+                            };
+
+                            // Create payment request to VNPay
+                            fetch('http://localhost:8080/v1/vnpay/payment', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: JSON.stringify(paymentData)
+                            })
+                                .then(response => {
+                                    if (response.status === 401) {
+                                        throw new Error('Unauthorized: Please check your authentication token.');
+                                    }
+                                    if (!response.ok) {
+                                        throw new Error('Failed to create payment request');
+                                    }
+                                    return response.json();
+                                })
+                                .then(paymentResponse => {
+                                    window.location.href = paymentResponse.result.paymentUrl;
+                                })
+                                .catch(error => {
+                                    console.error('Error during payment process:', error);
+                                    alert('Error occurred during payment. Please try again.');
+                                });
                         });
-                });
+                    })
+                    .catch(error => {
+                        console.error('Error checking booking status:', error);
+                        alert('Error occurred while checking booking status.');
+                    });
             })
             .catch(error => {
                 console.error('Error fetching service data:', error);

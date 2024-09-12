@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <script src="../js/header.js"></script>
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+    <title>Edit Student</title>
+</head>
+
+<body>
+<div class="main">
+    <header class="header">
+        <div class="logo-container">
+            <a class="img-logo" href="../html/home.html">
+                <p class="text">LEARN TOgetHER</p>
+            </a>
+        </div>
+        <div class="login-search-container">
+            <div class="login-container">
+                <a href="../html/modal.html" class="search-link">
+                    <button id="loginButton" class="login-button">Đăng nhập</button>
+                </a>
+                <div class="user-info" id="userInfo">
+                    <span id="usernameDisplay"></span>
+                    <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+                    <div id="userDropdown" class="user-dropdown">
+                        <a href="#" id="logoutButton" class="sub-menu-link">
+                            <img src="../assets/img/header/logout.png" alt="">
+                            <p>Đăng xuất</p>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </span>
+                        <span class="title-strong">Admin</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="border" href="studentlist.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title ">Danh sách học sinh</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tutorlist.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách gia sư</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách bài đăng</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="addsubject.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Thêm môn học</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="subjectlist.html">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="title">Danh sách môn học</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="edit-content">
+            <h2>Chỉnh sửa thông tin học sinh</h2>
+            <form id="editTutorServiceForm">
+                <input type="hidden" id="serviceId" name="serviceId">
+                <table>
+                    <tr>
+                        <th>Họ và tên</th>
+                        <td><input type="text" id="nameTutor" name="nameTutor" required></td>
+                    </tr>
+                    <tr>
+                        <th>Môn</th>
+                        <td>
+                            <select type="text" id="subject" name="subject" required></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Thời gian dạy (phút)</th>
+                        <td><input type="number" id="timeOfSession" name="timeOfSession" required></td>
+                    </tr>
+                    <tr>
+                        <th>Giá khóa học (VND)</th>
+                        <td><input type="number" id="priceOfSession" name="priceOfSession" required></td>
+                    </tr>
+                    <tr>
+                        <th>Số buổi trong tuần</th>
+                        <td><input type="number" id="sessionOfWeek" name="sessionOfWeek" required></td>
+                    </tr>
+                    <tr>
+                        <th>Mô tả</th>
+                        <td><textarea type="text" id="description" name="description" rows="4"></textarea></td>
+                    </tr>
+                </table>
+                <button class="save-btn" id="saveBtn" type="submit">Lưu thay đổi</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const serviceId = urlParams.get('id');  // Get the ID from the URL
+        if (!serviceId) {
+            alert('Invalid service ID.');
+            window.location.href = 'tutorlist.html'; // Redirect if no ID provided
+            return;
+        }
+
+        fetchServiceDetails(serviceId);
+
+        // Handle form submission
+        document.getElementById('editTutorServiceForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            updateService(serviceId);
+        });
+    });
+
+    function fetchServiceDetails(serviceId) {
+        const token = localStorage.getItem('token');
+
+        console.log('Fetching service details for ID:', serviceId);
+        fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Service details fetched:', data);
+                populateForm(data);
+            })
+            .catch(error => console.error('Error fetching service details:', error));
+    }
+
+    function populateForm(service) {
+        document.getElementById('nameTutor').value = service.data.nameTutor || '';
+        document.getElementById('timeOfSession').value = service.data.timeOfSession || '';
+        document.getElementById('priceOfSession').value = service.data.priceOfSession || '';
+        document.getElementById('sessionOfWeek').value = service.data.sessionOfWeek || '';
+        document.getElementById('description').value = service.data.description || '';
+
+        fetchSubjects(service.data.subjectId); // Populate subjects dropdown
+    }
+
+    function fetchSubjects(selectedSubjectId) {
+        const token = localStorage.getItem('token');
+
+        fetch('http://localhost:8080/v1/subject', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const subjectSelect = document.getElementById('subject');
+                subjectSelect.innerHTML = '<option value="">Chọn môn</option>';
+
+                if (Array.isArray(data)) {
+                    data.forEach(subject => {
+                        const option = document.createElement('option');
+                        option.value = subject.id;
+                        option.textContent = subject.name;
+                        if (subject.id === selectedSubjectId) {
+                            option.selected = true; // Set the selected option
+                        }
+                        subjectSelect.appendChild(option);
+                    });
+                } else {
+                    console.error('Unexpected response structure:', data);
+                    subjectSelect.innerHTML = '<option value="">Không có môn học</option>';
+                }
+            })
+            .catch(error => console.error('Error fetching subjects:', error));
+    }
+
+    function updateService(serviceId) {
+        const token = localStorage.getItem('token');
+
+        const formData = new FormData(document.getElementById('editTutorServiceForm'));
+        const data = {
+
+            nameTutor: formData.get('nameTutor'),
+            timeOfSession: formData.get('timeOfSession'),
+            priceOfSession: formData.get('priceOfSession'),
+            sessionOfWeek: formData.get('sessionOfWeek'),
+            description: formData.get('description')
+        };
+        console.log(data);
+        fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Service updated successfully:', data);
+                window.location.href = 'tutorlist.html'; // Redirect after successful update
+            })
+            .catch(error => console.error('Error updating service:', error));
+    }
+</script>
+
+</body>
+</html>
