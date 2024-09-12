@@ -143,8 +143,8 @@
         fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Content-Type': 'application/json'
+                // 'Authorization': `Bearer ${token}`
             }
         })
             .then(response => {
@@ -190,7 +190,7 @@
                         })
                         .catch(error => {
                             console.error('Error during payment process:', error);
-                            alert('Error occurred during payment. Please try again.');
+                            alert('Vui longg dang nhap');
                         });
                 });
             })
