@@ -1,34 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/header.css">
-    <link rel="stylesheet" href="../assets/css/admin.css">
-    <script src="../js/header.js"></script>
-    <script src="../js/admin.js"></script>
+    <link rel="stylesheet" href="../assets/css/dichvu.css">
     <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
-    <title>Document</title>
+    <title>Tutor Services</title>
 </head>
-
 <body>
 <div class="main">
     <header class="header">
         <div class="logo-container">
-            <a class="img-logo" href="../admin/studentlist.html">
+            <a class="img-logo" href="../html/home.html">
                 <p class="text">LEARN TOgetHER</p>
             </a>
         </div>
+
+        <div class="navbar-container">
+            <a class="nav-box" href="../html/gioithieu.html">GIỚI THIỆU</a>
+            <a class="nav-box" href="./tutor.html">GIA SƯ</a>
+            <a class="nav-box" href="./dichvulist.html">DỊCH VỤ</a>
+            <a class="nav-box hidden" href="./taodichvu.html">TẠO DỊCH VỤ</a>
+        </div>
+
         <div class="login-search-container">
+            <div class="message-container" id="messageContainer">
+                <a href="messages.html" class="message-link">
+                    <i class="message-icon fa-regular fa-message"></i>
+                    <span class="message-count" id="messageCount">0</span>
+                </a>
+            </div>
+
             <div class="login-container">
-                <a href="../html/modal.html" class="search-link">
+                <a href="modal.html" class="search-link">
                     <button id="loginButton" class="login-button">Đăng nhập</button>
                 </a>
                 <div class="user-info" id="userInfo">
                     <span id="usernameDisplay"></span>
                     <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
                     <div id="userDropdown" class="user-dropdown">
+                        <a href="editprofile.html" class="sub-menu-link">
+                            <img src="../assets/img/header/profile.png" alt="">
+                            <p>Thông tin cá nhân</p>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
                         <a href="#" id="logoutButton" class="sub-menu-link">
                             <img src="../assets/img/header/logout.png" alt="">
                             <p>Đăng xuất</p>
@@ -39,106 +56,90 @@
             </div>
         </div>
     </header>
+
     <div class="container">
-        <div class="navigation">
-            <ul>
-                <li>
-                    <a href="#">
-                        <span class="icon">
-                            <i class="fa-solid fa-user-tie"></i>
-                        </span>
-                        <span class="title-strong">Admin</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="border" href="studentlist.html">
-                        <span class="icon">
-                            <i class="fa-solid fa-list"></i>
-                        </span>
-                        <span class="title ">Danh sách học sinh</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="tutorlist.html">
-                        <span class="icon">
-                            <i class="fa-solid fa-list"></i>
-                        </span>
-                        <span class="title">Danh sách gia sư</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="tutorService.html">
-                        <span class="icon">
-                            <i class="fa-solid fa-list"></i>
-                        </span>
-                        <span class="title">Danh sách bài đăng</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="addsubject.html">
-                        <span class="icon">
-                            <i class="fa-solid fa-plus"></i>
-                        </span>
-                        <span class="title">Thêm môn học</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="subjectlist.html">
-                        <span class="icon">
-                            <i class="fa-solid fa-list"></i>
-                        </span>
-                        <span class="title">Danh sách môn học</span>
-                    </a>
-                </li>
-            </ul>
+        <div class="search-container">
+            <input id="searchInput" type="text" class="search-box" placeholder="Nhập tên môn học...">
+            <button id="searchButton" class="search-button">
+                <i class="search-icon fa-solid fa-magnifying-glass"></i>
+            </button>
         </div>
-        <div class="content">
-            <h2>Danh sách Dịch Vụ</h2>
-            <table class="student-table" id="service-table">
-                <thead>
-                <tr>
-                    <th>Stt</th>
-                    <th>Họ và tên</th>
-                    <th>Môn</th>
-                    <th>Thời gian giảng dạy (phút)</th>
-                    <th>Giá khóa học (VND)</th>
-                    <th>Số buổi trong tuần</th>
-                    <th>Mô tả</th>
-                    <th>Thao tác</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Vỗ Quốc Huy</td>
-                    <td>Toán</td>
-                    <td>120</td>
-                    <td>120000</td>
-                    <td>120000</td>
-                    <td>Chuyên toán lớp 9</td>
-                    <td>
-                        <a href="#" class="edit-link">Sửa</a> |
-                        <a href="#" class="delete-link">Xóa</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Trần Thị B</td>
-                    <td>tranthib@example.com</td>
-                    <td>tranthib</td>
-                    <td>456 Đường X, Phường Y, Quận Z</td>
-                    <td>10</td>
-                    <td>
-                        <a href="#" class="edit-link">Sửa</a> |
-                        <a href="#" class="delete-link">Xóa</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+
+        <div id="serviceList" class="dich-vu">
+            <!-- Services will be dynamically inserted here -->
         </div>
     </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="socials">
+                <a href=""><i class="fa-brands fa-facebook"></i></a>
+                <a href=""><i class="fa-brands fa-instagram"></i></a>
+                <a href=""><i class="fa-brands fa-twitter"></i></a>
+                <a href=""><i class="fa-brands fa-google-plus"></i></a>
+                <a href=""><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            <div class="footer-nav">
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright &copy;2024; Designed by <span class="designer">DL</span></p>
+        </div>
+    </footer>
 </div>
 
-</body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('token');
+        const urlParams = new URLSearchParams(window.location.search);
+        const tutorId = urlParams.get('tutorId');  // Get the tutor ID from the URL
 
+        if (tutorId) {
+            fetch(`http://localhost:8080/v1/tutor-services/tutor/${tutorId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('API Response:', data);  // Check if the response structure is as expected
+
+                    const serviceList = document.getElementById('serviceList');
+                    serviceList.innerHTML = ''; // Clear existing content
+
+                    data.result.forEach(service => {
+                        const serviceElement = document.createElement('div');
+                        serviceElement.className = 'dich-vu-con';
+                        serviceElement.innerHTML = `
+                            <div class="img-dich-vu">
+                                <img src="${service.imageUrl}" alt="">
+                            </div>
+                            <div class="ten-dich-vu">
+
+                                <strong>${service.nameTutor}</strong>
+                                <strong>${service.nameSubject}</strong>
+                                <div class="xem-them">
+<a href="servicedetail.html?serviceId=${service.id}">
+    <button>xem thêm</button>
+</a>
+                                </div>
+                            </div>
+                        `;
+                        serviceList.appendChild(serviceElement);
+                    });
+                })
+                .catch(error => console.error('Error fetching tutor services:', error));
+        }
+    });
+</script>
+
+<script src="../js/header.js"></script>
+</body>
 </html>
