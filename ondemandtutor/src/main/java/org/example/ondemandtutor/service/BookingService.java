@@ -15,6 +15,7 @@ import org.example.ondemandtutor.pojo.TutorService;
 import org.example.ondemandtutor.pojo.User;
 import org.example.ondemandtutor.repository.BookingRepository;
 
+import org.example.ondemandtutor.repository.StudentRepository;
 import org.example.ondemandtutor.repository.TutorServiceRepository;
 import org.example.ondemandtutor.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,12 +33,11 @@ public class BookingService {
     BookingMapper bookingMapper;
     UserRepository userRepository;
     TutorServiceRepository tutorServiceRepository;
+    private final StudentRepository studentRepository;
 
     public BookingResponse createBooking(BookingRequest bookingRequest) {
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findByUsername(name).orElseThrow(
-                () -> new AppException(ErrorCode.USER_NOT_EXISTED));
-        Student student = (Student) user;
+        Student student = studentRepository.findById(bookingRequest.getStudentId())
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
         Booking booking = bookingMapper.toBooking(bookingRequest);
         booking.setStudent(student);
         return bookingMapper.toBookingResponse(bookingRepository.save(booking));
