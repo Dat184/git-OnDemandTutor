@@ -127,7 +127,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const token = localStorage.getItem('token');
         const urlParams = new URLSearchParams(window.location.search);
-        const serviceId = urlParams.get('serviceId') || localStorage.getItem('serviceId');
+        const serviceId = urlParams.get('serviceId') || localStorage.getItem('serviceId'); // Get serviceId from URL or localStorage
         const btnThue = document.getElementById('btnThue');
         let amount = 0;
 
@@ -141,7 +141,14 @@
             localStorage.setItem('serviceId', serviceId);
         }
 
-
+        // Check if user is logged in
+        if (!token) {
+            btnThue.addEventListener('click', () => {
+                localStorage.setItem('previousPage', window.location.href);
+                window.location.href = 'modal.html'; // Redirect to login modal
+            });
+            return;
+        }
         // Fetch service information
         fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
             method: 'GET',
@@ -166,7 +173,7 @@
                 console.log(amount);
 
                 // Check if booking already exists
-                fetch(`http://localhost:8080/v1/booking/TutorService/${serviceId}`, {
+                fetch(`http://localhost:8080/v1/Booking/${serviceId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
