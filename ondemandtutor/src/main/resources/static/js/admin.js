@@ -80,7 +80,7 @@ function populateService(serviceList) {
                     <td>${service.sessionOfWeek || 'Chưa Cập Nhật'}</td>
                     <td>${service.description || 'Chưa Cập Nhật'}</td>
                     <td>
-                        <a href="editstudent.html?id=${service.id}" class="edit-link">Sửa</a> 
+                        <a href="editutorservice.html?id=${service.id}" class="edit-link">Sửa</a> 
                         <a href="#" class="delete-link" data-id="${service.id}" data-type="student">Xóa</a>
                     </td>
                 `;

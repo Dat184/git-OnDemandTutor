@@ -2,21 +2,22 @@
     width: 100%;
     
     position: relative;
-    height: 2000px;
+
     display: flex;
     margin: 5px auto;
     background: linear-gradient(to right bottom  , #F1D3CE, #fff);
 }
-.container-div{
+.container-div {
     width: 1036px;
-  
-    position: absolute;
+    z-index: 1;
+    position: relative; /* Sử dụng relative thay vì absolute */
     display: flex;
     flex-direction: column;
     margin-top: 100px;
     margin-left: 20px;
+    margin-bottom: 60px;
     box-shadow: 0 0 5px rgba(44, 42, 42, 0.318);
-    border-radius:15px  ;
+    border-radius: 15px;
     background-color: #fff;
 }
 .avatar-name-contaier{
@@ -53,19 +54,20 @@
 .name-tutor p{
     margin:1%;
 }
-.rating-hire-price-container{
+.rating-hire-price-container {
     position: sticky;
     width: 400px;
     height: 390px;
     display: flex;
     flex-direction: column;
     margin-top: 100px;
-    background: linear-gradient(to top right, #EECAD5, #F1D3CE,#F6EACB,#D1E9F6);
-    left: 72%;
+    background: linear-gradient(to top right, #EECAD5, #F1D3CE, #F6EACB, #D1E9F6);
+    left: auto; /* Sử dụng left: auto hoặc 0 nếu không cần thiết */
     border-radius: 15px;
     box-shadow: 0 0 5px rgba(44, 42, 42, 0.318);
     align-items: center;
     top: 70px;
+    z-index: 10; /* Đảm bảo phần tử nổi bật hơn */
 }
 .about-service-container{
     width: 900px;
@@ -167,9 +169,20 @@
 .send-button:focus {
     outline: none;
 }
+.reviews-container{
+
+    margin:  10px auto;
+
+    display: flex;
+    flex-direction: column-reverse;
+
+
+}
+
 .respone-tutor-container{
     width: 800px;
-    margin:  10px auto;
+
+   margin-bottom: 30px;
     background: #fff;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

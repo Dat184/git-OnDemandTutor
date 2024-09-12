@@ -147,6 +147,7 @@ public class VideoController {
         return ResponseEntity.ok().body(response);
     }
     @GetMapping("/tutor/{tutorId}")
+<<<<<<< HEAD
     public ResponseEntity<ResponseObject> getVideoByTutorId(@PathVariable Long tutorId) {
         try {
             VideoResponse video = videoService.getVideoByTutorId(tutorId);
@@ -158,4 +159,11 @@ public class VideoController {
         }
     }
 
+=======
+    public ResponseEntity<ResponseObject> getVideosByTutorId(@PathVariable Long tutorId) {
+        VideoResponse videos = videoService.getVideosByTutorId(tutorId);
+        ResponseObject response = new ResponseObject("success", "Videos retrieved", videos);
+        return ResponseEntity.ok().body(response);
+    }
+>>>>>>> d9db7788e5fe5885ce2ea66a39072446771d2510
 }

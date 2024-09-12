@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../asset/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Document</title>
+
 </head>
 <body>
 <header class="header">
@@ -66,13 +67,6 @@
 
         </div>
 
-        <!--        <div class="rating">-->
-        <!--            <span data-rating="5">★</span>-->
-        <!--            <span data-rating="4">★</span>-->
-        <!--            <span data-rating="3">★</span>-->
-        <!--            <span data-rating="2">★</span>-->
-        <!--            <span data-rating="1">★</span>-->
-        <!--        </div>-->
         <div class="tutor-button">
             <button class="nut">yêu cầu thuê</button>
             <a href=""><button class="nut">gửi tin nhắn</button></a>
@@ -94,20 +88,7 @@
             <h1 >Mô tả</h1>
             <div id="bio" class="thongtin"><p>thong tin</p></div>
         </div>
-        <!-- <div class="view-schedule-container">
-            <h1>View Schedule</h1>
-            <table id="scheduleTable">
-                <thead>
-                    <tr>
-                        <th>Day</th>
-                        <th>Times</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-        </div> -->
+      
         <div class="write-comment">
             <div class="rating">
                 <input type="radio" name="rating" id="star5" value="5">
@@ -124,10 +105,12 @@
 
             <div class="but-con">
             <input type="text" id="respone" name="priceOfSession" value="" placeholder="viết phản hồi...">
-            <button class="send-button" type="submit"><i class="fas fa-paper-plane"></i>
+            <button id="sendReviewButton" class="send-button" ><i class="fas fa-paper-plane"></i>
             </button>
         </div>
-        <div class="respone-tutor-container">
+        </div>
+        <div id="reviewContainer"  class="reviews-container">
+        <div   class="respone-tutor-container">
 
             <div class="comment-user">
                 <div class="user-info">
@@ -154,33 +137,31 @@
                 <p>Oh great, I just started learning web programming languages. So lucky to know your channel. Hopefully in the future you can create many useful videos like this for everyone learning programming </p>
             </div>
         </div>
-
-    </div>
-
-</div>
-</div>
-<footer>
-    <div class="footer-container">
-        <div class="socials">
-            <a href=""><i class="fa-brands fa-facebook"></i></a>
-            <a href=""><i class="fa-brands fa-instagram"></i></a>
-            <a href=""><i class="fa-brands fa-twitter"></i></a>
-            <a href=""><i class="fa-brands fa-google-plus"></i></a>
-            <a href=""><i class="fa-brands fa-youtube"></i></a>
-        </div>
-        <div class="footer-nav">
-            <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">About</a></li>
-                <li><a href="">Contact Us</a></li>
-            </ul>
         </div>
     </div>
-    <div class="footer-bottom">
-        <p>Copyright &copy;2024; Designed by <span class="designer">DL</span></p>
-    </div>
+</div>
+<!--<footer>-->
+<!--    <div class="footer-container">-->
+<!--        <div class="socials">-->
+<!--            <a href=""><i class="fa-brands fa-facebook"></i></a>-->
+<!--            <a href=""><i class="fa-brands fa-instagram"></i></a>-->
+<!--            <a href=""><i class="fa-brands fa-twitter"></i></a>-->
+<!--            <a href=""><i class="fa-brands fa-google-plus"></i></a>-->
+<!--            <a href=""><i class="fa-brands fa-youtube"></i></a>-->
+<!--        </div>-->
+<!--        <div class="footer-nav">-->
+<!--            <ul>-->
+<!--                <li><a href="">Home</a></li>-->
+<!--                <li><a href="">About</a></li>-->
+<!--                <li><a href="">Contact Us</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="footer-bottom">-->
+<!--        <p>Copyright &copy;2024; Designed by <span class="designer">DL</span></p>-->
+<!--    </div>-->
 
-</footer>
+<!--</footer>-->
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -328,13 +309,7 @@
     window.onload = getMyInfo;
 </script>
 <script>
-document.querySelectorAll('.rating input[type="radio"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-        let ratingValue = document.querySelector('input[name="rating"]:checked').value;
-        console.log('Đánh giá sao:', ratingValue);
-        // Bạn có thể gửi giá trị ratingValue tới server ở đây nếu cần.
-    });
-});
+
 
     document.querySelector('.nut').addEventListener('click', function () {
         const tutorId = new URLSearchParams(window.location.search).get('id');
@@ -345,76 +320,185 @@ document.querySelectorAll('.rating input[type="radio"]').forEach(radio => {
         }
     });
 </script>
-<!--<script>-->
-<!--    const token = localStorage.getItem('token');-->
-<!--    const studentId = localStorage.getItem('id');-->
-<!--    console.log(studentId);-->
-<!--    const urlParams = new URLSearchParams(window.location.search);-->
-<!--    const tutorId = urlParams.get('id');-->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('token');
+        const studentId = localStorage.getItem('id');
+        const urlParams = new URLSearchParams(window.location.search);
+        const tutorId = urlParams.get('id');
 
-<!--    if (tutorId) {-->
-<!--        fetch(`http://localhost:8080/v1/booking/getBooking`, {-->
-<!--            method: 'POST',-->
-<!--            headers: {-->
-<!--                'Content-Type': 'application/json',-->
-<!--                'Authorization': `Bearer ${token}`-->
-<!--            },-->
-<!--            body: JSON.stringify({-->
-<!--                studentId: studentId,-->
-<!--                tutorId: tutorId-->
-<!--            })-->
-<!--        })-->
-<!--            .then(response => response.json())-->
-<!--            .then(hasBooking => {-->
-<!--                console.log(hasBooking);-->
-<!--                if (hasBooking!=null) {-->
-<!--                    // Show the review section if booking exists-->
-<!--                    document.querySelector('.write-comment').style.display = 'block';-->
+        if (tutorId) {
+            // Kiểm tra xem học sinh có đặt khóa học với gia sư này không
+            fetch('http://localhost:8080/v1/booking/getBooking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    studentId: studentId,
+                    tutorId: tutorId
+                })
+            })
+                .then(response => response.json())
+                .then(hasBooking => {
+                    console.log('Booking check response:', hasBooking);
+                    console.log('Booking check response:', hasBooking.id);
+                    if (hasBooking && hasBooking.id) {
+                        // Hiển thị phần viết đánh giá nếu có booking
+                        document.querySelector('.write-comment').style.display = 'block';
 
-<!--                    // Add event listener for review submission-->
-<!--                    document.querySelector('.send-button').addEventListener('click', () => {-->
-<!--                        const rating = document.querySelector('input[name="rating"]:checked').value;-->
-<!--                        const comment = document.getElementById('response').value;-->
+                        // Thêm sự kiện cho nút gửi đánh giá
+                        const sendButton = document.getElementById('sendReviewButton');
+                        if (sendButton) {
+                            sendButton.addEventListener('click', function (event) {
+                                event.preventDefault(); // Ngăn trang reload lại sau khi nhấn nút
 
-<!--                        // Check if rating and comment are provided-->
-<!--                        if (!rating || !comment.trim()) {-->
-<!--                            alert('Vui lòng đánh giá và nhập bình luận.');-->
-<!--                            return;-->
-<!--                        }-->
+                                // Lấy giá trị của rating
+                                const ratingElement = document.querySelector('input[name="rating"]:checked');
+                                const rating = ratingElement ? ratingElement.value : 0;
 
-<!--                        // Submit the review-->
-<!--                        fetch('http://localhost:8080/v1/reviews', {-->
-<!--                            method: 'POST',-->
-<!--                            headers: {-->
-<!--                                'Content-Type': 'application/json',-->
-<!--                                'Authorization': `Bearer ${token}`-->
-<!--                            },-->
-<!--                            body: JSON.stringify({-->
-<!--                                rating: parseFloat(rating),-->
-<!--                                comment: comment,-->
-<!--                                bookingId: hasBooking.bookingId // Assuming bookingId is returned in the response-->
-<!--                            })-->
-<!--                        })-->
-<!--                            .then(response => response.json())-->
-<!--                            .then(data => {-->
-<!--                                console.log('Review submitted successfully:', data);-->
-<!--                                // Reload the page or update the reviews section dynamically-->
-<!--                                location.reload(); // Refresh page to show new review-->
-<!--                            })-->
-<!--                            .catch(error => console.error('Error submitting review:', error));-->
-<!--                    });-->
-<!--                } else {-->
-<!--                    // Hide the review section if no booking is found-->
-<!--                    document.querySelector('.write-comment').style.display = 'none';-->
-<!--                    alert('Bạn phải đặt khóa học với giảng viên này để có thể bình luận.');-->
-<!--                }-->
-<!--            })-->
-<!--            .catch(error => console.error('Error checking booking:', error));-->
-<!--    } else {-->
-<!--        console.error('Tutor ID is missing.');-->
-<!--    }-->
+                                // Lấy nội dung phản hồi từ trường nhập liệu
+                                const responseElement = document.getElementById('respone');
+                                const reviewText = responseElement ? responseElement.value.trim() : '';
 
-<!--</script>-->
+                                // Kiểm tra nếu người dùng đã nhập đánh giá hoặc nội dung phản hồi
+                                if (!reviewText || rating == 0) {
+                                    alert("Vui lòng nhập đánh giá và nội dung phản hồi.");
+                                    return;
+                                }
+
+                                // Lấy thời gian hiện tại
+                                const createdAt = new Date().toISOString(); // ISO format cho timestamp
+                                // Dữ liệu cần gửi lên server
+                                const reviewData = {
+                                    rating: rating,               // Đánh giá sao
+                                    comment: reviewText,          // Nội dung comment
+                                    tutorId: tutorId,            // ID của gia sư
+                                    studentId: studentId,        // ID của học sinh
+                                    bookingId: hasBooking.id, // ID của booking (nếu có)
+                                    createdAt: createdAt         // Thời gian tạo comment
+                                };
+                                console.log('Review data:', reviewData);
+
+                                // Gửi yêu cầu POST đến server với dữ liệu review
+                                fetch('http://localhost:8080/v1/review/create', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${token}` // Gửi token xác thực
+                                    },
+                                    body: JSON.stringify(reviewData) // Dữ liệu cần gửi
+                                })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        console.log('Review sent successfully:', data);
+                                        if (data.status === 'success') {
+                                            alert('Đánh giá đã được gửi thành công!');
+                                            // Xóa nội dung sau khi gửi
+                                            if (responseElement) {
+                                                responseElement.value = '';
+                                            }
+                                            // Bỏ chọn rating sau khi gửi
+                                            if (ratingElement) {
+                                                ratingElement.checked = false;
+                                            }
+                                        } else {
+                                            alert('Đã xảy ra lỗi khi gửi đánh giá: ' + data.message);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error sending review:', error);
+                                        alert('Đã xảy ra lỗi khi gửi đánh giá.');
+                                    });
+                            });
+                        } else {
+                            console.error('Nút sendReviewButton không tồn tại.');
+                        }
+                    } else {
+                        // Ẩn phần viết đánh giá nếu không có booking
+                        document.querySelector('.write-comment').style.display = 'none';
+                        alert('Bạn phải đặt khóa học với giảng viên này để có thể bình luận.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking booking:', error);
+                    // alert('Đã xảy ra lỗi khi kiểm tra booking.');
+                    document.querySelector('.write-comment').style.display = 'none';
+                });
+        } else {
+            console.error('Tutor ID is missing.');
+            alert('ID gia sư không được tìm thấy.');
+        }
+    });
+// ------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tutorId = urlParams.get('id');
+        const reviewContainer = document.getElementById('reviewContainer');
+
+        if (!reviewContainer) {
+            console.error('reviewContainer is not defined or not found in the DOM.');
+            return;
+        }
+
+        fetch(`http://localhost:8080/v1/review/tutor/reviews/${tutorId}`)
+            .then(response => response.json())
+            .then(reviews => {
+                if (Array.isArray(reviews)) {
+                    if (reviews.length === 0) {
+                        reviewContainer.innerHTML = '<p>No reviews available.</p>';
+                    } else {
+                        displayReviews(reviews);
+                    }
+                } else {
+                    console.error('Invalid response format:', reviews);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching reviews:', error);
+            });
+
+        function displayReviews(reviews) {
+            reviewContainer.innerHTML = ''; // Clear previous content if needed
+            reviews.forEach(review => {
+                const reviewHTML = `
+        <div class="respone-tutor-container">
+            <div class="comment-user">
+                <div class="user-info">
+                    <div class="user-avar">
+                        <img src="https://resources.churchofchrist1830.org/wp-content/uploads/2024/02/generic-bio-avatar.png">
+                    </div>
+                    <div class="user-name">
+                        <strong>${review.name}</strong>
+                        <span>${new Date(review.createdAt).toLocaleDateString()}</span>
+                    </div>
+                </div>
+                <div class="rating">
+                    ${generateRatingHTML(review.rating)}
+                </div>
+            </div>
+
+            <div class="client-comment">
+                <p>${review.comment}</p>
+            </div>
+            </div>
+            `;
+
+                reviewContainer.innerHTML += reviewHTML;
+            });
+        }
+
+        function generateRatingHTML(rating) {
+            let starsHTML = '';
+            for (let i = 5; i >= 1; i--) {
+                starsHTML += `<span data-rating="${i}" ${i <= rating ? 'style="color: gold;"' : ''}>★</span>`;
+            }
+            return starsHTML;
+        }
+    });
+
+</script>
 <script src="../js/header.js"></script>
 </body>
 </html>

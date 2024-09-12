@@ -136,11 +136,20 @@ public class TutorControllerTest {
     }
 
 
-//    @Test
-//    @WithMockUser
-//    void updateTutor() throws Exception {
-//        when(tutorService.updateTutor(anyLong(),any())).thenReturn(tutorResponse);
-//
-//        mockMVC.perform(MockMvcRequestBuilders)
-//    }
+    @Test
+    @WithMockUser
+    void updateTutor() throws Exception {
+        when(tutorService.updateTutor(anyLong(),any())).thenReturn(tutorResponse);
+
+        mockMVC.perform(MockMvcRequestBuilders
+                .get("/v1/tutor/"+tutorResponse.getId())
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.result.id").value(tutorResponse.getId()))
+                .andExpect(jsonPath("$.result.username").value(tutorResponse.getUsername()))
+                .andExpect(jsonPath("$.result.email").value(tutorResponse.getEmail()))
+                .andExpect(jsonPath("$.result.name").value(tutorResponse.getName()))
+                .andExpect(jsonPath("$.result.imgUrl").value(tutorResponse.getImgUrl()))
+                .andExpect(jsonPath("$.result.role").value(tutorResponse.getRole()));
+    }
 }

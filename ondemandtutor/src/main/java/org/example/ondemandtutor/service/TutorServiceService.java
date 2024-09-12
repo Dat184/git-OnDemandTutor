@@ -3,6 +3,7 @@ package org.example.ondemandtutor.service;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.example.ondemandtutor.dto.request.TutorServiceRequest;
 import org.example.ondemandtutor.dto.response.TutorServiceResponse;
 import org.example.ondemandtutor.exception.AppException;
@@ -23,8 +24,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
+
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -34,6 +37,7 @@ public class TutorServiceService {
     TutorServiceMapper tutorServiceMapper;
     FirebaseStorageService firebaseStorageService;
     UserRepository userRepository;
+
 
     public List<TutorServiceResponse> getAllTutorServices() {
         return tutorServiceMapper.toTutorServiceResponseList(tutorServiceRepository.findAll());
@@ -111,6 +115,7 @@ public class TutorServiceService {
     public void deleteTutorService(Long id) {
         TutorService tutorService = tutorServiceRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Tutor service not found"));
+        log.info(String.valueOf(tutorService));
         if (tutorService.getImageUrl() != null) {
             firebaseStorageService.deleteFile(tutorService.getImageUrl());
         }

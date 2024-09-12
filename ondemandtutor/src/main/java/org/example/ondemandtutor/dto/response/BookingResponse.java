@@ -19,5 +19,6 @@ public class BookingResponse {
     Long totalPrice;
     String transactionId;
     String responseCode;
-
+    String tutorName;
+    String subjectName;
 }
