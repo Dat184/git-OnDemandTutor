@@ -129,5 +129,56 @@
 
 </div>
 <script src="../js/header.js"></script>
+    <script>
+        // Function to get URL parameters
+        function getUrlParam(paramName) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(paramName);
+        }
+
+        // Extract studentId from URL
+        const studentId = getUrlParam('studentId');
+        const token = localStorage.getItem('token');
+
+        // Fetch bookings based on studentId
+        fetch(`http://localhost:8080/v1/booking/student/${studentId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                if (response.status === 401) {
+                    throw new Error('Unauthorized: Please check your authentication token.');
+                }
+                if (!response.ok) {
+                    throw new Error('Failed to fetch bookings');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Clear existing rows
+                const tableBody = document.querySelector('table tbody');
+                tableBody.innerHTML = '';
+
+                // Display booking details in the table
+                data.forEach((booking, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${booking.transactionId}</td>
+                    <td>${booking.subjectName}</td>
+                    <td>${booking.tutorName}</td>
+                    <td>${booking.totalPrice} VND</td>
+                    <td>${booking.responseCode === '00' ? 'Đã thanh toán' : 'Chưa thanh toán'}</td>
+                `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Đã xảy ra lỗi khi tải thông tin đơn hàng. Vui lòng thử lại.');
+            });
+    </script>
 </body>
 </html>

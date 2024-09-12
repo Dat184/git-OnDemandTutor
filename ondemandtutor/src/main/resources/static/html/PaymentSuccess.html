@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Thanh toán thành công</title>
+</head>
+
+<body>
+<!-- start body -->
+<div class="body py-5">
+    <div class="container">
+        <div class="w-50 m-auto">
+            <h1 class="my-3 text-success text-center">Thanh toán thành công</h1>
+            <h2 class="my-2">Chi tiết đơn hàng</h2>
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <td>Tổng tiền:</td>
+                    <td id="totalPrice">[total price]</td>
+                </tr>
+                <tr>
+                    <td>Mã giao dịch:</td>
+                    <td id="transactionId">[transaction ID]</td>
+                </tr>
+                </tbody>
+            </table>
+            <button id="saveBookingButton" class="btn btn-primary">Đến trang booking</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to get URL parameters
+    function getUrlParam(paramName) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(paramName);
+    }
+
+    // Extract data from URL
+    const totalPrice = getUrlParam('vnp_Amount');
+    const transactionId = getUrlParam('vnp_TransactionNo');
+    const responseCode = getUrlParam('vnp_ResponseCode');
+    const studentId = localStorage.getItem('id');
+    const tutorServiceId = localStorage.getItem('serviceId');
+    const token = localStorage.getItem('token');
+    // Display the extracted data in the HTML
+    document.getElementById('totalPrice').innerText = totalPrice + ' VND';
+    document.getElementById('transactionId').innerText = transactionId;
+
+    // Automatically save the booking to the database
+
+    const bookingData = {
+        transactionId: transactionId,
+        totalPrice: totalPrice,
+        studentId: studentId,
+        tutorServiceId: tutorServiceId,
+        responseCode: responseCode
+
+    };
+
+    fetch('http://localhost:8080/v1/booking/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(bookingData)
+    })
+        .then(response => {
+            if (response.status === 401) {
+                throw new Error('Unauthorized: Please check your authentication token.');
+            }
+            if (!response.ok) {
+                throw new Error('Failed to create booking');
+            }
+            return response.json();
+        })
+        .then(data => {
+            localStorage.removeItem('serviceId');
+            // Booking saved successfully
+            document.getElementById('saveBookingButton').addEventListener('click', () => {
+                window.location.href = `/html/booking.html?studentId=${studentId}`;
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Đã xảy ra lỗi khi lưu đơn hàng. Vui lòng thử lại.');
+        });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -31,6 +31,7 @@ import java.util.UUID;
 public class VideoService {
     VideoRepository videoRepository;
     UserRepository userRepository;
+    TutorRepository tutorRepository;
     VideoMapper videoMapper;
     FirebaseStorageService firebaseStorageService;
 
@@ -138,10 +139,10 @@ public class VideoService {
         List<Video> videos = videoRepository.findByApprovalStatus(ApprovalStatus.Pending);
         return videoMapper.toVideoResponseList(videos);
     }
-//    public List<VideoResponse> getVideosByTutorId(Long id) {
-//        Tutor tutor = (Tutor) userRepository.findById(id)
-//                .orElseThrow(() -> new IllegalArgumentException("Tutor not found"));
-//        List<Video> videos = videoRepository.findByTutor(tutor);
-//        return videoMapper.toVideoResponseList(videos);
-//    }
+    public VideoResponse getVideosByTutorId(Long id) {
+        Tutor tutor = (Tutor) tutorRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Tutor not found"));
+        Video video = videoRepository.findByTutorId(id);
+        return videoMapper.toVideoResponse(video);
+    }
 }
