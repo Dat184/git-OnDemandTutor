@@ -137,14 +137,24 @@
         }
 
         // Store serviceId into localStorage
-        localStorage.setItem('serviceId', serviceId);
+        if(serviceId){
+            localStorage.setItem('serviceId', serviceId);
+        }
 
+        // Check if user is logged in
+        if (!token) {
+            btnThue.addEventListener('click', () => {
+                localStorage.setItem('previousPage', window.location.href);
+                window.location.href = 'modal.html'; // Redirect to login modal
+            });
+            return;
+        }
         // Fetch service information
         fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
-                // 'Authorization': `Bearer ${token}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         })
             .then(response => {
@@ -228,6 +238,7 @@
                 alert('Error occurred while fetching service information.');
             });
     });
+
 </script>
 
 

@@ -1,197 +1,746 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../js/openHF.js"></script>
-    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/edit_schedule.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="../assets/css/profile.css">
-    <link rel="stylesheet" href="../asset/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+    <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
+    <script src="../js/edit_schedule.js"></script>
+    <title>Edit Schedule</title>
+    <style>
+.conten-service-container{
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+    margin: 70px auto;
+}
+ .button-container {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 20px;
+    gap :10px;
+    margin-right: 20px;
+}
 
-    <title>Document</title>
+.button-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.button-container button:hover {
+    background-color: #4CAF50;
+}
+
+.content-container {
+    display: none;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.content-container.active {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+.edit-schedule-container {
+    
+    width: 1000px;
+    margin: 70px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+h2{
+    text-align: center;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+thead th {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: left;
+}
+
+tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.time-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.time-slot {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+input[type="time"] {
+    padding: 5px;
+    font-size: 14px;
+}
+
+button.add-time-btn {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.add-time-btn:hover {
+    background-color: #45a049;
+}
+
+button#saveButton {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button#saveButton:hover {
+    background-color: #45a049;
+}
+.time-slot {
+    position: relative;
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+.time-slot .delete-time-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 5px;
+    padding: 0;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.time-slot .delete-time-btn:hover {
+    background-color: darkred;
+}
+.upload-video-container {
+    margin-top: 50px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.upload-video-container h1,
+.upload-video-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#uploadForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#uploadForm label,
+#uploadForm input,
+#uploadForm button {
+    margin: 10px 0;
+}
+
+#uploadForm input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#uploadForm button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#uploadForm button:hover {
+    background-color: #45a049;
+}
+
+#videoPreview {
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+/*  */
+/* The Modal (background) */
+.modal-Schedule {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content */
+.modal-content-Schedule {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+    </style>
 </head>
-
 <body>
-<div class="main">
-    <header class="header">
-        <!--test-->
-        <div class="logo-container">
-            <a class="img-logo" href="../html/home.html">
-                <!-- <img class="logo" src="../assets/img/logo/snapedit_17228353747082.png" alt=""> -->
-                <p class="text">LEARN TOgetHER</p>  </a>
-        </div>
-
-        <div class="navbar-container">
-
-            <a class="nav-box" href="../html/gioithieu.html">GIỚI THIỆU</a>
-
-            <a class="nav-box" href="./tutor.html">GIA SƯ
-
-            </a>
-
-
-            <a class="nav-box" href="./dichvulist.html">DỊCH VỤ
-
-            </a>
-            <a class="nav-box hidden" href="./taodichvu.html">TẠO DỊCH VỤ
-
-            </a>
-        </div>
-        <div class="login-search-container">
-            <div class="message-container" id="messageContainer">
-                <a href="messages.html" class="message-link">
-                    <i class="message-icon fa-regular fa-message"></i>
-                </a>
-            </div>
-
-            <div class="login-container">
-                <a href="modal.html" class="search-link">
-                    <button id="loginButton" class="login-button">Đăng nhập</button>
-                </a>
-                <div class="user-info" id="userInfo">
-                    <span id="usernameDisplay"></span>
-                    <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
-                    <div id="userDropdown" class="user-dropdown">
-                        <a href="editprofile.html" class="sub-menu-link">
-                            <img src="../assets/img/header/profile.png" alt="">
-                            <p>Thông tin cá nhân</p>
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </a>
-                        <a href="#" id="logoutButton" class="sub-menu-link">
-                            <img src="../assets/img/header/logout.png" alt="">
-                            <p>Đăng xuất</p>
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </a>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </header>
-    <div class="container">
-        <div class="navigation">
-            <ul>
-                <li>
-                    <a href="profile.html">
-                            <span class="icon">
-                                <i class="fa-regular fa-user"></i>
-                            </span>
-                        <span class="title-strong">Thông tin cá nhân</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a class="border" href="editprofile.html">
-                            <span class="icon">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </span>
-                        <span class="title ">Chỉnh sửa trang cá nhân</span>
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="#">
-                            <span class="icon">
-                                <i class="fa-solid fa-lock"></i>
-                            </span>
-                        <span class="title">Mật khẩu</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="profile-container">
-            <div id="profilePicContainer" class="profile-pic-container">
-                <img id="profilePic" src=""  style="display: none;">
-                <i class="fa-solid fa-camera camera-icon"></i>
-            </div>
-            <input type="file" id="profilePicInput" style="display:none;">
-
-
-
-
-
-            <div class="input-fields">
-                <div class="input-group">
-                    <label for="name">Họ và tên</label>
-                    <input type="text" id="name" name="name">
-                </div>
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email">
-                </div>
-                <div class="input-group">
-                    <label for="grade">Khối</label>
-                    <input type="text" id="grade" name="grade">
-                </div>
-                <div class="input-group">
-                    <label for="address">Tỉnh/Thành phố</label>
-                    <select id="address" name="address">
-                        <option value="Chưa chọn">Vui lòng chọn thành phố</option>
-                        <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh</option>
-                        <option value="Hà Nội">Hà Nội</option>
-                        <option value="Đà Nẵng">Đà Nẵng</option>
-                        <option value="Khánh Hòa">Khánh Hòa</option>
-                        <option value="Cần Thơ">Cần Thơ</option>
-                    </select>
-                </div>
-                <button type="submit" id="updateButton" class="submit-button">Cập nhật </button>
-
-            </div>
-        </div>
-
+<header class="header">
+    <!--test-->
+    <div class="logo-container">
+        <a class="img-logo" href="../html/home.html">
+            <!-- <img class="logo" src="../assets/img/logo/snapedit_17228353747082.png" alt=""> -->
+            <p class="text">LEARN TOgetHER</p>  </a>
     </div>
-    <footer>
-        <link rel="stylesheet" href="../assets/css/footer.css">
-        <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css">
-        <div class="footer-container">
-            <div class="socials">
-                <a href=""><i class="fa-brands fa-facebook"></i></a>
-                <a href=""><i class="fa-brands fa-instagram"></i></a>
-                <a href=""><i class="fa-brands fa-twitter"></i></a>
-                <a href=""><i class="fa-brands fa-google-plus"></i></a>
-                <a href=""><i class="fa-brands fa-youtube"></i></a>
+
+    <div class="navbar-container">
+
+        <a class="nav-box" href="../html/gioithieu.html">GIỚI THIỆU</a>
+
+        <a class="nav-box" href="./tutor.html">GIA SƯ
+
+        </a>
+
+
+        <a class="nav-box" href="./dichvulist.html">DỊCH VỤ
+
+        </a>
+        <a class="nav-box hidden" href="./taodichvu.html">TẠO DỊCH VỤ
+
+        </a>
+    </div>
+    <div class="login-search-container">
+        <div class="message-container" id="messageContainer">
+            <a href="messages.html" class="message-link">
+                <i class="message-icon fa-regular fa-message"></i>
+            </a>
+        </div>
+
+        <div class="login-container">
+            <a href="modal.html" class="search-link">
+                <button id="loginButton" class="login-button">Đăng nhập</button>
+            </a>
+            <div class="user-info" id="userInfo">
+                <span id="usernameDisplay"></span>
+                <img id="avatar" src="https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7" alt="Avatar" class="avatar">
+                <div id="userDropdown" class="user-dropdown">
+                    <a href="editprofile.html" class="sub-menu-link">
+                        <img src="../assets/img/header/profile.png" alt="">
+                        <p>Thông tin cá nhân</p>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="#" id="logoutButton" class="sub-menu-link">
+                        <img src="../assets/img/header/logout.png" alt="">
+                        <p>Đăng xuất</p>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+
+                </div>
             </div>
-            <div class="footer-nav">
+        </div>
+    </div>
+
+</header>
+    
+    <main>
+     
+        <div class="container">
+       
+            <div class="navigation">
                 <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">About</a></li>
-                    <li><a href="">Contact Us</a></li>
+                    <li>
+                        <a href="profiletutor.html">
+                                <span class="icon">
+                                    <i class="fa-regular fa-user"></i>
+                                </span>
+                            <span class="title-strong">Thông tin cá nhân</span>
+                        </a>
+                    </li>
+    
+                    <li>
+                        <a class="border" href="editprofiletutor.html">
+                                <span class="icon">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </span>
+                            <span class="title ">Chỉnh sửa trang cá nhân</span>
+                        </a>
+                    </li>
+    
+                    <li>
+                        <a href="edit_schedule.html">
+                                <span class="icon">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </span>
+                            <span class="title">Chỉnh sửa dịch vụ</span>
+                        </a>
+                    </li>
+    
+                    <li>
+                        <a href="#">
+                                <span class="icon">
+                                    <i class="fa-solid fa-lock"></i>
+                                </span>
+                            <span class="title">Mật khẩu</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
+            <div class="conten-service-container">
+                <div class="button-container">
+                    <button id="edit-schedule-btn">Chỉnh sửa lịch trình</button>
+                    <button id="upload-video-btn">Chỉnh sửa Video video</button>
+                </div>
+                <!-- <div id="edit-schedule-container" class="content-container">
+                    <h1>Edit Schedule</h1>
+                    <form id="editScheduleForm">
+                        <table id="scheduleTable">
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Times</th>
+                                    <th>Add Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                                <tr data-day="Sun">
+                                    <td>Sunday</td>
+                                    <td class="times">
+                                        <div class="time-list"></div>
+                                    </td>
+                                    <td> <input type="time" class="start-time-input">
+                                        <input type="time" class="end-time-input">
+                                        <button type="button" class="add-time-btn">Add</button>
+                                    </td>
+                                </tr>
+                                <tr data-day="Mon">
+                                    <td>Monday</td>
+                                    <td class="times">
+                                        <div class="time-list"></div>
+                                    </td>
+                                    <td> <input type="time" class="start-time-input">
+                                        <input type="time" class="end-time-input">
+                                        <button type="button" class="add-time-btn">Add</button>
+                                    </td>
+                                </tr>
+                                <tr data-day="Tue">
+                                    <td>Tuesday</td>
+                                    <td class="times">
+                                        <div class="time-list"></div>
+                                    </td>
+                                    <td> <input type="time" class="start-time-input">
+                                        <input type="time" class="end-time-input">
+                                        <button type="button" class="add-time-btn">Add</button>
+                                    </td>
+                                </tr>
+                                <tr data-day="Wed">
+                                    <td>Wednesday</td>
+                                    <td class="times">
+                                        <div class="time-list"></div>
+                                    </td>
+                                    <td> <input type="time" class="start-time-input">
+                                        <input type="time" class="end-time-input">
+                                        <button type="button" class="add-time-btn">Add</button>
+                                    </td>
+                                </tr>
+                                <tr data-day="Thu">
+                                    <td>Thursday</td>
+                                    <td class="times">
+                                        <div class="time-list"></div>
+                                    </td>
+                                    <td> <input type="time" class="start-time-input">
+                                        <input type="time" class="end-time-input">
+                                        <button type="button" class="add-time-btn">Add</button>
+                                    </td>
+                                </tr>
+                                <tr data-day="Fri">
+                                    <td>Friday</td>
+                                    <td class="times">
+                                        <div class="time-list"></div>
+                                    </td>
+                                    <td> <input type="time" class="start-time-input">
+                                        <input type="time" class="end-time-input">
+                                        <button type="button" class="add-time-btn">Add</button>
+                                    </td>
+                                </tr>
+                                <tr data-day="Sat">
+                                    <td>Saturday</td>
+                                    <td class="times">
+                                        <div class="time-list"></div>
+                                    </td>
+                                    <td> <input type="time" class="start-time-input">
+                                        <input type="time" class="end-time-input">
+                                        <button type="button" class="add-time-btn">Add</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+
+                    <button id="saveButton">Save Changes</button>
+                </div>  -->
+                <div id="edit-schedule-container" class="content-container">
+                    <h2>Danh sách dịch vụ</h2>
+                    <table id="subject-table" class="subject-table">
+                        <thead>
+                        <tr>
+                            <th>ID Dịch Vụ</th>
+                            <th>Tên môn học</th>
+                            <th>Số buổi học</th>
+                            <th>Giá khóa học</th>
+                            <th>Thao tác</th>
+                        </tr>
+                        </thead>
+                        <tbody id="datadichvu">
+                            <tr>
+                                <td id="iddichvu">1</td>
+                                <td id="mon">toán</td>
+                                <td id="buoi">3 buổi/tuần</td>
+                                <td id="gia">12</td>
+                                <td>
+                                    <a href="#" class="edit-link" data-id="${element.id}">Sửa lịch học</a> |
+                                    <a href="#" class="delete-link">Xóa</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                    </table>
+                </div>
+                <div id="upload-video-container" class="content-container hidden">
+                    <h1>Chỉnh Sửa Video</h1>
+
+                    <!-- Video Upload Form -->
+                    <form id="uploadForm">
+                        <label for="videoInput">Choose a video to upload:</label>
+                        <input type="file" id="videoInput" accept="video/*">
+                        <button type="submit">Chỉnh Sửa</button>
+                    </form>
+
+                    <!-- Display Uploaded Video -->
+                    <h2>Preview</h2>
+                    <video id="videoPreview" width="640" height="360" controls style="display:none;">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+
+
+            </div>
         </div>
-        <div class="footer-bottom">
-            <p>Copyright &copy;2024; Designed by <span class="designer">DL</span></p>
-        </div>
+    </main>
+
+    <footer>
+        <!-- Include footer content as needed -->
     </footer>
     <div id="passwordModal" class="modal">
         <div class="modal-content">
             <div class="wrap">
-                <span class="close-button">&times;</span>
-                <h2>Đổi mật khẩu</h2>
-                <div class="input-group input-modal">
-                    <label for="currentPassword">Mật khẩu hiện tại</label>
-                    <input type="password" id="currentPassword" name="currentPassword">
-                </div>
-                <div class="input-group input-modal">
-                    <label for="newPassword">Mật khẩu mới</label>
-                    <input type="password" id="newPassword" name="newPassword">
-                </div>
-                <div class="input-group input-modal">
-                    <label for="confirmPassword">Nhập lại mật khẩu mới</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword">
-                </div>
-                <button type="submit" id="changePasswordButton" class="submit-button">Đổi mật khẩu</button>
+            <span class="close-button">&times;</span>
+            <h2>Đổi mật khẩu</h2>
+            <div class="input-group input-modal">
+                <label for="currentPassword">Mật khẩu hiện tại</label>
+                <input type="password" id="currentPassword" name="currentPassword">
             </div>
-        </div>
+            <div class="input-group input-modal">
+                <label for="newPassword">Mật khẩu mới</label>
+                <input type="password" id="newPassword" name="newPassword">
+            </div>
+            <div class="input-group input-modal">
+                <label for="confirmPassword">Nhập lại mật khẩu mới</label>
+                <input type="password" id="confirmPassword" name="confirmPassword">
+            </div>
+            <button type="submit" id="changePasswordButton" class="submit-button">Đổi mật khẩu</button>
+            </div>
     </div>
-</div>
-<script src="../js/header.js"></script>
-<script src="../js/profile.js"></script>
+    </div>
+<!-- <div id="edit-schedule" class="content-container">
+
+
+    <table id="scheduleTable">
+        <thead>
+        <tr>
+            <th>Ngày</th>
+            <th>Thời gian</th>
+       
+        </tr>
+        </thead>
+        <tbody>
+       
+        <tr data-day="Sun">
+            <td>Sunday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Sun_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Sun_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Sun_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        <tr data-day="Mon">
+            <td>Monday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Mon_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Mon_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Mon_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        <tr data-day="Tue">
+            <td>Tuesday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Tue_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Tue_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Tue_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        <tr data-day="Wed">
+            <td>Wednesday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Wed_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Wed_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Wed_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        <tr data-day="Thu">
+            <td>Thursday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Thu_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Thu_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Thu_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        <tr data-day="Fri">
+            <td>Friday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Fri_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Fri_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Fri_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        <tr data-day="Sat">
+            <td>Saturday</td>
+            <td class="times">
+                <div class="time-list">
+                    <label><input type="checkbox" name="Sat_Morning" value="Sáng"> Sáng</label>
+                    <label><input type="checkbox" name="Sat_Afternoon" value="Chiều"> Chiều</label>
+                    <label><input type="checkbox" name="Sat_Evening" value="Tối"> Tối</label>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+
+</div> -->
+<form id="availabilityForm">
+    <div id="editScheduleModal" class="modal-Schedule">
+    <div class="modal-content-Schedule">
+      <span  id="closelhModal" class="close">&times;</span>
+      <h2>Sửa lịch học</h2>
+        <input type="hidden" id="serviceId">
+        <table id="scheduleTable">
+          <thead>
+            <tr>
+              <th>Ngày</th>
+              <th>Thời gian</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Repeat rows for each day as in your original HTML -->
+            <tr data-day="Sun">
+              <td>Sunday</td>
+              <td class="times">
+                <div class="time-list">
+                  <label><input type="checkbox" name="Sun_Morning" value="Sáng"> Sáng</label>
+                  <label><input type="checkbox" name="Sun_Afternoon" value="Chiều"> Chiều</label>
+                  <label><input type="checkbox" name="Sun_Evening" value="Tối"> Tối</label>
+                </div>
+              </td>
+            </tr>
+            <tr data-day="Mon">
+                <td>Monday</td>
+                <td class="times">
+                    <div class="time-list">
+                        <label><input type="checkbox" name="Mon_Morning" value="Sáng"> Sáng</label>
+                        <label><input type="checkbox" name="Mon_Afternoon" value="Chiều"> Chiều</label>
+                        <label><input type="checkbox" name="Mon_Evening" value="Tối"> Tối</label>
+                    </div>
+                </td>
+            </tr>
+            <tr data-day="Tue">
+                <td>Tuesday</td>
+                <td class="times">
+                    <div class="time-list">
+                        <label><input type="checkbox" name="Tue_Morning" value="Sáng"> Sáng</label>
+                        <label><input type="checkbox" name="Tue_Afternoon" value="Chiều"> Chiều</label>
+                        <label><input type="checkbox" name="Tue_Evening" value="Tối"> Tối</label>
+                    </div>
+                </td>
+            </tr>
+            <tr data-day="Wed">
+                <td>Wednesday</td>
+                <td class="times">
+                    <div class="time-list">
+                        <label><input type="checkbox" name="Wed_Morning" value="Sáng"> Sáng</label>
+                        <label><input type="checkbox" name="Wed_Afternoon" value="Chiều"> Chiều</label>
+                        <label><input type="checkbox" name="Wed_Evening" value="Tối"> Tối</label>
+                    </div>
+                </td>
+            </tr>
+            <tr data-day="Thu">
+                <td>Thursday</td>
+                <td class="times">
+                    <div class="time-list">
+                        <label><input type="checkbox" name="Thu_Morning" value="Sáng"> Sáng</label>
+                        <label><input type="checkbox" name="Thu_Afternoon" value="Chiều"> Chiều</label>
+                        <label><input type="checkbox" name="Thu_Evening" value="Tối"> Tối</label>
+                    </div>
+                </td>
+            </tr>
+            <tr data-day="Fri">
+                <td>Friday</td>
+                <td class="times">
+                    <div class="time-list">
+                        <label><input type="checkbox" name="Fri_Morning" value="Sáng"> Sáng</label>
+                        <label><input type="checkbox" name="Fri_Afternoon" value="Chiều"> Chiều</label>
+                        <label><input type="checkbox" name="Fri_Evening" value="Tối"> Tối</label>
+                    </div>
+                </td>
+            </tr>
+            <tr data-day="Sat">
+                <td>Saturday</td>
+                <td class="times">
+                    <div class="time-list">
+                        <label><input type="checkbox" name="Sat_Morning" value="Sáng"> Sáng</label>
+                        <label><input type="checkbox" name="Sat_Afternoon" value="Chiều"> Chiều</label>
+                        <label><input type="checkbox" name="Sat_Evening" value="Tối"> Tối</label>
+                    </div>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        <button id="saveButton" type="submit">Lưu Những Thay Đổi</button>
+    </div>
+  </div>
+</form>
+    <script src="../js/header.js"></script>
+
+
+    <script>
+        var modal = document.getElementById("passwordModal");
+
+        var passwordLink = document.querySelector('.navigation li:nth-child(4) a');
+
+        var closeButton = document.getElementsByClassName("close-button")[0];
+
+        passwordLink.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        closeButton.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        document.getElementById('edit-schedule-btn').addEventListener('click', function() {
+    document.getElementById('edit-schedule-container').classList.add('active');
+    document.getElementById('upload-video-container').classList.remove('active');
+});
+
+document.getElementById('upload-video-btn').addEventListener('click', function() {
+    document.getElementById('edit-schedule-container').classList.remove('active');
+    document.getElementById('upload-video-container').classList.add('active');
+});
+    </script>
 
 </body>
-
 </html>
