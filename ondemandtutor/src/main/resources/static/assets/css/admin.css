@@ -178,7 +178,7 @@
 
 .student-table th {
     background-color: #F02FC2;
-    color: white;
+    color: white;   
 }
 
 .student-table tr:nth-child(even) {

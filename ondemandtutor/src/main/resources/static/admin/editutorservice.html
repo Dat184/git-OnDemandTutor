@@ -199,7 +199,7 @@
                         const option = document.createElement('option');
                         option.value = subject.id;
                         option.textContent = subject.name;
-                        if (subject.id == selectedSubjectId) { // Use '==' to avoid type mismatch
+                        if (subject.id === selectedSubjectId) { // Use '==' to avoid type mismatch
                             option.selected = true; // Set the selected option
                         }
                         subjectSelect.appendChild(option);
@@ -240,7 +240,7 @@
             })
             .then(data => {
                 console.log('Service updated successfully:', data);
-                window.location.href = 'tutorServiceList.html';
+                // window.location.href = 'tutorServiceList.html';
                 // Optionally redirect or show a success message
             })
             .catch(error => {
