@@ -3,16 +3,14 @@ package org.example.ondemandtutor.service;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 import org.example.ondemandtutor.dto.request.TutorServiceRequest;
 import org.example.ondemandtutor.dto.response.TutorServiceResponse;
 import org.example.ondemandtutor.exception.AppException;
 import org.example.ondemandtutor.exception.ErrorCode;
 import org.example.ondemandtutor.mapper.TutorServiceMapper;
-import org.example.ondemandtutor.pojo.Tutor;
-import org.example.ondemandtutor.pojo.TutorAvail;
+import org.example.ondemandtutor.pojo.*;
 import org.example.ondemandtutor.pojo.TutorService;
-import org.example.ondemandtutor.pojo.User;
+import org.example.ondemandtutor.repository.SubjectRepository;
 import org.example.ondemandtutor.repository.TutorAvailRepository;
 import org.example.ondemandtutor.repository.TutorServiceRepository;
 
@@ -24,10 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
-
 import java.util.stream.Collectors;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -37,8 +33,7 @@ public class TutorServiceService {
     TutorServiceMapper tutorServiceMapper;
     FirebaseStorageService firebaseStorageService;
     UserRepository userRepository;
-
-
+    SubjectRepository subjectRepository;
     public List<TutorServiceResponse> getAllTutorServices() {
         return tutorServiceMapper.toTutorServiceResponseList(tutorServiceRepository.findAll());
     }
@@ -105,6 +100,11 @@ public class TutorServiceService {
             tutorService.setName(tutorServiceRequest.getImageFile().getOriginalFilename());
             tutorService.setType(tutorServiceRequest.getImageFile().getContentType());
             tutorService.setImageUrl(imageUrl);
+        }
+        if(tutorServiceRequest.getSubjectId() != null) {
+            Subject subject = subjectRepository.findById(tutorServiceRequest.getSubjectId())
+                    .orElseThrow(() -> new IllegalArgumentException("Subject not found"));
+            tutorService.setSubject(subject);
         }
         tutorServiceMapper.updateTutorServiceFromRequest(tutorServiceRequest, tutorService);
         TutorService updatedTutorService = tutorServiceRepository.save(tutorService);
