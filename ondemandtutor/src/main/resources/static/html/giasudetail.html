@@ -374,10 +374,9 @@
                                 const reviewData = {
                                     rating: rating,               // Đánh giá sao
                                     comment: reviewText,          // Nội dung comment
-                                    tutorId: tutorId,            // ID của gia sư
-                                    studentId: studentId,        // ID của học sinh
+                                    tutorId: tutorId,            // ID của gia sư// ID của học sinh
                                     bookingId: hasBooking.id, // ID của booking (nếu có)
-                                    createdAt: createdAt         // Thời gian tạo comment
+                                    // Thời gian tạo comment
                                 };
                                 console.log('Review data:', reviewData);
 
@@ -389,8 +388,16 @@
                                         'Authorization': `Bearer ${token}` // Gửi token xác thực
                                     },
                                     body: JSON.stringify(reviewData) // Dữ liệu cần gửi
+
                                 })
-                                    .then(response => response.json())
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            return response.json().then(errorData => {
+                                                throw new Error(`Error ${response.status}: ${errorData.message}`);
+                                            });
+                                        }
+                                        return response.json();
+                                    })
                                     .then(data => {
                                         console.log('Review sent successfully:', data);
                                         if (data.status === 'success') {
@@ -467,7 +474,8 @@
             <div class="comment-user">
                 <div class="user-info">
                     <div class="user-avar">
-                        <img src="https://resources.churchofchrist1830.org/wp-content/uploads/2024/02/generic-bio-avatar.png">
+
+                          <img src=${review.url||"https://resources.churchofchrist1830.org/wp-content/uploads/2024/02/generic-bio-avatar.png"}>
                     </div>
                     <div class="user-name">
                         <strong>${review.name}</strong>

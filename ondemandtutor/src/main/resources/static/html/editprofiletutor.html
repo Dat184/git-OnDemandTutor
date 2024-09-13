@@ -58,6 +58,11 @@
                             <p>Thông tin cá nhân</p>
                             <i class="fa-solid fa-chevron-right"></i>
                         </a>
+                        <a href="booking.html" class="sub-menu-link">
+                            <img src="../assets/img/header/profile.png" alt="">
+                            <p>Lịch sử thanh toán</p>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
                         <a href="#" id="logoutButton" class="sub-menu-link">
                             <img src="../assets/img/header/logout.png" alt="">
                             <p>Đăng xuất</p>
@@ -198,7 +203,27 @@
 </div>
 <script src="../js/header.js"></script>
 <script src="../js/profiletutor.js"></script>
+<script>
+    var modal = document.getElementById("passwordModal");
 
+    var passwordLink = document.querySelector('.navigation li:nth-child(3) a');
+
+    var closeButton = document.getElementsByClassName("close-button")[0];
+
+    passwordLink.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    closeButton.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 </body>
 
 </html>
