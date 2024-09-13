@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => console.error('Error fetching data:', error));
     }
-    if (window.location.pathname.includes('tutorService.html')) {
+    if (window.location.pathname.includes('tutorServiceList.html')) {
         fetch('http://localhost:8080/v1/tutor-services', {
             method: 'GET',
             headers: {
@@ -171,11 +171,18 @@ function attachDeleteHandlers(type) {
             event.preventDefault();
             const id = event.target.dataset.id;
             const itemType = event.target.dataset.type;
-            if (confirm('Bạn có chắc chắn muốn xóa?')) {
-                if (itemType === 'student') {
-                    deleteStudent(id);
-                } else if (itemType === 'tutor') {
-                    deleteTutor(id);
+            // if (confirm('Bạn có chắc chắn muốn xóa?')) {
+            //     if (itemType === 'student') {
+            //         deleteStudent(id);
+            //     }
+            // }
+            if(itemType==="tutor") {
+                if (confirm('CẢNH BÁO: Nếu xóa gia sư này thì sẽ tự động xóa các dịch vụ của gia sư đó')) {
+                    deleteTutor(id)
+                }
+            } else if(itemType === "student") {
+                if (confirm('Bạn có chắc chắn muốn xóa học sinh này?')) {
+                    deleteStudent(id)
                 }
             }
         });

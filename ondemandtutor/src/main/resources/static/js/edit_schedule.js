@@ -139,11 +139,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     scheduleModal.style.display = "block";  // Hiển thị modal
 
                     // Đóng modal khi nhấn vào dấu "X"
-                    const closeModal = document.querySelector(".close");
+                    const closeModal = document.querySelector("#closelhModal");
                     if (closeModal) {
                         closeModal.addEventListener("click", function() {
                             scheduleModal.style.display = "none";  // Đóng modal
                         });
+                    } else {
+                        console.error('Phần tử với lớp "close" không tồn tại.');
                     }
 
                     // Đóng modal khi nhấn ra ngoài modal
@@ -269,4 +271,40 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error('Lỗi:', error));
     }
+
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const videoData = document.getElementById('videoInput').files[0];
+
+        if (!videoData) {
+            alert('Vui lòng chọn video để tải lên.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('videoData', videoData);
+
+        fetch('http://localhost:8080/v1/videos/uploadOrUpdate', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`  // Chỉ thiết lập header Authorization
+            },
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Video đã được chỉnh sửa thành công!');
+                    const videoPreview = document.getElementById('videoPreview');
+                    videoPreview.src = URL.createObjectURL(videoData);
+                    videoPreview.style.display = 'block';
+                } else {
+                    alert('Lỗi: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+            });
+});
 });

@@ -208,9 +208,57 @@
 
         }
 
+        displayVideo(tutorId);
+
+
+
 
     });
 
+</script>
+<script>
+    function displayVideo(tutorId) {
+        fetch(`http://localhost:8080/v1/videos/tutor/${tutorId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+
+                const tutorCard = document.querySelector(`.rating-hire-price-container`);
+                const iframe = tutorCard.querySelector('.tutor-video iframe');
+
+                // Xử lý dữ liệu video từ API
+                if (data.data ) {
+
+                    console.log("data",data.data.videoUrl)
+                    const videoUrl =data.data.videoUrl; // Lấy URL video
+
+                    // Kiểm tra nếu videoUrl hợp lệ
+                    if (videoUrl) {
+                        iframe.src = videoUrl; // Cập nhật URL video vào iframe
+                    } else {
+                        // Nếu videoUrl là null hoặc không hợp lệ, hiển thị ảnh thay thế
+                        iframe.src = 'https://www.youtube.com/embed/4CCGI83vOVo?si=FLQFqYNCQUNql7pk';
+                    }
+
+                } else {
+                    // Nếu không có video, hiển thị ảnh thay thế
+                    iframe.src = 'https://www.youtube.com/embed/4CCGI83vOVo?si=FLQFqYNCQUNql7pk';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching video:', error);
+                // Nếu có lỗi khi fetch, cũng hiển thị ảnh thay thế
+                const tutorCard = document.querySelector(`.rating-hire-price-container[data-tutor-id="${tutorId}"]`);
+                const iframe = tutorCard.querySelector('.tutor-video iframe');
+                iframe.src = 'https://png.pngtree.com/element_origin_min_pic/17/08/27/4af706394b2927cb119d6ada9683dc52.png';
+            });
+    }
 </script>
 <script>
     async function getMyInfo() {

@@ -115,7 +115,6 @@ public class TutorServiceService {
     public void deleteTutorService(Long id) {
         TutorService tutorService = tutorServiceRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Tutor service not found"));
-        log.info(String.valueOf(tutorService));
         if (tutorService.getImageUrl() != null) {
             firebaseStorageService.deleteFile(tutorService.getImageUrl());
         }

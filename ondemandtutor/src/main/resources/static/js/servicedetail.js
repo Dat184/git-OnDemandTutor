@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Display session time, number of sessions per week, and price
                 document.querySelector('.thoigian strong').textContent = `${service.timeOfSession || "Chưa cập nhật"} giờ/buổi`;
                 document.querySelector('.buoi strong').textContent = `${service.sessionOfWeek || "Chưa cập nhật"} buổi/tuần`;
-                document.querySelector('.gia strong').textContent = `${service.priceOfSession || "Chưa cập nhật"} triệu/khóa`;
+                document.querySelector('.gia strong').textContent = `${service.priceOfSession || "Chưa cập nhật"} đồng/khóa`;
 
                 // Fetch tutor availability
                 if (service.id) {
