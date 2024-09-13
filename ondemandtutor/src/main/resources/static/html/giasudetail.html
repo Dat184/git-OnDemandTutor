@@ -382,7 +382,7 @@
                 })
                 .catch(error => {
                     console.error('Error checking booking:', error);
-                    alert('Đã xảy ra lỗi khi kiểm tra booking.');
+                    // alert('Đã xảy ra lỗi khi kiểm tra booking.');
                     document.querySelector('.write-comment').style.display = 'none';
                 });
         } else {
@@ -426,7 +426,8 @@
             <div class="comment-user">
                 <div class="user-info">
                     <div class="user-avar">
-                        <img src="https://resources.churchofchrist1830.org/wp-content/uploads/2024/02/generic-bio-avatar.png">
+
+                          <img src=${review.url||"https://resources.churchofchrist1830.org/wp-content/uploads/2024/02/generic-bio-avatar.png"}>
                     </div>
                     <div class="user-name">
                         <strong>${review.name}</strong>

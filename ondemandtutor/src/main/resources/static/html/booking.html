@@ -137,7 +137,7 @@
         }
 
         // Extract studentId from URL
-        const studentId = getUrlParam('studentId');
+        const studentId = localStorage.getItem('id')
         const token = localStorage.getItem('token');
 
         // Fetch bookings based on studentId

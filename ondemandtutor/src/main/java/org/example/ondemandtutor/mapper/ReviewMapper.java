@@ -19,6 +19,7 @@ public interface ReviewMapper {
     @Mapping(target = "bookingId", source = "booking.id")
     @Mapping(target = "name", source = "booking.student.name")
     @Mapping(source = "tutor.id", target  = "tutorId")
+    @Mapping(source = "booking.student.imgUrl", target  = "url")
      ReviewResponse toReviewResponse(Review review);
 
     void updateReviewFromRequest(ReviewRequest reviewRequest, @MappingTarget Review review);
