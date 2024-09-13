@@ -1,4 +1,7 @@
 /* Container chính cho các thẻ gia sư */
+body{
+    background: linear-gradient(to top right, #EECAD5, #F1D3CE, #F6EACB, #D1E9F6);
+}
 .tutor-container {
     display: flex;
     flex-direction: column;
@@ -9,6 +12,7 @@
     margin-left:150px;
     margin-right:150px;
     margin-bottom: 50px;
+    
 }
 
 
@@ -132,10 +136,11 @@
 }
 
 .book-button {
-    background-color: #ff4081;
-    color: #fff;
+    background: linear-gradient(to top right, #EECAD5, #F1D3CE, #F6EACB, #D1E9F6);
+    color: #000;
+    /* Bóng phía dưới phải */
+  
 }
-
 .message-button {
     background-color: #e0e0e0;
     color: #424242;
