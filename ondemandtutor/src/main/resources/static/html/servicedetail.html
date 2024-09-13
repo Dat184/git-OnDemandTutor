@@ -16,17 +16,28 @@
 <body>
 <div class="main">
     <header class="header">
+        <!--test-->
         <div class="logo-container">
             <a class="img-logo" href="../html/home.html">
-                <p class="text">LEARN TOgetHER</p>
-            </a>
+                <!-- <img class="logo" src="../assets/img/logo/snapedit_17228353747082.png" alt=""> -->
+                <p class="text">LEARN TOgetHER</p>  </a>
         </div>
 
         <div class="navbar-container">
+
             <a class="nav-box" href="../html/gioithieu.html">GIỚI THIỆU</a>
-            <a class="nav-box" href="./tutor.html">GIA SƯ</a>
-            <a class="nav-box" href="./dichvulist.html">DỊCH VỤ</a>
-            <a class="nav-box hidden" href="./taodichvu.html">TẠO DỊCH VỤ</a>
+
+            <a class="nav-box" href="./tutor.html">GIA SƯ
+
+            </a>
+
+
+            <a class="nav-box" href="./dichvulist.html">DỊCH VỤ
+
+            </a>
+            <a class="nav-box hidden" href="./taodichvu.html">TẠO DỊCH VỤ
+
+            </a>
         </div>
         <div class="login-search-container">
             <div class="message-container" id="messageContainer">
@@ -48,15 +59,22 @@
                             <p>Thông tin cá nhân</p>
                             <i class="fa-solid fa-chevron-right"></i>
                         </a>
+                        <a href="booking.html" class="sub-menu-link">
+                            <img src="../assets/img/header/profile.png" alt="">
+                            <p>Lịch sử thanh toán</p>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
                         <a href="#" id="logoutButton" class="sub-menu-link">
                             <img src="../assets/img/header/logout.png" alt="">
                             <p>Đăng xuất</p>
                             <i class="fa-solid fa-chevron-right"></i>
                         </a>
+
                     </div>
                 </div>
             </div>
         </div>
+
     </header>
     <div class="contai">
         <div class="container">
@@ -173,7 +191,7 @@
                 console.log(amount);
 
                 // Check if booking already exists
-                fetch(`http://localhost:8080/v1/Booking/${serviceId}`, {
+                fetch(`http://localhost:8080/v1/booking/TutorService/${serviceId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

@@ -36,64 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => console.error('Error fetching data:', error));
     }
-    if (window.location.pathname.includes('tutorServiceList.html')) {
-        fetch('http://localhost:8080/v1/tutor-services', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                populateService(data);
-                attachDeleteHandlers('tutor'); // Pass 'tutor' to the handler
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    }
-});
-function populateService(serviceList) {
-    const tableBody = document.querySelector('#service-table tbody');
-    if (!tableBody) {
-        console.error('Table body for services not found');
-        return;
-    }
-    tableBody.innerHTML = ''; // Clear previous content
 
-    if (serviceList.length > 0) {
-        serviceList.forEach((service, index) => {
-            fetch(`http://localhost:8080/v1/subject/${service.subjectId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(response => response.json())
-                .then(subjectData => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${service.nameTutor || 'Chưa Cập Nhật'}</td>
-                    <td>${subjectData.result.name || 'Chưa Cập Nhật'}</td>
-                    <td>${service.timeOfSession || 'Chưa Cập Nhật'}</td>
-                    <td>${service.priceOfSession || 'Chưa Cập Nhật'}</td>
-                    <td>${service.sessionOfWeek || 'Chưa Cập Nhật'}</td>
-                    <td>${service.description || 'Chưa Cập Nhật'}</td>
-                    <td>
-                        <a href="editutorservice.html?id=${service.id}" class="edit-link">Sửa</a> 
-                        <a href="#" class="delete-link" data-id="${service.id}" data-type="student">Xóa</a>
-                    </td>
-                `;
-                    tableBody.appendChild(row);
-                })
-                .catch(error => console.error("Lỗi khi lấy tên môn học:", error));
-        });
-    } else {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td colspan="8">Không có dịch vụ để hiển thị.</td>`;
-        tableBody.appendChild(row);
-    }
-}
+});
 
 function populateStudents(users) {
     const tableBody = document.querySelector('#student-table tbody');
@@ -148,8 +92,9 @@ function populateTutors(users) {
                 <td>${tutor.name || 'Chưa Cập Nhật'}</td>
                 <td>${tutor.email || 'Chưa Cập Nhật'}</td>
                 <td>${tutor.username || 'Chưa Cập Nhật'}</td>
+                <td>${tutor.bio || 'Chưa Cập Nhật'}</td>
+
                 <td>${tutor.address || 'Chưa Cập Nhật'}</td>
-                <td>${tutor.subjectId || 'Chưa Cập Nhật'}</td>
                 <td>
                     <a href="edittutor.html?id=${tutor.id}" class="edit-link">Sửa</a> 
                     <a href="#" class="delete-link" data-id="${tutor.id}" data-type="tutor">Xóa</a>
