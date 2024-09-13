@@ -96,16 +96,14 @@
         <div class="edit-content">
             <h2>Chỉnh sửa thông tin học sinh</h2>
             <form id="editTutorServiceForm">
-                <input type="hidden" id="serviceId" name="serviceId">
+
+
                 <table>
-                    <tr>
-                        <th>Họ và tên</th>
-                        <td><input type="text" id="nameTutor" name="nameTutor" required></td>
-                    </tr>
+
                     <tr>
                         <th>Môn</th>
                         <td>
-                            <select type="text" id="subject" name="subject" required></select>
+                            <select type="text" id="subject" name="subjectId" required></select>
                         </td>
                     </tr>
                     <tr>
@@ -116,10 +114,7 @@
                         <th>Giá khóa học (VND)</th>
                         <td><input type="number" id="priceOfSession" name="priceOfSession" required></td>
                     </tr>
-                    <tr>
-                        <th>Số buổi trong tuần</th>
-                        <td><input type="number" id="sessionOfWeek" name="sessionOfWeek" required></td>
-                    </tr>
+
                     <tr>
                         <th>Mô tả</th>
                         <td><textarea type="text" id="description" name="description" rows="4"></textarea></td>
@@ -170,16 +165,18 @@
             })
             .then(data => {
                 console.log('Service details fetched:', data);
+                console.log(data.data.subjectId);
+                const datasubjectid= localStorage.setItem('subjectId',data.data.subjectId)
                 populateForm(data);
             })
             .catch(error => console.error('Error fetching service details:', error));
     }
 
     function populateForm(service) {
-        document.getElementById('nameTutor').value = service.data.nameTutor || '';
+
         document.getElementById('timeOfSession').value = service.data.timeOfSession || '';
         document.getElementById('priceOfSession').value = service.data.priceOfSession || '';
-        document.getElementById('sessionOfWeek').value = service.data.sessionOfWeek || '';
+
         document.getElementById('description').value = service.data.description || '';
 
         fetchSubjects(service.data.subjectId); // Populate subjects dropdown
@@ -225,39 +222,32 @@
 
     function updateService(serviceId) {
         const token = localStorage.getItem('token');
+        const form = document.getElementById('editTutorServiceForm');
+        const formData = new FormData(form);
 
-        const data = {
-            nameTutor: document.getElementById('nameTutor').value,
-            subjectId: document.getElementById('subject').value,  // Corrected ID
-            timeOfSession: document.getElementById('timeOfSession').value,
-            priceOfSession: document.getElementById('priceOfSession').value,
-            sessionOfWeek: document.getElementById('sessionOfWeek').value,
-            description: document.getElementById('description').value,
-            imageFile: '',
-
-        };
-
-        console.log(data);
-        if (serviceId) {
-            fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(data)
+        fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData // Gửi dữ liệu dạng FormData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(errorText => {
+                        throw new Error(`Error ${response.status}: ${errorText}`);
+                    });
+                }
+                return response.json();
             })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Thông tin học sinh đã được cập nhật thành công');
-                        window.location.href = 'tutorService.html';
-                    } else {
-                        alert('Đã xảy ra lỗi khi cập nhật thông tin học sinh');
-                    }
-                })
-                .catch(error => console.error('Error updating student details:', error));
-
-        }
+            .then(data => {
+                console.log('Service updated successfully:', data);
+                window.location.href = 'tutorService.html'; // Redirect after successful update
+            })
+            .catch(error => {
+                console.error('Error updating service:', error.message);
+                alert(`Failed to update service: ${error.message}`);
+            });
     }
 
 

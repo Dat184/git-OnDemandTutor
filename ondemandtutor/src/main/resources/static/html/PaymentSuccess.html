@@ -44,7 +44,7 @@
     const responseCode = getUrlParam('vnp_ResponseCode');
     const studentId = localStorage.getItem('id');
     const tutorServiceId = localStorage.getItem('serviceId');
-    const token = localStorage.getItem('token');
+    console.log(tutorServiceId);
     // Display the extracted data in the HTML
     document.getElementById('totalPrice').innerText = totalPrice + ' VND';
     document.getElementById('transactionId').innerText = transactionId;
@@ -59,12 +59,10 @@
         responseCode: responseCode
 
     };
-
     fetch('http://localhost:8080/v1/booking/create', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(bookingData)
     })
@@ -78,7 +76,6 @@
             return response.json();
         })
         .then(data => {
-            localStorage.removeItem('serviceId');
             // Booking saved successfully
             document.getElementById('saveBookingButton').addEventListener('click', () => {
                 window.location.href = `/html/booking.html?studentId=${studentId}`;
@@ -95,4 +92,5 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 </body>
+
 </html>

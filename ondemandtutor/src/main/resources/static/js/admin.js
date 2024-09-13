@@ -148,8 +148,9 @@ function populateTutors(users) {
                 <td>${tutor.name || 'Chưa Cập Nhật'}</td>
                 <td>${tutor.email || 'Chưa Cập Nhật'}</td>
                 <td>${tutor.username || 'Chưa Cập Nhật'}</td>
+                <td>${tutor.bio || 'Chưa Cập Nhật'}</td>
+
                 <td>${tutor.address || 'Chưa Cập Nhật'}</td>
-                <td>${tutor.subjectId || 'Chưa Cập Nhật'}</td>
                 <td>
                     <a href="edittutor.html?id=${tutor.id}" class="edit-link">Sửa</a> 
                     <a href="#" class="delete-link" data-id="${tutor.id}" data-type="tutor">Xóa</a>
