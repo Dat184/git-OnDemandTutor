@@ -138,7 +138,135 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchSubjects().then(() => {
+            fetchTutorServices();
+        });
+    });
 
+    function fetchTutorServices() {
+        const token = localStorage.getItem('token');
+
+        fetch('http://localhost:8080/v1/tutor-services', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                populateServicesTable(data);
+            })
+            .catch(error => {
+                console.error('Error fetching tutor services:', error);
+            });
+    }
+
+    function fetchSubjects() {
+        const token = localStorage.getItem('token');
+        return fetch('http://localhost:8080/v1/subject', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                window.subjects = data; // Store subjects in a global variable
+                console.log('Fetched subjects:', window.subjects); // Debugging
+            })
+            .catch(error => console.error('Error fetching subjects:', error));
+    }
+
+    function getSubjectName(subjectId) {
+        if (window.subjects && Array.isArray(window.subjects)) {
+            const subject = window.subjects.find(sub => sub.id === subjectId);
+            console.log('Subject ID:', subjectId, 'Found Subject:', subject); // Debugging
+            return subject ? subject.name : 'Unknown Subject';
+        }
+        return 'Unknown Subject';
+    }
+
+    function populateServicesTable(services) {
+        const tableBody = document.querySelector('#service-table tbody');
+        tableBody.innerHTML = ''; // Clear previous data
+
+        if (Array.isArray(services)) {
+            services.forEach((service, index) => {
+                const subjectName = getSubjectName(service.subjectId); // Get subject name
+                console.log('Service:', service, 'Subject Name:', subjectName); // Debugging
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${service.nameTutor}</td>
+                <td>${subjectName}</td> <!-- Display subject name -->
+                <td>${service.timeOfSession}</td>
+                <td>${service.priceOfSession}</td>
+                <td>${service.sessionOfWeek}</td>
+                <td>${service.description || ''}</td>
+                <td>
+                    <a href="editutorservice.html?id=${service.id}" class="edit-link">Sửa</a> |
+                    <a href="#" class="delete-link" data-id="${service.id}">Xóa</a>
+                </td>
+            `;
+                tableBody.appendChild(row);
+            });
+            document.querySelectorAll('.delete-link').forEach(link => {
+                link.addEventListener('click', handleDelete);
+            });
+        } else {
+            const emptyRow = document.createElement('tr');
+            emptyRow.innerHTML = '<td colspan="8">Không có dịch vụ gia sư</td>';
+            tableBody.appendChild(emptyRow);
+        }
+    }
+    function handleDelete(event) {
+        event.preventDefault();
+        const serviceId = event.target.getAttribute('data-id');
+        if (confirm('Bạn có chắc chắn muốn xóa dịch vụ này?')) {
+            deleteService(serviceId);
+        }
+    }
+
+    function deleteService(serviceId) {
+        const token = localStorage.getItem('token');
+
+        fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(() => {
+                // Remove the row from the table
+                const row = document.querySelector(`.delete-link[data-id="${serviceId}"]`).closest('tr');
+                row.remove();
+            })
+            .catch(error => {
+                console.error('Error deleting service:', error);
+            });
+    }
+</script>
 </body>
 
 </html>

@@ -180,7 +180,7 @@
     background-color: #F1D3CE;
     color: white;
 }
-    
+
 .student-table tr:nth-child(even) {
     background-color: var(--gray);
 }
