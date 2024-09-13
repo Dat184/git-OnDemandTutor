@@ -177,8 +177,8 @@
 }
 
 .student-table th {
-    background-color: #F02FC2;
-    color: white;   
+    background-color: #F1D3CE;
+    color: white;
 }
 
 .student-table tr:nth-child(even) {
@@ -186,8 +186,8 @@
 }
 
 .student-table tr:hover {
-    background-color: #eea0db;
-    color: white;
+    background-color: #D1E9F6;
+    color: black;
 }
 
 /* Edit and delete */
@@ -237,9 +237,9 @@
 }
 
 .edit-content form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+   
 }
 
 .edit-content label {
@@ -260,19 +260,15 @@
     border-radius: 5px;
     font-size: 14px;
     color: var(--black1);
-    background-color: #FCE383;
+    background-color: #F1D3CE;
 }
 
-.edit-content textarea {
-    resize: vertical;
-    height: 100px;
-}
 
-.edit-content input:focus,
-.edit-content textarea:focus {
+
+.edit-content input:focus{
     outline: none;
     border-color: var(--blue);
-    background-color: #FCE383;
+    background-color: #F1D3CE;
 }
 
 .edit-content .form-actions {
@@ -284,6 +280,7 @@
 
 
 .save-btn { padding: 10px 20px;
+    width: 180px;
     font-size: 16px;
     font-weight: 600;
     border: none;
@@ -293,7 +290,7 @@
     background-color: #4CAF50;
     color: white;
     margin-top: 20px;
-    margin-left: 180px;
+    margin-left: 200px;
 }
 
 .edit-content .save-btn:hover {
@@ -311,12 +308,12 @@
 
 /* ========== Add Content Section ========== */
 .add-content {
-    width: 100%;
+    width: 70%;
     background-color: var(--white);
     padding: 20px;
-    margin-top: 200px;
+    margin: 200px auto;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -337,14 +334,14 @@
     border-radius: 5px;
     font-size: 14px;
     color: var(--black1);
-    background-color: #FCE383;
+    background-color: #F1D3CE;
     margin-bottom: 20px;
 }
 
 .add-content input[type="text"]:focus {
     outline: none;
     border-color: var(--blue);
-    background-color: #FCE383;
+    background-color: #F1D3CE;
 }
 
 .add-content button {
@@ -367,11 +364,11 @@
 .table-container {
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 200px auto;
     padding: 20px;
     background-color: var(--white);
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   
     margin-top: 100px;
 }
 
@@ -387,7 +384,7 @@
 }
 
 .subject-table th {
-    background-color: #F02FC2;
+    background-color: #F1D3CE;
     color: white;
 }
 
@@ -396,8 +393,8 @@
 }
 
 .subject-table tr:hover {
-    background-color: #eea0db;
-    color: white;
+    background-color: #D1E9F6;
+    color: black;
 }
 /*edit subject*/
 .form-container {
@@ -439,7 +436,7 @@
     border-radius: 5px;
     font-size: 14px;
     color: var(--black1);
-    background-color: #FCE383;
+    background-color: #F1D3CE;
 }
 
 .form-group input[type="text"]:focus {

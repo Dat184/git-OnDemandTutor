@@ -48,7 +48,8 @@ public class SecurityConfig {
             "/v1/tutor/**",
             "/ws/**",
             "/v1/message/**",
-            "/v1/booking/create"
+            "/v1/booking/create",
+            "/v1/videos/tutor/**"
     };
 
     @Autowired
