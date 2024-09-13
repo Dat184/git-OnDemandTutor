@@ -34,7 +34,13 @@
     margin: 1px auto;
     border-radius: 50%;
     border: 5px solid #fff;
+    object-fit: cover;
+    object-position: center;
+   
     box-shadow: 1px 2px 5px;}
+img .avatar-a{
+  
+}
 .name-tutor{
     
     width: 60%;

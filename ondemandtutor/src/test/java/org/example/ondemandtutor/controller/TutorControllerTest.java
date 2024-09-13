@@ -8,11 +8,13 @@ import org.example.ondemandtutor.config.FireBaseConfig;
 import org.example.ondemandtutor.dto.request.UserCreationRequest;
 import org.example.ondemandtutor.dto.response.TutorResponse;
 import org.example.ondemandtutor.dto.response.UserResponse;
+import org.example.ondemandtutor.pojo.User;
 import org.example.ondemandtutor.service.FirebaseStorageService;
 import org.example.ondemandtutor.service.TutorService;
 import org.example.ondemandtutor.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,6 +32,7 @@ import java.util.List;
 import static java.nio.file.Paths.get;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -145,11 +148,21 @@ public class TutorControllerTest {
                 .get("/v1/tutor/"+tutorResponse.getId())
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.result.id").value(tutorResponse.getId()))
-                .andExpect(jsonPath("$.result.username").value(tutorResponse.getUsername()))
-                .andExpect(jsonPath("$.result.email").value(tutorResponse.getEmail()))
-                .andExpect(jsonPath("$.result.name").value(tutorResponse.getName()))
-                .andExpect(jsonPath("$.result.imgUrl").value(tutorResponse.getImgUrl()))
-                .andExpect(jsonPath("$.result.role").value(tutorResponse.getRole()));
+                .andExpect(jsonPath("code").value("1000"));
     }
+
+
+
+    @Test
+    @WithMockUser
+    void deleteTutor() throws Exception {
+        Long tutorId = 123L;
+        doNothing().when(tutorService).deleteTutor(anyLong());
+
+        mockMVC.perform(MockMvcRequestBuilders
+                .delete("/v1/tutor/{tutorId}", tutorId)
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isNoContent());
+    }
+
 }

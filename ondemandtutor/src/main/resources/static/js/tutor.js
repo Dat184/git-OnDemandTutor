@@ -127,7 +127,7 @@ function displayVideo(tutorId) {
     fetch(`http://localhost:8080/v1/videos/tutor/${tutorId}`, {
         method: 'GET',
         headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'Content-Type': 'application/json'
         }
     })

@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <td>${element.sessionOfWeek}</td>
                         <td>${element.priceOfSession}</td>
                         <td>
-                            <a href="#" class="edit-link" data-id="${element.id}">Sửa lịch học</a> |
+                            <a href="#" class="edit-link" data-id="${element.id}">Sửa dịch vụ</a> |
                             <a href="#" class="delete-link" data-id="${element.id}">Xóa</a>
                         </td>
                     `;
@@ -139,19 +139,24 @@ document.addEventListener("DOMContentLoaded", function() {
                     scheduleModal.style.display = "block";  // Hiển thị modal
 
                     // Đóng modal khi nhấn vào dấu "X"
-                    const closeModal = document.querySelector("#closelhModal");
-                    if (closeModal) {
-                        closeModal.addEventListener("click", function() {
-                            scheduleModal.style.display = "none";  // Đóng modal
-                        });
-                    } else {
-                        console.error('Phần tử với lớp "close" không tồn tại.');
-                    }
+                    document.querySelector("#closelhModal").addEventListener("click", function() {
+                        document.getElementById("editScheduleModal").style.display = "none";
+                    });
 
-                    // Đóng modal khi nhấn ra ngoài modal
+// Close editInfoModal
+                    document.querySelector("#closelhModal2").addEventListener("click", function() {
+                        document.getElementById("editInfoModal").style.display = "none";
+                    });
+
+// Close modal when clicking outside
                     window.addEventListener("click", function(event) {
-                        if (event.target === scheduleModal) {
-                            scheduleModal.style.display = "none";  // Đóng modal
+                        const editScheduleModal = document.getElementById("editScheduleModal");
+                        const editInfoModal = document.getElementById("editInfoModal");
+
+                        if (event.target === editScheduleModal) {
+                            editScheduleModal.style.display = "none";
+                        } else if (event.target === editInfoModal) {
+                            editInfoModal.style.display = "none";
                         }
                     });
                 } else {

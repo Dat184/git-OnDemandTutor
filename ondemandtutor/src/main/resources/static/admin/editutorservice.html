@@ -94,16 +94,14 @@
         </div>
 
         <div class="edit-content">
-            <h2>Chỉnh sửa thông tin học sinh</h2>
+            <h2>Chỉnh sửa thông tin dịch vụ</h2>
             <form id="editTutorServiceForm">
 
-
                 <table>
-
                     <tr>
                         <th>Môn</th>
                         <td>
-                            <select type="text" id="subject" name="subjectId" required></select>
+                            <select id="subject" name="subjectId" required></select>
                         </td>
                     </tr>
                     <tr>
@@ -114,10 +112,9 @@
                         <th>Giá khóa học (VND)</th>
                         <td><input type="number" id="priceOfSession" name="priceOfSession" required></td>
                     </tr>
-
                     <tr>
                         <th>Mô tả</th>
-                        <td><textarea type="text" id="description" name="description" rows="4"></textarea></td>
+                        <td><input type="text" id="description" name="description" ></td>
                     </tr>
                 </table>
                 <button class="save-btn" id="saveBtn" type="submit">Lưu thay đổi</button>
@@ -128,7 +125,6 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-
         const urlParams = new URLSearchParams(window.location.search);
         const serviceId = urlParams.get('id');  // Get the ID from the URL
         if (!serviceId) {
@@ -149,7 +145,6 @@
     function fetchServiceDetails(serviceId) {
         const token = localStorage.getItem('token');
 
-        console.log('Fetching service details for ID:', serviceId);
         fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
             method: 'GET',
             headers: {
@@ -165,21 +160,17 @@
             })
             .then(data => {
                 console.log('Service details fetched:', data);
-                console.log(data.data.subjectId);
-                const datasubjectid= localStorage.setItem('subjectId',data.data.subjectId)
-                populateForm(data);
+                populateForm(data.data); // Pass the actual data object
             })
             .catch(error => console.error('Error fetching service details:', error));
     }
 
     function populateForm(service) {
-
-        document.getElementById('timeOfSession').value = service.data.timeOfSession || '';
-        document.getElementById('priceOfSession').value = service.data.priceOfSession || '';
-
-        document.getElementById('description').value = service.data.description || '';
-
-        fetchSubjects(service.data.subjectId); // Populate subjects dropdown
+        const { timeOfSession, priceOfSession, description, subjectId } = service;
+        document.getElementById('timeOfSession').value = timeOfSession || '';
+        document.getElementById('priceOfSession').value = priceOfSession || '';
+        document.getElementById('description').value = description || '';
+        fetchSubjects(subjectId); // Populate subjects dropdown
     }
 
     function fetchSubjects(selectedSubjectId) {
@@ -199,6 +190,7 @@
                 return response.json();
             })
             .then(data => {
+                console.log('Subjects fetched:', data);
                 const subjectSelect = document.getElementById('subject');
                 subjectSelect.innerHTML = '<option value="">Chọn môn</option>';
 
@@ -207,7 +199,7 @@
                         const option = document.createElement('option');
                         option.value = subject.id;
                         option.textContent = subject.name;
-                        if (subject.id === selectedSubjectId) {
+                        if (subject.id == selectedSubjectId) { // Use '==' to avoid type mismatch
                             option.selected = true; // Set the selected option
                         }
                         subjectSelect.appendChild(option);
@@ -220,17 +212,23 @@
             .catch(error => console.error('Error fetching subjects:', error));
     }
 
+
     function updateService(serviceId) {
         const token = localStorage.getItem('token');
         const form = document.getElementById('editTutorServiceForm');
         const formData = new FormData(form);
+
+        // Debugging: Log the formData content
+        for (const [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
 
         fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`
             },
-            body: formData // Gửi dữ liệu dạng FormData
+            body: formData // Send data as FormData
         })
             .then(response => {
                 if (!response.ok) {
@@ -242,7 +240,8 @@
             })
             .then(data => {
                 console.log('Service updated successfully:', data);
-                window.location.href = 'tutorService.html'; // Redirect after successful update
+                window.location.href = 'tutorServiceList.html';
+                // Optionally redirect or show a success message
             })
             .catch(error => {
                 console.error('Error updating service:', error.message);
