@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    if(!token|| token === ""){
+        window.location.href = '../html/modal.html';
+        alert("Bạn chưa Đăng Nhập! Vui Lòng Đăng Nhập.")
+    }
     const form = document.getElementById('addSubjectForm');
     const responseMessage = document.getElementById('responseMessage');
 

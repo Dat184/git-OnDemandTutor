@@ -2,6 +2,10 @@ async function saveAllChanges() {
     const form = document.getElementById('editForminfor');
     const formData = new FormData(form);
     const token = localStorage.getItem('token');
+    if(!token|| token === ""){
+        window.location.href = '../html/modal.html';
+        alert("Bạn chưa Đăng Nhập! Vui Lòng Đăng Nhập.")
+    }
 
     try {
         // Gửi yêu cầu tạo dịch vụ gia sư
@@ -22,8 +26,9 @@ async function saveAllChanges() {
         const result = await response.json();
 
         if (result.status === 'success') {
+
+            localStorage.setItem('tutorServiceId',result.data.id);
             alert('Dịch vụ gia sư đã được tạo thành công!');
-            tutorServiceId = result.data.id; // Lưu lại tutorServiceId từ phản hồi API
         } else {
             alert(`Có lỗi xảy ra: ${result.message}`);
             return; // Dừng xử lý nếu có lỗi
@@ -49,7 +54,7 @@ async function saveAllChanges() {
         if (!availabilityRequests[dayOfWeek]) {
             availabilityRequests[dayOfWeek] = {
                 dayOfWeek: dayOfWeek,
-                tutorServiceId: tutorServiceId, // Sử dụng tutorServiceId đã lấy được
+                tutorServiceId: localStorage.getItem('tutorServiceId'), // Sử dụng tutorServiceId đã lấy được
                 morningAvailable: false,
                 afternoonAvailable: false,
                 eveningAvailable: false
@@ -94,6 +99,7 @@ async function saveAllChanges() {
     try {
         await Promise.all(requests);
         alert('Tất cả lịch giảng dạy đã được cập nhật!');
+        window.location.href= 'dichvulist.html';
     } catch (error) {
         alert('Có lỗi xảy ra trong quá trình gửi dữ liệu. Vui lòng kiểm tra console để biết thêm chi tiết.');
     }
@@ -101,3 +107,4 @@ async function saveAllChanges() {
 
 // Gán sự kiện cho nút "Lưu Những Thay Đổi"
 document.getElementById('saveButton').addEventListener('click', saveAllChanges);
+

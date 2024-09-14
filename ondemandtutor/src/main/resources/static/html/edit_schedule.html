@@ -602,8 +602,11 @@ button#saveButton2:hover {
           </tbody>
         </table>
         <button id="saveButton" type="submit">Lưu Những Thay Đổi</button>
+
     </div>
+
   </div>
+</form>
     <div id="editInfoModal" class="modal-Schedule-2 ">
         <div class="modal-content-Schedule">
             <div class="buttonforeditscheduke">
@@ -613,14 +616,16 @@ button#saveButton2:hover {
             <span  id="closelhModal2" class="close">&times;</span>
             <h2>Sửa thông tin dịch vụ</h2>
 <!--            <input type="hidden" id="serviceId">-->
+            <form id="editTutorServiceForm">
             <div class="form-container">
                 <!-- Chỉnh sửa hình ảnh -->
                 <label for="image">Hình ảnh:</label>
                 <input class="img" type="file" id="image" name="imageFile">
+                <img id="imgedit" src="#">
 
                 <!-- Chỉnh sửa môn học -->
-                <label for="chonmon">Chọn môn học:</label>
-                <select class="time-select" id="chonmon" name="subjectId">
+                <label for="subject">Chọn môn học:</label>
+                <select class="time-select" id="subject" name="subjectId">
                     <option value="1">Toán</option>
                     <option value="2">Văn</option>
                     <option value="3">Anh</option>
@@ -642,9 +647,11 @@ button#saveButton2:hover {
 
             </div>
             <button id="saveButton2" type="submit">Lưu Những Thay Đổi</button>
+            </form>
         </div>
+
     </div>
-</form>
+
     <script src="../js/header.js"></script>
 
 

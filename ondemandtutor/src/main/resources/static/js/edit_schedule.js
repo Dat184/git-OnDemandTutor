@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
     const token = localStorage.getItem("token");
+    if(!token|| token === ""){
+        window.location.href = '../html/modal.html';
+        alert("Bạn chưa Đăng Nhập! Vui Lòng Đăng Nhập.")
+    }
     const tutorId = localStorage.getItem("id");
     let currentServiceId = null;
     let availabilityData = {};
@@ -58,7 +62,9 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();
             currentServiceId = event.target.getAttribute('data-id');
             console.log('Calling openScheduleModal with serviceId:', currentServiceId);
+            localStorage.setItem('serviceId',currentServiceId);
             openScheduleModal(currentServiceId);
+            fetchServiceDetails(currentServiceId);
         } else if (event.target.classList.contains('delete-link')) {
             event.preventDefault();
             const id = event.target.getAttribute('data-id');
@@ -312,4 +318,125 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error('Lỗi:', error);
             });
 });
+
+    document.getElementById('editTutorServiceForm').addEventListener('submit', (event) => {
+        event.preventDefault();
+        updateService(currentServiceId);
+    });
+
+
+    function fetchServiceDetails(serviceId) {
+        const token = localStorage.getItem('token');
+
+        fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Service details fetched:', data);
+                populateForm(data.data); // Pass the actual data object
+            })
+            .catch(error => console.error('Error fetching service details:', error));
+    }
+
+    function populateForm(service) {
+
+        const { timeOfSession, priceOfSession, description, subjectId, imageUrl} = service;
+        document.getElementById('timeOfSession').value = timeOfSession || '';
+        document.getElementById('priceOfSession').value = priceOfSession || '';
+        document.getElementById('description').value = description || '';
+        fetchSubjects(subjectId); // Populate subjects dropdown
+        const imageElement = document.getElementById('imgedit');
+        imageElement.src = imageUrl;
+    }
+
+    function fetchSubjects(selectedSubjectId) {
+        const token = localStorage.getItem('token');
+
+        fetch('http://localhost:8080/v1/subject', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Subjects fetched:', data);
+                const subjectSelect = document.getElementById('subject');
+                subjectSelect.innerHTML = '<option value="">Chọn môn</option>';
+
+                if (Array.isArray(data)) {
+                    data.forEach(subject => {
+                        const option = document.createElement('option');
+                        option.value = subject.id;
+                        option.textContent = subject.name;
+                        if (subject.id == selectedSubjectId) { // Use '==' to avoid type mismatch
+                            option.selected = true; // Set the selected option
+                        }
+                        subjectSelect.appendChild(option);
+                    });
+                } else {
+                    console.error('Unexpected response structure:', data);
+                    subjectSelect.innerHTML = '<option value="">Không có môn học</option>';
+                }
+            })
+            .catch(error => console.error('Error fetching subjects:', error));
+    }
+
+
+    function updateService(serviceId) {
+        const token = localStorage.getItem('token');
+        const form = document.getElementById('editTutorServiceForm');
+        const formData = new FormData(form);
+
+        // Debugging: Log the formData content
+        for (const [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+
+        fetch(`http://localhost:8080/v1/tutor-services/${serviceId}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData // Send data as FormData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(errorText => {
+                        throw new Error(`Error ${response.status}: ${errorText}`);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Service updated successfully:', data);
+                window.location.href = 'edit_schedule.html';
+                // Optionally redirect or show a success message
+            })
+            .catch(error => {
+                console.error('Error updating service:', error.message);
+                alert(`Failed to update service: ${error.message}`);
+            });
+    }
+
+
 });
+
+
+
