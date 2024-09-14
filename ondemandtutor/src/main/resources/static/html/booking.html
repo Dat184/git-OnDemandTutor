@@ -139,7 +139,10 @@
         // Extract studentId from URL
         const studentId = localStorage.getItem('id')
         const token = localStorage.getItem('token');
-
+        if(!token|| token === ""){
+            window.location.href = '../html/modal.html';
+            alert("Bạn chưa Đăng Nhập! Vui Lòng Đăng Nhập.")
+        }
         // Fetch bookings based on studentId
         fetch(`http://localhost:8080/v1/booking/student/${studentId}`, {
             method: 'GET',

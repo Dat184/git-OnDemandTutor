@@ -33,6 +33,11 @@
 
 <script>
     // Function to get URL parameters
+    const token = localStorage.getItem('token');
+    if(!token|| token === ""){
+        window.location.href = '../html/modal.html';
+        alert("Bạn chưa Đăng Nhập! Vui Lòng Đăng Nhập.")
+    }
     function getUrlParam(paramName) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(paramName);

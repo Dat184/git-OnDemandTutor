@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
 
+    if(!token|| token === ""){
+        window.location.href = '../html/modal.html';
+        alert("Bạn chưa Đăng Nhập! Vui Lòng Đăng Nhập.")
+    }
+
     // Fetch and populate students if on the student list page
     if (window.location.pathname.includes('studentlist.html')) {
         fetch('http://localhost:8080/v1/student', {

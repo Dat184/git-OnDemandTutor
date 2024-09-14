@@ -2,7 +2,10 @@ async function saveAllChanges() {
     const form = document.getElementById('editForminfor');
     const formData = new FormData(form);
     const token = localStorage.getItem('token');
-
+    if(!token|| token === ""){
+        window.location.href = '../html/modal.html';
+        alert("Bạn chưa Đăng Nhập! Vui Lòng Đăng Nhập.")
+    }
 
     try {
         // Gửi yêu cầu tạo dịch vụ gia sư

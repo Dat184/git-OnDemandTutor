@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
     const token = localStorage.getItem("token");
+    if(!token|| token === ""){
+        window.location.href = '../html/modal.html';
+        alert("Bạn chưa Đăng Nhập! Vui Lòng Đăng Nhập.")
+    }
     const tutorId = localStorage.getItem("id");
     let currentServiceId = null;
     let availabilityData = {};

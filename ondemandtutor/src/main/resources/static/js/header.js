@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const dropdown = document.getElementById('userDropdown');
     const logoutButton = document.getElementById('logoutButton');
     const defaultImgUrl = 'https://th.bing.com/th/id/OIP.MaDrjtmPQGzKiLHrHEPfFAHaHa?w=199&h=199&c=7&r=0&o=5&pid=1.7';
-
     // Phân quyền trang tạo dịch vụ
     const userRole = localStorage.getItem('role');
     console.log(userRole);
