@@ -277,6 +277,8 @@
     height: 40px;
     border-radius: 50%;
     border: 2px solid white;
+    object-fit: cover;
+    object-position: center;
 }
 
 .username {

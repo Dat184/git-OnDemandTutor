@@ -17,7 +17,7 @@ th, td {
 }
 
 th {
-    background-color: #F54EA2;
+    background-color: #F1D3CE;
 }
 
 tbody tr:nth-child(even) {
@@ -25,7 +25,7 @@ tbody tr:nth-child(even) {
 }
 
 tbody tr:hover {
-    background-color: #aedde5;
+    background-color: #D1E9F6;
 }
 
 .table-title {

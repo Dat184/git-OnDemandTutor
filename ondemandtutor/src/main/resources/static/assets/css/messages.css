@@ -2,8 +2,8 @@ body,
 html {
 	height: 100%;
 	margin: 0;
-	background: -webkit-linear-gradient(to right, violet, #AA14F0, #BC8CF2);
-	background: linear-gradient(to right, violet, #AA14F0, #BC8CF2);
+	background-color: #c9d6ff;
+    background: linear-gradient(to right, #EECAD5, #D1E9F6);
 }
 
 
@@ -22,7 +22,7 @@ html {
 .contacts_body {
 	padding: 0.75rem 0 !important;
 	overflow-y: auto;
-	white-space: nowrap;
+	white-space: wrap;
 }
 
 .msg_card_body {
@@ -59,7 +59,7 @@ html {
 	background-color: rgba(0, 0, 0, 0.3) !important;
 	border: 0 !important;
 	color: white !important;
-	height: 60px !important;
+	height: 40px !important;
 	overflow-y: auto;
 }
 
@@ -110,13 +110,18 @@ html {
 .user_img {
 	height: 60px;
 	width: 60px;
-	border: 1.5px solid #f5f6fa;
+	border: 2px solid #f5f6fa;
+	object-fit: cover;
+    object-position: center;
 }
 
 .user_img_msg {
 	height: 40px;
 	width: 40px;
-	border: 1.5px solid #f5f6fa;
+	border: 2px solid #f5f6fa;
+	object-fit: cover;
+    object-position: center;
+
 }
 
 .img_cont {
@@ -178,9 +183,10 @@ html {
 	margin-bottom: auto;
 	margin-left: 10px;
 	border-radius: 25px;
-	background-color: #BC8CF2;
-	padding: 10px;
+	background-color: #fff;
+	padding: 4px 12px;
 	position: relative;
+	max-width: 400px;
 }
 
 .msg_cotainer_send {
@@ -188,19 +194,21 @@ html {
 	margin-bottom: auto;
 	margin-right: 10px;
 	border-radius: 25px;
-	background-color: #eee;
-	padding: 10px;
+	background: linear-gradient(to top right, #EECAD5, #F1D3CE,#F6EACB,#D1E9F6);
+	padding: 4px 12px;
 	position: relative;
+	max-width: 500px;
 }
 
 .msg_time {
 	position: absolute;
-	width: 100%;
-	min-width: 68px;
 	left: 0;
+	
+	margin-right: 20px;
 	bottom: -15px;
 	color: rgba(255, 255, 255, 0.5);
 	font-size: 10px;
+	
 
 }
 
@@ -228,7 +236,7 @@ html {
 .action_menu {
 	z-index: 1;
 	position: absolute;
-	padding: 15px 0;
+	padding: 5px 0;
 	background-color: rgba(0, 0, 0, 0.5);
 	color: white;
 	border-radius: 15px;
