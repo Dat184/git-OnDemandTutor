@@ -34,6 +34,7 @@ public class TutorServiceService {
     FirebaseStorageService firebaseStorageService;
     UserRepository userRepository;
     SubjectRepository subjectRepository;
+
     public List<TutorServiceResponse> getAllTutorServices() {
         return tutorServiceMapper.toTutorServiceResponseList(tutorServiceRepository.findAll());
     }
@@ -106,7 +107,9 @@ public class TutorServiceService {
                     .orElseThrow(() -> new IllegalArgumentException("Subject not found"));
             tutorService.setSubject(subject);
         }
+
         tutorServiceMapper.updateTutorServiceFromRequest(tutorServiceRequest, tutorService);
+
         TutorService updatedTutorService = tutorServiceRepository.save(tutorService);
         updateTotalSessions(updatedTutorService.getId());
         return tutorServiceMapper.toTutorServiceResponse(updatedTutorService);
