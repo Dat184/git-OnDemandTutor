@@ -9,10 +9,9 @@ import org.example.ondemandtutor.dto.response.TutorServiceResponse;
 import org.example.ondemandtutor.exception.AppException;
 import org.example.ondemandtutor.exception.ErrorCode;
 import org.example.ondemandtutor.mapper.TutorServiceMapper;
-import org.example.ondemandtutor.pojo.Tutor;
-import org.example.ondemandtutor.pojo.TutorAvail;
+import org.example.ondemandtutor.pojo.*;
 import org.example.ondemandtutor.pojo.TutorService;
-import org.example.ondemandtutor.pojo.User;
+import org.example.ondemandtutor.repository.SubjectRepository;
 import org.example.ondemandtutor.repository.TutorAvailRepository;
 import org.example.ondemandtutor.repository.TutorServiceRepository;
 
@@ -37,6 +36,7 @@ public class TutorServiceService {
     TutorServiceMapper tutorServiceMapper;
     FirebaseStorageService firebaseStorageService;
     UserRepository userRepository;
+    SubjectRepository subjectRepository;
 
 
     public List<TutorServiceResponse> getAllTutorServices() {
@@ -106,7 +106,14 @@ public class TutorServiceService {
             tutorService.setType(tutorServiceRequest.getImageFile().getContentType());
             tutorService.setImageUrl(imageUrl);
         }
+        if(tutorServiceRequest.getSubjectId() != null) {
+            Subject subject = subjectRepository.findById(tutorServiceRequest.getSubjectId())
+                    .orElseThrow(() -> new IllegalArgumentException("Subject not found"));
+            tutorService.setSubject(subject);
+        }
+
         tutorServiceMapper.updateTutorServiceFromRequest(tutorServiceRequest, tutorService);
+
         TutorService updatedTutorService = tutorServiceRepository.save(tutorService);
         updateTotalSessions(updatedTutorService.getId());
         return tutorServiceMapper.toTutorServiceResponse(updatedTutorService);
