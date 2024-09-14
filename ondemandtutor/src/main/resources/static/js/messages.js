@@ -4,6 +4,10 @@ $(document).ready(function(){
 	});
 
 	const token = localStorage.getItem('token');
+	if(!token|| token === ""){
+		window.location.href = '../html/modal.html';
+		alert("Bạn chưa Đăng Nhập! Vui Lòng Đăng Nhập.")
+	}
 	const url = 'http://localhost:8080';
 	let stompClient = null;
 	let currentChatId = '';

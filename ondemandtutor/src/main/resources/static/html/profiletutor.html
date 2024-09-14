@@ -195,7 +195,10 @@
     async function getMyInfo() {
         try {
             const token = localStorage.getItem('token');
-
+            if(!token|| token === ""){
+                window.location.href = '../html/modal.html';
+                alert("Bạn chưa Đăng Nhập! Vui Lòng Đăng Nhập.")
+            }
                 const response = await fetch('http://localhost:8080/v1/tutor/myInfo', {
                 method: 'GET',
                 headers: {

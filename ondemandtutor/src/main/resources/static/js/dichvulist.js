@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Hàm để lấy tên môn học từ API dựa vào id
-    const token = localStorage.getItem('token');
+
     async function fetchSubjectNameById(id) {
         try {
             const response = await fetch(`http://localhost:8080/v1/subject/${id}`, {

@@ -50,7 +50,7 @@
     display: block;
 }
 
-.hidden {
+.hidden:active {
     display: none;
 }
 .edit-schedule-container {
@@ -122,7 +122,7 @@ button.add-time-btn:hover {
 
 button#saveButton {
     display: block;
-    width: 100%;
+    width: 50%;
     padding: 10px;
     background-color: #4CAF50;
     color: white;
@@ -130,9 +130,24 @@ button#saveButton {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    margin: 20px auto;
 }
-
+button#saveButton2 {
+    display: block;
+    width: 50%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 20px auto;
+}
 button#saveButton:hover {
+    background-color: #45a049;
+}
+button#saveButton2:hover {
     background-color: #45a049;
 }
 .time-slot {
@@ -221,19 +236,20 @@ button#saveButton:hover {
 }
 /*  */
 /* The Modal (background) */
-.modal-Schedule {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+.modal-Schedule, .modal-Schedule-2 {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* Modal Content */
+/* .modal-Schedule-2 */
 .modal-content-Schedule {
   background-color: #fff;
   margin: 15% auto;
@@ -256,7 +272,60 @@ button#saveButton:hover {
   text-decoration: none;
   cursor: pointer;
 }
+.buttonforeditscheduke button{
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.form-container{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
 
+   
+    margin: 20px auto   ;
+}
+.form-container label{
+    font-size: 1.2em;
+    font-weight: bold; 
+    padding-bottom: 5px;
+}
+
+
+.form-container input{
+  
+    font-size: 0.8em;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 20px auto;
+}
+.img{
+    width: 200px;
+    margin: 0 auto;
+}
+.form-container  select{
+    font-size: 0.8em;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 20px auto;
+}
+.form-container textarea{
+  
+    border: 2px solid #000;
+    font-size: 0.8em;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 0 20px auto;
+    resize: none;
+}
+
+
+#file-upload-button{
+    border-radius: 10px;
+}
     </style>
 </head>
 <body>
@@ -365,95 +434,7 @@ button#saveButton:hover {
                     <button id="edit-schedule-btn">Chỉnh sửa lịch trình</button>
                     <button id="upload-video-btn">Chỉnh sửa Video video</button>
                 </div>
-                <!-- <div id="edit-schedule-container" class="content-container">
-                    <h1>Edit Schedule</h1>
-                    <form id="editScheduleForm">
-                        <table id="scheduleTable">
-                            <thead>
-                                <tr>
-                                    <th>Day</th>
-                                    <th>Times</th>
-                                    <th>Add Time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                               
-                                <tr data-day="Sun">
-                                    <td>Sunday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                                <tr data-day="Mon">
-                                    <td>Monday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                                <tr data-day="Tue">
-                                    <td>Tuesday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                                <tr data-day="Wed">
-                                    <td>Wednesday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                                <tr data-day="Thu">
-                                    <td>Thursday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                                <tr data-day="Fri">
-                                    <td>Friday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                                <tr data-day="Sat">
-                                    <td>Saturday</td>
-                                    <td class="times">
-                                        <div class="time-list"></div>
-                                    </td>
-                                    <td> <input type="time" class="start-time-input">
-                                        <input type="time" class="end-time-input">
-                                        <button type="button" class="add-time-btn">Add</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form>
 
-                    <button id="saveButton">Save Changes</button>
-                </div>  -->
                 <div id="edit-schedule-container" class="content-container">
                     <h2>Danh sách dịch vụ</h2>
                     <table id="subject-table" class="subject-table">
@@ -481,6 +462,7 @@ button#saveButton:hover {
                     </table>
                 </div>
                 <div id="upload-video-container" class="content-container hidden">
+
                     <h1>Chỉnh Sửa Video</h1>
 
                     <!-- Video Upload Form -->
@@ -527,99 +509,14 @@ button#saveButton:hover {
             </div>
     </div>
     </div>
-<!-- <div id="edit-schedule" class="content-container">
 
-
-    <table id="scheduleTable">
-        <thead>
-        <tr>
-            <th>Ngày</th>
-            <th>Thời gian</th>
-       
-        </tr>
-        </thead>
-        <tbody>
-       
-        <tr data-day="Sun">
-            <td>Sunday</td>
-            <td class="times">
-                <div class="time-list">
-                    <label><input type="checkbox" name="Sun_Morning" value="Sáng"> Sáng</label>
-                    <label><input type="checkbox" name="Sun_Afternoon" value="Chiều"> Chiều</label>
-                    <label><input type="checkbox" name="Sun_Evening" value="Tối"> Tối</label>
-                </div>
-            </td>
-        </tr>
-        <tr data-day="Mon">
-            <td>Monday</td>
-            <td class="times">
-                <div class="time-list">
-                    <label><input type="checkbox" name="Mon_Morning" value="Sáng"> Sáng</label>
-                    <label><input type="checkbox" name="Mon_Afternoon" value="Chiều"> Chiều</label>
-                    <label><input type="checkbox" name="Mon_Evening" value="Tối"> Tối</label>
-                </div>
-            </td>
-        </tr>
-        <tr data-day="Tue">
-            <td>Tuesday</td>
-            <td class="times">
-                <div class="time-list">
-                    <label><input type="checkbox" name="Tue_Morning" value="Sáng"> Sáng</label>
-                    <label><input type="checkbox" name="Tue_Afternoon" value="Chiều"> Chiều</label>
-                    <label><input type="checkbox" name="Tue_Evening" value="Tối"> Tối</label>
-                </div>
-            </td>
-        </tr>
-        <tr data-day="Wed">
-            <td>Wednesday</td>
-            <td class="times">
-                <div class="time-list">
-                    <label><input type="checkbox" name="Wed_Morning" value="Sáng"> Sáng</label>
-                    <label><input type="checkbox" name="Wed_Afternoon" value="Chiều"> Chiều</label>
-                    <label><input type="checkbox" name="Wed_Evening" value="Tối"> Tối</label>
-                </div>
-            </td>
-        </tr>
-        <tr data-day="Thu">
-            <td>Thursday</td>
-            <td class="times">
-                <div class="time-list">
-                    <label><input type="checkbox" name="Thu_Morning" value="Sáng"> Sáng</label>
-                    <label><input type="checkbox" name="Thu_Afternoon" value="Chiều"> Chiều</label>
-                    <label><input type="checkbox" name="Thu_Evening" value="Tối"> Tối</label>
-                </div>
-            </td>
-        </tr>
-        <tr data-day="Fri">
-            <td>Friday</td>
-            <td class="times">
-                <div class="time-list">
-                    <label><input type="checkbox" name="Fri_Morning" value="Sáng"> Sáng</label>
-                    <label><input type="checkbox" name="Fri_Afternoon" value="Chiều"> Chiều</label>
-                    <label><input type="checkbox" name="Fri_Evening" value="Tối"> Tối</label>
-                </div>
-            </td>
-        </tr>
-        <tr data-day="Sat">
-            <td>Saturday</td>
-            <td class="times">
-                <div class="time-list">
-                    <label><input type="checkbox" name="Sat_Morning" value="Sáng"> Sáng</label>
-                    <label><input type="checkbox" name="Sat_Afternoon" value="Chiều"> Chiều</label>
-                    <label><input type="checkbox" name="Sat_Evening" value="Tối"> Tối</label>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-
-
-
-</div> -->
 <form id="availabilityForm">
-    <div id="editScheduleModal" class="modal-Schedule">
-    <div class="modal-content-Schedule">
+    <div id="editScheduleModal" class="modal-Schedule ">
+    <div class="modal-content-Schedule ">
+        <div class="buttonforeditscheduke">
+            <button id="sua-lich">Sửa lịch học</button>
+            <button id="sua-noidung">Sửa thông tin dịch vụ</button>
+        </div>
       <span  id="closelhModal" class="close">&times;</span>
       <h2>Sửa lịch học</h2>
         <input type="hidden" id="serviceId">
@@ -705,9 +602,56 @@ button#saveButton:hover {
           </tbody>
         </table>
         <button id="saveButton" type="submit">Lưu Những Thay Đổi</button>
+
     </div>
+
   </div>
 </form>
+    <div id="editInfoModal" class="modal-Schedule-2 ">
+        <div class="modal-content-Schedule">
+            <div class="buttonforeditscheduke">
+                <button id="sua-lich2">Sửa lịch học</button>
+                <button id="sua-noidung2">Sửa thông tin dịch vụ</button>
+            </div>
+            <span  id="closelhModal2" class="close">&times;</span>
+            <h2>Sửa thông tin dịch vụ</h2>
+<!--            <input type="hidden" id="serviceId">-->
+            <form id="editTutorServiceForm">
+            <div class="form-container">
+                <!-- Chỉnh sửa hình ảnh -->
+                <label for="image">Hình ảnh:</label>
+                <input class="img" type="file" id="image" name="imageFile">
+                <img id="imgedit" src="#">
+
+                <!-- Chỉnh sửa môn học -->
+                <label for="subject">Chọn môn học:</label>
+                <select class="time-select" id="subject" name="subjectId">
+                    <option value="1">Toán</option>
+                    <option value="2">Văn</option>
+                    <option value="3">Anh</option>
+                </select>
+
+                <!-- Chỉnh sửa thời gian giảng dạy -->
+                <label for="timeOfSession">Thời gian giảng dạy (phút):</label>
+                <input type="number" id="timeOfSession" name="timeOfSession" value="" placeholder="Nhập thời gian giảng dạy">
+
+                <!-- Chỉnh sửa giá khóa học -->
+                <label for="priceOfSession">Giá khóa học:</label>
+                <input type="text" id="priceOfSession" name="priceOfSession" value="" placeholder="Nhập giá khóa học">
+
+                <!-- Chỉnh sửa mô tả dịch vụ -->
+                <label for="description">Mô tả:</label>
+                <textarea id="description" name="description" rows="6" placeholder="Nhập mô tả dịch vụ"></textarea>
+
+                <!-- Nút lưu thay đổi -->
+
+            </div>
+            <button id="saveButton2" type="submit">Lưu Những Thay Đổi</button>
+            </form>
+        </div>
+
+    </div>
+
     <script src="../js/header.js"></script>
 
 
@@ -740,6 +684,21 @@ document.getElementById('upload-video-btn').addEventListener('click', function()
     document.getElementById('edit-schedule-container').classList.remove('active');
     document.getElementById('upload-video-container').classList.add('active');
 });
+        document.getElementById('sua-noidung').addEventListener('click', function() {
+            document.getElementById('editInfoModal').style.display = 'block';
+            document.getElementById('editScheduleModal').style.display = 'none';
+        });
+
+        document.getElementById('sua-lich2').addEventListener('click', function() {
+            document.getElementById('editScheduleModal').style.display = 'block';
+            document.getElementById('editInfoModal').style.display = 'none';
+        });
+        document.getElementById('availabilityForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Handle form submission via AJAX or other method
+            console.log("Form submitted.");
+        });
     </script>
 
 </body>

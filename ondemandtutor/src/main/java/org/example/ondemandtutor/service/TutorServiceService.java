@@ -3,7 +3,6 @@ package org.example.ondemandtutor.service;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 import org.example.ondemandtutor.dto.request.TutorServiceRequest;
 import org.example.ondemandtutor.dto.response.TutorServiceResponse;
 import org.example.ondemandtutor.exception.AppException;
@@ -23,10 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
-
 import java.util.stream.Collectors;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -37,8 +34,6 @@ public class TutorServiceService {
     FirebaseStorageService firebaseStorageService;
     UserRepository userRepository;
     SubjectRepository subjectRepository;
-
-
     public List<TutorServiceResponse> getAllTutorServices() {
         return tutorServiceMapper.toTutorServiceResponseList(tutorServiceRepository.findAll());
     }
@@ -111,9 +106,7 @@ public class TutorServiceService {
                     .orElseThrow(() -> new IllegalArgumentException("Subject not found"));
             tutorService.setSubject(subject);
         }
-
         tutorServiceMapper.updateTutorServiceFromRequest(tutorServiceRequest, tutorService);
-
         TutorService updatedTutorService = tutorServiceRepository.save(tutorService);
         updateTotalSessions(updatedTutorService.getId());
         return tutorServiceMapper.toTutorServiceResponse(updatedTutorService);

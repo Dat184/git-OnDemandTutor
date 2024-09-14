@@ -94,7 +94,7 @@
         </div>
 
         <div class="edit-content">
-            <h2>Chỉnh sửa thông tin học sinh</h2>
+            <h2>Chỉnh sửa thông tin dịch vụ</h2>
             <form id="editTutorServiceForm">
 
                 <table>
@@ -114,7 +114,7 @@
                     </tr>
                     <tr>
                         <th>Mô tả</th>
-                        <td><textarea id="description" name="description" rows="4"></textarea></td>
+                        <td><input type="text" id="description" name="description" ></td>
                     </tr>
                 </table>
                 <button class="save-btn" id="saveBtn" type="submit">Lưu thay đổi</button>
@@ -199,7 +199,7 @@
                         const option = document.createElement('option');
                         option.value = subject.id;
                         option.textContent = subject.name;
-                        if (subject.id == selectedSubjectId) { // Use '==' to avoid type mismatch
+                        if (subject.id === selectedSubjectId) { // Use '==' to avoid type mismatch
                             option.selected = true; // Set the selected option
                         }
                         subjectSelect.appendChild(option);
@@ -240,7 +240,7 @@
             })
             .then(data => {
                 console.log('Service updated successfully:', data);
-                window.location.href = 'tutorServiceList.html';
+                // window.location.href = 'tutorServiceList.html';
                 // Optionally redirect or show a success message
             })
             .catch(error => {

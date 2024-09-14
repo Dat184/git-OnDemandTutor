@@ -1,5 +1,10 @@
-// Function to update profile picture display
-// Function to update profile picture display
+document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    if(!token|| token === ""){
+        window.location.href = '../html/modal.html';
+        alert("Bạn chưa Đăng Nhập! Vui Lòng Đăng Nhập.")
+    }
+})
 function updateProfilePic(imgUrl) {
     const profilePic = document.querySelector('#profilePicContainer img');
     if (profilePic) {
