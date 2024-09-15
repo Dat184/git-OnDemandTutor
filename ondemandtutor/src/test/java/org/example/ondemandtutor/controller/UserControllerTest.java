@@ -46,7 +46,6 @@ public class UserControllerTest {
     private UserService userService;
     @MockBean
     private FirebaseStorageService firebaseStorageService;
-
     @MockBean
     private FireBaseConfig fireBaseConfig;
     @MockBean
@@ -86,9 +85,9 @@ public class UserControllerTest {
         //given
         ObjectMapper objectMapper = new ObjectMapper();
         String content = objectMapper.writeValueAsString(request);
-
+//when
         when(userService.createUser(any())).thenReturn(userResponse);
-        //when, then
+        // then
         mockMVC.perform(MockMvcRequestBuilders
                 .post("/v1/users/registered")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
