@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -70,7 +71,6 @@ public class StudentControllerTest {
                 .username("Tan123")
                 .email("tan123@gmail.com")
                 .name("Tan")
-                .imgUrl(uploadedFileUrl)
                 .role("Student")
                 .build();
         responseList = new ArrayList<>();
@@ -138,7 +138,26 @@ public class StudentControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/v1/student/"+id)
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("code").value("1000"))
+                .andExpect(jsonPath("$.result.id").value(123L))
+                .andExpect(jsonPath("$.result.username").value("Tan123"))
+                .andExpect(jsonPath("$.result.email").value("tan123@gmail.com"))
+                .andExpect(jsonPath("$.result.role").value("Student"));
+    }
+
+    @Test
+    @WithMockUser
+    void deleteStudent() throws Exception {
+        Long id = 123L;
+        doNothing().when(studentService).deleteStudent(anyLong());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .delete("/v1/student/{studentId}", id)
+                .header("Authorization", "Bearer " + getToken())
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isNoContent());
+
     }
 
     private String getToken() throws Exception {
