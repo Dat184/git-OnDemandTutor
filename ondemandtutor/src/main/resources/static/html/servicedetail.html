@@ -187,7 +187,9 @@
             .then(serviceData => {
                 // Process service data if needed
                 console.log(serviceData);
-                amount = serviceData.data.priceOfSession * serviceData.data.sessionOfWeek;
+                // amount = serviceData.data.priceOfSession * serviceData.data.sessionOfWeek;
+                amount = serviceData.data.priceOfSession;
+                console.log("amount");
                 console.log(amount);
 
                 // Check if booking already exists
@@ -209,7 +211,7 @@
                     })
                     .then(bookingExists => {
                         if (bookingExists) {
-                            alert('You have already made a booking for this service.');
+                            alert('Dịch vụ này đã được thuê trước đó');
                             return;
                         }
 

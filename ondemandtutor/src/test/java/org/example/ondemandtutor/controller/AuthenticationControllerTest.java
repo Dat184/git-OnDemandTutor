@@ -128,4 +128,24 @@ public class AuthenticationControllerTest {
                .andExpect(status().isOk());
     }
 
+    @Test
+    void refreshToken() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestJson = objectMapper.writeValueAsString(refreshRequest);
+
+        when(authenticationService.refreshToken(refreshRequest)).thenReturn(response);
+
+        mockMVC.perform(MockMvcRequestBuilders
+                .post("/v1/auth/refresh")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("code").value("1000"))
+                .andExpect(jsonPath("$.result.token").value(response.getToken()))
+                .andExpect(jsonPath("$.result.authenticated").value(response.isAuthenticated()))
+                .andExpect(jsonPath("$.result.id").value(response.getId()))
+                .andExpect(jsonPath("$.result.name").value(response.getName()))
+                .andExpect(jsonPath("$.result.role").value(response.getRole()));
+    }
+
 }
