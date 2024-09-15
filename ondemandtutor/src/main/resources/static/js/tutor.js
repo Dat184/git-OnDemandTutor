@@ -78,11 +78,7 @@ function createTutorCard(tutor) {
                 </div>
             </div>
             <div class="tutor-actions">
-                <div class="tutor-rating">
-                    <span class="rating">★ ${tutor.rating || '0'}</span>
-                    <span class="reviews">${tutor.reviews || '0'} reviews</span>
-                </div>
-                <div class="tutor-price">$${tutor.price || '0'}</div>
+             
                 <a href="../html/giasudetail.html?id=${tutor.id}"><button class="book-button">Book trial lesson</button></a>
                 <button class="message-button" onclick="createChat(${tutor.id})">Send message</button>
             </div>

@@ -112,7 +112,7 @@ body{
 .thue button{
     margin-top: 20px;
     background-color: #000000;
-   
+   width: 132px;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -121,10 +121,28 @@ body{
     margin-left: 10px;
     text-decoration: none;
 }
+.thue span{
+    margin-top: 20px;
+    background-color: #888282;
+    width: 132px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    white-space: nowrap;
+    margin-left: 10px;
+    text-decoration: none;
+    text-align: center;
+    
+}
 .thue strong{
     background-color: #000;
     color: #eee;
    
+}
+#btndathue strong{
+    background-color: #888282;
+    color: #eee;
 }
 .view-schedule-container {
     max-width: 700px;
