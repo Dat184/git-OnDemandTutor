@@ -13,6 +13,7 @@
     width: 1460px;
  
     display: flex;
+    /* flex-direction: row-reverse; */
     justify-content: start;
     align-items: start;
     flex-wrap: wrap;
