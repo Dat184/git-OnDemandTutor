@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('token');
-
-    if(!token|| token === ""){
+    const role = localStorage.getItem('role')
+    if(!token|| token === "" || role != "Admin"){
         window.location.href = '../html/modal.html';
-        alert("Bạn chưa Đăng Nhập! Vui Lòng Đăng Nhập.")
+        alert("Bạn không có quyền hạn ở trang này. Vui lòng xác nhận tài khoản lại.")
     }
 
     // Fetch and populate students if on the student list page
